@@ -1,0 +1,29 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { background: #f8f8f8; padding-bottom: 70px; }
+
+header { background: #fff; padding: 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
+.logo { font-weight: 600; font-size: 1.2rem; letter-spacing: 1px; }
+.search-bar input { padding: 8px; border: 1px solid #ddd; border-radius: 20px; width: 180px; font-size: 0.8rem; }
+
+.categories { display: flex; overflow-x: auto; padding: 15px; background: #fff; gap: 20px; }
+.cat-item { text-align: center; flex-shrink: 0; }
+.cat-item span { font-size: 2rem; background: #f0f0f0; padding: 10px; border-radius: 50%; display: block; }
+.cat-item p { font-size: 0.7rem; margin-top: 5px; }
+
+.hero-banner { position: relative; width: 100%; height: 300px; overflow: hidden; }
+.hero-banner img { width: 100%; height: 100%; object-fit: cover; }
+.hero-text { position: absolute; bottom: 20px; left: 20px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+.hero-text button { background: #fff; border: none; padding: 8px 20px; border-radius: 5px; margin-top: 10px; font-weight: bold; }
+
+.products { padding: 20px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.card { background: #fff; padding: 10px; border-radius: 10px; position: relative; text-align: center; border: 1px solid #eee; }
+.discount-tag { position: absolute; top: 0; left: 0; background: #e91e63; color: #fff; font-size: 0.6rem; padding: 2px 8px; border-radius: 0 0 10px 0; }
+.card img { width: 100%; border-radius: 5px; }
+.card h4 { font-size: 0.8rem; margin: 10px 0 5px; }
+.price { color: #e91e63; font-weight: 600; }
+.old-price { text-decoration: line-through; color: #888; font-size: 0.7rem; }
+.add-btn { background: #ff9800; color: white; border: none; padding: 5px 10px; width: 100%; border-radius: 5px; margin-top: 10px; font-size: 0.8rem; cursor: pointer; }
+
+.bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px; border-top: 1px solid #ddd; }
+.bottom-nav a { text-decoration: none; color: #333; font-size: 0.7rem; display: flex; flex-direction: column; align-items: center; }
