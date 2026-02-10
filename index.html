@@ -9,6 +9,10 @@
 </head>
 <body>
 
+    <div class="delivery-banner">
+        FREE Delivery on orders above ₹1999 | Standard: ₹49
+    </div>
+
     <header>
         <div class="logo">LEXRIVA</div>
         <div class="search-bar"><input type="text" placeholder="Search for products..."></div>
@@ -16,21 +20,21 @@
     </header>
 
     <div class="hero-banner">
-        <img src="24623.jpg" alt="Lexriva Collection">
+        <img src="24623.JPG" alt="Lexriva Collection">
         <div class="hero-text">
             <h2>Elegance Meets You</h2>
-            <button>SHOP NOW</button>
+            <button onclick="window.location.href='#categories'">SHOP NOW</button>
         </div>
     </div>
 
-    <div class="section-title">Trending Reels</div>
+    <div class="section-title">Trending Products</div>
     <div class="video-reels">
         <div class="reel-card"><video autoplay muted loop playsinline><source src="vid1.mp4" type="video/mp4"></video></div>
         <div class="reel-card"><video autoplay muted loop playsinline><source src="vid2.mp4" type="video/mp4"></video></div>
         <div class="reel-card"><video autoplay muted loop playsinline><source src="vid3.mp4" type="video/mp4"></video></div>
     </div>
 
-    <div class="section-title">Shop by Category</div>
+    <div id="categories" class="section-title">Shop by Category</div>
     <div class="category-grid">
         <a href="clothing.html" class="cat-card">
             <img src="clothing-banner.jpg" alt="Clothing">
@@ -50,12 +54,19 @@
         </a>
     </div>
 
+    <div class="support-box">
+        <h3>Lexriva Support</h3>
+        <p>Payment: Cash on Delivery (COD) Only</p>
+        <a href="mailto:support@lexriva.com" class="support-btn">Contact via Gmail</a>
+    </div>
+
     <nav class="bottom-nav">
         <a href="index.html">🏠 Home</a>
-        <a href="#">📁 Categories</a>
-        <a href="#">💎 Luxe</a>
+        <a href="#categories">📁 Categories</a>
+        <a href="mailto:support@lexriva.com">📧 Support</a>
         <a href="#">👤 Account</a>
     </nav>
 
+    <script src="script.js"></script>
 </body>
 </html>
