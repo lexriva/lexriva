@@ -1,34 +1,208 @@
-/* General Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-body { background: #fdfbfd; padding-bottom: 90px; color: #333; }
+/* --- 1. General Setup --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif; 
+}
 
-/* Header */
-header { background: #fff; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #f0e6ff; }
-.logo { font-weight: 600; font-size: 1.3rem; color: #5a4a7a; letter-spacing: 1.5px; }
-.search-bar input { background: #f6f3fa; border: none; padding: 8px 12px; border-radius: 4px; width: 150px; font-size: 0.75rem; outline: none; }
+body { 
+    background: #fdfbfd; /* Light Lavender tint background */
+    padding-bottom: 90px; 
+    color: #333; 
+}
 
-/* FULL SIZE BANNER */
-.hero-banner { width: 100%; height: 85vh; position: relative; overflow: hidden; }
-.hero-banner img { width: 100%; height: 100%; object-fit: cover; }
-.hero-text { position: absolute; bottom: 40px; left: 20px; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
-.hero-text h2 { font-size: 2rem; line-height: 1.1; margin-bottom: 15px; font-weight: 600; }
-.hero-text button { background: #967BB6; color: white; border: none; padding: 12px 35px; border-radius: 2px; font-weight: 600; font-size: 0.9rem; }
+/* --- 2. Delivery & Support Banners --- */
+.delivery-banner {
+    background: #967BB6; /* Main Lavender Theme */
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
 
-/* Section Title */
-.section-title { padding: 30px 15px 15px; font-size: 0.9rem; font-weight: 600; color: #5a4a7a; text-transform: uppercase; letter-spacing: 1px; }
+header { 
+    background: #fff; 
+    padding: 12px 15px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000; 
+    border-bottom: 1px solid #f0e6ff; 
+}
 
-/* REEL SLIDER (Vertical Slide Style) */
-.video-reels { display: flex; overflow-x: auto; padding: 0 15px; gap: 12px; scrollbar-width: none; }
-.video-reels::-webkit-scrollbar { display: none; }
-.reel-card { min-width: 140px; height: 240px; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 4px 15px rgba(150, 123, 182, 0.15); }
-.reel-card video { width: 100%; height: 100%; object-fit: cover; }
+.logo { 
+    font-weight: 600; 
+    font-size: 1.3rem; 
+    color: #5a4a7a; 
+    letter-spacing: 1px; 
+}
 
-/* PREMIUM GRID (Myntra Style) */
-.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-.cat-card { position: relative; height: 220px; border-radius: 10px; overflow: hidden; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-.cat-card img { width: 100%; height: 100%; object-fit: cover; }
-.cat-label { position: absolute; bottom: 0; width: 100%; background: rgba(255, 255, 255, 0.95); text-align: center; padding: 10px; color: #5a4a7a; font-weight: 600; font-size: 0.8rem; }
+.search-bar input { 
+    background: #f6f3fa; 
+    border: none; 
+    padding: 8px 12px; 
+    border-radius: 4px; 
+    width: 140px; 
+    font-size: 0.75rem; 
+    outline: none; 
+}
 
-/* Bottom Nav */
-.bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px; border-top: 1px solid #f0f0f0; z-index: 2000; }
-.bottom-nav a { text-decoration: none; color: #8a7fb0; font-size: 0.65rem; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+/* --- 3. Hero Banner (Perfect Full Size) --- */
+.hero-banner { 
+    width: 100%; 
+    height: 85vh; /* Mobile screen cover */
+    position: relative; 
+    overflow: hidden; 
+}
+
+.hero-banner img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* No stretching */
+}
+
+.hero-text { 
+    position: absolute; 
+    bottom: 40px; 
+    left: 20px; 
+    color: white; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5); 
+}
+
+.hero-text h2 { 
+    font-size: 2.1rem; 
+    line-height: 1.1; 
+    margin-bottom: 15px; 
+}
+
+.hero-text button { 
+    background: #967BB6; 
+    color: white; 
+    border: none; 
+    padding: 12px 35px; 
+    border-radius: 2px; 
+    font-weight: 600; 
+}
+
+/* --- 4. Section Titles & Reels --- */
+.section-title { 
+    padding: 30px 15px 15px; 
+    font-size: 0.9rem; 
+    font-weight: 600; 
+    color: #5a4a7a; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
+
+.video-reels { 
+    display: flex; 
+    overflow-x: auto; 
+    padding: 0 15px; 
+    gap: 12px; 
+    scrollbar-width: none; 
+}
+
+.reel-card { 
+    min-width: 150px; 
+    height: 260px; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    background: #000; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+}
+
+.reel-card video { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+/* --- 5. Myntra Style Category Grid --- */
+.category-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* Do-do dappe ek line mein */
+    gap: 15px; 
+    padding: 15px; 
+}
+
+.cat-card { 
+    position: relative; 
+    height: 240px; /* Bada vertical size professional look ke liye */
+    border-radius: 12px; 
+    overflow: hidden; 
+    text-decoration: none; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+}
+
+.cat-card img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Pic perfect dikhegi */
+    transition: transform 0.3s ease;
+}
+
+.cat-card:hover img {
+    transform: scale(1.05); /* Zoom effect on touch */
+}
+
+.cat-label { 
+    position: absolute; 
+    bottom: 0; 
+    width: 100%; 
+    background: rgba(255, 255, 255, 0.9); /* White overlay on lavender theme */
+    text-align: center; 
+    padding: 12px; 
+    color: #5a4a7a; 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    text-transform: uppercase;
+}
+
+/* --- 6. Support Box & Nav --- */
+.support-box { 
+    background: #f6f3fa; 
+    margin: 20px 15px; 
+    padding: 25px; 
+    border-radius: 15px; 
+    text-align: center; 
+    border: 1px dashed #967BB6; 
+}
+
+.support-btn { 
+    display: inline-block; 
+    margin-top: 10px; 
+    padding: 10px 25px; 
+    background: #967BB6; 
+    color: white; 
+    text-decoration: none; 
+    border-radius: 5px; 
+    font-size: 0.8rem; 
+    font-weight: 600; 
+}
+
+.bottom-nav { 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    background: #fff; 
+    display: flex; 
+    justify-content: space-around; 
+    padding: 15px; 
+    border-top: 1px solid #f0f0f0; 
+    z-index: 2000; 
+}
+
+.bottom-nav a { 
+    text-decoration: none; 
+    color: #8a7fb0; 
+    font-size: 0.65rem; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 5px; 
+}
