@@ -206,3 +206,36 @@ header {
     align-items: center; 
     gap: 5px; 
 }
+/* --- Sub-Category Page Extra Styles --- */
+
+.sub-header-title {
+    padding: 20px 15px 5px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fdfbfd; /* Matching Lavender Theme */
+}
+
+.sub-header-title a {
+    text-decoration: none;
+    color: #967BB6; /* Lavender Purple */
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border: 1px solid #967BB6;
+    border-radius: 5px;
+}
+
+.sub-header-title h2 {
+    font-size: 1.1rem;
+    color: #5a4a7a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Myntra-style hover effect for all category cards */
+.cat-card:active {
+    transform: scale(0.98);
+    transition: 0.1s;
+}
+
