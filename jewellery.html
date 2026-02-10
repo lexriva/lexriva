@@ -3,59 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva | Women's Jewellery</title>
+    <title>Jewellery Collection | Lexriva</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <div class="delivery-banner">
+        FREE Delivery on orders above ₹1999 | Standard: ₹49
+    </div>
+
     <header>
-        <div class="logo">LEXRIVA</div>
+        <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer;">LEXRIVA</div>
         <div class="icons">🛒 👤</div>
     </header>
 
-    <div style="padding: 15px;">
-        <a href="index.html" style="color: #967BB6; text-decoration: none;">← Back to Home</a>
+    <div class="sub-header-title">
+        <a href="index.html">← Back</a>
+        <h2>Women's Jewellery</h2>
     </div>
 
-    <section class="all-categories">
-        <div class="main-title">Minimal Jewellery</div>
-        <div class="cat-grid">
-            <div class="cat-box full">
-                <h4>Daily Wear Minimalist</h4>
-                <button class="add-btn">View Products</button>
-            </div>
-        </div>
+    <div class="category-grid">
+        
+        <a href="minimal-jewellery.html" class="cat-card">
+            <img src="sub-minimal.jpg" alt="Minimal Jewellery">
+            <div class="cat-label">Minimal Jewellery</div>
+        </a>
 
-        <div class="main-title">Necklace Sets</div>
-        <div class="cat-grid">
-            <div class="cat-box"><h4>Bridal Set</h4><button class="add-btn">View</button></div>
-            <div class="cat-box"><h4>Haldi Hues</h4><button class="add-btn">View</button></div>
-            <div class="cat-box"><h4>Mehndi Vibes</h4><button class="add-btn">View</button></div>
-            <div class="cat-box"><h4>Rajputi Set</h4><button class="add-btn">View</button></div>
-            <div class="cat-box full"><h4>American Diamond</h4><button class="add-btn">View Collection</button></div>
-        </div>
+        <a href="necklaces.html" class="cat-card">
+            <img src="sub-necklace.jpg" alt="Necklace Sets">
+            <div class="cat-label">Necklace Sets</div>
+        </a>
 
-        <div class="main-title">Earrings</div>
-        <div class="cat-grid">
-            <div class="cat-box"><h4>Kashmiri</h4><button class="add-btn">View</button></div>
-            <div class="cat-box"><h4>Jhumka</h4><button class="add-btn">View</button></div>
-            <div class="cat-box"><h4>Korean</h4><button class="add-btn">View</button></div>
-        </div>
+        <a href="earrings.html" class="cat-card">
+            <img src="sub-earrings.jpg" alt="Earrings">
+            <div class="cat-label">Earrings</div>
+        </a>
 
-        <div class="main-title">Special Items</div>
-        <div class="cat-grid">
-            <div class="cat-box"><h4>Maangtika</h4><button class="add-btn">Explore</button></div>
-            <div class="cat-box"><h4>Rings</h4><button class="add-btn">Explore</button></div>
-            <div class="cat-box"><h4>Bracelets</h4><button class="add-btn">Explore</button></div>
-        </div>
-    </section>
+        <a href="rings.html" class="cat-card">
+            <img src="sub-rings.jpg" alt="Rings">
+            <div class="cat-label">Rings</div>
+        </a>
+
+        <a href="bracelets.html" class="cat-card">
+            <img src="sub-bracelets.jpg" alt="Bracelets">
+            <div class="cat-label">Bracelets</div>
+        </a>
+
+        <a href="maangtika.html" class="cat-card">
+            <img src="sub-maangtika.jpg" alt="Maangtika">
+            <div class="cat-label">Maangtika</div>
+        </a>
+
+    </div>
 
     <nav class="bottom-nav">
         <a href="index.html">🏠 Home</a>
-        <a href="#">📁 Categories</a>
-        <a href="#">👤 Account</a>
+        <a href="index.html#categories">📁 Categories</a>
+        <a href="mailto:support@lexriva.com">📧 Support</a>
     </nav>
 
 </body>
 </html>
-
