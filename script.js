@@ -1,17 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Auto-play videos on load
-    const reels = document.querySelectorAll('video');
-    reels.forEach(video => {
-        video.play().catch(() => {
-            console.log("Waiting for user interaction to play video");
+    const videos = document.querySelectorAll('video');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.play();
+            } else {
+                entry.target.pause();
+            }
         });
-    });
+    }, { threshold: 0.8 });
 
-    // Simple search log
-    const search = document.querySelector('.search-bar input');
-    search.addEventListener('keyup', (e) => {
-        if(e.key === 'Enter') {
-            alert("Searching for: " + search.value);
-        }
-    });
+    videos.forEach(video => observer.observe(video));
 });
