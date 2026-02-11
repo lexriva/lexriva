@@ -12,81 +12,42 @@
             --text: #333; 
         }
         
-        body { font-family: 'Inter', sans-serif; margin: 0; background-color: #fff; color: var(--text); }
-        
-        /* Layout */
+        body { font-family: 'Inter', sans-serif; margin: 0; background-color: #fff; color: var(--text); overflow-x: hidden; }
         .page { display: none; max-width: 500px; margin: 0 auto; background: #fff; min-height: 100vh; padding-bottom: 80px; }
         .active-page { display: block; }
         
+        /* Header */
         .header { background: #fff; padding: 15px; text-align: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 100; }
         .logo { font-size: 20px; font-weight: bold; color: var(--primary); letter-spacing: 4px; }
 
-        /* Banner Section */
-        .home-banner img { width: 100%; display: block; height: auto; border-bottom: 2px solid var(--gold); }
-
-        /* Section Title Styling */
         .main-title { 
-            padding: 12px 15px; 
-            font-size: 13px; 
-            font-weight: 800; 
-            color: var(--primary); 
-            text-transform: uppercase; 
-            border-left: 5px solid var(--gold); 
-            background: var(--gold-bg);
-            margin: 15px 0 10px; 
+            padding: 12px 15px; font-size: 13px; font-weight: 800; color: var(--primary); 
+            text-transform: uppercase; border-left: 5px solid var(--gold); background: var(--gold-bg); margin: 15px 0 10px; 
         }
-        
-        /* 2-Column Square Grid for Categories */
-        .category-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px; 
-            padding: 0 10px;
-        }
-        .cat-card-square { 
-            border: 1px solid var(--gold); 
-            border-radius: 8px; 
-            overflow: hidden; 
-            cursor: pointer; 
-            display: flex; 
-            flex-direction: column;
-            aspect-ratio: 1 / 1; /* Makes the box square */
-        }
+
+        /* 2-Column Square Grid */
+        .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 10px; }
+        .cat-card-square { border: 1px solid var(--gold); border-radius: 8px; overflow: hidden; cursor: pointer; aspect-ratio: 1 / 1; display: flex; flex-direction: column; background: #fff; }
         .cat-card-square img { width: 100%; height: 75%; object-fit: cover; }
-        .cat-card-label { 
-            height: 25%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            text-align: center; 
-            font-weight: 700; 
-            font-size: 11px; 
-            color: var(--primary); 
-            padding: 2px;
-            background: #fff;
-        }
+        .cat-card-label { height: 25%; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 700; font-size: 11px; color: var(--primary); background: #fff; }
 
-        /* Reels Section */
-        .reels-section { padding: 10px; }
-        .reel-box { 
-            width: 100%; 
-            height: 400px; 
-            background: #000; 
-            border-radius: 15px; 
-            overflow: hidden; 
-            position: relative; 
-            margin-bottom: 15px;
-        }
-        .reel-box video { width: 100%; height: 100%; object-fit: cover; }
+        /* Reels Section (Horizontal Scroll) */
+        .reels-scroll-container { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
+        .reel-mini-box { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; position: relative; flex-shrink: 0; }
+        .reel-mini-box video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Grid for Sub-Category Page */
+        /* New Arrivals */
+        .arrival-scroll-container { display: flex; overflow-x: auto; gap: 15px; padding: 10px 15px; scrollbar-width: none; }
+        .arrival-card { min-width: 140px; text-align: center; flex-shrink: 0; }
+        .arrival-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; border: 1px solid #f0f0f0; }
+
+        /* Sub-Category Page 3x3 Grid */
         .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
-        .grid-item { border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; padding: 15px 5px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100px; }
-        .grid-item img { width: 45px; height: 45px; object-fit: contain; }
-        .maroon-box { background: var(--primary); color: #fff; border: none; }
-        
+        .grid-item { border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; padding: 15px 5px; text-align: center; min-height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .maroon-box { background: var(--primary); color: var(--gold); border: none; font-size: 10px; font-weight: bold; }
+
         /* Bottom Nav */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 1000; }
         .nav-link { text-align: center; font-size: 10px; color: #888; cursor: pointer; text-decoration: none; }
     </style>
 </head>
@@ -95,67 +56,51 @@
     <div class="header"><div class="logo">LEXRIVA</div></div>
 
     <div id="home-page" class="page active-page">
-        <div class="home-banner">
-            <img src="https://lexriva.github.io/lexriva/24795.jpg" alt="Main Banner">
-        </div>
+        <div class="home-banner"><img src="https://lexriva.github.io/lexriva/24795.jpg" alt="Banner" style="width: 100%;"></div>
 
         <div class="main-title">Women's Clothing</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('western')">
-                <img src="western.jpg">
-                <div class="cat-card-label">Western Wear</div>
-            </div>
-            <div class="cat-card-square" onclick="renderSub('ethnic')">
-                <img src="ethnic.jpg">
-                <div class="cat-card-label">Ethnic Wear</div>
-            </div>
+            <div class="cat-card-square" onclick="renderSub('western')"><img src="western.jpg"><div class="cat-card-label">Western Wear</div></div>
+            <div class="cat-card-square" onclick="renderSub('ethnic')"><img src="ethnic.jpg"><div class="cat-card-label">Ethnic Wear</div></div>
         </div>
 
         <div class="main-title">Women's Footwear</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('footwear')">
-                <img src="footwear.jpg">
-                <div class="cat-card-label">Footwear</div>
-            </div>
-            <div class="cat-card-square" onclick="renderSub('sandals')">
-                <img src="sandals.jpg">
-                <div class="cat-card-label">Sandals</div>
-            </div>
-        </div>
-
-        <div class="main-title">Women Jewellery</div>
-        <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('jewellery')">
-                <img src="jewel.jpg">
-                <div class="cat-card-label">Bridal & Minimal</div>
-            </div>
-            <div class="cat-card-square" onclick="renderSub('earrings')">
-                <img src="earrings.jpg">
-                <div class="cat-card-label">Earrings</div>
-            </div>
-        </div>
-
-        <div class="home-banner" style="margin-top: 20px;">
-            <img src="promo-banner.jpg" alt="Promotion Banner">
+            <div class="cat-card-square" onclick="renderSub('footwear')"><img src="footwear.jpg"><div class="cat-card-label">Women Footwear</div></div>
+            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="care.jpg"><div class="cat-card-label">Personal Care</div></div>
         </div>
 
         <div class="main-title">New Products (Reels)</div>
-        <div class="reels-section">
-            <div class="reel-box">
-                <video src="reel1.mp4" autoplay muted loop playsinline></video>
-            </div>
-            <div class="reel-box">
-                <video src="reel2.mp4" autoplay muted loop playsinline></video>
-            </div>
+        <div class="reels-scroll-container">
+            <div class="reel-mini-box"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-mini-box"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+        </div>
+
+        <div class="main-title">New Arrivals</div>
+        <div class="arrival-scroll-container">
+            <div class="arrival-card"><img src="d1.jpg"><p>Floral Dress</p><span>₹1,499</span></div>
+            <div class="arrival-card"><img src="s1.jpg"><p>Silk Saree</p><span>₹2,999</span></div>
+        </div>
+
+        <div class="main-title">Beauty & Makeup</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('makeup')"><img src="makeup.jpg"><div class="cat-card-label">Makeup</div></div>
+            <div class="cat-card-square" onclick="renderSub('jewellery')"><img src="jewel.jpg"><div class="cat-card-label">Jewellery</div></div>
+        </div>
+
+        <div class="main-title">Accessories & Bags</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('acc')"><img src="acc.jpg"><div class="cat-card-label">Accessories</div></div>
+            <div class="cat-card-square" onclick="renderSub('bags')"><img src="bags.jpg"><div class="cat-card-label">Women Bags</div></div>
         </div>
     </div>
 
     <div id="sub-page" class="page">
-        <div class="sub-nav" style="padding: 15px; display: flex; align-items: center; border-bottom: 1px solid #eee;">
-            <button onclick="showHome()" style="border:none; background:none; font-size: 20px; color: var(--primary); cursor: pointer;">←</button>
-            <span id="sub-title-text" style="font-weight: bold; text-transform: uppercase; margin-left: 10px;">Category</span>
+        <div class="sub-nav" style="padding: 15px; border-bottom: 1px solid #eee;">
+            <button onclick="showHome()" style="border:none; background:none; font-size:22px; cursor:pointer; color:var(--primary);">←</button>
+            <span id="sub-title-text" style="font-weight:bold; text-transform:uppercase; margin-left:10px;">Category</span>
         </div>
-        <div class="grid-container" id="grid-content"></div>
+        <div id="grid-content" class="grid-container"></div>
     </div>
 
     <div class="bottom-nav">
@@ -166,38 +111,34 @@
 
     <script>
         const subData = {
-            'western': { t: 'Western Wear', mid: 'WESTERN<br>VIBES', items: [{n:'Dresses'}, {n:'Tops'}, {n:'Jeans'}, {n:'T-shirt'}, {n:'Jumpsuit'}, {n:'Co-ords'}] },
-            'ethnic': { t: 'Ethnic Wear', mid: 'ETHNIC<br>STYLE', items: [{n:'Saree'}, {n:'Kurtis'}, {n:'Dress Mat.'}, {n:'Lehengas'}, {n:'Gowns'}] },
-            'makeup': { t: 'Makeup', mid: 'BEAUTY<br>SHELF', items: [{n:'Lipstick'}, {n:'Foundation'}, {n:'Eyeliner'}, {n:'Mascara'}, {n:'Compact'}] },
-            'jewellery': { t: 'Jewellery', mid: 'SHINE<br>BRIGHT', items: [{n:'Necklace'}, {n:'Minimal'}, {n:'Bridal'}, {n:'Rings'}] }
+            'western': { t:'Western Wear', mid:'MODERN<br>VIBES', items:[{n:'Dresses'},{n:'Tops'},{n:'Jeans'},{n:'T-shirt'},{n:'Jumpsuit'},{n:'Co-ords'},{n:'Sleep wear'}] },
+            'ethnic': { t:'Ethnic Wear', mid:'ETHNIC<br>STYLE', items:[{n:'Saree'},{n:'Kurtis'},{n:'Dress Material'},{n:'Lehengas'},{n:'Gowns'}] },
+            'footwear': { t:'Footwear', mid:'STEP IN<br>STYLE', items:[{n:'Heels'},{n:'Sandals'},{n:'Boots'},{n:'Bellies'},{n:'Sneakers'}] },
+            'makeup': { t:'Makeup', mid:'BEAUTY<br>SHELF', items:[{n:'Lipstick'},{n:'Lip Gloss'},{n:'Lip Liner'},{n:'Foundation'},{n:'Compact'},{n:'Highlighter'},{n:'Eye Shadow'},{n:'Eyeliner'},{n:'Kajal'},{n:'Mascara'},{n:'Nails'},{n:'Brushes'},{n:'Perfumes'}] },
+            'jewellery': { t:'Jewellery', mid:'SHINE<br>BRIGHT', items:[{n:'Minimal'},{n:'Bridal Necklace'},{n:'Haldi Hues'},{n:'Mehndi Vibes'},{n:'Rajputi'},{n:'American Diamond'},{n:'Kashmiri Earring'},{n:'Jhumka'},{n:'Korean Earring'},{n:'Maangtika'},{n:'Rings'},{n:'Bracelet'}] },
+            'acc': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Acc.'},{n:'Belts'},{n:'Sunglasses'},{n:'Watches'}] },
+            'bags': { t:'Bags', mid:'BAGS<br>EDIT', items:[{n:'Backpacks'},{n:'Handbags'},{n:'Sling Bags'},{n:'Wallets'},{n:'Clutches'}] },
+            'personal_care': { t:'Care', mid:'GLOW<br>CARE', items:[{n:'Body Lotion'},{n:'Face Wash'},{n:'Face Mask'}] }
         };
 
         function renderSub(key) {
-            const data = subData[key] || { t: 'Products', mid: 'SALE', items: [] };
+            const data = subData[key];
             document.getElementById('home-page').style.display = 'none';
             document.getElementById('sub-page').style.display = 'block';
             document.getElementById('sub-title-text').innerText = data.t;
             const grid = document.getElementById('grid-content');
             grid.innerHTML = '';
-            
             data.items.forEach((item, index) => {
                 if(index === 4) {
-                    grid.innerHTML += `<div class="grid-item maroon-box"><h3>${data.mid}</h3></div>`;
+                    grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
                 }
-                grid.innerHTML += `
-                    <div class="grid-item">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3163/3163195.png">
-                        <p style="font-size: 9px; font-weight: bold;">${item.n}</p>
-                        <span style="font-size: 8px; color: #d0021b;">UP TO 70% OFF</span>
-                    </div>`;
+                grid.innerHTML += `<div class="grid-item"><img src="icon.png" style="width:40px;"><p style="font-size:9px; font-weight:bold;">${item.n}</p></div>`;
             });
-            window.scrollTo(0,0);
         }
 
         function showHome() {
             document.getElementById('sub-page').style.display = 'none';
             document.getElementById('home-page').style.display = 'block';
-            window.scrollTo(0,0);
         }
     </script>
 </body>
