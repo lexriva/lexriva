@@ -1,59 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lexriva | Luxury Flagship</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-</head>
-<body>
+<div id="home-page">
+    <div class="main-banner">
+        <img src="banner.jpg" alt="Lexriva Banner">
+        <div class="banner-overlay">
+            <h1>Lexriva</h1>
+            </div>
+    </div>
 
-    <div class="delivery-bar">FREE Delivery above ₹1999 | Standard: ₹49</div>
+    <div class="section-container">
+        <h2 class="section-title">SHOP BY CATEGORY</h2>
+        <div class="category-scroll">
+            <div class="cat-card" onclick="showSubCategory()">
+                <div class="img-wrapper"><img src="beauty.jpg" alt="Beauty"></div>
+                <p class="name">BEAUTY</p>
+                <p class="offer">UP TO 70% OFF</p>
+            </div>
+            <div class="cat-card">
+                <div class="img-wrapper"><img src="jewelry.jpg" alt="Jewelry"></div>
+                <p class="name">JEWELLERY</p>
+                <p class="offer">UP TO 80% OFF</p>
+            </div>
+            </div>
+    </div>
 
-    <header>
-        <div class="header-top">
-            <div class="logo">LEXRIVA</div>
-            <div class="icons">
-                <span onclick="location.href='cart.html'">🛒</span>
-                <span onclick="location.href='signup.html'">👤</span>
+    <div class="section-container">
+        <h2 class="section-title">PRODUCT REELS</h2>
+        <div class="vertical-reels">
+            <div class="reel-item">
+                <video autoplay muted loop playsinline src="video1.mp4"></video>
+                <button class="shop-btn">SHOP NOW</button>
+            </div>
+            <div class="reel-item">
+                <video autoplay muted loop playsinline src="video2.mp4"></video>
+                <button class="shop-btn">SHOP NOW</button>
             </div>
         </div>
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search for collections...">
-            <span class="pic-search-icon">📷</span>
+    </div>
+</div>
+
+<hr>
+
+<div id="sub-category-page">
+    <h2 class="section-title">PRODUCT BY SUB-CATEGORY</h2>
+    <div class="sub-cat-grid">
+        <div class="grid-item"><img src="1.jpg"><p>LIPSTICKS</p><span>UP TO 50% OFF</span></div>
+        <div class="grid-item"><img src="2.jpg"><p>HAIR CARE</p><span>UP TO 30% OFF</span></div>
+        <div class="grid-item"><img src="3.jpg"><p>EYESHADOWS</p><span>UP TO 50% OFF</span></div>
+        
+        <div class="grid-item"><img src="4.jpg"><p>SERUMS</p><span>UP TO 30% OFF</span></div>
+        <div class="center-highlight">
+            <h3>YOUR <br> <i>BEAUTY</i> <br> SHELF</h3>
         </div>
-    </header>
-
-    <div class="hero">
-        <img src="24623.JPG" alt="Lexriva">
-        <div class="hero-content">
-            <button class="hero-btn" onclick="location.href='#categories'">SHOP NOW</button>
-        </div>
+        <div class="grid-item"><img src="5.jpg"><p>PERFUMES</p><span>UP TO 65% OFF</span></div>
+        
+        <div class="grid-item"><img src="6.jpg"><p>MOISTURISERS</p><span>UP TO 30% OFF</span></div>
+        <div class="grid-item"><img src="7.jpg"><p>SHOWER GELS</p><span>UP TO 75% OFF</span></div>
+        <div class="grid-item"><img src="8.jpg"><p>STYLING</p><span>UP TO 40% OFF</span></div>
     </div>
-
-    <div class="section-title">Product Reels</div>
-    <div class="reels-viewport">
-        <div class="reel-card"><video autoplay muted loop playsinline><source src="vid1.mp4" type="video/mp4"></video></div>
-        <div class="reel-card"><video autoplay muted loop playsinline><source src="vid2.mp4" type="video/mp4"></video></div>
-    </div>
-
-    <div id="categories" class="section-title">Shop by Category</div>
-    <div class="category-grid">
-        <a href="clothing.html" class="cat-card"><img src="clothing-banner.jpg"><div class="cat-label">Clothing</div></a>
-        <a href="jewellery.html" class="cat-card"><img src="jewellery-main.JPG"><div class="cat-label">Jewellery</div></a>
-        <a href="handbags.html" class="cat-card"><img src="bag-main-banner.JPG"><div class="cat-label">Bags</div></a>
-        <a href="beauty.html" class="cat-card"><img src="beauty-banner.JPG"><div class="cat-label">Beauty & Health</div></a>
-        <a href="footwear.html" class="cat-card"><img src="footwear-banner.JPG"><div class="cat-label">Footwear</div></a>
-        <a href="accessories.html" class="cat-card"><img src="acc-main.JPG"><div class="cat-label">Accessories</div></a>
-    </div>
-
-    <nav class="bottom-nav">
-        <a href="index.html">🏠 Home</a>
-        <a href="#categories">📁 Category</a>
-        <a href="signup.html">👤 Login</a>
-    </nav>
-
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
