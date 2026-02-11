@@ -7,110 +7,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --primary: #0a0a0b; /* Midnight Black */
-            --gold: #D4AF37;    /* Metallic Gold */
-            --gold-light: #f4e9cc;
-            --text: #1a1a1a; 
-            --bg-soft: #fcfcfc;
+            --primary: #0a0a0b; --gold: #D4AF37; --gold-light: #f4e9cc; --text: #1a1a1a; --bg-soft: #fcfcfc;
         }
-        
         body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--bg-soft); color: var(--text); overflow-x: hidden; }
         .page { display: none; max-width: 500px; margin: 0 auto; background: #fff; min-height: 100vh; padding-bottom: 80px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
         .active-page { display: block; }
-        
-        /* Header & Luxury Logo */
         .header { background: #fff; padding: 20px 15px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
-        .logo-container { display: flex; flex-direction: column; align-items: center; }
-        .logo { 
-            font-family: 'Cinzel', serif; /* Royal & Classic Font */
-            font-size: 28px; 
-            color: var(--primary); 
-            letter-spacing: 6px;
-            margin: 0;
-            font-weight: 600;
-        }
-        .logo-subtitle {
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--gold);
-            margin-top: 5px;
-            font-weight: 700;
-        }
-
-        /* Section Titles */
-        .main-title { 
-            padding: 15px; font-size: 12px; font-weight: 800; color: var(--primary); 
-            text-transform: uppercase; border-bottom: 1px solid #eee; border-top: 1px solid #eee;
-            background: #fff; margin: 20px 0 10px; letter-spacing: 1px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .main-title::after { content: '→'; color: var(--gold); font-size: 14px; }
-
-        /* Banner Style */
+        .logo { font-family: 'Cinzel', serif; font-size: 28px; color: var(--primary); letter-spacing: 6px; margin: 0; font-weight: 600; }
+        .logo-subtitle { font-size: 8px; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); margin-top: 5px; font-weight: 700; }
+        .main-title { padding: 15px; font-size: 12px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid #eee; border-top: 1px solid #eee; background: #fff; margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; }
         .banner-img { width: 100%; display: block; height: auto; }
-
-        /* 2-Column Square Grid */
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
         .cat-card-square { border: 1px solid #f0f0f0; border-radius: 4px; overflow: hidden; cursor: pointer; aspect-ratio: 1 / 1; display: flex; flex-direction: column; background: #fff; position: relative; }
         .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
         .cat-card-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.9); padding: 8px; text-align: center; font-weight: 700; font-size: 10px; color: var(--primary); text-transform: uppercase; }
-
-        /* Reels */
         .reels-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
-        .reels-scroll::-webkit-scrollbar { display: none; }
         .reel-box { min-width: 140px; height: 240px; background: #000; border-radius: 8px; overflow: hidden; flex-shrink: 0; position: relative; border: 1px solid #eee; }
         .reel-box video { width: 100%; height: 100%; object-fit: cover; }
-
-        /* New Arrivals */
         .arrival-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
         .arrival-card { min-width: 130px; text-align: center; flex-shrink: 0; background: #fff; padding-bottom: 10px; border-radius: 4px; border: 1px solid #f9f9f9; }
         .arrival-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 4px; }
-        .arrival-card p { font-size: 10px; font-weight: bold; margin: 8px 0 2px; color: #555; }
-        .arrival-card span { font-size: 11px; color: var(--primary); font-weight: 800; }
-
-        /* Sliding Banner Section (Bottom) */
         .sliding-banner-container { display: flex; overflow-x: auto; gap: 10px; padding: 10px; scrollbar-width: none; }
         .slide-banner { min-width: 85%; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
         .slide-banner img { width: 100%; height: 160px; object-fit: cover; display: block; }
-
-        /* Sub-Category Grid (3x3) */
         .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
         .grid-item { border-right: 1px solid #f9f9f9; border-bottom: 1px solid #f9f9f9; padding: 15px 5px; text-align: center; min-height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .grid-item img { width: 40px; height: 40px; object-fit: contain; margin-bottom: 8px; opacity: 0.8; }
-        .grid-item p { font-size: 9px; font-weight: 700; margin: 0; text-transform: uppercase; color: #444; }
-        
-        .maroon-box { background: var(--primary); color: #fff; border: none; }
-        .maroon-box b { font-size: 12px; display: block; color: var(--gold); letter-spacing: 1px; }
-
-        /* Bottom Nav */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; box-shadow: 0 -5px 15px rgba(0,0,0,0.03); }
+        .maroon-box { background: var(--primary); color: #fff; border: none; font-size: 12px; font-weight: bold; text-align: center; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
         .nav-link { text-align: center; font-size: 9px; color: #999; cursor: pointer; text-decoration: none; text-transform: uppercase; font-weight: 700; }
-        .nav-link.active { color: var(--primary); }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="logo-container">
-            <div class="logo">LEXRIVA</div>
-            <div class="logo-subtitle">ESTD 2024 • PREMIUM STORE</div>
-        </div>
+        <div class="logo">LEXRIVA</div>
+        <div class="logo-subtitle">ESTD 2024 • PREMIUM STORE</div>
     </div>
 
     <div id="home-page" class="page active-page">
-        <img src="https://lexriva.github.io/lexriva/24795.jpg" class="banner-img" alt="Luxury Banner">
+        <img src="main_banner.jpg" class="banner-img" alt="Luxury Banner">
 
         <div class="main-title">Collections</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('western')"><img src="western.jpg"><div class="cat-card-label">Western Wear</div></div>
-            <div class="cat-card-square" onclick="renderSub('ethnic')"><img src="ethnic.jpg"><div class="cat-card-label">Ethnic Wear</div></div>
+            <div class="cat-card-square" onclick="renderSub('western')"><img src="cat_western.jpg"><div class="cat-card-label">Western Wear</div></div>
+            <div class="cat-card-square" onclick="renderSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-card-label">Ethnic Wear</div></div>
         </div>
 
         <div class="main-title">Footwear Edit</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('footwear')"><img src="foot.jpg"><div class="cat-card-label">Premium Shoes</div></div>
-            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="care.jpg"><div class="cat-card-label">Beauty Care</div></div>
+            <div class="cat-card-square" onclick="renderSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-card-label">Premium Shoes</div></div>
+            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="cat-card-label">Beauty Care</div></div>
         </div>
 
         <div class="main-title">Trending Reels</div>
@@ -121,41 +68,41 @@
 
         <div class="main-title">New Arrivals</div>
         <div class="arrival-scroll">
-            <div class="arrival-card"><img src="p1.jpg"><p>Satin Gown</p><span>₹4,999</span></div>
-            <div class="arrival-card"><img src="p2.jpg"><p>Gold Set</p><span>₹12,999</span></div>
-            <div class="arrival-card"><img src="p3.jpg"><p>Luxe Bag</p><span>₹3,499</span></div>
+            <div class="arrival-card"><img src="arrival_1.jpg"><p>Satin Gown</p><span>₹4,999</span></div>
+            <div class="arrival-card"><img src="arrival_2.jpg"><p>Gold Set</p><span>₹12,999</span></div>
+            <div class="arrival-card"><img src="arrival_3.jpg"><p>Luxe Bag</p><span>₹3,499</span></div>
         </div>
 
         <div class="main-title">Beauty & Jewellery</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('makeup')"><img src="makeup.jpg"><div class="cat-card-label">Makeup</div></div>
-            <div class="cat-card-square" onclick="renderSub('jewellery')"><img src="jewel.jpg"><div class="cat-card-label">Fine Jewellery</div></div>
+            <div class="cat-card-square" onclick="renderSub('makeup')"><img src="cat_makeup.jpg"><div class="cat-card-label">Makeup</div></div>
+            <div class="cat-card-square" onclick="renderSub('jewellery')"><img src="cat_jewel.jpg"><div class="cat-card-label">Fine Jewellery</div></div>
         </div>
 
         <div class="main-title">Luxury Accessories</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('acc')"><img src="acc.jpg"><div class="cat-card-label">Accessories</div></div>
-            <div class="cat-card-square" onclick="renderSub('bags')"><img src="bags.jpg"><div class="cat-card-label">Bags</div></div>
+            <div class="cat-card-square" onclick="renderSub('acc')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
+            <div class="cat-card-square" onclick="renderSub('bags')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
         </div>
 
         <div class="main-title">Curated For You</div>
         <div class="sliding-banner-container">
-            <div class="slide-banner"><img src="b1.jpg"></div>
-            <div class="slide-banner"><img src="b2.jpg"></div>
+            <div class="slide-banner"><img src="slide1.jpg"></div>
+            <div class="slide-banner"><img src="slide2.jpg"></div>
         </div>
     </div>
 
     <div id="sub-page" class="page">
-        <div class="sub-nav">
-            <button onclick="showHome()" class="back-btn">←</button>
-            <span id="sub-title-text">Category</span>
+        <div class="sub-nav" style="padding:15px; display:flex; align-items:center;">
+            <button onclick="showHome()" style="border:none; background:none; font-size:22px; cursor:pointer;">←</button>
+            <span id="sub-title-text" style="margin-left:10px; font-weight:bold;">Category</span>
         </div>
-        <img src="sub-promo.jpg" class="banner-img">
+        <img src="sub_promo_banner.jpg" class="banner-img">
         <div id="grid-content" class="grid-container"></div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-link active" onclick="showHome()">Home</div>
+        <div class="nav-link" onclick="showHome()">Home</div>
         <div class="nav-link">Search</div>
         <div class="nav-link">Categories</div>
         <div class="nav-link">Wishlist</div>
@@ -164,14 +111,14 @@
 
     <script>
         const subData = {
-            'western': { t:'Western Wear', mid:'MODERN<br><b>CHIC</b>', items:[{n:'Dresses'},{n:'Tops'},{n:'Jeans'},{n:'T-shirt'},{n:'Jumpsuit'},{n:'Co-ords'},{n:'Sleep wear'}] },
-            'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br><b>ETHNIC</b>', items:[{n:'Saree'},{n:'Kurtis'},{n:'Dress Material'},{n:'Lehengas'},{n:'Gowns'}] },
-            'footwear': { t:'Footwear', mid:'LUXE<br><b>STEPS</b>', items:[{n:'Heels'},{n:'Sandals'},{n:'Boots'},{n:'Bellies'},{n:'Sneakers'}] },
-            'makeup': { t:'Makeup', mid:'GLAM<br><b>SHELF</b>', items:[{n:'Lipstick'},{n:'Lip Gloss'},{n:'Lip Liner'},{n:'Foundation'},{n:'Compact'},{n:'Highlighter'},{n:'Eye Shadow'},{n:'Eyeliner'},{n:'Kajal'},{n:'Mascara'},{n:'Nails'},{n:'Brushes'},{n:'Perfumes'}] },
-            'jewellery': { t:'Jewellery', mid:'FINE<br><b>GOLD</b>', items:[{n:'Minimal'},{n:'Bridal Necklace'},{n:'Haldi Hues'},{n:'Mehndi Vibes'},{n:'Rajputi'},{n:'American Diamond'},{n:'Kashmiri Earring'},{n:'Jhumka'},{n:'Korean Ear'},{n:'Maangtika'},{n:'Rings'},{n:'Bracelet'}] },
-            'acc': { t:'Accessories', mid:'LUXE<br><b>EDIT</b>', items:[{n:'Hair Acc.'},{n:'Belts'},{n:'Sunglasses'},{n:'Watches'}] },
-            'bags': { t:'Bags', mid:'BAGS<br><b>LUXE</b>', items:[{n:'Backpacks'},{n:'Handbags'},{n:'Sling Bags'},{n:'Wallets'},{n:'Clutches'}] },
-            'personal_care': { t:'Personal Care', mid:'PURE<br><b>GLOW</b>', items:[{n:'Body Lotion'},{n:'Face Wash'},{n:'Face Mask'}] }
+            'western': { t:'Western Wear', mid:'MODERN<br>CHIC', items:[{n:'Dresses'},{n:'Tops'},{n:'Jeans'},{n:'T-shirt'},{n:'Jumpsuit'},{n:'Co-ords'},{n:'Sleep wear'}] },
+            'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree'},{n:'Kurtis'},{n:'Dress Material'},{n:'Lehengas'},{n:'Gowns'}] },
+            'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels'},{n:'Sandals'},{n:'Boots'},{n:'Bellies'},{n:'Sneakers'}] },
+            'makeup': { t:'Makeup', mid:'GLAM<br>SHELF', items:[{n:'Lipstick'},{n:'Lip Gloss'},{n:'Lip Liner'},{n:'Foundation'},{n:'Compact'},{n:'Highlighter'},{n:'Eye Shadow'},{n:'Eyeliner'},{n:'Kajal'},{n:'Mascara'},{n:'Nails'},{n:'Brushes'},{n:'Perfumes'}] },
+            'jewellery': { t:'Jewellery', mid:'FINE<br>GOLD', items:[{n:'Minimal'},{n:'Bridal'},{n:'Haldi'},{n:'Mehndi'},{n:'Rajputi'},{n:'American Diamond'},{n:'Kashmiri Earring'},{n:'Jhumka'},{n:'Korean Ear'},{n:'Maangtika'},{n:'Rings'},{n:'Bracelet'}] },
+            'acc': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Acc.'},{n:'Belts'},{n:'Sunglasses'},{n:'Watches'}] },
+            'bags': { t:'Bags', mid:'BAGS<br>LUXE', items:[{n:'Backpacks'},{n:'Handbags'},{n:'Sling Bags'},{n:'Wallets'},{n:'Clutches'}] },
+            'personal_care': { t:'Personal Care', mid:'PURE<br>GLOW', items:[{n:'Body Lotion'},{n:'Face Wash'},{n:'Face Mask'}] }
         };
 
         function renderSub(key) {
@@ -185,15 +132,11 @@
                 if(index === 4) {
                     grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
                 }
-                grid.innerHTML += `<div class="grid-item"><img src="https://cdn-icons-png.flaticon.com/512/3163/3163195.png" style="width:35px;"><p>${item.n}</p></div>`;
+                grid.innerHTML += `<div class="grid-item"><img src="icon_product.png"><p>${item.n}</p></div>`;
             });
             window.scrollTo(0,0);
         }
-
-        function showHome() {
-            document.getElementById('sub-page').style.display = 'none';
-            document.getElementById('home-page').style.display = 'block';
-        }
+        function showHome() { document.getElementById('sub-page').style.display = 'none'; document.getElementById('home-page').style.display = 'block'; }
     </script>
 </body>
 </html>
