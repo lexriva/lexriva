@@ -15,10 +15,8 @@
         .active-page { display: block; }
         .header { background: var(--header-bg); padding: 15px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Cinzel', serif; font-size: 24px; color: var(--primary); letter-spacing: 5px; margin: 0; font-weight: 600; }
-        
         .main-title { padding: 15px; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); background: var(--header-bg); margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1.5px; }
         
-        /* Scroll Wrapper for Arrivals and Reels */
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
         
@@ -31,6 +29,7 @@
         .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); position: relative; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
         
+        /* Sub-page Banner Styling */
         .sub-banner-card { min-width: 90%; height: 180px; border-radius: 8px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); }
         .sub-banner-card img { width: 100%; height: 100%; object-fit: cover; }
         
@@ -44,11 +43,9 @@
         .grid-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
         .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 10px; font-weight: bold; text-align: center; border: none; display: flex; align-items: center; justify-content: center; }
         
-        /* Bottom Nav Styling */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { text-align: center; font-size: 8px; color: #777; cursor: pointer; text-transform: uppercase; font-weight: 700; }
         
-        /* Form Styling */
         .input-box { width: 90%; padding: 12px; margin: 10px 0; border: 1px solid var(--border); border-radius: 4px; }
         .btn-burgundy { background: var(--burgundy); color: white; border: none; padding: 15px 30px; border-radius: 4px; font-weight: 700; width: 90%; cursor: pointer; }
     </style>
@@ -79,10 +76,18 @@
             <div class="reel-card" onclick="renderSub('makeup_master')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
         </div>
 
+        <div class="main-title">Women's Footwear & Care</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-card-label">Premium Shoes</div></div>
+            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="cat-card-label">Beauty Care</div></div>
+        </div>
+
         <div class="main-title">Beauty & Jewelry</div>
         <div class="category-grid">
             <div class="cat-card-square" onclick="renderSub('makeup_master')"><img src="cat_makeup.jpg"><div class="cat-card-label">Makeup</div></div>
             <div class="cat-card-square" onclick="renderSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-card-label">Jewelry</div></div>
+            <div class="cat-card-square" onclick="renderSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
+            <div class="cat-card-square" onclick="renderSub('bags')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
         </div>
     </div>
 
@@ -100,11 +105,11 @@
 
     <div id="wishlist-page" class="page">
         <div class="main-title">My Wishlist</div>
-        <div style="text-align:center; padding:100px; color:#999;">Your wishlist is empty.</div>
+        <div style="text-align:center; padding:100px; color:#999;">Empty.</div>
     </div>
 
     <div id="login-page" class="page">
-        <div class="main-title">Login / Register</div>
+        <div class="main-title">Login</div>
         <div style="padding:20px; text-align:center;">
             <input type="text" class="input-box" placeholder="Mobile Number">
             <button class="btn-burgundy" onclick="alert('OTP Sent!')">GET OTP</button>
@@ -120,10 +125,20 @@
 
     <script>
         const subData = {
-            'western': { t:'Western Wear', mid:'MODERN<br>CHIC', items:[{n:'Dresses', i:'w_dress.jpg'},{n:'Tops', i:'w_top.jpg'},{n:'Jeans', i:'w_jeans.jpg'},{n:'T-shirt', i:'w_tshirt.jpg'},{n:'Jumpsuit', i:'w_jump.jpg'},{n:'Co-ords', i:'w_coord.jpg'},{n:'Sleep wear', i:'w_sleep.jpg'}] },
+            'western': { t:'Western Wear', mid:'MODERN<br>CHIC', items:[{n:'Dresses', i:'w_dress.jpg'},{n:'Tops', i:'w_top.jpg'},{n:'Jeans', i:'w_jeans.jpg'},{n:'T-shirt', i:'w_tshirt.jpg'},{n:'Jumpsuit', i:'w_jump.jpg'},{n:'Co-ords', i:'w_coord.jpg'},{n:'Sleepwear', i:'w_sleep.jpg'}] },
             'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree', i:'e_saree.jpg'},{n:'Kurtis', i:'e_kurti.jpg'},{n:'Dress Material', i:'e_material.jpg'},{n:'Lehengas', i:'e_lehenga.jpg'},{n:'Gowns', i:'e_gown.jpg'}] },
-            'makeup_master': { t:'Makeup', mid:'GLAM<br>SHELF', items:[{n:'Lipstick', i:'m_lipstick.jpg'},{n:'Lip Gloss', i:'m_gloss.jpg'}] },
-            'jewellery_master': { t:'Jewelry', mid:'FINE<br>GOLD', items:[{n:'Minimal', i:'j_min.jpg'},{n:'Bridal', i:'j_bridal.jpg'}] }
+            'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels', i:'f_heels.jpg'},{n:'Sandals', i:'f_sandals.jpg'},{n:'Boots', i:'f_boots.jpg'},{n:'Bellies', i:'f_bellies.jpg'},{n:'Sneakers', i:'f_sneakers.jpg'}] },
+            'personal_care': { t:'Personal Care', mid:'SELF<br>CARE', items:[{n:'Body Lotion', i:'c_lotion.jpg'},{n:'Face Wash', i:'c_wash.jpg'},{n:'Face Mask', i:'c_mask.jpg'}] },
+            'makeup_master': { t:'Makeup', mid:'GLAM<br>SHELF', items:[
+                {n:'Lipstick', i:'m_lipstick.jpg'},{n:'Lip Gloss', i:'m_gloss.jpg'},{n:'Foundation', i:'m_found.jpg'},
+                {n:'Compact', i:'m_compact.jpg'},{n:'Mascara', i:'m_mascara.jpg'},{n:'Nails', i:'m_nails.jpg'},{n:'Perfumes', i:'m_perfume.jpg'}
+            ]},
+            'jewellery_master': { t:'Jewelry', mid:'FINE<br>GOLD', items:[
+                {n:'Minimal', i:'j_min.jpg'},{n:'Bridal', i:'j_bridal.jpg'},{n:'Earrings', i:'j_ear.jpg'},
+                {n:'Jhumka', i:'j_jhumka.jpg'},{n:'Rings', i:'j_ring.jpg'},{n:'Bracelet', i:'j_brace.jpg'},{n:'Maangtika', i:'j_tika.jpg'}
+            ]},
+            'acc_main': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Acc', i:'a_hair.jpg'},{n:'Belts', i:'a_belts.jpg'},{n:'Sunglasses', i:'a_glass.jpg'},{n:'Watches', i:'a_watch.jpg'}] },
+            'bags': { t:'Bags', mid:'BAGS<br>LUXE', items:[{n:'Backpacks', i:'b_pack.jpg'},{n:'Handbags', i:'b_hand.jpg'},{n:'Sling Bags', i:'b_sling.jpg'},{n:'Wallets', i:'b_wallet.jpg'}] }
         };
 
         function showPage(pageId) {
