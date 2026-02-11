@@ -18,110 +18,145 @@
         
         body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--bg-soft); color: var(--primary); overflow-x: hidden; }
         
-        /* Header & Search Bar */
+        /* Header & Search */
         .header { background: var(--header-bg); padding: 15px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Cinzel', serif; font-size: 24px; color: var(--primary); letter-spacing: 5px; margin: 0; font-weight: 600; }
-        
-        .search-container { margin: 10px auto 5px; max-width: 90%; position: relative; }
-        .search-bar { width: 100%; padding: 10px 15px; border-radius: 25px; border: 1px solid var(--border); background: var(--white); font-size: 13px; outline: none; box-sizing: border-box; }
+        .search-bar { width: 90%; padding: 10px 15px; border-radius: 25px; border: 1px solid var(--border); background: var(--white); font-size: 13px; margin-top: 10px; outline: none; }
 
         .page { display: none; max-width: 500px; margin: 0 auto; background: var(--bg-soft); min-height: 100vh; padding-bottom: 100px; }
         .active-page { display: block; }
 
+        /* Banner Styles */
+        .banner-container { position: relative; width: 100%; }
+        .banner-img { width: 100%; display: block; height: auto; }
+        .shop-now-btn { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 10px 25px; border-radius: 2px; text-decoration: none; font-size: 12px; font-weight: bold; letter-spacing: 1px; }
+
         .main-title { padding: 15px; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); background: var(--header-bg); margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1.5px; }
 
+        /* Grid Styles */
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
         .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; cursor: pointer; background: var(--white); position: relative; aspect-ratio: 1/1; }
         .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
         .cat-card-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 8px 0; text-align: center; font-weight: 700; font-size: 10px; text-transform: uppercase; }
 
-        /* Sub-page Grid */
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); background-color: var(--bg-soft); }
+        /* Slider Styles */
+        .slider-wrapper { display: flex; overflow-x: auto; gap: 10px; padding: 10px; scrollbar-width: none; }
+        .slider-item { min-width: 85%; border-radius: 8px; overflow: hidden; position: relative; }
+        .slider-item img { width: 100%; height: 200px; object-fit: cover; }
+
+        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); background-color: var(--bg-soft); border-top: 1px solid var(--border); }
         .grid-item { background: var(--white); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 5px; text-align: center; min-height: 115px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
         .grid-item p { font-size: 9px; font-weight: 700; text-transform: uppercase; margin-top: 8px; }
-        .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 10px; font-weight: bold; letter-spacing: 1px; border: none; }
+        .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 10px; font-weight: bold; text-align: center; border: none; }
 
-        /* Support & Policy Section */
+        /* Shipping & Info */
+        .shipping-note { background: #fff3f3; color: #d32f2f; padding: 10px; font-size: 10px; text-align: center; font-weight: 600; }
         .support-info { padding: 20px; background: var(--header-bg); margin-top: 20px; font-size: 12px; text-align: center; line-height: 1.8; border-top: 1px solid var(--border); }
-        .support-info a { color: var(--burgundy); text-decoration: none; font-weight: 700; }
 
-        /* Shipping Badge */
-        .shipping-note { background: #fff3f3; color: #d32f2f; padding: 10px; font-size: 11px; text-align: center; font-weight: 600; }
+        /* Checkout Form */
+        .order-form { padding: 20px; background: var(--white); margin: 10px; border-radius: 8px; border: 1px solid var(--border); }
+        .order-input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid var(--border); border-radius: 4px; box-sizing: border-box; }
+        .submit-btn { background: var(--burgundy); color: white; border: none; padding: 15px; width: 100%; font-weight: 700; border-radius: 4px; }
 
-        /* Bottom Nav */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--border); z-index: 2000; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { text-align: center; font-size: 8px; color: #777; cursor: pointer; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
-        .nav-link.active { color: var(--burgundy); }
     </style>
 </head>
 <body>
 
     <div class="header">
         <div class="logo">LEXRIVA</div>
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search luxury products, jewelry, ethnic wear...">
-        </div>
+        <input type="text" class="search-bar" placeholder="Search luxury products...">
     </div>
 
     <div class="shipping-note">
-        CASH ON DELIVERY AVAILABLE | Free Shipping above ₹1999 (Below ₹1999: ₹49 Shipping)
+        COD AVAILABLE | Free Shipping above ₹1999 (Below ₹1999: ₹49 Shipping)
     </div>
 
     <div id="home-page" class="page active-page">
-        <div class="main-title">Collections</div>
-        <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('western')"><img src="cat_western.jpg"><div class="cat-card-label">Western Wear</div></div>
-            <div class="cat-card-square" onclick="renderSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-card-label">Ethnic Wear</div></div>
+        <div class="banner-container">
+            <img src="main_banner.jpg" class="banner-img" alt="Main Banner">
+            <a href="#" class="shop-now-btn" onclick="showPage('sub-page')">SHOP NOW</a>
         </div>
 
-        <div class="main-title">Beauty & Jewelry</div>
+        <div class="main-title">Collections</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('makeup')"><img src="cat_makeup.jpg"><div class="cat-card-label">Makeup</div></div>
-            <div class="cat-card-square" onclick="renderSub('jewellery')"><img src="cat_jewel.jpg"><div class="cat-card-label">Fine Jewelry</div></div>
+            <div class="cat-card-square" onclick="renderSub('western')"><img src="western.jpg"><div class="cat-card-label">Western Wear</div></div>
+            <div class="cat-card-square" onclick="renderSub('ethnic')"><img src="ethnic.jpg"><div class="cat-card-label">Ethnic Wear</div></div>
+        </div>
+
+        <div class="main-title">Footwear & Care</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('footwear')"><img src="shoes.jpg"><div class="cat-card-label">Premium Shoes</div></div>
+            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="care.jpg"><div class="cat-card-label">Beauty Care</div></div>
+        </div>
+
+        <div class="main-title">New Arrivals (Slide)</div>
+        <div class="slider-wrapper">
+            <div class="slider-item"><img src="new1.jpg"></div>
+            <div class="slider-item"><img src="new2.jpg"></div>
+            <div class="slider-item"><img src="new3.jpg"></div>
+        </div>
+
+        <div class="main-title">Beauty & Accessories</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('makeup')"><img src="makeup.jpg"><div class="cat-card-label">Makeup</div></div>
+            <div class="cat-card-square" onclick="renderSub('jewellery')"><img src="jewel.jpg"><div class="cat-card-label">Fine Jewelry</div></div>
+            <div class="cat-card-square" onclick="renderSub('acc')"><img src="acc.jpg"><div class="cat-card-label">Accessories</div></div>
+            <div class="cat-card-square" onclick="renderSub('bags')"><img src="bags.jpg"><div class="cat-card-label">Bags</div></div>
         </div>
 
         <div class="support-info">
             <strong>Contact Support Centre</strong><br>
-            Email: <a href="mailto:support@lexriva.com">support@lexriva.com</a><br>
-            Instagram: <a href="https://instagram.com/lexriva.official" target="_blank">@lexriva.official</a>
+            Email: support@lexriva.com | Insta: @lexriva.official
         </div>
     </div>
 
     <div id="sub-page" class="page">
         <div class="main-title" style="margin-top:0;">
-            <span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span>
-            <span id="sub-title-text">CATEGORIES</span>
+            <span onclick="showPage('home-page')">← BACK</span>
+            <span id="sub-title-text">CATEGORY</span>
         </div>
+        
+        <div class="slider-wrapper" id="sub-banner-slider">
+            <div class="slider-item"><img src="sub_banner1.jpg"></div>
+            <div class="slider-item"><img src="sub_banner2.jpg"></div>
+        </div>
+
         <div id="grid-content" class="grid-container"></div>
     </div>
 
-    <div id="wishlist-page" class="page">
-        <div class="main-title">My Wishlist</div>
-        <div style="text-align:center; padding:50px; color:#999;">Your wishlist is empty.</div>
-    </div>
-
-    <div id="login-page" class="page">
-        <div class="main-title">Login / Register</div>
-        <div style="padding:20px; text-align:center;">
-            <input type="text" class="search-bar" style="border-radius:5px; margin-bottom:10px;" placeholder="Phone / Email"><br>
-            <button style="background:var(--burgundy); color:white; border:none; padding:12px 30px; border-radius:5px; width:90%; font-weight:700;">PROCEED</button>
+    <div id="checkout-page" class="page">
+        <div class="main-title">Order Details</div>
+        <div class="order-form">
+            <label>Full Name</label>
+            <input type="text" class="order-input" id="name" placeholder="Full Name">
+            <label>Mobile Number</label>
+            <input type="tel" class="order-input" id="phone" placeholder="10-digit Number">
+            <label>Complete Address</label>
+            <textarea class="order-input" id="address" style="height:80px;" placeholder="House No, Street, Pincode"></textarea>
+            <button class="submit-btn" onclick="placeOrder()">PLACE ORDER (COD)</button>
         </div>
     </div>
 
     <div class="bottom-nav">
         <div class="nav-link" onclick="showPage('home-page')">Home</div>
-        <div class="nav-link" onclick="focusSearch()">Search</div>
+        <div class="nav-link">Search</div>
         <div class="nav-link" onclick="showPage('sub-page')">Categories</div>
-        <div class="nav-link" onclick="showPage('wishlist-page')">Wishlist</div>
-        <div class="nav-link" onclick="showPage('login-page')">Login</div>
+        <div class="nav-link">Wishlist</div>
+        <div class="nav-link">Login</div>
     </div>
 
     <script>
         const subData = {
             'western': { t:'Western Wear', mid:'MODERN<br>CHIC', items:[{n:'Dresses'},{n:'Tops'},{n:'Jeans'},{n:'T-shirt'},{n:'Jumpsuit'},{n:'Co-ords'}] },
-            'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree'},{n:'Kurtis'},{n:'Dress Material'},{n:'Lehengas'},{n:'Gowns'}] },
-            'makeup': { t:'Makeup', mid:'GLAM<br>SHELF', items:[{n:'Lipstick'},{n:'Foundation'},{n:'Compact'},{n:'Eyeliner'},{n:'Nails'},{n:'Perfumes'}] },
-            'jewellery': { t:'Jewellery', mid:'FINE<br>GOLD', items:[{n:'Bridal'},{n:'Rings'},{n:'Earrings'},{n:'Bracelet'},{n:'Minimal'}] }
+            'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree'},{n:'Kurtis'},{n:'Lehengas'},{n:'Gowns'},{n:'Suits'}] },
+            'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels'},{n:'Boots'},{n:'Sneakers'},{n:'Sandals'}] },
+            'makeup': { t:'Makeup', mid:'GLAM<br>SHELF', items:[{n:'Lipstick'},{n:'Compact'},{n:'Perfumes'},{n:'Nails'}] },
+            'jewellery': { t:'Jewellery', mid:'FINE<br>GOLD', items:[{n:'Bridal'},{n:'Rings'},{n:'Earrings'},{n:'Bracelet'}] },
+            'acc': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Acc'},{n:'Belts'},{n:'Sunglasses'}] },
+            'bags': { t:'Bags', mid:'BAGS<br>LUXE', items:[{n:'Handbags'},{n:'Sling Bags'},{n:'Wallets'}] },
+            'personal_care': { t:'Care', mid:'PURE<br>GLOW', items:[{n:'Lotion'},{n:'Face Wash'},{n:'Mask'}] }
         };
 
         function showPage(pageId) {
@@ -137,16 +172,15 @@
             const grid = document.getElementById('grid-content');
             grid.innerHTML = '';
             data.items.forEach((item, index) => {
-                if(index === 3) {
-                    grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
-                }
-                grid.innerHTML += `<div class="grid-item"><img src="icon.png" style="width:30px; opacity:0.5;"><p>${item.n}</p></div>`;
+                if(index === 3) grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
+                grid.innerHTML += `<div class="grid-item" onclick="showPage('checkout-page')"><img src="icon.png" style="width:30px;opacity:0.5;"><p>${item.n}</p></div>`;
             });
         }
 
-        function focusSearch() {
+        function placeOrder() {
+            if(document.getElementById('name').value === "") { alert("Please fill all details"); return; }
+            alert("Order Placed Successfully! We will contact you soon.");
             showPage('home-page');
-            document.querySelector('.search-bar').focus();
         }
     </script>
 </body>
