@@ -40,7 +40,7 @@
 
     <div class="header">
         <div class="logo">LEXRIVA</div>
-        <input type="text" class="search-bar" placeholder="Search luxury products, jewelry, ethnic wear...">
+        <input type="text" class="search-bar" placeholder="Search luxury products, jewelry, makeup...">
     </div>
 
     <div class="shipping-note">
@@ -50,7 +50,7 @@
     <div id="home-page" class="page active-page">
         <div style="position: relative;">
             <img src="main_banner.jpg" style="width: 100%;">
-            <button onclick="showPage('sub-page')" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 5px 15px; border: none; font-size: 9px; font-weight: bold; cursor: pointer;">SHOP NOW</button>
+            <button onclick="showPage('home-page'); window.scrollTo(0, 500);" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 5px 15px; border: none; font-size: 9px; font-weight: bold; cursor: pointer;">SHOP NOW</button>
         </div>
 
         <div class="main-title">Women's Clothing</div>
@@ -62,7 +62,6 @@
         <div class="main-title">Women's Footwear</div>
         <div class="category-grid">
             <div class="cat-card-square" onclick="renderSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-card-label">Premium Shoes</div></div>
-            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="cat-card-label">Beauty Care</div></div>
         </div>
 
         <div class="main-title">Trending Reels</div>
@@ -71,18 +70,25 @@
             <div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
         </div>
 
-        <div class="main-title">Beauty & Jewelry</div>
+        <div class="main-title">Makeup & Beauty</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('lipstick')"><img src="cat_makeup.jpg"><div class="cat-card-label">Makeup</div></div>
-            <div class="cat-card-square" onclick="renderSub('necklace')"><img src="cat_jewel.jpg"><div class="cat-card-label">Jewelry</div></div>
-            <div class="cat-card-square" onclick="renderSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
-            <div class="cat-card-square" onclick="renderSub('bags')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
+            <div class="cat-card-square" onclick="renderSub('lipsticks')"><img src="cat_makeup.jpg"><div class="cat-card-label">Lipsticks</div></div>
+            <div class="cat-card-square" onclick="renderSub('face_makeup')"><img src="cat_makeup.jpg"><div class="cat-card-label">Face Makeup</div></div>
+            <div class="cat-card-square" onclick="renderSub('eye_makeup')"><img src="cat_makeup.jpg"><div class="cat-card-label">Eye Makeup</div></div>
+            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="cat-card-label">Personal Care</div></div>
+            <div class="cat-card-square" onclick="renderSub('nails')"><img src="cat_makeup.jpg"><div class="cat-card-label">Nails & Tools</div></div>
         </div>
 
-        <div class="main-title">New Arrivals</div>
-        <div class="reels-wrapper" style="height: 180px;">
-            <div class="reel-card" style="min-width: 80%; height: 160px;"><img src="slide1.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
-            <div class="reel-card" style="min-width: 80%; height: 160px;"><img src="slide2.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
+        <div class="main-title">Women's Jewelry</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('necklace')"><img src="cat_jewel.jpg"><div class="cat-card-label">Necklace Sets</div></div>
+            <div class="cat-card-square" onclick="renderSub('jewel_others')"><img src="cat_jewel.jpg"><div class="cat-card-label">Earrings & More</div></div>
+        </div>
+
+        <div class="main-title">Women's Accessories</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
+            <div class="cat-card-square" onclick="renderSub('bags')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
         </div>
 
         <div style="padding: 20px; text-align: center; font-size: 11px; background: var(--header-bg); margin-top: 20px;">
@@ -125,16 +131,19 @@
         const subData = {
             'western': { t:'Western Wear', mid:'MODERN<br>CHIC', items:[{n:'Dresses'},{n:'Tops'},{n:'Jeans'},{n:'T-shirt'},{n:'Jumpsuit'},{n:'Co-ords'},{n:'Sleep wear'}] },
             'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree'},{n:'Kurtis'},{n:'Dress Material'},{n:'Lehengas'},{n:'Gowns'}] },
-            'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels'},{n:'Sandals'},{n:'Boots'},{n:'Bellies'},{n:'Sneakers'}] },
-            'lipstick': { t:'Lipstick Edit', mid:'GLAM<br>LIPS', items:[{n:'Lipstick'},{n:'Lip Gloss'},{n:'Lip Liner'}] },
-            'face_makeup': { t:'Face Makeup', mid:'PURE<br>GLOW', items:[{n:'Foundation'},{n:'Compact'},{n:'Highlighter'}] },
+            'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels'},{n:'Sandals'},{n:'Boots'},{n:'Bellies & Ballerinas'},{n:'Sneakers'}] },
+            
+            // Makeup Section Fix
+            'lipsticks': { t:'Lipsticks', mid:'GLAM<br>LIPS', items:[{n:'Lipstick'},{n:'Lip Gloss'},{n:'Lip Liner'}] },
+            'face_makeup': { t:'Face Makeup', mid:'PURE<br>GLOW', items:[{n:'Foundation'},{n:'Compact & Concealer'},{n:'Highlighter & Primer'}] },
             'eye_makeup': { t:'Eye Makeup', mid:'EYE<br>DRAMA', items:[{n:'Eye Shadow'},{n:'Eye Liner'},{n:'Kajal'},{n:'Mascara'}] },
-            'jewel_others': { t:'Beauty & Care', mid:'SELF<br>CARE', items:[{n:'Nails'},{n:'Brushes'},{n:'Perfumes'}] },
-            'necklace': { t:'Necklace Sets', mid:'FINE<br>GOLD', items:[{n:'Minimal'},{n:'Bridal'},{n:'Haldi hues'},{n:'Mehndi Vibes'},{n:'Rajputi'},{n:'American Diamond'}] },
-            'earrings': { t:'Earrings', mid:'DANGLE<br>DROP', items:[{n:'Kashmiri'},{n:'Jhumka'},{n:'Korean'}] },
-            'acc_main': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Acc'},{n:'Belts'},{n:'Sunglasses'},{n:'Watches'}] },
-            'bags': { t:'Bags', mid:'BAGS<br>LUXE', items:[{n:'Backpacks'},{n:'Handbags'},{n:'Sling Bags'},{n:'Wallets'},{n:'Clutches'}] },
-            'personal_care': { t:'Care', mid:'PURE<br>GLOW', items:[{n:'Lotion'},{n:'Face Wash'},{n:'Face Mask'}] }
+            'nails': { t:'Nails & Tools', mid:'LUXE<br>EDIT', items:[{n:'Nails Makeup'},{n:'Brushes & Accessories'},{n:'Perfumes'}] },
+            'personal_care': { t:'Personal Care', mid:'SELF<br>CARE', items:[{n:'Body Lotion'},{n:'Face Wash'},{n:'Face Mask'}] },
+
+            'necklace': { t:'Necklace Sets', mid:'FINE<br>GOLD', items:[{n:'Minimal Jewellery'},{n:'Bridal Necklace'},{n:'Haldi Hues'},{n:'Mehndi Vibes'},{n:'Rajputi Necklace'},{n:'American Diamond'}] },
+            'jewel_others': { t:'Jewelry', mid:'SPARKLE<br>EDIT', items:[{n:'Kashmiri Earrings'},{n:'Jhumka'},{n:'Korean Earrings'},{n:'Maangtika'},{n:'Rings'},{n:'Bracelet'}] },
+            'acc_main': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Accessories'},{n:'Belts'},{n:'Sunglasses'},{n:'Women Watches'}] },
+            'bags': { t:'Bags', mid:'BAGS<br>LUXE', items:[{n:'Bag Packs'},{n:'Handbags'},{n:'Sling Bags'},{n:'Wallets'},{n:'Clutches'}] }
         };
 
         function showPage(pageId) {
@@ -150,7 +159,7 @@
             const grid = document.getElementById('grid-content');
             grid.innerHTML = '';
             data.items.forEach((item, index) => {
-                if(index === 4) grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
+                if(index === 3) grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
                 grid.innerHTML += `<div class="grid-item" onclick="showPage('order-page')"><img src="icon_product.png" style="width:30px; opacity:0.5;"><p>${item.n}</p></div>`;
             });
         }
