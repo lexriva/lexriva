@@ -4,41 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lexriva - Luxury Premium Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     <style>
         :root { 
             --primary: #1a1a1a; --burgundy: #4a0e1e; --gold: #b5935a; 
             --bg-soft: #fcfbf7; --header-bg: #f4f1e8; --white: #ffffff; --border: rgba(0,0,0,0.06);
         }
         body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--bg-soft); color: var(--primary); overflow-x: hidden; }
+        .page { display: none; max-width: 500px; margin: 0 auto; background: var(--bg-soft); min-height: 100vh; padding-bottom: 100px; }
+        .active-page { display: block; }
         .header { background: var(--header-bg); padding: 15px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Cinzel', serif; font-size: 24px; color: var(--primary); letter-spacing: 5px; margin: 0; font-weight: 600; }
         .search-bar { width: 95%; padding: 10px 15px; border-radius: 25px; border: 1px solid var(--border); background: var(--white); font-size: 13px; margin-top: 10px; outline: none; box-sizing: border-box; }
-        .page { display: none; max-width: 500px; margin: 0 auto; background: var(--bg-soft); min-height: 100vh; padding-bottom: 100px; }
-        .active-page { display: block; }
         .main-title { padding: 15px; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); background: var(--header-bg); margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1.5px; }
-        
-        /* Horizontal Scroll for Banners and Reels */
         .reels-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
         .reels-wrapper::-webkit-scrollbar { display: none; }
         .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* Sub-page Hero Slider Styling */
         .sub-hero-slider { display: flex; overflow-x: auto; gap: 10px; padding: 10px 15px; scrollbar-width: none; scroll-snap-type: x mandatory; }
         .sub-hero-card { min-width: 100%; height: 200px; border-radius: 8px; overflow: hidden; flex-shrink: 0; scroll-snap-align: start; position: relative; }
         .sub-hero-card img { width: 100%; height: 100%; object-fit: cover; }
-
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
         .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; cursor: pointer; background: var(--white); position: relative; aspect-ratio: 1/1; }
         .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
         .cat-card-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 8px 0; text-align: center; font-weight: 700; font-size: 10px; text-transform: uppercase; }
-        
         .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); }
         .grid-item { background: var(--white); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 5px; text-align: center; min-height: 115px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+        .grid-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
         .grid-item p { font-size: 9px; font-weight: 700; text-transform: uppercase; margin-top: 8px; }
         .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 10px; font-weight: bold; text-align: center; border: none; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; }
-        
         .shipping-note { background: #fff3f3; color: #d32f2f; padding: 10px; font-size: 10px; text-align: center; font-weight: 600; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { text-align: center; font-size: 8px; color: #777; cursor: pointer; text-transform: uppercase; font-weight: 700; }
@@ -139,27 +133,27 @@
 
     <script>
         const subData = {
-            'western': { t:'Western Wear', mid:'MODERN<br>CHIC', items:[{n:'Dresses'},{n:'Tops'},{n:'Jeans'},{n:'T-shirt'},{n:'Jumpsuit'},{n:'Co-ords'},{n:'Sleep wear'}] },
-            'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree'},{n:'Kurtis'},{n:'Dress Material'},{n:'Lehengas'},{n:'Gowns'}] },
-            'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels'},{n:'Sandals'},{n:'Boots'},{n:'Bellies & Ballerinas'},{n:'Sneakers'}] },
-            'personal_care': { t:'Personal Care', mid:'SELF<br>CARE', items:[{n:'Body Lotion'},{n:'Face Wash'},{n:'Face Mask'}] },
+            'western': { t:'Western Wear', mid:'MODERN<br>CHIC', items:[{n:'Dresses', i:'w_dress.jpg'},{n:'Tops', i:'w_top.jpg'},{n:'Jeans', i:'w_jeans.jpg'},{n:'T-shirt', i:'w_tshirt.jpg'},{n:'Jumpsuit', i:'w_jump.jpg'},{n:'Co-ords', i:'w_coord.jpg'},{n:'Sleep wear', i:'w_sleep.jpg'}] },
+            'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree', i:'e_saree.jpg'},{n:'Kurtis', i:'e_kurti.jpg'},{n:'Dress Material', i:'e_material.jpg'},{n:'Lehengas', i:'e_lehenga.jpg'},{n:'Gowns', i:'e_gown.jpg'}] },
+            'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels', i:'f_heels.jpg'},{n:'Sandals', i:'f_sandals.jpg'},{n:'Boots', i:'f_boots.jpg'},{n:'Bellies & Ballerinas', i:'f_bellies.jpg'},{n:'Sneakers', i:'f_sneakers.jpg'}] },
+            'personal_care': { t:'Personal Care', mid:'SELF<br>CARE', items:[{n:'Body Lotion', i:'c_lotion.jpg'},{n:'Face Wash', i:'c_wash.jpg'},{n:'Face Mask', i:'c_mask.jpg'}] },
             
             'makeup_master': { t:'Beauty & Makeup', mid:'GLAM<br>SHELF', items:[
-                {n:'Lipstick'},{n:'Lip Gloss'},{n:'Lip Liner'},
-                {n:'Foundation'},{n:'Compact & Concealer'},{n:'Highlighter & Primer'},
-                {n:'Eye Shadow'},{n:'Eye Liner'},{n:'Kajal'},{n:'Mascara'},
-                {n:'Nails Makeup'},{n:'Brushes & Accessories'},{n:'Perfumes'}
+                {n:'Lipstick', i:'m_lipstick.jpg'},{n:'Lip Gloss', i:'m_gloss.jpg'},{n:'Lip Liner', i:'m_liner.jpg'},
+                {n:'Foundation', i:'m_found.jpg'},{n:'Compact & Concealer', i:'m_compact.jpg'},{n:'Highlighter & Primer', i:'m_high.jpg'},
+                {n:'Eye Shadow', i:'m_eye.jpg'},{n:'Eye Liner', i:'m_liner_eye.jpg'},{n:'Kajal', i:'m_kajal.jpg'},{n:'Mascara', i:'m_mascara.jpg'},
+                {n:'Nails Makeup', i:'m_nails.jpg'},{n:'Brushes & Accessories', i:'m_brushes.jpg'},{n:'Perfumes', i:'m_perfume.jpg'}
             ]},
 
             'jewellery_master': { t:'Jewellery', mid:'FINE<br>GOLD', items:[
-                {n:'Minimal Jewellery'},
-                {n:'Bridal Necklace'},{n:'Haldi Hues'},{n:'Mehndi Vibes'},{n:'Rajputi Necklace'},{n:'American Diamond'},
-                {n:'Kashmiri Earrings'},{n:'Jhumka'},{n:'Korean Earrings'},
-                {n:'Maangtika'},{n:'Rings'},{n:'Bracelet'}
+                {n:'Minimal Jewellery', i:'j_min.jpg'},
+                {n:'Bridal Necklace', i:'j_bridal.jpg'},{n:'Haldi Hues', i:'j_haldi.jpg'},{n:'Mehndi Vibes', i:'j_mehndi.jpg'},{n:'Rajputi Necklace', i:'j_rajputi.jpg'},{n:'American Diamond', i:'j_diamond.jpg'},
+                {n:'Kashmiri Earrings', i:'j_ear.jpg'},{n:'Jhumka', i:'j_jhumka.jpg'},{n:'Korean Earrings', i:'j_korean.jpg'},
+                {n:'Maangtika', i:'j_tika.jpg'},{n:'Rings', i:'j_ring.jpg'},{n:'Bracelet', i:'j_brace.jpg'}
             ]},
 
-            'acc_main': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Accessories'},{n:'Belts'},{n:'Sunglasses'},{n:'Women Watches'}] },
-            'bags': { t:'Women Bags', mid:'BAGS<br>LUXE', items:[{n:'Bag Packs'},{n:'Handbags'},{n:'Sling Bags'},{n:'Wallets'},{n:'Clutches'}] }
+            'acc_main': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Accessories', i:'a_hair.jpg'},{n:'Belts', i:'a_belts.jpg'},{n:'Sunglasses', i:'a_glass.jpg'},{n:'Women Watches', i:'a_watch.jpg'}] },
+            'bags': { t:'Women Bags', mid:'BAGS<br>LUXE', items:[{n:'Bag Packs', i:'b_pack.jpg'},{n:'Handbags', i:'b_hand.jpg'},{n:'Sling Bags', i:'b_sling.jpg'},{n:'Wallets', i:'b_wallet.jpg'},{n:'Clutches', i:'b_clutch.jpg'}] }
         };
 
         function showPage(pageId) {
@@ -176,7 +170,10 @@
             grid.innerHTML = '';
             data.items.forEach((item, index) => {
                 if(index === 4) grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
-                grid.innerHTML += `<div class="grid-item" onclick="showPage('order-page')"><img src="icon_product.png" style="width:30px; opacity:0.5;"><p>${item.n}</p></div>`;
+                grid.innerHTML += `<div class="grid-item" onclick="showPage('order-page')">
+                    <img src="${item.i}" onerror="this.src='icon_product.png'" style="width:60px; height:60px; object-fit:cover;">
+                    <p>${item.n}</p>
+                </div>`;
             });
         }
     </script>
