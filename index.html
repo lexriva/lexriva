@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lexriva - Luxury Premium Store</title>
     <style>
-        /* LUXURY THEME COLORS */
         :root { 
-            --primary: #4a0e2e; /* Deep Maroon */
-            --gold: #D4AF37;    /* Premium Gold */
+            --primary: #4a0e2e; 
+            --gold: #D4AF37;    
             --gold-bg: #fdfaf3;
             --text: #333; 
         }
@@ -22,12 +21,12 @@
         .header { background: #fff; padding: 15px; text-align: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 100; }
         .logo { font-size: 20px; font-weight: bold; color: var(--primary); letter-spacing: 4px; }
 
-        /* Home Page Components */
-        .home-banner img { width: 100%; display: block; height: auto; border-bottom: 3px solid var(--gold); }
-        
-        /* Luxury Title Styling */
+        /* Banner Section */
+        .home-banner img { width: 100%; display: block; height: auto; border-bottom: 2px solid var(--gold); }
+
+        /* Section Title Styling */
         .main-title { 
-            padding: 15px 15px 5px; 
+            padding: 12px 15px; 
             font-size: 13px; 
             font-weight: 800; 
             color: var(--primary); 
@@ -37,42 +36,58 @@
             margin: 15px 0 10px; 
         }
         
-        .vertical-list { padding: 5px 10px; display: flex; flex-direction: column; gap: 12px; }
-        .cat-card { border: 1px solid var(--gold); border-radius: 8px; overflow: hidden; cursor: pointer; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.1); }
-        .cat-card img { width: 100%; height: 140px; object-fit: cover; display: block; }
-        .cat-card-label { padding: 12px; text-align: center; font-weight: 700; font-size: 13px; color: var(--primary); }
-
-        /* Reels & Arrivals */
-        .reels-container { display: flex; flex-direction: column; gap: 15px; padding: 10px; }
-        .reel-box { width: 100%; height: 400px; background: #000; border-radius: 15px; overflow: hidden; position: relative; }
-        .reel-box video { width: 100%; height: 100%; object-fit: cover; }
-        
-        .arrival-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 10px 15px; scrollbar-width: none; }
-        .arrival-item { min-width: 130px; text-align: center; }
-        .arrival-item img { width: 100%; height: 160px; object-fit: cover; border-radius: 10px; border: 1px solid #eee; }
-
-        /* Sub-Category Grid (Pic 5 Layout) */
-        .sub-nav { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
-        .back-btn { border: none; background: none; font-size: 22px; cursor: pointer; color: var(--primary); }
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
-        .grid-item { border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; padding: 15px 5px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 110px; }
-        .grid-item img { width: 45px; height: 45px; object-fit: contain; margin-bottom: 5px; }
-        .grid-item p { font-size: 9px; font-weight: bold; margin: 0; text-transform: uppercase; }
-        .grid-item span { font-size: 8px; color: #d0021b; font-weight: bold; }
-        
-        /* Central Maroon Box */
-        .maroon-box { 
-            background: linear-gradient(135deg, var(--primary), #63123c); 
-            color: var(--gold) !important; 
-            border: 1px solid var(--gold) !important; 
+        /* 2-Column Square Grid for Categories */
+        .category-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            padding: 0 10px;
         }
-        .maroon-box h3 { font-size: 10px; font-weight: 300; text-transform: uppercase; margin: 0; color: #fff; }
-        .maroon-box b { font-size: 14px; display: block; margin-top: 4px; color: var(--gold); }
+        .cat-card-square { 
+            border: 1px solid var(--gold); 
+            border-radius: 8px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column;
+            aspect-ratio: 1 / 1; /* Makes the box square */
+        }
+        .cat-card-square img { width: 100%; height: 75%; object-fit: cover; }
+        .cat-card-label { 
+            height: 25%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            font-weight: 700; 
+            font-size: 11px; 
+            color: var(--primary); 
+            padding: 2px;
+            background: #fff;
+        }
+
+        /* Reels Section */
+        .reels-section { padding: 10px; }
+        .reel-box { 
+            width: 100%; 
+            height: 400px; 
+            background: #000; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            position: relative; 
+            margin-bottom: 15px;
+        }
+        .reel-box video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Grid for Sub-Category Page */
+        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
+        .grid-item { border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; padding: 15px 5px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100px; }
+        .grid-item img { width: 45px; height: 45px; object-fit: contain; }
+        .maroon-box { background: var(--primary); color: #fff; border: none; }
         
         /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
         .nav-link { text-align: center; font-size: 10px; color: #888; cursor: pointer; text-decoration: none; }
-        .nav-link.active { color: var(--primary); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -81,53 +96,64 @@
 
     <div id="home-page" class="page active-page">
         <div class="home-banner">
-            <img src="https://lexriva.github.io/lexriva/24795.jpg" alt="Luxury Front Banner">
+            <img src="https://lexriva.github.io/lexriva/24795.jpg" alt="Main Banner">
         </div>
 
         <div class="main-title">Women's Clothing</div>
-        <div class="vertical-list">
-            <div class="cat-card" onclick="renderSub('western')">
-                <img src="https://via.placeholder.com/500x150?text=Western+Wear"><div class="cat-card-label">Women Western Wear</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('western')">
+                <img src="western.jpg">
+                <div class="cat-card-label">Western Wear</div>
             </div>
-            <div class="cat-card" onclick="renderSub('ethnic')">
-                <img src="https://via.placeholder.com/500x150?text=Ethnic+Wear"><div class="cat-card-label">Women Ethnic Wear</div>
+            <div class="cat-card-square" onclick="renderSub('ethnic')">
+                <img src="ethnic.jpg">
+                <div class="cat-card-label">Ethnic Wear</div>
+            </div>
+        </div>
+
+        <div class="main-title">Women's Footwear</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('footwear')">
+                <img src="footwear.jpg">
+                <div class="cat-card-label">Footwear</div>
+            </div>
+            <div class="cat-card-square" onclick="renderSub('sandals')">
+                <img src="sandals.jpg">
+                <div class="cat-card-label">Sandals</div>
             </div>
         </div>
 
         <div class="main-title">Women Jewellery</div>
-        <div class="vertical-list">
-            <div class="cat-card" onclick="renderSub('jewellery')">
-                <img src="https://via.placeholder.com/500x150?text=Jewellery+Collection"><div class="cat-card-label">Exquisite Jewellery Collection</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('jewellery')">
+                <img src="jewel.jpg">
+                <div class="cat-card-label">Bridal & Minimal</div>
+            </div>
+            <div class="cat-card-square" onclick="renderSub('earrings')">
+                <img src="earrings.jpg">
+                <div class="cat-card-label">Earrings</div>
             </div>
         </div>
 
-        <div class="main-title">New Products</div>
-        <div class="reels-container">
-            <div class="reel-box"><video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted loop playsinline></video></div>
+        <div class="home-banner" style="margin-top: 20px;">
+            <img src="promo-banner.jpg" alt="Promotion Banner">
         </div>
 
-        <div class="main-title">New Arrivals</div>
-        <div class="arrival-scroll">
-            <div class="arrival-item"><img src="https://via.placeholder.com/130x160"><p style="font-size:10px;">Floral Dress</p></div>
-            <div class="arrival-item"><img src="https://via.placeholder.com/130x160"><p style="font-size:10px;">Silk Saree</p></div>
-            <div class="arrival-item"><img src="https://via.placeholder.com/130x160"><p style="font-size:10px;">Korean Earrings</p></div>
-        </div>
-
-        <div class="main-title">Other Accessories</div>
-        <div class="vertical-list">
-            <div class="cat-card" onclick="renderSub('acc')">
-                <img src="https://via.placeholder.com/500x150?text=Accessories"><div class="cat-card-label">Women Accessories</div>
+        <div class="main-title">New Products (Reels)</div>
+        <div class="reels-section">
+            <div class="reel-box">
+                <video src="reel1.mp4" autoplay muted loop playsinline></video>
             </div>
-            <div class="cat-card" onclick="renderSub('bags')">
-                <img src="https://via.placeholder.com/500x150?text=Bags"><div class="cat-card-label">Women Bags</div>
+            <div class="reel-box">
+                <video src="reel2.mp4" autoplay muted loop playsinline></video>
             </div>
         </div>
     </div>
 
     <div id="sub-page" class="page">
-        <div class="sub-nav">
-            <button class="back-btn" onclick="showHome()">←</button>
-            <span id="sub-title-text" style="font-weight: bold; text-transform: uppercase;">Title</span>
+        <div class="sub-nav" style="padding: 15px; display: flex; align-items: center; border-bottom: 1px solid #eee;">
+            <button onclick="showHome()" style="border:none; background:none; font-size: 20px; color: var(--primary); cursor: pointer;">←</button>
+            <span id="sub-title-text" style="font-weight: bold; text-transform: uppercase; margin-left: 10px;">Category</span>
         </div>
         <div class="grid-container" id="grid-content"></div>
     </div>
@@ -140,55 +166,29 @@
 
     <script>
         const subData = {
-            'western': {
-                t: 'Western Wear', mid: 'WESTERN<br><b>VIBES</b>',
-                items: [{n:'Dresses'}, {n:'Tops'}, {n:'Jeans'}, {n:'T-shirt'}, {n:'Jumpsuit'}, {n:'Co-ords'}, {n:'Sleepwear'}]
-            },
-            'ethnic': {
-                t: 'Ethnic Wear', mid: 'ETHNIC<br><b>WEAR</b>',
-                items: [{n:'Saree'}, {n:'Kurtis'}, {n:'Dress Mat.'}, {n:'Lehengas'}, {n:'Gowns'}]
-            },
-            /* JEWELLERY DATA UPDATED WITH YOUR LIST */
-            'jewellery': {
-                t: 'Women Jewellery', mid: 'YOUR<br><b>BEAUTY</b><br>SHELF',
-                items: [
-                    {n:'Minimal Jewellery'}, {n:'Bridal Necklace'}, {n:'Haldi Hues'}, 
-                    {n:'Mehndi Vibes'}, {n:'Rajputi Necklace'}, {n:'American Diamond'}, 
-                    {n:'Kashmiri Earrings'}, {n:'Jhumka'}, {n:'Korean Earrings'}, 
-                    {n:'Maangtika'}, {n:'Rings'}, {n:'Bracelet'}
-                ]
-            },
-            'acc': {
-                t: 'Accessories', mid: 'LUXE<br><b>EDIT</b>',
-                items: [{n:'Hair Acc.'}, {n:'Belts'}, {n:'Sunglasses'}, {n:'Watches'}, {n:'Perfumes'}]
-            },
-            'bags': {
-                t: 'Women Bags', mid: 'BAGS<br><b>EDIT</b>',
-                items: [{n:'Backpacks'}, {n:'Handbags'}, {n:'Sling Bags'}, {n:'Wallets'}, {n:'Clutches'}]
-            }
+            'western': { t: 'Western Wear', mid: 'WESTERN<br>VIBES', items: [{n:'Dresses'}, {n:'Tops'}, {n:'Jeans'}, {n:'T-shirt'}, {n:'Jumpsuit'}, {n:'Co-ords'}] },
+            'ethnic': { t: 'Ethnic Wear', mid: 'ETHNIC<br>STYLE', items: [{n:'Saree'}, {n:'Kurtis'}, {n:'Dress Mat.'}, {n:'Lehengas'}, {n:'Gowns'}] },
+            'makeup': { t: 'Makeup', mid: 'BEAUTY<br>SHELF', items: [{n:'Lipstick'}, {n:'Foundation'}, {n:'Eyeliner'}, {n:'Mascara'}, {n:'Compact'}] },
+            'jewellery': { t: 'Jewellery', mid: 'SHINE<br>BRIGHT', items: [{n:'Necklace'}, {n:'Minimal'}, {n:'Bridal'}, {n:'Rings'}] }
         };
 
         function renderSub(key) {
-            const data = subData[key];
+            const data = subData[key] || { t: 'Products', mid: 'SALE', items: [] };
             document.getElementById('home-page').style.display = 'none';
             document.getElementById('sub-page').style.display = 'block';
             document.getElementById('sub-title-text').innerText = data.t;
-            
             const grid = document.getElementById('grid-content');
             grid.innerHTML = '';
             
             data.items.forEach((item, index) => {
-                // Maroon box setup (Middle)
                 if(index === 4) {
-                    let parts = data.mid.split('<br>');
-                    let boldText = parts[1] ? parts[1].replace('<b>','').replace('</b>','') : '';
-                    grid.innerHTML += `<div class="grid-item maroon-box"><h3>${parts[0]}</h3><b>${boldText}</b></div>`;
+                    grid.innerHTML += `<div class="grid-item maroon-box"><h3>${data.mid}</h3></div>`;
                 }
                 grid.innerHTML += `
                     <div class="grid-item">
                         <img src="https://cdn-icons-png.flaticon.com/512/3163/3163195.png">
-                        <p>${item.n}</p>
-                        <span>UP TO 70% OFF</span>
+                        <p style="font-size: 9px; font-weight: bold;">${item.n}</p>
+                        <span style="font-size: 8px; color: #d0021b;">UP TO 70% OFF</span>
                     </div>`;
             });
             window.scrollTo(0,0);
