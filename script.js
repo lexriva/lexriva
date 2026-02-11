@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const videos = document.querySelectorAll('video');
+    const reels = document.querySelectorAll('video');
+    const options = { threshold: 0.8 }; // 80% dikhne par play hoga
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -8,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 entry.target.pause();
             }
         });
-    }, { threshold: 0.8 });
+    }, options);
 
-    videos.forEach(video => observer.observe(video));
+    reels.forEach(video => observer.observe(video));
 });
