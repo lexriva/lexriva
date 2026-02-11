@@ -7,35 +7,136 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --primary: #0a0a0b; --gold: #D4AF37; --gold-light: #f4e9cc; --text: #1a1a1a; --bg-soft: #fcfcfc;
+            /* Last image ke color palette ke hisaab se update kiya gaya hai */
+            --primary: #0a0a0b; 
+            --gold: #D4AF37; 
+            --gold-light: #f4e9cc; 
+            --text: #1a1a1a; 
+            --bg-cream: #f2eee4; /* Main background color (Last image wala) */
+            --panel-white: #ffffff; /* Card aur Header ke liye clean white */
         }
-        body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--bg-soft); color: var(--text); overflow-x: hidden; }
-        .page { display: none; max-width: 500px; margin: 0 auto; background: #fff; min-height: 100vh; padding-bottom: 80px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            background-color: var(--bg-cream); /* Poori body ka color beige/cream */
+            color: var(--text); 
+            overflow-x: hidden; 
+        }
+
+        .page { 
+            display: none; 
+            max-width: 500px; 
+            margin: 0 auto; 
+            background: var(--bg-cream); 
+            min-height: 100vh; 
+            padding-bottom: 80px; 
+        }
+
         .active-page { display: block; }
-        .header { background: #fff; padding: 20px 15px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+
+        .header { 
+            background: var(--bg-cream); 
+            padding: 20px 15px; 
+            text-align: center; 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+
         .logo { font-family: 'Cinzel', serif; font-size: 28px; color: var(--primary); letter-spacing: 6px; margin: 0; font-weight: 600; }
         .logo-subtitle { font-size: 8px; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); margin-top: 5px; font-weight: 700; }
-        .main-title { padding: 15px; font-size: 12px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid #eee; border-top: 1px solid #eee; background: #fff; margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; }
+
+        .main-title { 
+            padding: 15px; 
+            font-size: 12px; 
+            font-weight: 800; 
+            color: var(--primary); 
+            text-transform: uppercase; 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
+            border-top: 1px solid rgba(0,0,0,0.05); 
+            background: var(--bg-cream); 
+            margin: 20px 0 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+
         .banner-img { width: 100%; display: block; height: auto; }
+
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
-        .cat-card-square { border: 1px solid #f0f0f0; border-radius: 4px; overflow: hidden; cursor: pointer; aspect-ratio: 1 / 1; display: flex; flex-direction: column; background: #fff; position: relative; }
+        
+        .cat-card-square { 
+            border: 1px solid rgba(0,0,0,0.05); 
+            border-radius: 4px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            aspect-ratio: 1 / 1; 
+            display: flex; 
+            flex-direction: column; 
+            background: var(--panel-white); 
+            position: relative; 
+        }
+
         .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
         .cat-card-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.9); padding: 8px; text-align: center; font-weight: 700; font-size: 10px; color: var(--primary); text-transform: uppercase; }
+
         .reels-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
-        .reel-box { min-width: 140px; height: 240px; background: #000; border-radius: 8px; overflow: hidden; flex-shrink: 0; position: relative; border: 1px solid #eee; }
+        .reel-box { min-width: 140px; height: 240px; background: #000; border-radius: 8px; overflow: hidden; flex-shrink: 0; position: relative; border: 1px solid rgba(0,0,0,0.05); }
         .reel-box video { width: 100%; height: 100%; object-fit: cover; }
+
         .arrival-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
-        .arrival-card { min-width: 130px; text-align: center; flex-shrink: 0; background: #fff; padding-bottom: 10px; border-radius: 4px; border: 1px solid #f9f9f9; }
+        .arrival-card { min-width: 130px; text-align: center; flex-shrink: 0; background: var(--panel-white); padding-bottom: 10px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.05); }
         .arrival-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 4px; }
-        .sliding-banner-container { display: flex; overflow-x: auto; gap: 10px; padding: 10px; scrollbar-width: none; }
-        .slide-banner { min-width: 85%; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
-        .slide-banner img { width: 100%; height: 160px; object-fit: cover; display: block; }
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
-        .grid-item { border-right: 1px solid #f9f9f9; border-bottom: 1px solid #f9f9f9; padding: 15px 5px; text-align: center; min-height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            background-color: var(--panel-white); /* Inner grid items white rahenge */
+        }
+
+        .grid-item { 
+            border-right: 1px solid var(--bg-cream); 
+            border-bottom: 1px solid var(--bg-cream); 
+            padding: 15px 5px; 
+            text-align: center; 
+            min-height: 110px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            background: var(--panel-white);
+        }
+
         .grid-item img { width: 40px; height: 40px; object-fit: contain; margin-bottom: 8px; opacity: 0.8; }
-        .maroon-box { background: var(--primary); color: #fff; border: none; font-size: 12px; font-weight: bold; text-align: center; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-link { text-align: center; font-size: 9px; color: #999; cursor: pointer; text-decoration: none; text-transform: uppercase; font-weight: 700; }
+
+        /* Yeh wo black box hai jo aapne "ROYAL ETHNIC" ke liye image mein dikhaya hai */
+        .maroon-box { 
+            background: var(--primary) !important; 
+            color: #fff !important; 
+            border: none; 
+            font-size: 12px; 
+            font-weight: bold; 
+            text-align: center; 
+        }
+
+        .bottom-nav { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: var(--panel-white); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 15px 0; 
+            border-top: 1px solid rgba(0,0,0,0.05); 
+            z-index: 1000; 
+        }
+
+        .nav-link { text-align: center; font-size: 9px; color: #666; cursor: pointer; text-decoration: none; text-transform: uppercase; font-weight: 700; }
+        
+        .sub-nav { background: var(--bg-cream); border-bottom: 1px solid rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
@@ -84,20 +185,13 @@
             <div class="cat-card-square" onclick="renderSub('acc')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
             <div class="cat-card-square" onclick="renderSub('bags')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
         </div>
-
-        <div class="main-title">Curated For You</div>
-        <div class="sliding-banner-container">
-            <div class="slide-banner"><img src="slide1.jpg"></div>
-            <div class="slide-banner"><img src="slide2.jpg"></div>
-        </div>
     </div>
 
     <div id="sub-page" class="page">
         <div class="sub-nav" style="padding:15px; display:flex; align-items:center;">
             <button onclick="showHome()" style="border:none; background:none; font-size:22px; cursor:pointer;">←</button>
-            <span id="sub-title-text" style="margin-left:10px; font-weight:bold;">Category</span>
+            <span id="sub-title-text" style="margin-left:10px; font-weight:bold; text-transform: uppercase; font-size: 14px;">Category</span>
         </div>
-        <img src="sub_promo_banner.jpg" class="banner-img">
         <div id="grid-content" class="grid-container"></div>
     </div>
 
@@ -128,11 +222,13 @@
             document.getElementById('sub-title-text').innerText = data.t;
             const grid = document.getElementById('grid-content');
             grid.innerHTML = '';
+            
             data.items.forEach((item, index) => {
+                // Image ke mutabiq 5th position (index 4) par black box aayega
                 if(index === 4) {
                     grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
                 }
-                grid.innerHTML += `<div class="grid-item"><img src="icon_product.png"><p>${item.n}</p></div>`;
+                grid.innerHTML += `<div class="grid-item"><img src="icon_product.png"><p style="font-size:11px; margin:0;">${item.n}</p></div>`;
             });
             window.scrollTo(0,0);
         }
