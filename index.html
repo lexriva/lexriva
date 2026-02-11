@@ -7,55 +7,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            /* Premium Luxury Palette */
-            --primary: #2d2d2d; 
-            --burgundy: #4a0e1e; /* Highlight for center box */
+            /* Premium Luxury Palette (Replaced Pink with Champagne) */
+            --primary: #1a1a1a; 
+            --burgundy: #242424; /* Rich Charcoal for center box */
             --gold: #b5935a; 
-            --lavender-bg: #E6E6FA; /* Main Background */
-            --peach-accent: #FADADD; /* Header & Titles */
+            --bg-soft: #fcfbf7; /* Ivory Background */
+            --header-bg: #f4f1e8; /* Champagne Accent */
             --white: #ffffff;
-            --border: rgba(0,0,0,0.05);
+            --border: rgba(0,0,0,0.06);
         }
         
-        body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--lavender-bg); color: var(--primary); overflow-x: hidden; }
-        .page { display: none; max-width: 500px; margin: 0 auto; background: var(--lavender-bg); min-height: 100vh; padding-bottom: 80px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--bg-soft); color: var(--primary); overflow-x: hidden; }
+        .page { display: none; max-width: 500px; margin: 0 auto; background: var(--bg-soft); min-height: 100vh; padding-bottom: 80px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
         .active-page { display: block; }
 
-        /* Header & Titles with Peach Theme */
-        .header { background: var(--peach-accent); padding: 25px 15px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        /* Header & Titles - Clean Champagne Look */
+        .header { background: var(--header-bg); padding: 25px 15px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
         .logo { font-family: 'Cinzel', serif; font-size: 28px; color: var(--primary); letter-spacing: 6px; margin: 0; font-weight: 600; }
         .logo-subtitle { font-size: 8px; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); margin-top: 5px; font-weight: 700; }
         
-        .main-title { padding: 15px; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); background: var(--peach-accent); margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; }
+        .main-title { padding: 15px; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); background: var(--header-bg); margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1.5px; }
 
         .banner-img { width: 100%; display: block; height: auto; }
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
         
         .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; cursor: pointer; aspect-ratio: 1 / 1; display: flex; flex-direction: column; background: var(--white); position: relative; }
         .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
-        .cat-card-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.9); padding: 8px; text-align: center; font-weight: 700; font-size: 10px; color: var(--primary); text-transform: uppercase; }
+        .cat-card-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); padding: 8px; text-align: center; font-weight: 700; font-size: 10px; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Scrollers */
+        /* Reels & Arrivals Scrollers */
         .reels-scroll, .arrival-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
         .reel-box { min-width: 140px; height: 240px; background: #000; border-radius: 8px; overflow: hidden; flex-shrink: 0; position: relative; border: 1px solid var(--border); }
         .reel-box video { width: 100%; height: 100%; object-fit: cover; }
         
         .arrival-card { min-width: 130px; text-align: center; flex-shrink: 0; background: var(--white); padding-bottom: 10px; border-radius: 4px; border: 1px solid var(--border); }
         .arrival-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 4px; }
+        .arrival-card p { font-size: 10px; margin: 8px 0 2px; font-weight: 600; }
+        .arrival-card span { font-size: 10px; color: var(--gold); font-weight: 700; }
 
-        /* Sub-page Design */
-        .sub-nav { background: var(--peach-accent); padding: 15px; display: flex; align-items: center; border-bottom: 1px solid var(--border); }
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); background-color: var(--lavender-bg); }
-        .grid-item { background: var(--white); border-right: 1px solid var(--lavender-bg); border-bottom: 1px solid var(--lavender-bg); padding: 20px 5px; text-align: center; min-height: 115px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .grid-item img { width: 35px; opacity: 0.7; margin-bottom: 8px; }
-        .grid-item p { font-size: 10px; font-weight: 600; text-transform: uppercase; margin: 0; }
+        /* Sub-page Grid Layout */
+        .sub-nav { background: var(--header-bg); padding: 15px; display: flex; align-items: center; border-bottom: 1px solid var(--border); }
+        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); background-color: var(--bg-soft); }
+        .grid-item { background: var(--white); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 5px; text-align: center; min-height: 115px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .grid-item img { width: 35px; opacity: 0.6; margin-bottom: 8px; }
+        .grid-item p { font-size: 9px; font-weight: 700; text-transform: uppercase; margin: 0; letter-spacing: 0.5px; }
 
-        /* The Burgundy Center Box */
-        .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 11px; font-weight: bold; text-align: center; border: none; }
+        /* Center Box Highlight */
+        .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 10px; font-weight: bold; text-align: center; border: none; letter-spacing: 1.5px; }
 
         /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); z-index: 1000; }
-        .nav-link { text-align: center; font-size: 9px; color: #777; cursor: pointer; text-decoration: none; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; }
+        .nav-link { text-align: center; font-size: 8px; color: #777; cursor: pointer; text-decoration: none; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; }
     </style>
 </head>
 <body>
@@ -88,8 +90,8 @@
 
         <div class="main-title">New Arrivals</div>
         <div class="arrival-scroll">
-            <div class="arrival-card"><img src="arrival_1.jpg"><p style="font-size:10px; margin:5px 0;">Satin Gown</p><span style="font-weight:bold; font-size:10px;">₹4,999</span></div>
-            <div class="arrival-card"><img src="arrival_2.jpg"><p style="font-size:10px; margin:5px 0;">Gold Set</p><span style="font-weight:bold; font-size:10px;">₹12,999</span></div>
+            <div class="arrival-card"><img src="arrival_1.jpg"><p>Satin Gown</p><span>₹4,999</span></div>
+            <div class="arrival-card"><img src="arrival_2.jpg"><p>Gold Set</p><span>₹12,999</span></div>
         </div>
 
         <div class="main-title">Beauty & Jewellery</div>
@@ -108,7 +110,7 @@
     <div id="sub-page" class="page">
         <div class="sub-nav">
             <button onclick="showHome()" style="border:none; background:none; font-size:22px; cursor:pointer;">←</button>
-            <span id="sub-title-text" style="margin-left:15px; font-weight:700; text-transform: uppercase; font-size: 13px;">Category</span>
+            <span id="sub-title-text" style="margin-left:15px; font-weight:700; text-transform: uppercase; font-size: 13px; letter-spacing: 2px;">Category</span>
         </div>
         <div id="grid-content" class="grid-container"></div>
     </div>
@@ -144,7 +146,7 @@
                 if(index === 4) {
                     grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
                 }
-                grid.innerHTML += `<div class="grid-item"><img src="icon_product.png"><p>${item.n}</p></div>`;
+                grid.innerHTML += `<div class="grid-item"><img src="icon.png" style="width:30px; opacity:0.6;"><p>${item.n}</p></div>`;
             });
             window.scrollTo(0,0);
         }
