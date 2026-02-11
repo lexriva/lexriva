@@ -3,173 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva - Tata Cliq Style</title>
+    <title>Lexriva Premium Store</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: #f9f9f9; color: #333; overflow-x: hidden; }
+        :root { --primary: #4a0e2e; --bg: #fff; --text: #333; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--bg); color: var(--text); }
         
-        /* Header */
-        .header { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 22px; font-weight: bold; color: #4a0e2e; letter-spacing: 3px; }
-
-        /* Page Layout */
-        .page { width: 100%; max-width: 500px; margin: 0 auto; background: #fff; min-height: 100vh; display: none; padding-bottom: 80px; }
+        /* Layout Configuration */
+        .page { display: none; max-width: 500px; margin: 0 auto; background: #fff; min-height: 100vh; padding-bottom: 80px; }
         .active-page { display: block; }
-
-        /* Page 1: Home Styles */
-        .main-banner img { width: 100%; display: block; }
-        .title-header { background: #f4f4f4; padding: 12px 15px; font-size: 14px; font-weight: bold; color: #4a0e2e; text-transform: uppercase; border-left: 4px solid #4a0e2e; margin-top: 10px; }
         
-        .vertical-list { padding: 10px; display: flex; flex-direction: column; gap: 15px; }
-        .category-card { border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer; transition: 0.3s; }
-        .category-card:active { transform: scale(0.98); }
-        .category-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
-        .category-card .footer-text { padding: 12px; text-align: center; font-weight: 600; font-size: 15px; background: #fff; }
+        .header { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 20px; font-weight: bold; color: var(--primary); letter-spacing: 3px; }
 
-        /* Page 2: Sub-Category Grid Style (Pic 5 Jaisa) */
-        .sub-header { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; background: #fff; }
-        .back-btn { border: none; background: none; font-size: 20px; cursor: pointer; margin-right: 15px; }
+        /* --- HOME PAGE STYLES --- */
+        .home-banner img { width: 100%; display: block; height: auto; margin-bottom: 10px; }
+        .main-title { padding: 15px 15px 5px; font-size: 14px; font-weight: 800; color: #000; text-transform: uppercase; }
         
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
-        .grid-item { border-right: 1px solid #eee; border-bottom: 1px solid #eee; padding: 20px 5px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px; }
-        .grid-item img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 8px; }
-        .grid-item p { font-size: 10px; font-weight: bold; margin: 0; text-transform: uppercase; }
-        .grid-item span { font-size: 9px; color: #d0021b; font-weight: 600; margin-top: 2px; }
-        
-        /* Middle Highlight Box */
-        .highlight-box { background: #4a0e2e; color: #fff; border: none; }
-        .highlight-box h3 { font-size: 11px; margin: 0; line-height: 1.3; font-weight: normal; }
-        .highlight-box b { font-size: 14px; font-family: serif; display: block; }
+        .vertical-list { padding: 5px 10px; display: flex; flex-direction: column; gap: 10px; }
+        .cat-card { border: 1px solid #f0f0f0; border-radius: 8px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; }
+        .cat-card img { width: 100%; height: 140px; object-fit: cover; }
+        .cat-card-label { padding: 10px; text-align: center; font-weight: 600; font-size: 13px; background: #fff; }
 
-        /* Bottom Nav */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 1000; }
-        .nav-link { text-align: center; font-size: 10px; color: #777; cursor: pointer; text-decoration: none; }
-        .nav-link.active { color: #4a0e2e; font-weight: bold; }
+        /* REEL SECTION STYLING */
+        .reels-container { display: flex; flex-direction: column; gap: 15px; padding: 10px; }
+        .reel-box { width: 100%; height: 400px; background: #000; border-radius: 15px; overflow: hidden; position: relative; }
+        .reel-box video { width: 100%; height: 100%; object-fit: cover; }
+        .reel-tag { position: absolute; top: 15px; right: 15px; background: var(--primary); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: bold; }
+
+        /* NEW ARRIVAL STYLING */
+        .new-arrival-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 10px 15px 20px; scrollbar-width: none; }
+        .arrival-item { min-width: 140px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; padding-bottom: 10px; }
+        .arrival-item img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px 10px 0 0; }
+        .arrival-item p { font-size: 11px; font-weight: bold; margin: 8px 0 2px; }
+        .arrival-item span { font-size: 11px; color: var(--primary); font-weight: bold; }
+
+        /* --- SUB CATEGORY PAGE STYLES --- */
+        .sub-nav { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
+        .back-btn { border: none; background: none; font-size: 22px; cursor: pointer; margin-right: 10px; color: var(--primary); }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); background: #fff; border-top: 1px solid #eee; }
+        .grid-item { border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; padding: 15px 5px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100px; }
+        .grid-item img { width: 45px; height: 45px; object-fit: contain; margin-bottom: 5px; }
+        .grid-item p { font-size: 9px; font-weight: bold; margin: 0; text-transform: uppercase; line-height: 1.2; }
+        .grid-item span { font-size: 8px; color: #d0021b; font-weight: bold; }
+        
+        .maroon-box { background: var(--primary); color: #fff; border: none; }
+        .maroon-box h3 { font-size: 10px; margin: 0; font-weight: normal; line-height: 1.3; }
+
+        .scroll-section { padding: 15px 10px; border-top: 1px solid #eee; }
+        .scroll-container { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; scrollbar-width: none; }
+        .scroll-item { min-width: 80px; text-align: center; }
+        .scroll-img { width: 60px; height: 60px; border-radius: 50%; background: #fdf0f3; margin: 0 auto 5px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .scroll-img img { width: 100%; height: 100%; object-fit: cover; }
+        .scroll-item p { font-size: 9px; font-weight: bold; margin: 0; }
+
+        /* BOTTOM NAVIGATION */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); z-index: 100; }
+        .nav-link { text-align: center; font-size: 10px; color: #888; cursor: pointer; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="logo">LEXRIVA</div>
-    </div>
+    <div class="header"><div class="logo">LEXRIVA</div></div>
 
     <div id="home-page" class="page active-page">
-        <div class="main-banner">
-            <img src="https://via.placeholder.com/500x250?text=Hero+Banner+Image" alt="Lexriva">
+        <div class="home-banner">
+            <img src="https://via.placeholder.com/500x250?text=MAIN+HOME+BANNER" alt="Home Banner">
         </div>
 
-        <div class="title-header">Women's Clothing</div>
+        <div class="main-title">Women's Clothing</div>
         <div class="vertical-list">
-            <div class="category-card" onclick="openCategory('Women Western Wear', 'western')">
-                <img src="https://via.placeholder.com/500x200?text=Western+Wear">
-                <div class="footer-text">Women Western Wear</div>
+            <div class="cat-card" onclick="renderSub('WESTERN WEAR', 'western')">
+                <img src="https://via.placeholder.com/500x150?text=Western+Wear">
+                <div class="cat-card-label">Women Western Wear</div>
             </div>
-            <div class="category-card" onclick="openCategory('Women Ethnic Wear', 'ethnic')">
-                <img src="https://via.placeholder.com/500x200?text=Ethnic+Wear">
-                <div class="footer-text">Women Ethnic Wear</div>
-            </div>
-        </div>
-
-        <div class="title-header">Women's Footwear</div>
-        <div class="vertical-list">
-            <div class="category-card" onclick="openCategory('Women Footwear', 'footwear')">
-                <img src="https://via.placeholder.com/500x200?text=Footwear">
-                <div class="footer-text">Women Footwear</div>
+            <div class="cat-card" onclick="renderSub('ETHNIC WEAR', 'ethnic')">
+                <img src="https://via.placeholder.com/500x150?text=Ethnic+Wear">
+                <div class="cat-card-label">Women Ethnic Wear</div>
             </div>
         </div>
 
-        <div class="title-header">Beauty and Health</div>
+        <div class="main-title">Women's Footwear</div>
         <div class="vertical-list">
-            <div class="category-card" onclick="openCategory('Makeup', 'makeup')">
-                <img src="https://via.placeholder.com/500x200?text=Makeup">
-                <div class="footer-text">Makeup & Beauty</div>
+            <div class="cat-card" onclick="renderSub('WOMEN FOOTWEAR', 'footwear')">
+                <img src="https://via.placeholder.com/500x150?text=Footwear">
+                <div class="cat-card-label">Women Footwear</div>
+            </div>
+        </div>
+
+        <div class="main-title">New Products</div>
+        <div class="reels-container">
+            <div class="reel-box">
+                <video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted loop playsinline></video>
+                <div class="reel-tag">New</div>
+            </div>
+        </div>
+
+        <div class="main-title">New Arrivals</div>
+        <div class="new-arrival-scroll">
+            <div class="arrival-item">
+                <img src="https://via.placeholder.com/140x180?text=Dress">
+                <p>Floral Dress</p>
+                <span>₹1,499</span>
+            </div>
+            <div class="arrival-item">
+                <img src="https://via.placeholder.com/140x180?text=Top">
+                <p>Cotton Top</p>
+                <span>₹799</span>
+            </div>
+            <div class="arrival-item">
+                <img src="https://via.placeholder.com/140x180?text=Saree">
+                <p>Silk Saree</p>
+                <span>₹2,999</span>
+            </div>
+        </div>
+
+        <div class="main-title">Beauty & Health</div>
+        <div class="vertical-list">
+            <div class="cat-card" onclick="renderSub('MAKEUP', 'makeup')">
+                <img src="https://via.placeholder.com/500x150?text=Makeup">
+                <div class="cat-card-label">Makeup & Beauty</div>
             </div>
         </div>
     </div>
 
     <div id="sub-page" class="page">
-        <div class="sub-header">
-            <button class="back-btn" onclick="goHome()">←</button>
-            <span id="sub-page-title" style="font-weight: bold; text-transform: uppercase;">Category</span>
+        <div class="sub-nav">
+            <button class="back-btn" onclick="showHome()">←</button>
+            <span id="sub-title-text" style="font-weight: bold; text-transform: uppercase; font-size: 14px;">Title</span>
         </div>
         
-        <div class="main-banner" style="padding: 10px;">
-            <img src="https://via.placeholder.com/500x150/4a0e2e/ffffff?text=CUPID+SALE+OFFER" style="border-radius: 8px;">
-        </div>
-
-        <div class="title-header" id="grid-title">Sub Categories</div>
-        
-        <div class="grid-container" id="sub-grid-content">
+        <div class="grid-container" id="grid-content">
             </div>
+
+        <div class="scroll-section">
+            <p style="font-size: 12px; font-weight: bold; margin-bottom: 10px;">EXPLORE MORE</p>
+            <div class="scroll-container">
+                <div class="scroll-item"><div class="scroll-img"><img src="https://via.placeholder.com/60"></div><p>Luxe</p></div>
+                <div class="scroll-item"><div class="scroll-img"><img src="https://via.placeholder.com/60"></div><p>Trends</p></div>
+                <div class="scroll-item"><div class="scroll-img"><img src="https://via.placeholder.com/60"></div><p>Offers</p></div>
+            </div>
+        </div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-link active" onclick="goHome()">🏠<br>Home</div>
-        <div class="nav-link" onclick="openCategory('All Categories', 'western')">📁<br>Category</div>
+        <div class="nav-link" onclick="showHome()">🏠<br>Home</div>
+        <div class="nav-link">📁<br>Category</div>
         <div class="nav-link">👤<br>Login</div>
     </div>
 
     <script>
-        // Data for sub-categories
-        const categoryData = {
+        const subData = {
             'western': [
-                {name: 'Dresses', offer: 'UP TO 50%'},
-                {name: 'Tops', offer: 'UP TO 30%'},
-                {name: 'Jeans', offer: 'UP TO 40%'},
-                {name: 'T-Shirts', offer: 'MIN 20%'},
-                {type: 'highlight', text: 'WESTERN <br><b>VIBES</b>'},
-                {name: 'Jumpsuit', offer: 'UP TO 50%'},
-                {name: 'Co-ords', offer: 'NEW ARRIVALS'},
-                {name: 'Sleep wear', offer: 'MIN 30%'},
-                {name: 'Skirts', offer: 'UP TO 40%'}
+                {n:'Dresses'}, {n:'Tops'}, {n:'Jeans'}, {n:'T-shirt'}, 
+                {type:'mid', t:'WESTERN<br>VIBES'}, {n:'Jumpsuit'}, {n:'Co-ords'}, {n:'Sleepwear'}
             ],
             'ethnic': [
-                {name: 'Saree', offer: 'UP TO 60%'},
-                {name: 'Kurtis', offer: 'MIN 30%'},
-                {name: 'Dress Material', offer: 'NEW'},
-                {name: 'Lehengas', offer: 'UP TO 50%'},
-                {type: 'highlight', text: 'ETHNIC <br><b>DREAMS</b>'},
-                {name: 'Gowns', offer: 'UP TO 70%'}
+                {n:'Saree'}, {n:'Kurtis'}, {n:'Dress Mat.'}, {n:'Lehengas'}, 
+                {type:'mid', t:'ETHNIC<br>WEAR'}, {n:'Gowns'}
+            ],
+            'footwear': [
+                {n:'Heels'}, {n:'Sandals'}, {n:'Boots'}, {n:'Sneakers'}, 
+                {type:'mid', t:'STEP IN<br>STYLE'}, {n:'Ballerinas'}
             ],
             'makeup': [
-                {name: 'Lipstick', offer: 'UP TO 50%'},
-                {name: 'Lip Gloss', offer: 'UP TO 30%'},
-                {name: 'Lip Liner', offer: 'UP TO 50%'},
-                {name: 'Foundation', offer: 'UP TO 30%'},
-                {type: 'highlight', text: 'YOUR <br><b>BEAUTY</b><br> SHELF'},
-                {name: 'Concealer', offer: 'UP TO 65%'},
-                {name: 'Eye Shadow', offer: 'UP TO 30%'},
-                {name: 'Eyeliner', offer: 'UP TO 75%'},
-                {name: 'Perfumes', offer: 'UP TO 40%'}
+                {n:'Lipstick'}, {n:'Lip Gloss'}, {n:'Lip Liner'}, {n:'Foundation'}, 
+                {type:'mid', t:'YOUR<br>BEAUTY<br>SHELF'}, {n:'Concealer'}, {n:'Eye Shadow'}, {n:'Eyeliner'}, {n:'Perfumes'}
             ]
         };
 
-        function openCategory(title, key) {
-            document.getElementById('home-page').classList.remove('active-page');
-            document.getElementById('sub-page').classList.add('active-page');
-            document.getElementById('sub-page-title').innerText = title;
+        function renderSub(title, key) {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('sub-page').style.display = 'block';
+            document.getElementById('sub-title-text').innerText = title;
             
-            const grid = document.getElementById('sub-grid-content');
-            grid.innerHTML = ''; // Clear previous content
-
-            const items = categoryData[key] || [];
-            items.forEach(item => {
-                if(item.type === 'highlight') {
-                    grid.innerHTML += `<div class="grid-item highlight-box"><h3>${item.text}</h3></div>`;
+            const grid = document.getElementById('grid-content');
+            grid.innerHTML = '';
+            
+            subData[key].forEach((item) => {
+                if(item.type === 'mid') {
+                    grid.innerHTML += `<div class="grid-item maroon-box"><h3>${item.t}</h3></div>`;
                 } else {
                     grid.innerHTML += `
                         <div class="grid-item">
                             <img src="https://cdn-icons-png.flaticon.com/512/3163/3163195.png">
-                            <p>${item.name}</p>
-                            <span>${item.offer} OFF</span>
+                            <p>${item.n}</p>
+                            <span>UP TO 70% OFF</span>
                         </div>`;
                 }
             });
             window.scrollTo(0,0);
         }
 
-        function goHome() {
-            document.getElementById('sub-page').classList.remove('active-page');
-            document.getElementById('home-page').classList.add('active-page');
+        function showHome() {
+            document.getElementById('sub-page').style.display = 'none';
+            document.getElementById('home-page').style.display = 'block';
             window.scrollTo(0,0);
         }
     </script>
