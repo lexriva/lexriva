@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lexriva | Luxury Flagship</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <div class="delivery-bar">FREE Delivery above ₹1999 | Standard: ₹49</div>
-
+    <div class="delivery-bar">FREE Delivery on orders above ₹1999 | Standard: ₹49</div>
     <header>
         <div class="header-top">
             <div class="logo">LEXRIVA</div>
@@ -20,16 +17,22 @@
             </div>
         </div>
         <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search Lexriva Collections...">
+            <input type="text" class="search-bar" placeholder="Search collections...">
             <span class="pic-search-icon">📷</span>
         </div>
     </header>
 
     <div class="hero">
-        <img src="24623.JPG" alt="Lexriva Campaign">
+        <img src="24623.JPG" alt="Lexriva">
         <div class="hero-content">
             <button class="hero-btn" onclick="location.href='#categories'">SHOP NOW</button>
         </div>
+    </div>
+
+    <div class="section-title">New Arrivals: Women's Clothing</div>
+    <div class="category-grid">
+        <a href="western.html" class="cat-card"><img src="western-dresses.JPG"><div class="cat-label">WESTERN</div></a>
+        <a href="ethnic.html" class="cat-card"><img src="ethnic-saree.JPG"><div class="cat-label">ETHNIC</div></a>
     </div>
 
     <div class="section-title">Product Reels</div>
@@ -38,26 +41,12 @@
         <div class="reel-card"><video autoplay muted loop playsinline><source src="vid2.mp4" type="video/mp4"></video></div>
     </div>
 
-    <div id="new-arrivals" class="section-title">New Arrivals: Women's Clothing</div>
-    <div class="category-grid">
-        <a href="western.html" class="cat-card"><img src="western-dresses.JPG"><div class="cat-label">WESTERN WEAR</div></a>
-        <a href="ethnic.html" class="cat-card"><img src="ethnic-saree.JPG"><div class="cat-label">ETHNIC WEAR</div></a>
-    </div>
-
     <div id="categories" class="section-title">Shop by Category</div>
     <div class="category-grid">
-        <a href="jewellery.html" class="cat-card"><img src="jewellery-main.JPG"><div class="cat-label">JEWELLERY</div></a>
-        <a href="handbags.html" class="cat-card"><img src="bag-main-banner.JPG"><div class="cat-label">LUXURY BAGS</div></a>
-        <a href="beauty.html" class="cat-card"><img src="beauty-banner.JPG"><div class="cat-label">BEAUTY & HEALTH</div></a>
+        <a href="jewellery.html" class="cat-card"><img src="jewellery-main.jpg"><div class="cat-label">JEWELLERY</div></a>
+        <a href="handbags.html" class="cat-card"><img src="bag-main-banner.jpg"><div class="cat-label">BAGS</div></a>
+        <a href="beauty.html" class="cat-card"><img src="beauty-banner.jpg"><div class="cat-label">BEAUTY</div></a>
         <a href="accessories.html" class="cat-card"><img src="acc-main.JPG"><div class="cat-label">ACCESSORIES</div></a>
     </div>
-
-    <nav class="bottom-nav">
-        <a href="index.html">🏠 Home</a>
-        <a href="#new-arrivals">📁 Category</a>
-        <a href="signup.html">👤 Login</a>
-    </nav>
-
-    <script src="script.js"></script>
 </body>
 </html>
