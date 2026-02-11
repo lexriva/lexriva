@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lexriva - Luxury Premium Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* --- STYLE SECTION (CSS) --- */
         :root { 
-            --primary: #4a0e2e; /* Deep Maroon */
-            --gold: #D4AF37;    /* Luxury Gold */
-            --gold-bg: #fdfaf3;
+            --primary: #5a3e7a; /* Luxury Lavender Dark */
+            --accent: #E6E6FA;  /* Lavender Light */
+            --gold: #D4AF37;    
+            --gold-bg: #f9f5ff; /* Soft Lavender Tint */
             --text: #333; 
         }
         
@@ -17,38 +19,67 @@
         .page { display: none; max-width: 500px; margin: 0 auto; background: #fff; min-height: 100vh; padding-bottom: 80px; }
         .active-page { display: block; }
         
-        /* Header */
-        .header { background: #fff; padding: 15px; text-align: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 20px; font-weight: bold; color: var(--primary); letter-spacing: 4px; }
+        /* Header & Stylish Logo */
+        .header { background: #fff; padding: 15px; text-align: center; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; }
+        .logo { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 26px; 
+            font-style: italic;
+            font-weight: bold; 
+            color: var(--primary); 
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
 
         /* Section Titles */
         .main-title { 
             padding: 12px 15px; font-size: 13px; font-weight: 800; color: var(--primary); 
-            text-transform: uppercase; border-left: 5px solid var(--gold); background: var(--gold-bg); margin: 15px 0 10px; 
+            text-transform: uppercase; border-left: 5px solid var(--primary); background: var(--gold-bg); margin: 15px 0 10px; 
         }
 
         /* Banners */
-        .banner-img { width: 100%; display: block; height: auto; border-bottom: 2px solid var(--gold); }
+        .banner-img { width: 100%; display: block; height: auto; border-bottom: 2px solid var(--primary); }
 
-        /* 2-Column Square Grid (Home Page) */
+        /* 2-Column Square Grid */
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 10px; }
-        .cat-card-square { border: 1px solid var(--gold); border-radius: 8px; overflow: hidden; cursor: pointer; aspect-ratio: 1 / 1; display: flex; flex-direction: column; background: #fff; }
+        .cat-card-square { border: 1px solid var(--accent); border-radius: 8px; overflow: hidden; cursor: pointer; aspect-ratio: 1 / 1; display: flex; flex-direction: column; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .cat-card-square img { width: 100%; height: 75%; object-fit: cover; }
         .cat-card-label { height: 25%; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 700; font-size: 10px; color: var(--primary); }
 
-        /* Horizontal Reels (Chota Size) */
+        /* Horizontal Reels */
         .reels-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
         .reels-scroll::-webkit-scrollbar { display: none; }
         .reel-box { min-width: 150px; height: 260px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; position: relative; }
         .reel-box video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* New Arrivals (Horizontal Scroll) */
+        /* New Arrivals */
         .arrival-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 10px 15px; scrollbar-width: none; }
         .arrival-scroll::-webkit-scrollbar { display: none; }
         .arrival-card { min-width: 130px; text-align: center; flex-shrink: 0; }
-        .arrival-card img { width: 100%; height: 170px; object-fit: cover; border-radius: 10px; border: 1px solid #f0f0f0; }
+        .arrival-card img { width: 100%; height: 170px; object-fit: cover; border-radius: 10px; border: 1px solid #eee; }
         .arrival-card p { font-size: 10px; font-weight: bold; margin: 6px 0 2px; }
         .arrival-card span { font-size: 10px; color: var(--primary); font-weight: bold; }
+
+        /* --- BOTTOM SLIDING BANNER SECTION --- */
+        .sliding-banner-container { 
+            display: flex; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            gap: 10px; 
+            padding: 10px; 
+            scrollbar-width: none;
+            margin-bottom: 20px;
+        }
+        .sliding-banner-container::-webkit-scrollbar { display: none; }
+        .slide-banner { 
+            min-width: 90%; 
+            scroll-snap-align: center; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .slide-banner img { width: 100%; height: 180px; object-fit: cover; display: block; }
 
         /* Sub-Category Grid (3x3) */
         .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #eee; }
@@ -56,18 +87,19 @@
         .grid-item img { width: 42px; height: 42px; object-fit: contain; margin-bottom: 6px; }
         .grid-item p { font-size: 9px; font-weight: bold; margin: 0; text-transform: uppercase; }
         
-        /* Central Maroon Box for Sub-page */
-        .maroon-box { background: var(--primary); color: var(--gold); border: none; }
-        .maroon-box b { font-size: 13px; display: block; color: var(--gold); }
+        .maroon-box { background: var(--primary); color: #fff; border: none; }
+        .maroon-box b { font-size: 13px; display: block; color: var(--accent); }
 
-        /* Bottom Nav */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-link { text-align: center; font-size: 10px; color: #888; cursor: pointer; text-decoration: none; }
+        /* Updated Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .nav-link { text-align: center; font-size: 10px; color: #888; cursor: pointer; text-decoration: none; transition: 0.3s; }
+        .nav-link:active { color: var(--primary); transform: translateY(-2px); }
+        .nav-link i { font-size: 18px; display: block; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
-    <div class="header"><div class="logo">LEXRIVA</div></div>
+    <div class="header"><div class="logo">Lexriva</div></div>
 
     <div id="home-page" class="page active-page">
         <img src="https://lexriva.github.io/lexriva/24795.jpg" class="banner-img" alt="Main Banner">
@@ -109,10 +141,18 @@
             <div class="cat-card-square" onclick="renderSub('acc')"><img src="acc.jpg"><div class="cat-card-label">Accessories</div></div>
             <div class="cat-card-square" onclick="renderSub('bags')"><img src="bags.jpg"><div class="cat-card-label">Women Bags</div></div>
         </div>
+
+        <div class="main-title">Special Collections</div>
+        <div class="sliding-banner-container">
+            <div class="slide-banner" onclick="renderSub('western')"><img src="banner_slide1.jpg" alt="Slide 1"></div>
+            <div class="slide-banner" onclick="renderSub('jewellery')"><img src="banner_slide2.jpg" alt="Slide 2"></div>
+            <div class="slide-banner" onclick="renderSub('makeup')"><img src="banner_slide3.jpg" alt="Slide 3"></div>
+            <div class="slide-banner" onclick="renderSub('bags')"><img src="banner_slide4.jpg" alt="Slide 4"></div>
+        </div>
     </div>
 
     <div id="sub-page" class="page">
-        <div class="sub-nav" style="padding: 15px; display: flex; align-items: center; border-bottom: 1px solid #eee;">
+        <div class="sub-nav">
             <button onclick="showHome()" style="border:none; background:none; font-size:22px; cursor:pointer; color:var(--primary);">←</button>
             <span id="sub-title-text" style="font-weight:bold; text-transform:uppercase; margin-left:10px;">Category</span>
         </div>
@@ -122,7 +162,9 @@
 
     <div class="bottom-nav">
         <div class="nav-link" onclick="showHome()">🏠<br>Home</div>
+        <div class="nav-link">🔍<br>Search</div>
         <div class="nav-link">📁<br>Category</div>
+        <div class="nav-link">❤️<br>Wishlist</div>
         <div class="nav-link">👤<br>Login</div>
     </div>
 
@@ -154,11 +196,10 @@
             grid.innerHTML = '';
             
             data.items.forEach((item, index) => {
-                // Placing Maroon Center Box at Index 4 (5th Position)
                 if(index === 4) {
                     grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
                 }
-                grid.innerHTML += `<div class="grid-item"><img src="icon.png" style="width:40px;"><p>${item.n}</p></div>`;
+                grid.innerHTML += `<div class="grid-item"><img src="https://cdn-icons-png.flaticon.com/512/3163/3163195.png" style="width:40px;"><p>${item.n}</p></div>`;
             });
             window.scrollTo(0,0);
         }
