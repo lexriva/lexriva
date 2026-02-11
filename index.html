@@ -17,17 +17,28 @@
         .page { display: none; max-width: 500px; margin: 0 auto; background: var(--bg-soft); min-height: 100vh; padding-bottom: 100px; }
         .active-page { display: block; }
         .main-title { padding: 15px; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); background: var(--header-bg); margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1.5px; }
+        
+        /* Horizontal Scroll for Banners and Reels */
+        .reels-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
+        .reels-wrapper::-webkit-scrollbar { display: none; }
+        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); }
+        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Sub-page Hero Slider Styling */
+        .sub-hero-slider { display: flex; overflow-x: auto; gap: 10px; padding: 10px 15px; scrollbar-width: none; scroll-snap-type: x mandatory; }
+        .sub-hero-card { min-width: 100%; height: 200px; border-radius: 8px; overflow: hidden; flex-shrink: 0; scroll-snap-align: start; position: relative; }
+        .sub-hero-card img { width: 100%; height: 100%; object-fit: cover; }
+
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
         .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; cursor: pointer; background: var(--white); position: relative; aspect-ratio: 1/1; }
         .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
         .cat-card-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 8px 0; text-align: center; font-weight: 700; font-size: 10px; text-transform: uppercase; }
+        
         .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); }
         .grid-item { background: var(--white); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 5px; text-align: center; min-height: 115px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
         .grid-item p { font-size: 9px; font-weight: 700; text-transform: uppercase; margin-top: 8px; }
         .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 10px; font-weight: bold; text-align: center; border: none; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; }
-        .reels-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
-        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); }
-        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
+        
         .shipping-note { background: #fff3f3; color: #d32f2f; padding: 10px; font-size: 10px; text-align: center; font-weight: 600; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { text-align: center; font-size: 8px; color: #777; cursor: pointer; text-transform: uppercase; font-weight: 700; }
@@ -62,7 +73,7 @@
         <div class="main-title">Women's Footwear</div>
         <div class="category-grid">
             <div class="cat-card-square" onclick="renderSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-card-label">Premium Shoes</div></div>
-            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="cat-card-label">Personal Care</div></div>
+            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="cat-card-label">Beauty Care</div></div>
         </div>
 
         <div class="main-title">Trending Reels</div>
@@ -96,7 +107,13 @@
             <span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span>
             <span id="sub-title-text">CATEGORIES</span>
         </div>
-        <img src="sub_promo_banner.jpg" style="width: 100%;">
+        
+        <div class="sub-hero-slider">
+            <div class="sub-hero-card"><img src="sub_banner1.jpg" alt="Hero 1"></div>
+            <div class="sub-hero-card"><img src="sub_banner2.jpg" alt="Hero 2"></div>
+            <div class="sub-hero-card"><img src="sub_banner3.jpg" alt="Hero 3"></div>
+        </div>
+
         <div id="grid-content" class="grid-container"></div>
     </div>
 
@@ -127,7 +144,6 @@
             'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels'},{n:'Sandals'},{n:'Boots'},{n:'Bellies & Ballerinas'},{n:'Sneakers'}] },
             'personal_care': { t:'Personal Care', mid:'SELF<br>CARE', items:[{n:'Body Lotion'},{n:'Face Wash'},{n:'Face Mask'}] },
             
-            // All Makeup items inside ONE category
             'makeup_master': { t:'Beauty & Makeup', mid:'GLAM<br>SHELF', items:[
                 {n:'Lipstick'},{n:'Lip Gloss'},{n:'Lip Liner'},
                 {n:'Foundation'},{n:'Compact & Concealer'},{n:'Highlighter & Primer'},
@@ -135,7 +151,6 @@
                 {n:'Nails Makeup'},{n:'Brushes & Accessories'},{n:'Perfumes'}
             ]},
 
-            // All Jewelry items inside ONE category
             'jewellery_master': { t:'Jewellery', mid:'FINE<br>GOLD', items:[
                 {n:'Minimal Jewellery'},
                 {n:'Bridal Necklace'},{n:'Haldi Hues'},{n:'Mehndi Vibes'},{n:'Rajputi Necklace'},{n:'American Diamond'},
