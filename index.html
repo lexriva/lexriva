@@ -3,36 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lexriva | Luxury Fashion</title>
+    <title>Lexriva | Premium Fashion</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="delivery-banner">FREE Delivery on orders above ₹1999</div>
+    <div class="delivery-bar">FREE Delivery on orders above ₹1999 | Standard: ₹49</div>
 
     <header>
         <div class="logo">LEXRIVA</div>
-        <div class="icons"><span>🛒</span> <span>👤</span></div>
+        <div class="icons">
+            <span onclick="location.href='cart.html'">🛒</span>
+            <span onclick="location.href='signup.html'">👤</span>
+        </div>
     </header>
 
-    <div class="hero-banner" style="width:100%; height:60vh; overflow:hidden;">
-        <img src="24623.JPG" style="width:100%; height:100%; object-fit:cover;">
+    <div class="hero">
+        <img src="24623.JPG" alt="Lexriva Banner">
+        <div class="hero-content">
+            <h1>LEXRIVA</h1>
+            <button class="hero-btn" onclick="location.href='#categories'">SHOP NOW</button>
+        </div>
     </div>
 
-    <div class="section-title">Shop by Category</div>
+    <div class="section-title">Product Reels</div>
+    <div class="reels-section">
+        <div class="reels-viewport">
+            <div class="reel-card"><video autoplay muted loop playsinline><source src="vid1.mp4" type="video/mp4"></video></div>
+            <div class="reel-card"><video autoplay muted loop playsinline><source src="vid2.mp4" type="video/mp4"></video></div>
+            <div class="reel-card"><video autoplay muted loop playsinline><source src="vid3.mp4" type="video/mp4"></video></div>
+        </div>
+    </div>
+
+    <div id="categories" class="section-title">Shop by Category</div>
     <div class="category-grid">
-        <a href="clothing.html" class="cat-card"><img src="clothing-banner.jpg" alt="Clothing"><div class="cat-label">Clothing</div></a>
-        <a href="jewellery.html" class="cat-card"><img src="jewellery-main.jpg" alt="Jewellery"><div class="cat-label">Jewellery</div></a>
-        <a href="handbags.html" class="cat-card"><img src="bag-main-banner.jpg" alt="Bags"><div class="cat-label">Bags</div></a>
-        <a href="beauty.html" class="cat-card"><img src="beauty-banner.jpg" alt="Beauty"><div class="cat-label">Beauty</div></a>
-        <a href="footwear.html" class="cat-card"><img src="footwear-banner.JPG" alt="Footwear"><div class="cat-label">Footwear</div></a>
-        <a href="accessories.html" class="cat-card"><img src="acc-main.JPG" alt="Accessories"><div class="cat-label">Accessories</div></a>
+        <a href="clothing.html" class="cat-card"><img src="clothing-banner.jpg"><div class="cat-label">Clothing</div></a>
+        <a href="jewellery.html" class="cat-card"><img src="jewellery-main.JPG"><div class="cat-label">Jewellery</div></a>
+        <a href="handbags.html" class="cat-card"><img src="bag-main-banner.JPG"><div class="cat-label">Bags</div></a>
+        <a href="beauty.html" class="cat-card"><img src="beauty-banner.JPG"><div class="cat-label">Beauty</div></a>
+        <a href="footwear.html" class="cat-card"><img src="footwear-banner.JPG"><div class="cat-label">Footwear</div></a>
+        <a href="accessories.html" class="cat-card"><img src="acc-main.JPG"><div class="cat-label">Accessories</div></a>
+    </div>
+
+    <div class="support-box">
+        <h3>Customer Support</h3>
+        <p>Email: support@lexriva.com</p>
+        <p style="font-weight:600; margin-top:10px;">COD (Cash on Delivery) Only</p>
     </div>
 
     <nav class="bottom-nav">
         <a href="index.html">🏠 Home</a>
+        <a href="#categories">📁 Category</a>
         <a href="signup.html">👤 Account</a>
     </nav>
 
+    <script src="script.js"></script>
 </body>
 </html>
