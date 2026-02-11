@@ -1,16 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const reels = document.querySelectorAll('video');
-    const options = { threshold: 0.8 }; // 80% dikhne par play hoga
+function openSubCategoryPage() {
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('sub-category-page').style.display = 'block';
+    window.scrollTo(0, 0);
+}
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.play();
-            } else {
-                entry.target.pause();
-            }
-        });
-    }, options);
-
-    reels.forEach(video => observer.observe(video));
-});
+function goBack() {
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('sub-category-page').style.display = 'none';
+}
