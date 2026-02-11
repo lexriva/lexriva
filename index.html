@@ -1,59 +1,67 @@
 <div id="home-page">
-    <div class="main-banner">
+    <div class="hero-section">
         <img src="banner.jpg" alt="Lexriva Banner">
-        <div class="banner-overlay">
+        <div class="hero-overlay">
             <h1>Lexriva</h1>
             </div>
     </div>
 
     <div class="section-container">
-        <h2 class="section-title">SHOP BY CATEGORY</h2>
-        <div class="category-scroll">
-            <div class="cat-card" onclick="showSubCategory()">
-                <div class="img-wrapper"><img src="beauty.jpg" alt="Beauty"></div>
-                <p class="name">BEAUTY</p>
-                <p class="offer">UP TO 70% OFF</p>
+        <h2 class="main-title">SHOP BY CATEGORY</h2>
+        <div class="vertical-category-list">
+            <div class="cat-row" onclick="openSubCategoryPage()">
+                <div class="cat-img-box">
+                    <img src="clothing.jpg" alt="Clothing">
+                </div>
+                <div class="cat-info">
+                    <h3>Clothing</h3>
+                </div>
             </div>
-            <div class="cat-card">
-                <div class="img-wrapper"><img src="jewelry.jpg" alt="Jewelry"></div>
-                <p class="name">JEWELLERY</p>
-                <p class="offer">UP TO 80% OFF</p>
-            </div>
-            </div>
-    </div>
 
-    <div class="section-container">
-        <h2 class="section-title">PRODUCT REELS</h2>
-        <div class="vertical-reels">
-            <div class="reel-item">
-                <video autoplay muted loop playsinline src="video1.mp4"></video>
-                <button class="shop-btn">SHOP NOW</button>
+            <div class="cat-row">
+                <div class="cat-img-box">
+                    <img src="jewelry.jpg" alt="Jewellery">
+                </div>
+                <div class="cat-info">
+                    <h3>Jewellery</h3>
+                </div>
             </div>
-            <div class="reel-item">
-                <video autoplay muted loop playsinline src="video2.mp4"></video>
-                <button class="shop-btn">SHOP NOW</button>
+
+            <div class="cat-row">
+                <div class="cat-img-box">
+                    <img src="bags.jpg" alt="Bags">
+                </div>
+                <div class="cat-info">
+                    <h3>Bags</h3>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<hr>
+<div id="sub-category-page" style="display:none;">
+    <div class="top-nav">
+        <button onclick="goBack()">← Back</button>
+        <span>Beauty</span>
+    </div>
 
-<div id="sub-category-page">
-    <h2 class="section-title">PRODUCT BY SUB-CATEGORY</h2>
-    <div class="sub-cat-grid">
-        <div class="grid-item"><img src="1.jpg"><p>LIPSTICKS</p><span>UP TO 50% OFF</span></div>
-        <div class="grid-item"><img src="2.jpg"><p>HAIR CARE</p><span>UP TO 30% OFF</span></div>
-        <div class="grid-item"><img src="3.jpg"><p>EYESHADOWS</p><span>UP TO 50% OFF</span></div>
+    <div class="sub-hero-slider">
+        <img src="beauty-sale-banner.jpg" alt="Cupid Sale">
+    </div>
+
+    <div class="beauty-shelf-grid">
+        <div class="grid-card"><img src="lip.png"><p>LIPSTICKS</p><span>UP TO 50% OFF</span></div>
+        <div class="grid-card"><img src="hair.png"><p>HAIR CARE</p><span>UP TO 30% OFF</span></div>
+        <div class="grid-card"><img src="eye.png"><p>EYESHADOWS</p><span>UP TO 50% OFF</span></div>
         
-        <div class="grid-item"><img src="4.jpg"><p>SERUMS</p><span>UP TO 30% OFF</span></div>
-        <div class="center-highlight">
-            <h3>YOUR <br> <i>BEAUTY</i> <br> SHELF</h3>
+        <div class="grid-card"><img src="serum.png"><p>SERUMS</p><span>UP TO 30% OFF</span></div>
+        <div class="middle-banner">
+            <p>YOUR <br> <i>BEAUTY</i> <br> SHELF</p>
         </div>
-        <div class="grid-item"><img src="5.jpg"><p>PERFUMES</p><span>UP TO 65% OFF</span></div>
+        <div class="grid-card"><img src="perfume.png"><p>PERFUMES</p><span>UP TO 65% OFF</span></div>
         
-        <div class="grid-item"><img src="6.jpg"><p>MOISTURISERS</p><span>UP TO 30% OFF</span></div>
-        <div class="grid-item"><img src="7.jpg"><p>SHOWER GELS</p><span>UP TO 75% OFF</span></div>
-        <div class="grid-item"><img src="8.jpg"><p>STYLING</p><span>UP TO 40% OFF</span></div>
+        <div class="grid-card"><img src="moist.png"><p>MOISTURISERS</p><span>UP TO 30% OFF</span></div>
+        <div class="grid-card"><img src="shower.png"><p>SHOWER GELS</p><span>UP TO 75% OFF</span></div>
+        <div class="grid-card"><img src="styling.png"><p>STYLING DEVICES</p><span>UP TO 40% OFF</span></div>
     </div>
 </div>
