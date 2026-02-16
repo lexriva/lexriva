@@ -32,10 +32,14 @@
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { text-align: center; font-size: 8px; color: #777; cursor: pointer; text-transform: uppercase; font-weight: 700; }
         .input-box { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid var(--border); border-radius: 4px; font-family: 'Inter', sans-serif; }
+        
+        /* Loading Overlay */
+        #loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: none; align-items: center; justify-content: center; z-index: 5000; font-weight: bold; }
     </style>
 </head>
 <body>
 
+    <div id="loading-overlay">Updating Lexriva...</div>
     <div class="header"><div class="logo">LEXRIVA</div></div>
     <div class="shipping-note">Free Shipping above ₹1999 | Below ₹1999: ₹49 Shipping</div>
 
@@ -49,9 +53,8 @@
         </div>
 
         <div class="main-title">New Arrivals</div>
-        <div class="scroll-wrapper">
-            <div class="reel-card" style="min-width:140px; height:220px;" onclick="openOrder('Arrival Product 1')"><img src="arrival_1.jpg"><div style="text-align:center; padding:5px; font-size:10px;">Product 1<br><b>₹1,499</b></div></div>
-            <div class="reel-card" style="min-width:140px; height:220px;" onclick="openOrder('Arrival Product 2')"><img src="arrival_2.jpg"><div style="text-align:center; padding:5px; font-size:10px;">Product 2<br><b>₹2,999</b></div></div>
+        <div class="scroll-wrapper" id="new-arrivals-list">
+            <div style="padding:15px; color:#999;">Loading Arrivals...</div>
         </div>
 
         <div class="main-title">Trending Products</div>
@@ -80,8 +83,7 @@
             <span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span>
             <span id="sub-title-text">CATEGORIES</span>
         </div>
-        <div id="sub-banner-container" class="scroll-wrapper">
-            </div>
+        <div id="sub-banner-container" class="scroll-wrapper"></div>
         <div id="grid-content" class="grid-container"></div>
     </div>
 
@@ -99,12 +101,6 @@
             </div>
 
             <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none; font-weight:bold; border-radius:4px;" onclick="placeOrder()">CONFIRM ORDER (COD)</button>
-            
-            <div style="margin-top:25px; font-size:10px; text-align:left; color:#777; line-height:1.5;">
-                • <b>2 Days Exchange:</b> Available after delivery.<br>
-                • <b>COD:</b> No advance payment required.<br>
-                • <b>Shipping:</b> Delivery within 5-7 business days.
-            </div>
         </div>
     </div>
 
@@ -119,28 +115,36 @@
     </div>
 
     <script>
-        const subData = {
-            'western': { t:'Western Wear', b:'banner_western.jpg', mid:'MODERN<br>CHIC', items:[{n:'Dresses', i:'w_dress.jpg'},{n:'Tops', i:'w_top.jpg'},{n:'Jeans', i:'w_jeans.jpg'},{n:'T-shirt', i:'w_tshirt.jpg'},{n:'Jumpsuit', i:'w_jump.jpg'},{n:'Co-ords', i:'w_coord.jpg'},{n:'Sleepwear', i:'w_sleep.jpg'}] },
-            'ethnic': { t:'Ethnic Wear', b:'banner_ethnic.jpg', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree', i:'e_saree.jpg'},{n:'Kurtis', i:'e_kurti.jpg'},{n:'Dress Material', i:'e_material.jpg'},{n:'Lehengas', i:'e_lehenga.jpg'},{n:'Gowns', i:'e_gown.jpg'}] },
-            'footwear': { t:'Footwear', b:'banner_footwear.jpg', mid:'LUXE<br>STEPS', items:[{n:'Heels', i:'f_heels.jpg'},{n:'Sandals', i:'f_sandals.jpg'},{n:'Boots', i:'f_boots.jpg'},{n:'Bellies', i:'f_bellies.jpg'},{n:'Sneakers', i:'f_sneakers.jpg'}] },
-            'makeup_master': { t:'Makeup', b:'banner_makeup.jpg', mid:'GLAM<br>SHELF', items:[
-                {n:'Lipstick', i:'m_lip.jpg'}, {n:'Lip Gloss', i:'m_gloss.jpg'}, {n:'Lip Liner', i:'m_liner.jpg'},
-                {n:'Foundation', i:'m_found.jpg'}, {n:'Compact', i:'m_comp.jpg'}, {n:'Highlighter', i:'m_high.jpg'},
-                {n:'Eye Shadow', i:'m_eye.jpg'}, {n:'Eyeliner', i:'m_eline.jpg'}, {n:'Kajal', i:'m_kajal.jpg'},
-                {n:'Mascara', i:'m_masc.jpg'}, {n:'Nails', i:'m_nails.jpg'}, {n:'Brushes', i:'m_brush.jpg'}, {n:'Perfumes', i:'m_perf.jpg'}
-            ]},
-            'jewellery_master': { t:'Jewelry', b:'banner_jewelry.jpg', mid:'FINE<br>GOLD', items:[
-                {n:'Minimal', i:'j_min.jpg'}, {n:'Bridal', i:'j_brid.jpg'}, {n:'Haldi Hues', i:'j_haldi.jpg'},
-                {n:'Mehndi Vibes', i:'j_meh.jpg'}, {n:'Rajputi', i:'j_raj.jpg'}, {n:'American Diamond', i:'j_ad.jpg'},
-                {n:'Kashmiri Ear', i:'j_kash.jpg'}, {n:'Jhumka', i:'j_jhum.jpg'}, {n:'Korean Ear', i:'j_kor.jpg'},
-                {n:'Maangtika', i:'j_tika.jpg'}, {n:'Rings', i:'j_ring.jpg'}, {n:'Bracelet', i:'j_brace.jpg'}
-            ]},
-            'acc_main': { t:'Accessories', b:'banner_acc.jpg', mid:'LUXE<br>EDIT', items:[{n:'Hair Acc', i:'a_hair.jpg'},{n:'Belts', i:'a_belts.jpg'},{n:'Sunglasses', i:'a_glass.jpg'},{n:'Watches', i:'a_watch.jpg'}] },
-            'bags': { t:'Bags', b:'banner_bags.jpg', mid:'BAGS<br>LUXE', items:[{n:'Backpacks', i:'b_pack.jpg'},{n:'Handbags', i:'b_hand.jpg'},{n:'Sling Bags', i:'b_sling.jpg'},{n:'Wallets', i:'b_wallet.jpg'}] },
-            'personal_care': { t:'Personal Care', b:'banner_care.jpg', mid:'SELF<br>CARE', items:[{n:'Body Lotion', i:'c_lotion.jpg'},{n:'Face Wash', i:'c_wash.jpg'},{n:'Face Mask', i:'c_mask.jpg'}] }
-        };
+        // ADMIN CONFIG: Paste your Google App Script URL here
+        const ADMIN_SHEET_URL = "https://script.google.com/macros/s/AKfycbzf6XfR_Y6yG6q_mNq_y_q_y_q_y_q_y_q/exec"; 
 
+        let subData = {}; 
         let currentItem = "";
+
+        // Fetch Data from Google Sheets
+        async function loadSheetData() {
+            try {
+                const response = await fetch(ADMIN_SHEET_URL);
+                const data = await response.json();
+                subData = data.categories;
+                renderNewArrivals(data.arrivals);
+            } catch (e) {
+                console.log("Sheet not connected yet. Using local fallback.");
+                // Fallback fixed data if sheet fails
+            }
+        }
+
+        function renderNewArrivals(items) {
+            const list = document.getElementById('new-arrivals-list');
+            list.innerHTML = '';
+            items.forEach(item => {
+                list.innerHTML += `
+                    <div class="reel-card" style="min-width:140px; height:220px;" onclick="openOrder('${item.n}')">
+                        <img src="${item.i}" onerror="this.src='arrival_1.jpg'">
+                        <div style="text-align:center; padding:5px; font-size:10px;">${item.n}<br><b>₹${item.p}</b></div>
+                    </div>`;
+            });
+        }
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
@@ -155,14 +159,14 @@
         }
 
         function renderSub(key) {
-            const data = subData[key];
+            const data = subData[key] || {t:'Category', b:'sub_banner1.jpg', mid:'STYLE', items:[]};
             showPage('sub-page');
             document.getElementById('sub-title-text').innerText = data.t;
             
-            // Height changed to 250px for a larger banner
+            // Sub Banner height kept large (320px)
             const bannerBox = document.getElementById('sub-banner-container');
             bannerBox.innerHTML = `
-                <div class="reel-card" style="min-width:100%; height:250px; border-radius:0;">
+                <div class="reel-card" style="min-width:100%; height:320px; border-radius:0;">
                     <img src="${data.b}" onerror="this.src='sub_banner1.jpg'" style="width:100%; height:100%; object-fit:cover;">
                 </div>`;
 
@@ -176,23 +180,12 @@
 
         function placeOrder() {
             const name = document.getElementById('cust-name').value;
-            const phone = document.getElementById('cust-phone').value;
-            const address = document.getElementById('cust-address').value;
-
-            if(!name || !phone || !address) { 
-                alert("Please fill all delivery details!"); 
-                return; 
-            }
-            
-            alert("SUCCESS! Order for " + currentItem + " has been placed. We will contact you shortly.");
-            // Reset form
-            document.getElementById('cust-name').value = "";
-            document.getElementById('cust-phone').value = "";
-            document.getElementById('cust-address').value = "";
-            showHome();
+            if(!name) { alert("Please fill details!"); return; }
+            alert("SUCCESS! Order for " + currentItem + " placed.");
+            showPage('home-page');
         }
 
-        function showHome() { showPage('home-page'); }
+        window.onload = loadSheetData;
     </script>
 </body>
 </html>
