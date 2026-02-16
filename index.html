@@ -14,7 +14,7 @@
         .logo { font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 4px; font-weight: 600; }
         .main-title { padding: 12px 15px; font-size: 10px; font-weight: 800; text-transform: uppercase; background: #f4f1e8; border-bottom: 1px solid var(--border); letter-spacing: 1px; }
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
-        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); position: relative; }
+        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); position: relative; cursor: pointer; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
         .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; aspect-ratio: 1/1; cursor: pointer; background: #fff; }
@@ -44,13 +44,13 @@
 
         <div class="main-title">PRODUCT VIDEO</div>
         <div class="scroll-wrapper">
-            <div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card"><video src="reel5.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card"><video src="reel6.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card"><video src="reel7.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="renderSub('jewellery_master', 'jewel_banner.jpg')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="renderSub('makeup_master', 'makeup_banner.jpg')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="renderSub('western', 'western_banner.jpg')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="renderSub('footwear', 'foot_banner.jpg')"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="renderSub('acc_main', 'acc_banner.jpg')"><video src="reel5.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="renderSub('bags', 'bags_banner.jpg')"><video src="reel6.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="renderSub('jewellery_master', 'jewel_banner.jpg')"><video src="reel7.mp4" autoplay muted loop playsinline></video></div>
         </div>
 
         <div class="main-title">Beauty, Shoes & Accessories</div>
@@ -78,7 +78,7 @@
         <div class="main-title">Account / Login</div>
         <div style="padding:40px; text-align:center;">
             <input type="tel" id="user-mobile" class="input-box" placeholder="Mobile Number">
-            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none; margin-top:10px; border-radius:4px;" onclick="handleLogin()">SEND OTP & LOGIN</button>
+            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none; margin-top:10px; border-radius:4px;" onclick="handleLogin()">LOGIN</button>
         </div>
     </div>
 
@@ -88,8 +88,8 @@
             <img id="order-img" style="width:120px; height:150px; object-fit:cover; border-radius:8px;">
             <h3 id="order-name" style="margin:10px 0; font-size:14px;"></h3>
             <p id="order-price" style="font-weight:bold; color:var(--burgundy);"></p>
-            <input type="text" id="c-name" class="input-box" placeholder="Your Full Name">
-            <input type="tel" id="c-phone" class="input-box" placeholder="Phone Number">
+            <input type="text" id="c-name" class="input-box" placeholder="Your Name">
+            <input type="tel" id="c-phone" class="input-box" placeholder="Phone">
             <textarea id="c-addr" class="input-box" placeholder="Full Address" style="height:80px;"></textarea>
             <button style="background:var(--burgundy); color:white; width:95%; padding:15px; border:none; font-weight:bold; border-radius:4px;" onclick="placeOrder()">PLACE ORDER (COD)</button>
         </div>
@@ -104,7 +104,7 @@
     <script>
         const ADMIN_URL = "https://script.google.com/macros/s/AKfycbykDfpi6pvUTOy9Rw0nLTSOOTTU8ELpLrqOv92SzBDag6RYFzz6PwlLJMWjcAjqwStBow/exec";
         let storeData = { arrivals: [], categories: {} };
-        let wishlist = JSON.parse(localStorage.getItem('lex_wish_v5')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('lex_wish_v6')) || [];
 
         const subCategoryPics = {
             'Rings': 'j_ring.jpg', 'Jhumka': 'j_jhum.jpg', 'Bracelet': 'j_brace.jpg',
@@ -116,23 +116,18 @@
             catch (e) { console.log("Connecting Admin..."); }
         }
 
-        // Login with Data Save to Sheet
         async function handleLogin() {
             const num = document.getElementById('user-mobile').value;
             if(num.length < 10) { alert("Enter 10-digit number"); return; }
-            
             try {
-                await fetch(ADMIN_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({ type: 'LOGIN', details: 'User logged in', contact: num })
+                await fetch(ADMIN_URL, { method: 'POST', mode: 'no-cors',
+                    body: JSON.stringify({ type: 'LOGIN', details: 'User Login', contact: num })
                 });
-                alert("Login Successful! Details Saved.");
+                alert("Login Details Saved!");
                 showPage('home-page');
             } catch (e) { alert("Login Error"); }
         }
 
-        // Place Order with Data Save to Sheet
         async function placeOrder() {
             const name = document.getElementById('c-name').value;
             const phone = document.getElementById('c-phone').value;
@@ -140,21 +135,15 @@
             const pName = document.getElementById('order-name').innerText;
             const pPrice = document.getElementById('order-price').innerText;
 
-            if(!name || !phone || !addr) { alert("Please fill all details!"); return; }
+            if(!name || !phone || !addr) { alert("Fill all details!"); return; }
 
             try {
-                await fetch(ADMIN_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({
-                        type: 'ORDER',
-                        details: `Product: ${pName} | Price: ${pPrice} | Address: ${addr}`,
-                        contact: `${name} (${phone})`
-                    })
+                await fetch(ADMIN_URL, { method: 'POST', mode: 'no-cors',
+                    body: JSON.stringify({ type: 'ORDER', details: `Product: ${pName} | Price: ${pPrice} | Address: ${addr}`, contact: `${name} (${phone})` })
                 });
-                alert("SUCCESS! Order Placed. Hum aapse jald hi contact karenge.");
+                alert("SUCCESS! Order Placed.");
                 showPage('home-page');
-            } catch (error) { alert("Order save nahi ho paya."); }
+            } catch (error) { alert("Error saving order."); }
         }
 
         function renderSub(key, bannerFile) {
@@ -163,7 +152,7 @@
             document.getElementById('sub-title-text').innerText = data.t.toUpperCase();
             document.getElementById('sub-banner-container').innerHTML = `<img src="${data.b || bannerFile}" class="banner-320">`;
             const grid = document.getElementById('grid-content');
-            grid.innerHTML = data.items.length === 0 ? "<p style='grid-column:1/4; padding:50px; text-align:center;'>Empty! Add from Sheet.</p>" :
+            grid.innerHTML = data.items.length === 0 ? "<p style='grid-column:1/4; padding:50px; text-align:center;'>Check Category Name in Sheet!</p>" :
                 data.items.map(item => {
                     const imgSrc = item.i || subCategoryPics[item.n] || 'icon_product.png';
                     return `<div class="grid-item" onclick='viewProduct(${JSON.stringify(item)})'><img src="${imgSrc}"><p style="font-size:10px;">${item.n}</p></div>`;
@@ -174,7 +163,7 @@
             showPage('order-page');
             document.getElementById('order-img').src = item.i || subCategoryPics[item.n] || 'icon_product.png';
             document.getElementById('order-name').innerText = item.n;
-            document.getElementById('order-price').innerText = "₹" + (item.p || "Price on call");
+            document.getElementById('order-price').innerText = "₹" + (item.p || "Contact us");
         }
 
         function showPage(id) {
