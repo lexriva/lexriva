@@ -17,47 +17,30 @@
         .logo { font-family: 'Cinzel', serif; font-size: 24px; color: var(--primary); letter-spacing: 5px; margin: 0; font-weight: 600; }
         .shipping-note { background: #fff3f3; color: #d32f2f; padding: 10px; font-size: 10px; text-align: center; font-weight: 600; }
         .main-title { padding: 15px; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); background: var(--header-bg); margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1.5px; }
-        
-        /* Banners & Reels */
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
         .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); position: relative; }
-        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
-        .banner-img { width: 100%; height: auto; display: block; }
-
-        /* Product Cards */
-        .arrival-card { min-width: 150px; text-align: center; flex-shrink: 0; background: var(--white); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; padding-bottom: 10px; }
-        .arrival-card img { width: 100%; height: 180px; object-fit: cover; }
-        .arrival-card p { font-size: 10px; font-weight: bold; margin: 5px 0; }
-        .arrival-card span { color: var(--burgundy); font-weight: 800; font-size: 11px; }
-
-        /* Category Grids */
+        .reel-card video, .reel-card img { width: 100%; height: 100%; object-fit: cover; }
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
         .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; cursor: pointer; background: var(--white); position: relative; aspect-ratio: 1/1; }
         .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
         .cat-card-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 8px 0; text-align: center; font-weight: 700; font-size: 10px; text-transform: uppercase; }
-        
-        /* Sub-page Grid */
         .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); }
         .grid-item { background: var(--white); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 5px; text-align: center; min-height: 115px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
         .grid-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
         .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 10px; font-weight: bold; text-align: center; border: none; display: flex; align-items: center; justify-content: center; }
-
-        /* Nav & Forms */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { text-align: center; font-size: 8px; color: #777; cursor: pointer; text-transform: uppercase; font-weight: 700; }
-        .order-form { padding: 20px; text-align: center; }
         .input-box { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid var(--border); border-radius: 4px; }
-        .policy-box { background: #f4f1e8; padding: 15px; margin: 15px; font-size: 10px; border-radius: 5px; text-align: left; }
     </style>
 </head>
 <body>
 
     <div class="header"><div class="logo">LEXRIVA</div></div>
-    <div class="shipping-note">Free Shipping above ₹1999 | Below ₹1999: ₹49 Shipping Charges</div>
+    <div class="shipping-note">Free Shipping above ₹1999 | Below ₹1999: ₹49 Shipping</div>
 
     <div id="home-page" class="page active-page">
-        <img src="main_banner.jpg" class="banner-img">
+        <img src="main_banner.jpg" style="width: 100%;">
         
         <div class="main-title">Women's Clothing</div>
         <div class="category-grid">
@@ -67,23 +50,17 @@
 
         <div class="main-title">New Arrivals</div>
         <div class="scroll-wrapper">
-            <div class="arrival-card" onclick="showPage('order-page')"><img src="arrival_1.jpg"><p>Arrival 1</p><span>₹1,499</span></div>
-            <div class="arrival-card" onclick="showPage('order-page')"><img src="arrival_2.jpg"><p>Arrival 2</p><span>₹2,999</span></div>
-            <div class="arrival-card" onclick="showPage('order-page')"><img src="arrival_3.jpg"><p>Arrival 3</p><span>₹999</span></div>
-            <div class="arrival-card" onclick="showPage('order-page')"><img src="arrival_4.jpg"><p>Arrival 4</p><span>₹1,299</span></div>
-            <div class="arrival-card" onclick="showPage('order-page')"><img src="arrival_5.jpg"><p>Arrival 5</p><span>₹2,499</span></div>
-            <div class="arrival-card" onclick="showPage('order-page')"><img src="arrival_6.jpg"><p>Arrival 6</p><span>₹1,899</span></div>
+            <div class="reel-card" style="min-width:140px; height:220px;" onclick="showPage('order-page')"><img src="arrival_1.jpg"><div style="text-align:center; padding:5px; font-size:10px;">Product 1<br><b>₹1,499</b></div></div>
+            <div class="reel-card" style="min-width:140px; height:220px;" onclick="showPage('order-page')"><img src="arrival_2.jpg"><div style="text-align:center; padding:5px; font-size:10px;">Product 2<br><b>₹2,999</b></div></div>
         </div>
 
         <div class="main-title">Trending Products</div>
         <div class="scroll-wrapper">
             <div class="reel-card" onclick="renderSub('jewellery_master')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
             <div class="reel-card" onclick="renderSub('makeup_master')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card" onclick="renderSub('western')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card" onclick="renderSub('footwear')"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
         </div>
 
-        <div class="main-title">Footwear & Beauty Care</div>
+        <div class="main-title">Footwear & Care</div>
         <div class="category-grid">
             <div class="cat-card-square" onclick="renderSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-card-label">Premium Shoes</div></div>
             <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="cat-card-label">Beauty Care</div></div>
@@ -96,8 +73,6 @@
             <div class="cat-card-square" onclick="renderSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
             <div class="cat-card-square" onclick="renderSub('bags')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
         </div>
-
-        <img src="bottom_banner.jpg" class="banner-img" style="margin-top:20px;">
     </div>
 
     <div id="sub-page" class="page">
@@ -106,31 +81,25 @@
             <span id="sub-title-text">CATEGORIES</span>
         </div>
         <div class="scroll-wrapper">
-            <div class="reel-card" style="min-width:90%; height:180px;"><img src="sub_banner1.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
-            <div class="reel-card" style="min-width:90%; height:180px;"><img src="sub_banner2.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
+            <div class="reel-card" style="min-width:90%; height:180px;"><img src="sub_banner1.jpg"></div>
         </div>
         <div id="grid-content" class="grid-container"></div>
     </div>
 
     <div id="order-page" class="page">
         <div class="main-title"><span onclick="showPage('home-page')">← BACK</span> Checkout</div>
-        <div class="order-form">
-            <input type="text" class="input-box" placeholder="Full Name">
-            <input type="tel" class="input-box" placeholder="Mobile Number">
-            <textarea class="input-box" placeholder="Delivery Address" style="height:80px;"></textarea>
-            <p style="font-size:12px; font-weight:bold;">Payment: Cash on Delivery (COD)</p>
-            <button class="btn-burgundy" style="background:var(--burgundy); color:white; border:none; padding:15px; width:90%; border-radius:4px; font-weight:bold;" onclick="alert('Order Placed Successfully!')">PLACE ORDER</button>
-        </div>
-        <div class="policy-box">
-            <strong>LEXRIVA POLICY:</strong><br>
-            • 2 Days Exchange Available after delivery.<br>
-            • Cash on Delivery available on all orders.<br>
-            • Free Delivery on orders above ₹1999.
+        <div style="padding:20px; text-align:center;">
+            <input type="text" class="input-box" placeholder="Name">
+            <input type="tel" class="input-box" placeholder="Phone">
+            <textarea class="input-box" placeholder="Address"></textarea>
+            <p>Payment: Cash on Delivery (COD)</p>
+            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none;" onclick="alert('Order Confirmed!')">PLACE ORDER</button>
+            <div style="margin-top:20px; font-size:10px; text-align:left;">• 2 Days Exchange Available<br>• COD Available</div>
         </div>
     </div>
 
-    <div id="wishlist-page" class="page"><div class="main-title">Wishlist</div><div style="text-align:center; padding:100px; color:#999;">Empty</div></div>
-    <div id="login-page" class="page"><div class="main-title">Login</div><div style="padding:40px; text-align:center;"><input type="text" class="input-box" placeholder="Mobile Number"><br><button class="btn-burgundy" style="background:var(--burgundy); color:white; border:none; padding:10px 30px; margin-top:10px;">GET OTP</button></div></div>
+    <div id="wishlist-page" class="page"><div class="main-title">Wishlist</div><div style="text-align:center; padding:100px;">Empty</div></div>
+    <div id="login-page" class="page"><div class="main-title">Login</div><div style="padding:40px; text-align:center;"><input type="text" class="input-box" placeholder="Mobile"><br><button style="background:var(--burgundy); color:white; padding:10px 30px; border:none; margin-top:10px;">OTP</button></div></div>
 
     <div class="bottom-nav">
         <div class="nav-link" onclick="showPage('home-page')">Home</div>
@@ -144,8 +113,18 @@
             'western': { t:'Western Wear', mid:'MODERN<br>CHIC', items:[{n:'Dresses', i:'w_dress.jpg'},{n:'Tops', i:'w_top.jpg'},{n:'Jeans', i:'w_jeans.jpg'},{n:'T-shirt', i:'w_tshirt.jpg'},{n:'Jumpsuit', i:'w_jump.jpg'},{n:'Co-ords', i:'w_coord.jpg'},{n:'Sleepwear', i:'w_sleep.jpg'}] },
             'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree', i:'e_saree.jpg'},{n:'Kurtis', i:'e_kurti.jpg'},{n:'Dress Material', i:'e_material.jpg'},{n:'Lehengas', i:'e_lehenga.jpg'},{n:'Gowns', i:'e_gown.jpg'}] },
             'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels', i:'f_heels.jpg'},{n:'Sandals', i:'f_sandals.jpg'},{n:'Boots', i:'f_boots.jpg'},{n:'Bellies', i:'f_bellies.jpg'},{n:'Sneakers', i:'f_sneakers.jpg'}] },
-            'makeup_master': { t:'Makeup', mid:'GLAM<br>SHELF', items:[{n:'Lipstick', i:'m_lip.jpg'},{n:'Lip Gloss', i:'m_gloss.jpg'},{n:'Foundation', i:'m_found.jpg'},{n:'Compact', i:'m_comp.jpg'},{n:'Eye Shadow', i:'m_eye.jpg'},{n:'Mascara', i:'m_masc.jpg'},{n:'Nails', i:'m_nails.jpg'},{n:'Perfumes', i:'m_perf.jpg'}] },
-            'jewellery_master': { t:'Jewelry', mid:'FINE<br>GOLD', items:[{n:'Minimal', i:'j_min.jpg'},{n:'Bridal', i:'j_brid.jpg'},{n:'Earrings', i:'j_ear.jpg'},{n:'Jhumka', i:'j_jhum.jpg'},{n:'Rings', i:'j_ring.jpg'},{n:'Bracelet', i:'j_brace.jpg'},{n:'Maangtika', i:'j_tika.jpg'}] },
+            'makeup_master': { t:'Makeup', mid:'GLAM<br>SHELF', items:[
+                {n:'Lipstick', i:'m_lip.jpg'}, {n:'Lip Gloss', i:'m_gloss.jpg'}, {n:'Lip Liner', i:'m_liner.jpg'},
+                {n:'Foundation', i:'m_found.jpg'}, {n:'Compact', i:'m_comp.jpg'}, {n:'Highlighter', i:'m_high.jpg'},
+                {n:'Eye Shadow', i:'m_eye.jpg'}, {n:'Eyeliner', i:'m_eline.jpg'}, {n:'Kajal', i:'m_kajal.jpg'},
+                {n:'Mascara', i:'m_masc.jpg'}, {n:'Nails', i:'m_nails.jpg'}, {n:'Brushes', i:'m_brush.jpg'}, {n:'Perfumes', i:'m_perf.jpg'}
+            ]},
+            'jewellery_master': { t:'Jewelry', mid:'FINE<br>GOLD', items:[
+                {n:'Minimal', i:'j_min.jpg'}, {n:'Bridal', i:'j_brid.jpg'}, {n:'Haldi Hues', i:'j_haldi.jpg'},
+                {n:'Mehndi Vibes', i:'j_meh.jpg'}, {n:'Rajputi', i:'j_raj.jpg'}, {n:'American Diamond', i:'j_ad.jpg'},
+                {n:'Kashmiri Ear', i:'j_kash.jpg'}, {n:'Jhumka', i:'j_jhum.jpg'}, {n:'Korean Ear', i:'j_kor.jpg'},
+                {n:'Maangtika', i:'j_tika.jpg'}, {n:'Rings', i:'j_ring.jpg'}, {n:'Bracelet', i:'j_brace.jpg'}
+            ]},
             'acc_main': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Acc', i:'a_hair.jpg'},{n:'Belts', i:'a_belts.jpg'},{n:'Sunglasses', i:'a_glass.jpg'},{n:'Watches', i:'a_watch.jpg'}] },
             'bags': { t:'Bags', mid:'BAGS<br>LUXE', items:[{n:'Backpacks', i:'b_pack.jpg'},{n:'Handbags', i:'b_hand.jpg'},{n:'Sling Bags', i:'b_sling.jpg'},{n:'Wallets', i:'b_wallet.jpg'}] },
             'personal_care': { t:'Personal Care', mid:'SELF<br>CARE', items:[{n:'Body Lotion', i:'c_lotion.jpg'},{n:'Face Wash', i:'c_wash.jpg'},{n:'Face Mask', i:'c_mask.jpg'}] }
