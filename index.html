@@ -19,7 +19,7 @@
         .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); }
         .grid-item { background: var(--white); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 15px 5px; text-align: center; cursor: pointer; position: relative; }
         .grid-item img { width: 65px; height: 65px; object-fit: cover; border-radius: 4px; margin-bottom: 5px; }
-        .wish-btn { position: absolute; top: 5px; right: 5px; font-size: 16px; color: #ccc; }
+        .wish-btn { position: absolute; top: 5px; right: 5px; font-size: 16px; color: #ccc; z-index: 10; }
         .wish-active { color: #d32f2f !important; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { font-size: 9px; color: #777; text-transform: uppercase; font-weight: 700; cursor: pointer; }
@@ -34,7 +34,7 @@
     <div id="home-page" class="page active-page">
         <img src="main_banner.jpg" style="width: 100%;">
         
-        <div class="main-title">Shop By Category</div>
+        <div class="main-title">Shop Categories</div>
         <div class="scroll-wrapper">
             <div class="reel-card" onclick="renderSub('western')"><img src="cat_western.jpg"></div>
             <div class="reel-card" onclick="renderSub('ethnic')"><img src="cat_ethnic.jpg"></div>
@@ -44,13 +44,6 @@
 
         <div class="main-title">New Arrivals</div>
         <div id="arrivals-list" class="scroll-wrapper"></div>
-
-        <div class="main-title">More To Explore</div>
-        <div class="grid-container">
-            <div class="grid-item" onclick="renderSub('footwear')"><img src="cat_footwear.jpg"><p>Shoes</p></div>
-            <div class="grid-item" onclick="renderSub('bags')"><img src="cat_bags.jpg"><p>Bags</p></div>
-            <div class="grid-item" onclick="renderSub('acc_main')"><img src="cat_acc.jpg"><p>Accs</p></div>
-        </div>
     </div>
 
     <div id="sub-page" class="page">
@@ -59,36 +52,37 @@
         <div id="grid-content" class="grid-container"></div>
     </div>
 
+    <div id="wishlist-page" class="page">
+        <div class="main-title">My Wishlist</div>
+        <div id="wishlist-content" class="grid-container"></div>
+    </div>
+
     <div id="order-page" class="page">
         <div class="main-title"><span onclick="showPage('home-page')">← CANCEL</span> Checkout (COD)</div>
         <div style="padding:20px; text-align:center;">
             <img id="order-img" style="width:120px; height:150px; object-fit:cover; border-radius:8px;">
-            <h3 id="order-name" style="margin:10px 0;"></h3>
+            <h3 id="order-name"></h3>
             <p id="order-price" style="font-weight:bold; color:var(--burgundy);"></p>
             
             <select id="size-sel" class="input-box"></select>
-            <input type="text" id="c-name" class="input-box" placeholder="Full Name">
+            <input type="text" id="c-name" class="input-box" placeholder="Your Full Name">
             <input type="tel" id="c-phone" class="input-box" placeholder="Phone Number">
-            <textarea id="c-addr" class="input-box" placeholder="Complete Address" style="height:80px;"></textarea>
+            <textarea id="c-addr" class="input-box" placeholder="Full Address" style="height:80px;"></textarea>
             
-            <div style="background:#fff3f3; padding:10px; font-size:12px; margin:10px 0;">Payment: <b>Cash on Delivery</b></div>
-            <button style="background:var(--burgundy); color:white; width:95%; padding:15px; border:none; font-weight:bold; border-radius:4px;" onclick="placeOrder()">CONFIRM ORDER</button>
+            <button style="background:var(--burgundy); color:white; width:95%; padding:15px; border:none; font-weight:bold; border-radius:4px; margin-top:10px;" onclick="placeOrder()">PLACE ORDER (COD)</button>
         </div>
     </div>
-
-    <div id="wishlist-page" class="page"><div class="main-title">Wishlist</div><div id="wish-items" class="grid-container"></div></div>
-    <div id="login-page" class="page"><div class="main-title">Login</div><div style="padding:50px; text-align:center;"><input type="tel" class="input-box" placeholder="Mobile"><button onclick="alert('OTP Sent!')" style="width:90%; padding:10px; margin-top:10px; border:none; background:var(--burgundy); color:white;">Login</button></div></div>
 
     <div class="bottom-nav">
         <div class="nav-link" onclick="showPage('home-page')">Home</div>
         <div class="nav-link" onclick="showPage('wishlist-page')">Wishlist</div>
-        <div class="nav-link" onclick="showPage('login-page')">Account</div>
+        <div class="nav-link" onclick="alert('Login Enabled!')">Login</div>
     </div>
 
     <script>
         const ADMIN_URL = "https://script.google.com/macros/s/AKfycbykDfpi6pvUTOy9Rw0nLTSOOTTU8ELpLrqOv92SzBDag6RYFzz6PwlLJMWjcAjqwStBow/exec";
         let storeData = { arrivals: [], categories: {} };
-        let wishlist = JSON.parse(localStorage.getItem('lex_wish')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('lex_wish_data')) || [];
 
         async function init() {
             try {
@@ -103,9 +97,7 @@
             list.innerHTML = storeData.arrivals.map(item => `
                 <div class="reel-card" onclick='viewProduct(${JSON.stringify(item)})'>
                     <img src="${item.i}">
-                    <div style="position:absolute; bottom:0; width:100%; background:rgba(0,0,0,0.5); color:white; font-size:10px; padding:5px; text-align:center;">
-                        ${item.n}<br><b>₹${item.p}</b>
-                    </div>
+                    <div style="position:absolute; bottom:0; padding:5px; background:rgba(0,0,0,0.5); color:white; width:100%; font-size:10px;">${item.n}</div>
                 </div>`).join('');
         }
 
@@ -113,37 +105,37 @@
             const data = storeData.categories[key] || { t: key, b: '', items: [] };
             showPage('sub-page');
             document.getElementById('sub-title-text').innerText = data.t;
-            // 320px Bada Banner Enable
+            // 320px Banner
             document.getElementById('sub-banner-container').innerHTML = `<img src="${data.b || 'sub_banner1.jpg'}" class="banner-320">`;
             
             const grid = document.getElementById('grid-content');
             grid.innerHTML = data.items.map(item => {
-                const active = wishlist.some(w => w.n === item.n) ? 'wish-active' : '';
+                const isSaved = wishlist.some(w => w.n === item.n);
                 return `<div class="grid-item">
-                    <span class="wish-btn ${active}" onclick="toggleWish('${item.n}','${item.i}')">❤</span>
+                    <span class="wish-btn ${isSaved ? 'wish-active' : ''}" onclick="toggleWish('${item.n}','${item.i}')">❤</span>
                     <img src="${item.i}" onclick='viewProduct(${JSON.stringify(item)})'><p style="font-size:10px;">${item.n}</p>
                 </div>`;
             }).join('');
+        }
+
+        function toggleWish(n, i) {
+            const idx = wishlist.findIndex(w => w.n === n);
+            if(idx > -1) wishlist.splice(idx,1); else wishlist.push({n,i});
+            localStorage.setItem('lex_wish_data', JSON.stringify(wishlist));
+            alert("Wishlist Updated!");
         }
 
         function viewProduct(item) {
             showPage('order-page');
             document.getElementById('order-img').src = item.i;
             document.getElementById('order-name').innerText = item.n;
-            document.getElementById('order-price').innerText = "COD Price: ₹" + item.p;
-            document.getElementById('size-sel').innerHTML = (item.s || "Free Size").split(',').map(s => `<option>${s.trim()}</option>`).join('');
-        }
-
-        function toggleWish(n, i) {
-            const idx = wishlist.findIndex(w => w.n === n);
-            if(idx > -1) wishlist.splice(idx,1); else wishlist.push({n,i});
-            localStorage.setItem('lex_wish', JSON.stringify(wishlist));
-            alert("Wishlist Updated!");
+            document.getElementById('order-price').innerText = "₹" + item.p;
+            document.getElementById('size-sel').innerHTML = (item.s || "S,M,L").split(',').map(s => `<option>${s.trim()}</option>`).join('');
         }
 
         function placeOrder() {
-            if(!document.getElementById('c-name').value) return alert("Fill Name!");
-            alert("ORDER PLACED SUCCESSFULLY (COD)!");
+            if(!document.getElementById('c-name').value) return alert("Fill Details!");
+            alert("ORDER PLACED (CASH ON DELIVERY)!");
             showPage('home-page');
         }
 
@@ -151,8 +143,7 @@
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
             document.getElementById(id).classList.add('active-page');
             if(id === 'wishlist-page') {
-                const container = document.getElementById('wish-items');
-                container.innerHTML = wishlist.map(w => `<div class="grid-item"><img src="${w.i}"><p>${w.n}</p></div>`).join('');
+                document.getElementById('wishlist-content').innerHTML = wishlist.map(w => `<div class="grid-item"><img src="${w.i}"><p>${w.n}</p></div>`).join('');
             }
         }
 
@@ -160,4 +151,3 @@
     </script>
 </body>
 </html>
-
