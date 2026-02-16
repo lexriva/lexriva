@@ -12,16 +12,15 @@
         .active-page { display: block; }
         .header { background: #f4f1e8; padding: 15px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 4px; font-weight: 600; }
-        .main-title { padding: 12px 15px; font-size: 10px; font-weight: 800; text-transform: uppercase; background: #f4f1e8; border-bottom: 1px solid var(--border); letter-spacing: 1px; display: flex; justify-content: space-between; }
+        .main-title { padding: 12px 15px; font-size: 10px; font-weight: 800; text-transform: uppercase; background: #f4f1e8; border-bottom: 1px solid var(--border); letter-spacing: 1px; }
         .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-        .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; aspect-ratio: 1/1; cursor: pointer; }
+        .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; aspect-ratio: 1/1; cursor: pointer; background: #fff; }
         .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
         .cat-card-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 8px 0; text-align: center; font-weight: 700; font-size: 10px; text-transform: uppercase; }
         .banner-320 { width: 100%; height: 320px; object-fit: cover; }
         .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); background: #fff; }
         .grid-item { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 15px 5px; text-align: center; cursor: pointer; position: relative; }
         .grid-item img { width: 65px; height: 65px; object-fit: cover; border-radius: 4px; margin-bottom: 5px; }
-        .wish-active { color: #d32f2f !important; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { font-size: 9px; color: #777; text-transform: uppercase; font-weight: 700; cursor: pointer; }
         .input-box { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; }
@@ -33,28 +32,41 @@
 
     <div id="home-page" class="page active-page">
         <img src="main_banner.jpg" style="width: 100%;">
+        
         <div class="main-title">Women's Clothing</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('western', 'western_banner.jpg')"><img src="cat_western.jpg"><div class="cat-card-label">Western</div></div>
-            <div class="cat-card-square" onclick="renderSub('ethnic', 'ethnic_banner.jpg')"><img src="cat_ethnic.jpg"><div class="cat-card-label">Ethnic</div></div>
+            <div class="cat-card-square" onclick="renderSub('western', 'western_banner.jpg')"><img src="cat_western.jpg"><div class="cat-card-label">Western Wear</div></div>
+            <div class="cat-card-square" onclick="renderSub('ethnic', 'ethnic_banner.jpg')"><img src="cat_ethnic.jpg"><div class="cat-card-label">Ethnic Wear</div></div>
         </div>
-        <div class="main-title">Beauty & Accessories</div>
+
+        <div class="main-title">Beauty, Shoes & Accessories</div>
         <div class="category-grid">
             <div class="cat-card-square" onclick="renderSub('makeup_master', 'makeup_banner.jpg')"><img src="cat_makeup.jpg"><div class="cat-card-label">Makeup</div></div>
             <div class="cat-card-square" onclick="renderSub('jewellery_master', 'jewel_banner.jpg')"><img src="cat_jewel.jpg"><div class="cat-card-label">Jewelry</div></div>
+            <div class="cat-card-square" onclick="renderSub('footwear', 'foot_banner.jpg')"><img src="cat_footwear.jpg"><div class="cat-card-label">Premium Shoes</div></div>
+            <div class="cat-card-square" onclick="renderSub('acc_main', 'acc_banner.jpg')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
+            <div class="cat-card-square" onclick="renderSub('bags', 'bags_banner.jpg')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
+            <div class="cat-card-square" onclick="renderSub('personal_care', 'care_banner.jpg')"><img src="cat_care.jpg"><div class="cat-card-label">Beauty Care</div></div>
         </div>
     </div>
 
     <div id="sub-page" class="page">
         <div class="main-title" style="margin-top:0;">
-            <span onclick="showPage('home-page')">← BACK</span> <span id="sub-title-text">CATALOG</span>
+            <span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span> <span id="sub-title-text">CATALOG</span>
         </div>
         <div id="sub-banner-container"></div>
         <div id="grid-content" class="grid-container"></div>
     </div>
 
-    <div id="wishlist-page" class="page"><div class="main-title">Wishlist</div><div id="wish-grid" class="grid-container"></div></div>
-    <div id="login-page" class="page"><div class="main-title">Login</div><div style="padding:50px; text-align:center;"><input type="tel" class="input-box" placeholder="Mobile"><button onclick="alert('Login Enabled!')" style="width:90%; padding:15px; background:var(--burgundy); color:white; border:none; margin-top:10px;">Login</button></div></div>
+    <div id="wishlist-page" class="page"><div class="main-title">My Wishlist</div><div id="wish-grid" class="grid-container"></div></div>
+
+    <div id="login-page" class="page">
+        <div class="main-title">Login</div>
+        <div style="padding:40px; text-align:center;">
+            <input type="tel" id="user-mobile" class="input-box" placeholder="Mobile Number">
+            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none; margin-top:10px; border-radius:4px;" onclick="handleLogin()">LOGIN</button>
+        </div>
+    </div>
 
     <div class="bottom-nav">
         <div class="nav-link" onclick="showPage('home-page')">Home</div>
@@ -65,8 +77,9 @@
     <script>
         const ADMIN_URL = "https://script.google.com/macros/s/AKfycbykDfpi6pvUTOy9Rw0nLTSOOTTU8ELpLrqOv92SzBDag6RYFzz6PwlLJMWjcAjqwStBow/exec";
         let storeData = { arrivals: [], categories: {} };
-        let wishlist = JSON.parse(localStorage.getItem('lex_wish_final')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('lex_wish_v2')) || [];
 
+        // Sub-category pics fallback for rings, lipstick etc.
         const subCategoryPics = {
             'Rings': 'j_ring.jpg', 'Jhumka': 'j_jhum.jpg', 'Bracelet': 'j_brace.jpg', 'Minimal': 'j_min.jpg',
             'Lipstick': 'm_lip.jpg', 'Foundation': 'm_found.jpg', 'Nails': 'm_nails.jpg', 'Perfumes': 'm_perf.jpg',
@@ -77,32 +90,43 @@
             try {
                 const res = await fetch(ADMIN_URL);
                 storeData = await res.json();
-            } catch (e) { console.log("Connecting Admin..."); }
+            } catch (e) { console.log("Admin connection..."); }
         }
 
         function renderSub(key, bannerFile) {
             const data = storeData.categories[key] || { t: key, b: '', items: [] };
             showPage('sub-page');
             document.getElementById('sub-title-text').innerText = data.t.toUpperCase();
+            
+            // 320px Banner Fix
             document.getElementById('sub-banner-container').innerHTML = `<img src="${data.b || bannerFile}" class="banner-320">`;
             
             const grid = document.getElementById('grid-content');
-            grid.innerHTML = data.items.map(item => {
-                // Agar Sheet mein image khali hai, toh purana file name use karein
-                const imgSrc = item.i || subCategoryPics[item.n] || 'icon_product.png';
-                const isSaved = wishlist.some(w => w.n === item.n);
-                return `<div class="grid-item">
-                    <span style="position:absolute; top:5px; right:5px; color:${isSaved ? '#d32f2f' : '#ccc'}" onclick="toggleWish('${item.n}','${imgSrc}')">❤</span>
-                    <img src="${imgSrc}"><p style="font-size:10px;">${item.n}</p>
-                </div>`;
-            }).join('');
+            if(!data.items || data.items.length === 0) {
+                grid.innerHTML = "<p style='grid-column:1/4; padding:50px; text-align:center;'>Empty! Add from Google Sheet.</p>";
+            } else {
+                grid.innerHTML = data.items.map(item => {
+                    const imgSrc = item.i || subCategoryPics[item.n] || 'icon_product.png';
+                    const isWish = wishlist.some(w => w.n === item.n);
+                    return `<div class="grid-item">
+                        <span style="position:absolute; top:5px; right:5px; color:${isWish ? '#d32f2f' : '#ccc'}" onclick="toggleWish('${item.n}','${imgSrc}')">❤</span>
+                        <img src="${imgSrc}"><p style="font-size:10px;">${item.n}</p>
+                    </div>`;
+                }).join('');
+            }
         }
 
         function toggleWish(n, i) {
             const idx = wishlist.findIndex(w => w.n === n);
             if(idx > -1) wishlist.splice(idx,1); else wishlist.push({n,i});
-            localStorage.setItem('lex_wish_final', JSON.stringify(wishlist));
-            alert("Wishlist Updated!");
+            localStorage.setItem('lex_wish_v2', JSON.stringify(wishlist));
+            alert("Wishlist updated!");
+        }
+
+        function handleLogin() {
+            const num = document.getElementById('user-mobile').value;
+            if(num.length >= 10) { alert("Login Successful!"); showPage('home-page'); }
+            else { alert("Enter valid number"); }
         }
 
         function showPage(id) {
