@@ -12,29 +12,36 @@
         .active-page { display: block; }
         .header { background: #f4f1e8; padding: 15px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 4px; font-weight: 600; }
-        .main-title { padding: 12px 15px; font-size: 10px; font-weight: 800; text-transform: uppercase; background: #f4f1e8; border-bottom: 1px solid var(--border); letter-spacing: 1px; }
+        .section-header { padding: 0 15px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin: 15px 0 10px 15px; border-left: 3px solid var(--burgundy); }
 
-        /* REEL SECTION */
-        .scroll-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
-        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); cursor: pointer; }
+        /* HORIZONTAL SCROLL (BESTSELLERS) */
+        .horizontal-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 0 15px; scrollbar-width: none; }
+        .scroll-item { min-width: 140px; cursor: pointer; text-align: center; }
+        .scroll-item img { width: 140px; height: 180px; object-fit: cover; border-radius: 8px; }
+        .scroll-item p { font-size: 10px; margin: 5px 0; font-weight: 700; }
+
+        /* REEL SECTION (MIDDLE) */
+        .reel-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
+        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; cursor: pointer; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* HOME CATEGORIES (2-Column) */
+        /* HOME CATEGORIES */
         .home-cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-        .home-cat-card { position: relative; border-radius: 4px; overflow: hidden; cursor: pointer; aspect-ratio: 1/1; }
+        .home-cat-card { position: relative; border-radius: 6px; overflow: hidden; cursor: pointer; aspect-ratio: 1/1.2; }
         .home-cat-card img { width: 100%; height: 100%; object-fit: cover; }
-        .home-cat-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.8); padding: 8px 0; text-align: center; font-size: 9px; font-weight: bold; text-transform: uppercase; color:#000; }
+        .home-cat-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 10px 0; text-align: center; font-size: 9px; font-weight: 800; text-transform: uppercase; }
 
-        /* 2nd PAGE: PREMIUM 9-GRID */
+        /* 2nd PAGE 9-GRID */
         .sub-grid-9 { display: grid; grid-template-columns: repeat(3, 1fr); background: #fff; border-top: 1px solid var(--border); }
         .grid-item { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 15px 5px; text-align: center; cursor: pointer; aspect-ratio: 1/1.2; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
         .grid-item img { width: 68px; height: 68px; object-fit: cover; border-radius: 4px; margin-bottom: 8px; }
-        .grid-item p { font-size: 10px; margin: 0; font-weight: 500; text-transform: capitalize; }
+        .grid-item p { font-size: 10px; margin: 0; font-weight: 500; }
         .black-box { background: #000 !important; color: #fff !important; font-weight: 800; font-size: 10px; text-align: center; line-height: 1.3; }
 
         .banner-320 { width: 100%; height: 320px; object-fit: cover; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { font-size: 9px; color: #777; text-transform: uppercase; font-weight: 700; cursor: pointer; }
+        .input-box { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -44,20 +51,23 @@
     <div id="home-page" class="page active-page">
         <img src="main_banner.jpg" style="width: 100%;">
         
-        <div class="main-title">PRODUCT VIDEO</div>
-        <div class="scroll-wrapper">
+        <div class="section-header">Latest Bestsellers</div>
+        <div id="latest-scroll" class="horizontal-scroll"></div>
+
+        <div class="section-header">Product Video</div>
+        <div class="reel-wrapper">
             <div class="reel-card" onclick="renderSub('jewellery_master', 'jewel_banner.jpg')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
             <div class="reel-card" onclick="renderSub('makeup_master', 'makeup_banner.jpg')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
             <div class="reel-card" onclick="renderSub('western', 'western_banner.jpg')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
         </div>
 
-        <div class="main-title">Collections</div>
+        <div class="section-header">Our Collections</div>
         <div class="home-cat-grid">
             <div class="home-cat-card" onclick="renderSub('western', 'western_banner.jpg')"><img src="cat_western.jpg"><div class="home-cat-label">Western</div></div>
-            <div class="home-cat-card" onclick="renderSub('jewellery_master', 'jewel_banner.jpg')"><img src="cat_jewel.jpg"><div class="home-cat-label">Jewelry</div></div>
-            <div class="home-cat-card" onclick="renderSub('makeup_master', 'makeup_banner.jpg')"><img src="cat_makeup.jpg"><div class="home-cat-label">Makeup</div></div>
-            <div class="home-cat-card" onclick="renderSub('footwear', 'foot_banner.jpg')"><img src="cat_footwear.jpg"><div class="home-cat-label">Shoes</div></div>
             <div class="home-cat-card" onclick="renderSub('ethnic', 'ethnic_banner.jpg')"><img src="cat_ethnic.jpg"><div class="home-cat-label">Ethnic</div></div>
+            <div class="home-cat-card" onclick="renderSub('makeup_master', 'makeup_banner.jpg')"><img src="cat_makeup.jpg"><div class="home-cat-label">Makeup</div></div>
+            <div class="home-cat-card" onclick="renderSub('jewellery_master', 'jewel_banner.jpg')"><img src="cat_jewel.jpg"><div class="home-cat-label">Jewelry</div></div>
+            <div class="home-cat-card" onclick="renderSub('footwear', 'foot_banner.jpg')"><img src="cat_footwear.jpg"><div class="home-cat-label">Shoes</div></div>
             <div class="home-cat-card" onclick="renderSub('acc_main', 'acc_banner.jpg')"><img src="cat_acc.jpg"><div class="home-cat-label">Accessories</div></div>
             <div class="home-cat-card" onclick="renderSub('bags', 'bags_banner.jpg')"><img src="cat_bags.jpg"><div class="home-cat-label">Bags</div></div>
             <div class="home-cat-card" onclick="renderSub('personal_care', 'care_banner.jpg')"><img src="cat_care.jpg"><div class="home-cat-label">Beauty Care</div></div>
@@ -65,11 +75,24 @@
     </div>
 
     <div id="sub-page" class="page">
-        <div class="main-title" style="margin-top:0;">
-            <span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span> <span id="sub-title-text">CATALOG</span>
+        <div class="main-title" style="padding:15px; background:#f4f1e8; font-size:10px; font-weight:800;">
+            <span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span> <span id="sub-title-text" style="margin-left:10px;">CATALOG</span>
         </div>
         <div id="sub-banner-container"></div>
         <div id="grid-content" class="sub-grid-9"></div>
+    </div>
+
+    <div id="order-page" class="page">
+        <div class="main-title"><span onclick="showPage('home-page')">← BACK</span> Checkout</div>
+        <div style="padding:20px; text-align:center;">
+            <img id="order-img" style="width:150px; height:180px; object-fit:cover; border-radius:8px;">
+            <h3 id="order-name"></h3>
+            <p id="order-price" style="color:var(--burgundy); font-weight:bold;"></p>
+            <input type="text" id="c-name" class="input-box" placeholder="Your Name">
+            <input type="tel" id="c-phone" class="input-box" placeholder="Phone">
+            <textarea id="c-addr" class="input-box" placeholder="Full Delivery Address" style="height:80px;"></textarea>
+            <button style="background:var(--burgundy); color:white; width:95%; padding:15px; border:none; font-weight:bold; border-radius:4px;" onclick="placeOrder()">PLACE ORDER (COD)</button>
+        </div>
     </div>
 
     <div class="bottom-nav">
@@ -80,39 +103,74 @@
 
     <script>
         const ADMIN_URL = "https://script.google.com/macros/s/AKfycbyCglvfoQCRL5UZcRTnfERYHlvsK8ldVFy3CMQeIHwQ0Bvs5GIWpKcur3AZgEfxLiPe4w/exec";
-        let storeData = { categories: {} };
+        let storeData = { categories: {}, latest: [] };
 
         async function init() {
-            try { const res = await fetch(ADMIN_URL); storeData = await res.json(); } 
-            catch (e) { console.log("Connecting Admin..."); }
+            try { 
+                const res = await fetch(ADMIN_URL); 
+                storeData = await res.json();
+                renderLatestScroll(); 
+            } catch (e) { console.log("Admin connection..."); }
+        }
+
+        function renderLatestScroll() {
+            const scrollDiv = document.getElementById('latest-scroll');
+            if(storeData.latest && storeData.latest.length > 0) {
+                scrollDiv.innerHTML = storeData.latest.map(p => `
+                    <div class="scroll-item" onclick='viewProduct(${JSON.stringify(p)})'>
+                        <img src="${p.i || 'icon_product.png'}" onerror="this.src='icon_product.png'">
+                        <p>${p.n}</p>
+                        <span style="font-size:10px; font-weight:bold; color:var(--burgundy);">₹${p.p}</span>
+                    </div>
+                `).join('');
+            }
         }
 
         function renderSub(key, bannerFile) {
             const data = storeData.categories[key] || { t: key, b: '', items: [] };
             showPage('sub-page');
             document.getElementById('sub-title-text').innerText = data.t.replace('_',' ').toUpperCase();
-            document.getElementById('sub-banner-container').innerHTML = `<img src="${data.b || bannerFile}" class="banner-320">`;
+            document.getElementById('sub-banner-container').innerHTML = `<img src="${data.b || bannerFile}" class="banner-320" onerror="this.src='main_banner.jpg'">`;
             
             const grid = document.getElementById('grid-content');
             let itemsHtml = "";
             let productList = data.items || [];
 
             for (let i = 0; i < 9; i++) {
-                if (i === 4) { // BLACK BOX
+                if (i === 4) { // Center Black Box
                     itemsHtml += `<div class="grid-item black-box">LEXRIVA<br>${data.t.replace('_',' ').toUpperCase()}</div>`;
                 } else {
                     let pIdx = i > 4 ? i - 1 : i;
                     let product = productList[pIdx];
                     if (product) {
-                        itemsHtml += `<div class="grid-item">
+                        itemsHtml += `<div class="grid-item" onclick='viewProduct(${JSON.stringify(product)})'>
                             <img src="${product.i || 'icon_product.png'}" onerror="this.src='icon_product.png'"><p>${product.n}</p>
                         </div>`;
                     } else {
-                        itemsHtml += `<div class="grid-item"><p style="color:#ccc;">Empty</p></div>`;
+                        itemsHtml += `<div class="grid-item"><p style="color:#eee;">Empty</p></div>`;
                     }
                 }
             }
             grid.innerHTML = itemsHtml;
+        }
+
+        function viewProduct(item) {
+            showPage('order-page');
+            document.getElementById('order-img').src = item.i || 'icon_product.png';
+            document.getElementById('order-name').innerText = item.n;
+            document.getElementById('order-price').innerText = "₹" + (item.p || "00");
+        }
+
+        async function placeOrder() {
+            const name = document.getElementById('c-name').value;
+            const phone = document.getElementById('c-phone').value;
+            const addr = document.getElementById('c-addr').value;
+            if(!name || !phone || !addr) { alert("Fill all details!"); return; }
+            await fetch(ADMIN_URL, { method: 'POST', mode: 'no-cors',
+                body: JSON.stringify({ type: 'ORDER', details: `Addr: ${addr}`, contact: `${name} (${phone})` })
+            });
+            alert("Order Success! Hum aapse jald hi contact karenge.");
+            showPage('home-page');
         }
 
         function showPage(id) {
