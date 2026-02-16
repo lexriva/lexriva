@@ -159,10 +159,10 @@
             showPage('sub-page');
             document.getElementById('sub-title-text').innerText = data.t;
             
-            // Set dynamic banner for the specific category
+            // Height changed to 250px for a larger banner
             const bannerBox = document.getElementById('sub-banner-container');
             bannerBox.innerHTML = `
-                <div class="reel-card" style="min-width:100%; height:180px; border-radius:0;">
+                <div class="reel-card" style="min-width:100%; height:250px; border-radius:0;">
                     <img src="${data.b}" onerror="this.src='sub_banner1.jpg'" style="width:100%; height:100%; object-fit:cover;">
                 </div>`;
 
