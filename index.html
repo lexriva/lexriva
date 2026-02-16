@@ -3,133 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva - Luxury Fashion</title>
+    <title>Lexriva - Luxury Premium Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --burgundy: #800020; --gold: #D4AF37; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #fff; overflow-x: hidden; }
-        .header { background: var(--burgundy); color: white; padding: 15px; text-align: center; font-weight: bold; position: sticky; top: 0; z-index: 100; font-size: 20px; letter-spacing: 2px; }
-        
-        /* Categories Grid - Phle Jaisa */
-        .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 15px; text-align: center; }
-        .cat-card img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
-        .cat-card p { font-size: 12px; margin-top: 5px; font-weight: bold; }
-
-        /* Reels Section - Phle Jaisa */
-        .reels-container { display: flex; overflow-x: auto; padding: 10px; gap: 10px; background: #000; }
-        .reel-box { min-width: 120px; height: 200px; border-radius: 10px; background: #333; overflow: hidden; }
-        .reel-box video { width: 100%; height: 100%; object-fit: cover; }
-
-        /* Banner Style */
-        .banner-large { width: 100%; height: 320px; object-fit: cover; }
-        
-        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .product-card { border: 1px solid #eee; border-radius: 10px; overflow: hidden; text-align: center; }
-        .product-card img { width: 100%; height: 220px; object-fit: cover; }
-        
-        #order-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 200; display: none; overflow-y: auto; }
-        .input-box { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; }
+        :root { 
+            --primary: #1a1a1a; --burgundy: #4a0e1e; --gold: #b5935a; 
+            --bg-soft: #fcfbf7; --header-bg: #f4f1e8; --white: #ffffff; --border: rgba(0,0,0,0.06);
+        }
+        body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--bg-soft); color: var(--primary); overflow-x: hidden; }
+        .page { display: none; max-width: 500px; margin: 0 auto; background: var(--bg-soft); min-height: 100vh; padding-bottom: 100px; }
+        .active-page { display: block; }
+        .header { background: var(--header-bg); padding: 15px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-family: 'Cinzel', serif; font-size: 24px; color: var(--primary); letter-spacing: 5px; margin: 0; font-weight: 600; }
+        .shipping-note { background: #fff3f3; color: #d32f2f; padding: 10px; font-size: 10px; text-align: center; font-weight: 600; }
+        .main-title { padding: 15px; font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); background: var(--header-bg); margin: 20px 0 10px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1.5px; }
+        .scroll-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
+        .scroll-wrapper::-webkit-scrollbar { display: none; }
+        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); position: relative; }
+        .reel-card video, .reel-card img { width: 100%; height: 100%; object-fit: cover; }
+        .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 10px; }
+        .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; cursor: pointer; background: var(--white); position: relative; aspect-ratio: 1/1; }
+        .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
+        .cat-card-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 8px 0; text-align: center; font-weight: 700; font-size: 10px; text-transform: uppercase; }
+        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); }
+        .grid-item { background: var(--white); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 5px; text-align: center; min-height: 115px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+        .grid-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
+        .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 10px; font-weight: bold; text-align: center; border: none; display: flex; align-items: center; justify-content: center; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); z-index: 2000; }
+        .nav-link { text-align: center; font-size: 8px; color: #777; cursor: pointer; text-transform: uppercase; font-weight: 700; }
+        .input-box { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid var(--border); border-radius: 4px; font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body>
 
-    <div class="header">LEXRIVA</div>
+    <div class="header"><div class="logo">LEXRIVA</div></div>
+    <div class="shipping-note">Free Shipping above ₹1999 | Below ₹1999: ₹49 Shipping</div>
 
-    <div id="home-page">
-        <div class="reels-container">
-            <div class="reel-box"><video src="reel1.mp4" autoplay muted loop></video></div>
-            <div class="reel-box"><video src="reel2.mp4" autoplay muted loop></video></div>
-            <div class="reel-box"><video src="reel3.mp4" autoplay muted loop></video></div>
-        </div>
-
+    <div id="home-page" class="page active-page">
+        <img src="main_banner.jpg" style="width: 100%;">
+        
+        <div class="main-title">Women's Clothing</div>
         <div class="category-grid">
-            <div class="cat-card" onclick="renderSub('western')"><img src="western_icon.jpg"><p>Western</p></div>
-            <div class="cat-card" onclick="renderSub('ethnic')"><img src="ethnic_icon.jpg"><p>Ethnic</p></div>
-            <div class="cat-card" onclick="renderSub('footwear')"><img src="footwear_icon.jpg"><p>Footwear</p></div>
-            <div class="cat-card" onclick="renderSub('bags')"><img src="bag_icon.jpg"><p>Bags</p></div>
-            <div class="cat-card" onclick="renderSub('jewellery')"><img src="jewel_icon.jpg"><p>Jewellery</p></div>
-            <div class="cat-card" onclick="renderSub('cosmetics')"><img src="cosmetic_icon.jpg"><p>Cosmetics</p></div>
+            <div class="cat-card-square" onclick="renderSub('western')"><img src="cat_western.jpg"><div class="cat-card-label">Western Wear</div></div>
+            <div class="cat-card-square" onclick="renderSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-card-label">Ethnic Wear</div></div>
         </div>
 
-        <h3 style="padding: 10px 15px;">New Arrivals</h3>
-        <div id="arrivals-list" style="display: flex; overflow-x: auto; padding: 10px; gap: 10px;"></div>
-    </div>
+        <div class="main-title">New Arrivals</div>
+        <div id="arrivals-scroll" class="scroll-wrapper">
+            </div>
 
-    <div id="sub-page" style="display:none;">
-        <div style="padding: 15px; border-bottom: 1px solid #eee;">
-            <button onclick="showPage('home-page')" style="background:none; border:none; font-size: 20px;">← Back</button>
-            <span id="sub-title" style="margin-left: 20px; font-weight: bold; font-size: 18px;"></span>
+        <div class="main-title">Trending Products</div>
+        <div class="scroll-wrapper">
+            <div class="reel-card" onclick="renderSub('jewellery_master')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="renderSub('makeup_master')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
         </div>
-        <div id="sub-banner-container"></div>
-        <div id="sub-product-grid" class="product-grid"></div>
+
+        <div class="main-title">Footwear & Care</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-card-label">Premium Shoes</div></div>
+            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="cat-card-label">Beauty Care</div></div>
+        </div>
+
+        <div class="main-title">Beauty & Jewelry</div>
+        <div class="category-grid">
+            <div class="cat-card-square" onclick="renderSub('makeup_master')"><img src="cat_makeup.jpg"><div class="cat-card-label">Makeup</div></div>
+            <div class="cat-card-square" onclick="renderSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-card-label">Jewelry</div></div>
+            <div class="cat-card-square" onclick="renderSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
+            <div class="cat-card-square" onclick="renderSub('bags')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
+        </div>
     </div>
 
-    <div id="order-page">
-        <div style="padding: 20px;"><button onclick="document.getElementById('order-page').style.display='none'">Back</button></div>
-        <div style="text-align:center;">
-            <img id="order-img" style="width:100%; height:350px; object-fit:contain;">
-            <h2 id="order-name"></h2>
-            <h3 id="order-price" style="color:var(--burgundy);"></h3>
+    <div id="sub-page" class="page">
+        <div class="main-title" style="margin-top:0;">
+            <span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span>
+            <span id="sub-title-text">CATEGORIES</span>
+        </div>
+        <div id="sub-banner-container" class="scroll-wrapper"></div>
+        <div id="grid-content" class="grid-container"></div>
+    </div>
+
+    <div id="order-page" class="page">
+        <div class="main-title"><span onclick="showPage('home-page')">← BACK</span> Checkout</div>
+        <div style="padding:20px; text-align:center;">
+            <img id="order-img" style="width:100px; height:100px; object-fit:cover; border-radius:8px; margin-bottom:10px;">
+            <h3 id="order-item-name" style="font-size:14px; margin-bottom:5px; color:var(--burgundy);"></h3>
+            <p id="order-item-price" style="font-weight:bold; margin-bottom:15px;"></p>
+            
             <select id="size-select" class="input-box"></select>
             <select id="color-select" class="input-box"></select>
-            <input type="text" id="cust-name" class="input-box" placeholder="Full Name">
-            <textarea id="cust-address" class="input-box" rows="3" placeholder="Address"></textarea>
-            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none; font-weight:bold; margin-bottom:50px;" onclick="alert('Order Placed!')">PLACE COD ORDER</button>
+            <input type="text" id="cust-name" class="input-box" placeholder="Your Full Name">
+            <input type="tel" id="cust-phone" class="input-box" placeholder="Mobile Number">
+            <textarea id="cust-address" class="input-box" placeholder="Full Delivery Address" style="height:80px;"></textarea>
+            
+            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none; font-weight:bold; border-radius:4px; margin-top:10px;" onclick="placeOrder()">CONFIRM ORDER (COD)</button>
         </div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-link" onclick="showPage('home-page')">Home</div>
+        <div class="nav-link" onclick="showPage('home-page'); window.scrollTo(0, 1500);">Categories</div>
+        <div class="nav-link">Wishlist</div>
+        <div class="nav-link">Login</div>
     </div>
 
     <script>
         const ADMIN_URL = "https://script.google.com/macros/s/AKfycbykDfpi6pvUTOy9Rw0nLTSOOTTU8ELpLrqOv92SzBDag6RYFzz6PwlLJMWjcAjqwStBow/exec";
         let storeData = { arrivals: [], categories: {} };
 
-        async function fetchAdminData() {
+        async function loadData() {
             try {
-                const r = await fetch(ADMIN_URL);
-                storeData = await r.json();
+                const response = await fetch(ADMIN_URL);
+                storeData = await response.json();
                 renderArrivals();
-            } catch (e) { console.log("Loading..."); }
+            } catch (e) { console.log("Connecting..."); }
         }
 
         function renderArrivals() {
-            const list = document.getElementById('arrivals-list');
+            const list = document.getElementById('arrivals-scroll');
             list.innerHTML = storeData.arrivals.map(item => `
-                <div style="min-width:140px;" onclick='viewProduct(${JSON.stringify(item)})'>
-                    <img src="${item.i}" style="width:140px; height:180px; border-radius:10px; object-fit:cover;">
-                    <p style="text-align:center; font-size:12px;">${item.n}<br><b>₹${item.p}</b></p>
+                <div class="reel-card" style="min-width:140px; height:220px;" onclick='viewProduct(${JSON.stringify(item)})'>
+                    <img src="${item.i}">
+                    <div style="text-align:center; padding:5px; font-size:10px;">${item.n}<br><b>₹${item.p}</b></div>
                 </div>`).join('');
         }
 
-        function renderSub(cat) {
-            const data = storeData.categories[cat] || { t: cat, b: '', items: [] };
+        function renderSub(key) {
+            const data = storeData.categories[key] || { t: key, b: '', mid: 'LUXE<br>EDIT', items: [] };
             showPage('sub-page');
-            document.getElementById('sub-title').innerText = data.t.toUpperCase();
+            document.getElementById('sub-title-text').innerText = data.t;
             
             // 320px Banner
-            document.getElementById('sub-banner-container').innerHTML = `<img src="${data.b || 'default_banner.jpg'}" class="banner-large">`;
-            
-            const grid = document.getElementById('sub-product-grid');
-            grid.innerHTML = data.items.length === 0 ? "<p style='grid-column:1/3; text-align:center;'>Add products in Sheet!</p>" :
-                data.items.map(item => `
-                <div class="product-card" onclick='viewProduct(${JSON.stringify(item)})'>
-                    <img src="${item.i}">
-                    <p>${item.n}<br><b>₹${item.p}</b></p>
-                </div>`).join('');
+            document.getElementById('sub-banner-container').innerHTML = `
+                <div class="reel-card" style="min-width:100%; height:320px; border-radius:0; border:none;">
+                    <img src="${data.b || 'sub_banner1.jpg'}" style="width:100%; height:100%; object-fit:cover;">
+                </div>`;
+
+            const grid = document.getElementById('grid-content');
+            grid.innerHTML = '';
+            data.items.forEach((item, index) => {
+                if(index === 4) grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
+                grid.innerHTML += `<div class="grid-item" onclick='viewProduct(${JSON.stringify(item)})'>
+                    <img src="${item.i}"><p>${item.n}</p></div>`;
+            });
         }
 
         function viewProduct(item) {
-            document.getElementById('order-page').style.display = 'block';
+            showPage('order-page');
             document.getElementById('order-img').src = item.i;
-            document.getElementById('order-name').innerText = item.n;
-            document.getElementById('order-price').innerText = "₹" + item.p;
-            document.getElementById('size-select').innerHTML = (item.s || "S,M,L").split(',').map(s => `<option>${s}</option>`).join('');
-            document.getElementById('color-select').innerHTML = (item.c || "Standard").split(',').map(c => `<option>${c}</option>`).join('');
+            document.getElementById('order-item-name').innerText = item.n;
+            document.getElementById('order-item-price').innerText = "Price: ₹" + item.p;
+            
+            // Size & Color from Sheet
+            document.getElementById('size-select').innerHTML = '<option>Select Size</option>' + (item.s || "S,M,L").split(',').map(s => `<option>${s}</option>`).join('');
+            document.getElementById('color-select').innerHTML = '<option>Select Color</option>' + (item.c || "As shown").split(',').map(c => `<option>${c}</option>`).join('');
         }
 
-        function showPage(p) {
-            document.getElementById('home-page').style.display = p === 'home-page' ? 'block' : 'none';
-            document.getElementById('sub-page').style.display = p === 'sub-page' ? 'block' : 'none';
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(pageId).classList.add('active-page');
+            window.scrollTo(0,0);
         }
 
-        window.onload = fetchAdminData;
+        function placeOrder() {
+            alert("Order Placed Successfully!");
+            showPage('home-page');
+        }
+
+        window.onload = loadData;
     </script>
 </body>
 </html>
