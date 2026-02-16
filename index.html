@@ -17,9 +17,12 @@
         .cat-card-square { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; aspect-ratio: 1/1; cursor: pointer; background: #fff; }
         .cat-card-square img { width: 100%; height: 100%; object-fit: cover; }
         .cat-card-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 8px 0; text-align: center; font-weight: 700; font-size: 10px; text-transform: uppercase; }
-        .banner-320 { width: 100%; height: 320px; object-fit: cover; }
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); }
-        .grid-item { background: var(--white); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 15px 5px; text-align: center; cursor: pointer; position: relative; }
+        
+        /* 320px Bada Banner */
+        .banner-320 { width: 100%; height: 320px; object-fit: cover; display: block; }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); background: #fff; }
+        .grid-item { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 15px 5px; text-align: center; cursor: pointer; position: relative; }
         .grid-item img { width: 65px; height: 65px; object-fit: cover; border-radius: 4px; margin-bottom: 5px; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { font-size: 9px; color: #777; text-transform: uppercase; font-weight: 700; cursor: pointer; }
@@ -35,18 +38,18 @@
         
         <div class="main-title">Women's Clothing</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('western')"><img src="cat_western.jpg"><div class="cat-card-label">Western Wear</div></div>
-            <div class="cat-card-square" onclick="renderSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-card-label">Ethnic Wear</div></div>
+            <div class="cat-card-square" onclick="renderSub('western', 'western_banner.jpg')"><img src="cat_western.jpg"><div class="cat-card-label">Western Wear</div></div>
+            <div class="cat-card-square" onclick="renderSub('ethnic', 'ethnic_banner.jpg')"><img src="cat_ethnic.jpg"><div class="cat-card-label">Ethnic Wear</div></div>
         </div>
 
         <div class="main-title">Beauty, Shoes & Accessories</div>
         <div class="category-grid">
-            <div class="cat-card-square" onclick="renderSub('makeup_master')"><img src="cat_makeup.jpg"><div class="cat-card-label">Makeup</div></div>
-            <div class="cat-card-square" onclick="renderSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-card-label">Jewelry</div></div>
-            <div class="cat-card-square" onclick="renderSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-card-label">Premium Shoes</div></div>
-            <div class="cat-card-square" onclick="renderSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
-            <div class="cat-card-square" onclick="renderSub('bags')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
-            <div class="cat-card-square" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="cat-card-label">Beauty Care</div></div>
+            <div class="cat-card-square" onclick="renderSub('makeup_master', 'makeup_banner.jpg')"><img src="cat_makeup.jpg"><div class="cat-card-label">Makeup</div></div>
+            <div class="cat-card-square" onclick="renderSub('jewellery_master', 'jewel_banner.jpg')"><img src="cat_jewel.jpg"><div class="cat-card-label">Jewelry</div></div>
+            <div class="cat-card-square" onclick="renderSub('footwear', 'foot_banner.jpg')"><img src="cat_footwear.jpg"><div class="cat-card-label">Premium Shoes</div></div>
+            <div class="cat-card-square" onclick="renderSub('acc_main', 'acc_banner.jpg')"><img src="cat_acc.jpg"><div class="cat-card-label">Accessories</div></div>
+            <div class="cat-card-square" onclick="renderSub('bags', 'bags_banner.jpg')"><img src="cat_bags.jpg"><div class="cat-card-label">Bags</div></div>
+            <div class="cat-card-square" onclick="renderSub('personal_care', 'care_banner.jpg')"><img src="cat_care.jpg"><div class="cat-card-label">Beauty Care</div></div>
         </div>
     </div>
 
@@ -58,13 +61,13 @@
         <div id="grid-content" class="grid-container"></div>
     </div>
 
-    <div id="wishlist-page" class="page"><div class="main-title">Wishlist</div><div id="wish-items" class="grid-container"></div></div>
+    <div id="wishlist-page" class="page"><div class="main-title">Wishlist</div><div id="wish-items" class="grid-container"><p style="padding:20px;">Empty Wishlist</p></div></div>
 
     <div id="login-page" class="page">
-        <div class="main-title">Login</div>
+        <div class="main-title">Account / Login</div>
         <div style="padding:40px; text-align:center;">
-            <input type="tel" id="user-phone" class="input-box" placeholder="Enter Mobile Number">
-            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none; margin-top:10px; border-radius:4px;" onclick="handleLogin()">SEND OTP & LOGIN</button>
+            <input type="tel" id="user-mobile" class="input-box" placeholder="Mobile Number">
+            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none; margin-top:10px; border-radius:4px;" onclick="doLogin()">LOGIN</button>
         </div>
     </div>
 
@@ -82,32 +85,36 @@
             try {
                 const res = await fetch(ADMIN_URL);
                 storeData = await res.json();
-                console.log("Data Loaded", storeData);
-            } catch (e) { console.log("Admin connection failed"); }
+            } catch (e) { console.log("Sheet not connected"); }
         }
 
-        function renderSub(key) {
-            const data = storeData.categories[key] || { t: key, b: 'sub_banner_default.jpg', items: [] };
+        function renderSub(key, bannerFile) {
+            const data = storeData.categories[key] || { t: key, b: '', items: [] };
             showPage('sub-page');
             document.getElementById('sub-title-text').innerText = data.t.toUpperCase();
             
-            // Fix Banner: Agar sheet mein banner_link khali hai toh sub_banner1.jpg dikhayega
-            document.getElementById('sub-banner-container').innerHTML = `<img src="${data.b || 'sub_banner1.jpg'}" class="banner-320">`;
+            // Priority 1: Sheet Banner Link | Priority 2: File Name from HTML
+            const bannerSrc = data.b || bannerFile;
+            document.getElementById('sub-banner-container').innerHTML = `<img src="${bannerSrc}" class="banner-320" onerror="this.src='main_banner.jpg'">`;
             
             const grid = document.getElementById('grid-content');
-            if(data.items.length === 0) {
-                grid.innerHTML = "<p style='padding:50px; text-align:center; grid-column: 1/4;'>No products in this category yet. Add from Google Sheet!</p>";
+            if(!data.items || data.items.length === 0) {
+                grid.innerHTML = "<p style='grid-column:1/4; padding:50px; text-align:center;'>No products found. Check Column A in Sheet!</p>";
             } else {
-                grid.innerHTML = data.items.map(item => `<div class="grid-item"><img src="${item.i}"><p style="font-size:10px;">${item.n}</p></div>`).join('');
+                grid.innerHTML = data.items.map(item => `
+                    <div class="grid-item">
+                        <img src="${item.i}" onerror="this.src='icon_product.png'">
+                        <p style="font-size:10px;">${item.n}</p>
+                    </div>`).join('');
             }
         }
 
-        function handleLogin() {
-            const phone = document.getElementById('user-phone').value;
-            if(phone.length >= 10) {
-                alert("Login Successful for " + phone);
+        function doLogin() {
+            const num = document.getElementById('user-mobile').value;
+            if(num.length >= 10) {
+                alert("Login Successful!");
                 showPage('home-page');
-            } else { alert("Enter valid 10-digit number"); }
+            } else { alert("Enter valid number"); }
         }
 
         function showPage(id) {
