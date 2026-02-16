@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva - Final Premium Store</title>
+    <title>Lexriva - Luxury Premium Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #1a1a1a; --burgundy: #4a0e1e; --bg-soft: #fcfbf7; --border: rgba(0,0,0,0.08); }
@@ -12,33 +12,32 @@
         .active-page { display: block; }
         .header { background: #f4f1e8; padding: 15px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 4px; font-weight: 600; }
-        .section-header { padding: 0 15px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin: 15px 0 10px 15px; border-left: 3px solid var(--burgundy); }
+        .section-header { padding: 0 15px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin: 20px 0 10px 15px; border-left: 3px solid var(--burgundy); }
 
-        /* HORIZONTAL SCROLL (BESTSELLERS) */
+        /* BESTSELLERS */
         .horizontal-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 0 15px; scrollbar-width: none; }
-        .scroll-item { min-width: 140px; cursor: pointer; text-align: center; }
+        .scroll-item { min-width: 140px; text-align: center; cursor: pointer; }
         .scroll-item img { width: 140px; height: 180px; object-fit: cover; border-radius: 8px; }
-        .scroll-item p { font-size: 10px; margin: 5px 0; font-weight: 700; }
 
-        /* REEL SECTION (MIDDLE) */
+        /* REEL SECTION */
         .reel-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
-        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; cursor: pointer; }
+        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* HOME CATEGORIES */
+        /* CATEGORY GRID */
         .home-cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
-        .home-cat-card { position: relative; border-radius: 6px; overflow: hidden; cursor: pointer; aspect-ratio: 1/1.2; }
+        .home-cat-card { position: relative; border-radius: 6px; overflow: hidden; aspect-ratio: 1/1.2; cursor: pointer; }
         .home-cat-card img { width: 100%; height: 100%; object-fit: cover; }
         .home-cat-label { position: absolute; bottom: 0; width: 100%; background: rgba(255,255,255,0.9); padding: 10px 0; text-align: center; font-size: 9px; font-weight: 800; text-transform: uppercase; }
 
-        /* 2nd PAGE 9-GRID */
+        /* 2nd PAGE: BIG BANNER & 9-GRID */
+        .big-banner-container { width: 100%; height: 350px; background: #eee; overflow: hidden; margin-bottom: 5px; }
+        .big-banner-container img { width: 100%; height: 100%; object-fit: cover; }
         .sub-grid-9 { display: grid; grid-template-columns: repeat(3, 1fr); background: #fff; border-top: 1px solid var(--border); }
-        .grid-item { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 15px 5px; text-align: center; cursor: pointer; aspect-ratio: 1/1.2; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-        .grid-item img { width: 68px; height: 68px; object-fit: cover; border-radius: 4px; margin-bottom: 8px; }
-        .grid-item p { font-size: 10px; margin: 0; font-weight: 500; }
-        .black-box { background: #000 !important; color: #fff !important; font-weight: 800; font-size: 10px; text-align: center; line-height: 1.3; }
+        .grid-item { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 15px 5px; text-align: center; aspect-ratio: 1/1.2; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+        .grid-item img { width: 65px; height: 65px; object-fit: cover; border-radius: 4px; }
+        .black-box { background: #000 !important; color: #fff !important; font-weight: 800; font-size: 10px; line-height: 1.3; }
 
-        .banner-320 { width: 100%; height: 320px; object-fit: cover; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { font-size: 9px; color: #777; text-transform: uppercase; font-weight: 700; cursor: pointer; }
         .input-box { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; }
@@ -51,54 +50,72 @@
     <div id="home-page" class="page active-page">
         <img src="main_banner.jpg" style="width: 100%;">
         
-        <div class="section-header">Latest Bestsellers</div>
+        <div class="section-header">Bestsellers</div>
         <div id="latest-scroll" class="horizontal-scroll"></div>
 
-        <div class="section-header">Product Video</div>
-        <div class="reel-wrapper">
-            <div class="reel-card" onclick="renderSub('jewellery_master', 'jewel_banner.jpg')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card" onclick="renderSub('makeup_master', 'makeup_banner.jpg')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
-            <div class="reel-card" onclick="renderSub('western', 'western_banner.jpg')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+        <div class="section-header">Top Collections</div>
+        <div class="home-cat-grid">
+            <div class="home-cat-card" onclick="renderSub('western')"><img src="cat_western.jpg"><div class="home-cat-label">Western</div></div>
+            <div class="home-cat-card" onclick="renderSub('ethnic')"><img src="cat_ethnic.jpg"><div class="home-cat-label">Ethnic</div></div>
+            <div class="home-cat-card" onclick="renderSub('makeup_master')"><img src="cat_makeup.jpg"><div class="home-cat-label">Makeup</div></div>
+            <div class="home-cat-card" onclick="renderSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="home-cat-label">Jewelry</div></div>
         </div>
 
-        <div class="section-header">Our Collections</div>
+        <div class="section-header">Product Videos</div>
+        <div class="reel-wrapper">
+            <div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+        </div>
+
+        <div class="section-header">More to Explore</div>
         <div class="home-cat-grid">
-            <div class="home-cat-card" onclick="renderSub('western', 'western_banner.jpg')"><img src="cat_western.jpg"><div class="home-cat-label">Western</div></div>
-            <div class="home-cat-card" onclick="renderSub('ethnic', 'ethnic_banner.jpg')"><img src="cat_ethnic.jpg"><div class="home-cat-label">Ethnic</div></div>
-            <div class="home-cat-card" onclick="renderSub('makeup_master', 'makeup_banner.jpg')"><img src="cat_makeup.jpg"><div class="home-cat-label">Makeup</div></div>
-            <div class="home-cat-card" onclick="renderSub('jewellery_master', 'jewel_banner.jpg')"><img src="cat_jewel.jpg"><div class="home-cat-label">Jewelry</div></div>
-            <div class="home-cat-card" onclick="renderSub('footwear', 'foot_banner.jpg')"><img src="cat_footwear.jpg"><div class="home-cat-label">Shoes</div></div>
-            <div class="home-cat-card" onclick="renderSub('acc_main', 'acc_banner.jpg')"><img src="cat_acc.jpg"><div class="home-cat-label">Accessories</div></div>
-            <div class="home-cat-card" onclick="renderSub('bags', 'bags_banner.jpg')"><img src="cat_bags.jpg"><div class="home-cat-label">Bags</div></div>
-            <div class="home-cat-card" onclick="renderSub('personal_care', 'care_banner.jpg')"><img src="cat_care.jpg"><div class="home-cat-label">Beauty Care</div></div>
+            <div class="home-cat-card" onclick="renderSub('footwear')"><img src="cat_footwear.jpg"><div class="home-cat-label">Shoes</div></div>
+            <div class="home-cat-card" onclick="renderSub('acc_main')"><img src="cat_acc.jpg"><div class="home-cat-label">Accessories</div></div>
+            <div class="home-cat-card" onclick="renderSub('bags')"><img src="cat_bags.jpg"><div class="home-cat-label">Bags</div></div>
+            <div class="home-cat-card" onclick="renderSub('personal_care')"><img src="cat_care.jpg"><div class="home-cat-label">Beauty Care</div></div>
         </div>
     </div>
 
     <div id="sub-page" class="page">
-        <div class="main-title" style="padding:15px; background:#f4f1e8; font-size:10px; font-weight:800;">
-            <span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span> <span id="sub-title-text" style="margin-left:10px;">CATALOG</span>
+        <div class="header" style="text-align:left; padding-left:20px;">
+            <span onclick="showPage('home-page')" style="cursor:pointer; font-weight:800;">← BACK</span>
+            <span id="sub-title-text" style="margin-left:20px; font-weight:800; font-size:12px;"></span>
         </div>
-        <div id="sub-banner-container"></div>
+        <div id="big-banner-box" class="big-banner-container"></div>
         <div id="grid-content" class="sub-grid-9"></div>
     </div>
 
+    <div id="wish-page" class="page">
+        <div class="header">MY WISHLIST</div>
+        <div id="wish-items-container" style="padding:50px; text-align:center; color:#999;">Apki Wishlist khali hai.</div>
+    </div>
+
+    <div id="login-page" class="page">
+        <div class="header">MY ACCOUNT</div>
+        <div style="padding:40px; text-align:center;">
+            <input type="tel" id="login-phone" class="input-box" placeholder="Mobile Number">
+            <button style="background:#000; color:#fff; width:95%; padding:15px; border:none; margin-top:10px; font-weight:bold;" onclick="handleLogin()">LOGIN</button>
+        </div>
+    </div>
+
     <div id="order-page" class="page">
-        <div class="main-title"><span onclick="showPage('home-page')">← BACK</span> Checkout</div>
+        <div class="header" style="text-align:left; padding-left:20px;"><span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span></div>
         <div style="padding:20px; text-align:center;">
             <img id="order-img" style="width:150px; height:180px; object-fit:cover; border-radius:8px;">
             <h3 id="order-name"></h3>
             <p id="order-price" style="color:var(--burgundy); font-weight:bold;"></p>
             <input type="text" id="c-name" class="input-box" placeholder="Your Name">
             <input type="tel" id="c-phone" class="input-box" placeholder="Phone">
-            <textarea id="c-addr" class="input-box" placeholder="Full Delivery Address" style="height:80px;"></textarea>
-            <button style="background:var(--burgundy); color:white; width:95%; padding:15px; border:none; font-weight:bold; border-radius:4px;" onclick="placeOrder()">PLACE ORDER (COD)</button>
+            <textarea id="c-addr" class="input-box" placeholder="Full Address" style="height:80px;"></textarea>
+            <button style="background:var(--burgundy); color:white; width:95%; padding:15px; border:none; font-weight:bold; border-radius:4px;" onclick="placeOrder()">CONFIRM ORDER (COD)</button>
         </div>
     </div>
 
     <div class="bottom-nav">
         <div class="nav-link" onclick="showPage('home-page')">Home</div>
-        <div class="nav-link">Wishlist</div>
-        <div class="nav-link">Account</div>
+        <div class="nav-link" onclick="showPage('wish-page')">Wishlist</div>
+        <div class="nav-link" onclick="showPage('login-page')">Account</div>
     </div>
 
     <script>
@@ -119,35 +136,39 @@
                 scrollDiv.innerHTML = storeData.latest.map(p => `
                     <div class="scroll-item" onclick='viewProduct(${JSON.stringify(p)})'>
                         <img src="${p.i || 'icon_product.png'}" onerror="this.src='icon_product.png'">
-                        <p>${p.n}</p>
-                        <span style="font-size:10px; font-weight:bold; color:var(--burgundy);">₹${p.p}</span>
+                        <p style="font-size:10px; font-weight:bold;">${p.n}</p>
+                        <span style="font-size:9px; color:var(--burgundy);">₹${p.p}</span>
                     </div>
                 `).join('');
             }
         }
 
-        function renderSub(key, bannerFile) {
+        function renderSub(key) {
             const data = storeData.categories[key] || { t: key, b: '', items: [] };
             showPage('sub-page');
             document.getElementById('sub-title-text').innerText = data.t.replace('_',' ').toUpperCase();
-            document.getElementById('sub-banner-container').innerHTML = `<img src="${data.b || bannerFile}" class="banner-320" onerror="this.src='main_banner.jpg'">`;
+            
+            // HAR CATEGORY KA ALAG BANNER
+            const bannerImg = data.b || `${key}_banner.jpg`;
+            document.getElementById('big-banner-box').innerHTML = `<img src="${bannerImg}" onerror="this.src='main_banner.jpg'">`;
             
             const grid = document.getElementById('grid-content');
             let itemsHtml = "";
             let productList = data.items || [];
 
             for (let i = 0; i < 9; i++) {
-                if (i === 4) { // Center Black Box
+                if (i === 4) { // BLACK BOX
                     itemsHtml += `<div class="grid-item black-box">LEXRIVA<br>${data.t.replace('_',' ').toUpperCase()}</div>`;
                 } else {
                     let pIdx = i > 4 ? i - 1 : i;
                     let product = productList[pIdx];
                     if (product) {
                         itemsHtml += `<div class="grid-item" onclick='viewProduct(${JSON.stringify(product)})'>
-                            <img src="${product.i || 'icon_product.png'}" onerror="this.src='icon_product.png'"><p>${product.n}</p>
+                            <img src="${product.i || 'icon.png'}" onerror="this.src='icon_product.png'">
+                            <p style="font-size:9px; margin-top:5px;">${product.n}</p>
                         </div>`;
                     } else {
-                        itemsHtml += `<div class="grid-item"><p style="color:#eee;">Empty</p></div>`;
+                        itemsHtml += `<div class="grid-item" style="color:#eee; font-size:9px;">Empty</div>`;
                     }
                 }
             }
@@ -161,15 +182,21 @@
             document.getElementById('order-price').innerText = "₹" + (item.p || "00");
         }
 
+        async function handleLogin() {
+            const num = document.getElementById('login-phone').value;
+            if(num.length < 10) { alert("Enter 10-digit number"); return; }
+            await fetch(ADMIN_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: 'LOGIN', details: 'User Login', contact: num }) });
+            alert("Login Success! Details saved in Sheet.");
+            showPage('home-page');
+        }
+
         async function placeOrder() {
             const name = document.getElementById('c-name').value;
             const phone = document.getElementById('c-phone').value;
             const addr = document.getElementById('c-addr').value;
             if(!name || !phone || !addr) { alert("Fill all details!"); return; }
-            await fetch(ADMIN_URL, { method: 'POST', mode: 'no-cors',
-                body: JSON.stringify({ type: 'ORDER', details: `Addr: ${addr}`, contact: `${name} (${phone})` })
-            });
-            alert("Order Success! Hum aapse jald hi contact karenge.");
+            await fetch(ADMIN_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: 'ORDER', details: `Addr: ${addr}`, contact: `${name} (${phone})` }) });
+            alert("Order Success! Saved in Sheet.");
             showPage('home-page');
         }
 
