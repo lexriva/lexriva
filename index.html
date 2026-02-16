@@ -31,7 +31,7 @@
         .maroon-box { background: var(--burgundy) !important; color: #fff !important; font-size: 10px; font-weight: bold; text-align: center; border: none; display: flex; align-items: center; justify-content: center; }
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid var(--border); z-index: 2000; }
         .nav-link { text-align: center; font-size: 8px; color: #777; cursor: pointer; text-transform: uppercase; font-weight: 700; }
-        .input-box { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid var(--border); border-radius: 4px; }
+        .input-box { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid var(--border); border-radius: 4px; font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body>
@@ -50,8 +50,8 @@
 
         <div class="main-title">New Arrivals</div>
         <div class="scroll-wrapper">
-            <div class="reel-card" style="min-width:140px; height:220px;" onclick="showPage('order-page')"><img src="arrival_1.jpg"><div style="text-align:center; padding:5px; font-size:10px;">Product 1<br><b>₹1,499</b></div></div>
-            <div class="reel-card" style="min-width:140px; height:220px;" onclick="showPage('order-page')"><img src="arrival_2.jpg"><div style="text-align:center; padding:5px; font-size:10px;">Product 2<br><b>₹2,999</b></div></div>
+            <div class="reel-card" style="min-width:140px; height:220px;" onclick="openOrder('Arrival Product 1')"><img src="arrival_1.jpg"><div style="text-align:center; padding:5px; font-size:10px;">Product 1<br><b>₹1,499</b></div></div>
+            <div class="reel-card" style="min-width:140px; height:220px;" onclick="openOrder('Arrival Product 2')"><img src="arrival_2.jpg"><div style="text-align:center; padding:5px; font-size:10px;">Product 2<br><b>₹2,999</b></div></div>
         </div>
 
         <div class="main-title">Trending Products</div>
@@ -80,26 +80,36 @@
             <span onclick="showPage('home-page')" style="cursor:pointer;">← BACK</span>
             <span id="sub-title-text">CATEGORIES</span>
         </div>
-        <div class="scroll-wrapper">
-            <div class="reel-card" style="min-width:90%; height:180px;"><img src="sub_banner1.jpg"></div>
-        </div>
+        <div id="sub-banner-container" class="scroll-wrapper">
+            </div>
         <div id="grid-content" class="grid-container"></div>
     </div>
 
     <div id="order-page" class="page">
         <div class="main-title"><span onclick="showPage('home-page')">← BACK</span> Checkout</div>
         <div style="padding:20px; text-align:center;">
-            <input type="text" class="input-box" placeholder="Name">
-            <input type="tel" class="input-box" placeholder="Phone">
-            <textarea class="input-box" placeholder="Address"></textarea>
-            <p>Payment: Cash on Delivery (COD)</p>
-            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none;" onclick="alert('Order Confirmed!')">PLACE ORDER</button>
-            <div style="margin-top:20px; font-size:10px; text-align:left;">• 2 Days Exchange Available<br>• COD Available</div>
+            <h3 id="order-item-name" style="font-size:14px; margin-bottom:15px; color:var(--burgundy);">Product Name</h3>
+            <input type="text" id="cust-name" class="input-box" placeholder="Your Full Name">
+            <input type="tel" id="cust-phone" class="input-box" placeholder="Mobile Number">
+            <textarea id="cust-address" class="input-box" placeholder="Full Delivery Address" style="height:100px;"></textarea>
+            
+            <div style="background:#f4f1e8; padding:15px; margin:20px 0; border-radius:4px; text-align:left;">
+                <p style="margin:0; font-size:12px;"><b>Payment Mode:</b> Cash on Delivery (COD)</p>
+                <p style="margin:5px 0 0; font-size:10px; color:#666;">Total amount to be paid at the time of delivery.</p>
+            </div>
+
+            <button style="background:var(--burgundy); color:white; width:90%; padding:15px; border:none; font-weight:bold; border-radius:4px;" onclick="placeOrder()">CONFIRM ORDER (COD)</button>
+            
+            <div style="margin-top:25px; font-size:10px; text-align:left; color:#777; line-height:1.5;">
+                • <b>2 Days Exchange:</b> Available after delivery.<br>
+                • <b>COD:</b> No advance payment required.<br>
+                • <b>Shipping:</b> Delivery within 5-7 business days.
+            </div>
         </div>
     </div>
 
-    <div id="wishlist-page" class="page"><div class="main-title">Wishlist</div><div style="text-align:center; padding:100px;">Empty</div></div>
-    <div id="login-page" class="page"><div class="main-title">Login</div><div style="padding:40px; text-align:center;"><input type="text" class="input-box" placeholder="Mobile"><br><button style="background:var(--burgundy); color:white; padding:10px 30px; border:none; margin-top:10px;">OTP</button></div></div>
+    <div id="wishlist-page" class="page"><div class="main-title">Wishlist</div><div style="text-align:center; padding:100px; color:#999;">Your wishlist is empty.</div></div>
+    <div id="login-page" class="page"><div class="main-title">Login</div><div style="padding:40px; text-align:center;"><input type="text" class="input-box" placeholder="Mobile"><br><button style="background:var(--burgundy); color:white; padding:10px 30px; border:none; margin-top:10px; border-radius:4px;">GET OTP</button></div></div>
 
     <div class="bottom-nav">
         <div class="nav-link" onclick="showPage('home-page')">Home</div>
@@ -110,25 +120,27 @@
 
     <script>
         const subData = {
-            'western': { t:'Western Wear', mid:'MODERN<br>CHIC', items:[{n:'Dresses', i:'w_dress.jpg'},{n:'Tops', i:'w_top.jpg'},{n:'Jeans', i:'w_jeans.jpg'},{n:'T-shirt', i:'w_tshirt.jpg'},{n:'Jumpsuit', i:'w_jump.jpg'},{n:'Co-ords', i:'w_coord.jpg'},{n:'Sleepwear', i:'w_sleep.jpg'}] },
-            'ethnic': { t:'Ethnic Wear', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree', i:'e_saree.jpg'},{n:'Kurtis', i:'e_kurti.jpg'},{n:'Dress Material', i:'e_material.jpg'},{n:'Lehengas', i:'e_lehenga.jpg'},{n:'Gowns', i:'e_gown.jpg'}] },
-            'footwear': { t:'Footwear', mid:'LUXE<br>STEPS', items:[{n:'Heels', i:'f_heels.jpg'},{n:'Sandals', i:'f_sandals.jpg'},{n:'Boots', i:'f_boots.jpg'},{n:'Bellies', i:'f_bellies.jpg'},{n:'Sneakers', i:'f_sneakers.jpg'}] },
-            'makeup_master': { t:'Makeup', mid:'GLAM<br>SHELF', items:[
+            'western': { t:'Western Wear', b:'banner_western.jpg', mid:'MODERN<br>CHIC', items:[{n:'Dresses', i:'w_dress.jpg'},{n:'Tops', i:'w_top.jpg'},{n:'Jeans', i:'w_jeans.jpg'},{n:'T-shirt', i:'w_tshirt.jpg'},{n:'Jumpsuit', i:'w_jump.jpg'},{n:'Co-ords', i:'w_coord.jpg'},{n:'Sleepwear', i:'w_sleep.jpg'}] },
+            'ethnic': { t:'Ethnic Wear', b:'banner_ethnic.jpg', mid:'ROYAL<br>ETHNIC', items:[{n:'Saree', i:'e_saree.jpg'},{n:'Kurtis', i:'e_kurti.jpg'},{n:'Dress Material', i:'e_material.jpg'},{n:'Lehengas', i:'e_lehenga.jpg'},{n:'Gowns', i:'e_gown.jpg'}] },
+            'footwear': { t:'Footwear', b:'banner_footwear.jpg', mid:'LUXE<br>STEPS', items:[{n:'Heels', i:'f_heels.jpg'},{n:'Sandals', i:'f_sandals.jpg'},{n:'Boots', i:'f_boots.jpg'},{n:'Bellies', i:'f_bellies.jpg'},{n:'Sneakers', i:'f_sneakers.jpg'}] },
+            'makeup_master': { t:'Makeup', b:'banner_makeup.jpg', mid:'GLAM<br>SHELF', items:[
                 {n:'Lipstick', i:'m_lip.jpg'}, {n:'Lip Gloss', i:'m_gloss.jpg'}, {n:'Lip Liner', i:'m_liner.jpg'},
                 {n:'Foundation', i:'m_found.jpg'}, {n:'Compact', i:'m_comp.jpg'}, {n:'Highlighter', i:'m_high.jpg'},
                 {n:'Eye Shadow', i:'m_eye.jpg'}, {n:'Eyeliner', i:'m_eline.jpg'}, {n:'Kajal', i:'m_kajal.jpg'},
                 {n:'Mascara', i:'m_masc.jpg'}, {n:'Nails', i:'m_nails.jpg'}, {n:'Brushes', i:'m_brush.jpg'}, {n:'Perfumes', i:'m_perf.jpg'}
             ]},
-            'jewellery_master': { t:'Jewelry', mid:'FINE<br>GOLD', items:[
+            'jewellery_master': { t:'Jewelry', b:'banner_jewelry.jpg', mid:'FINE<br>GOLD', items:[
                 {n:'Minimal', i:'j_min.jpg'}, {n:'Bridal', i:'j_brid.jpg'}, {n:'Haldi Hues', i:'j_haldi.jpg'},
                 {n:'Mehndi Vibes', i:'j_meh.jpg'}, {n:'Rajputi', i:'j_raj.jpg'}, {n:'American Diamond', i:'j_ad.jpg'},
                 {n:'Kashmiri Ear', i:'j_kash.jpg'}, {n:'Jhumka', i:'j_jhum.jpg'}, {n:'Korean Ear', i:'j_kor.jpg'},
                 {n:'Maangtika', i:'j_tika.jpg'}, {n:'Rings', i:'j_ring.jpg'}, {n:'Bracelet', i:'j_brace.jpg'}
             ]},
-            'acc_main': { t:'Accessories', mid:'LUXE<br>EDIT', items:[{n:'Hair Acc', i:'a_hair.jpg'},{n:'Belts', i:'a_belts.jpg'},{n:'Sunglasses', i:'a_glass.jpg'},{n:'Watches', i:'a_watch.jpg'}] },
-            'bags': { t:'Bags', mid:'BAGS<br>LUXE', items:[{n:'Backpacks', i:'b_pack.jpg'},{n:'Handbags', i:'b_hand.jpg'},{n:'Sling Bags', i:'b_sling.jpg'},{n:'Wallets', i:'b_wallet.jpg'}] },
-            'personal_care': { t:'Personal Care', mid:'SELF<br>CARE', items:[{n:'Body Lotion', i:'c_lotion.jpg'},{n:'Face Wash', i:'c_wash.jpg'},{n:'Face Mask', i:'c_mask.jpg'}] }
+            'acc_main': { t:'Accessories', b:'banner_acc.jpg', mid:'LUXE<br>EDIT', items:[{n:'Hair Acc', i:'a_hair.jpg'},{n:'Belts', i:'a_belts.jpg'},{n:'Sunglasses', i:'a_glass.jpg'},{n:'Watches', i:'a_watch.jpg'}] },
+            'bags': { t:'Bags', b:'banner_bags.jpg', mid:'BAGS<br>LUXE', items:[{n:'Backpacks', i:'b_pack.jpg'},{n:'Handbags', i:'b_hand.jpg'},{n:'Sling Bags', i:'b_sling.jpg'},{n:'Wallets', i:'b_wallet.jpg'}] },
+            'personal_care': { t:'Personal Care', b:'banner_care.jpg', mid:'SELF<br>CARE', items:[{n:'Body Lotion', i:'c_lotion.jpg'},{n:'Face Wash', i:'c_wash.jpg'},{n:'Face Mask', i:'c_mask.jpg'}] }
         };
+
+        let currentItem = "";
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
@@ -136,17 +148,51 @@
             window.scrollTo(0,0);
         }
 
+        function openOrder(name) {
+            currentItem = name;
+            document.getElementById('order-item-name').innerText = "Ordering: " + name;
+            showPage('order-page');
+        }
+
         function renderSub(key) {
             const data = subData[key];
             showPage('sub-page');
             document.getElementById('sub-title-text').innerText = data.t;
+            
+            // Set dynamic banner for the specific category
+            const bannerBox = document.getElementById('sub-banner-container');
+            bannerBox.innerHTML = `
+                <div class="reel-card" style="min-width:100%; height:180px; border-radius:0;">
+                    <img src="${data.b}" onerror="this.src='sub_banner1.jpg'" style="width:100%; height:100%; object-fit:cover;">
+                </div>`;
+
             const grid = document.getElementById('grid-content');
             grid.innerHTML = '';
             data.items.forEach((item, index) => {
                 if(index === 4) grid.innerHTML += `<div class="grid-item maroon-box">${data.mid}</div>`;
-                grid.innerHTML += `<div class="grid-item" onclick="showPage('order-page')"><img src="${item.i}" onerror="this.src='icon_product.png'"><p>${item.n}</p></div>`;
+                grid.innerHTML += `<div class="grid-item" onclick="openOrder('${item.n}')"><img src="${item.i}" onerror="this.src='icon_product.png'"><p>${item.n}</p></div>`;
             });
         }
+
+        function placeOrder() {
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const address = document.getElementById('cust-address').value;
+
+            if(!name || !phone || !address) { 
+                alert("Please fill all delivery details!"); 
+                return; 
+            }
+            
+            alert("SUCCESS! Order for " + currentItem + " has been placed. We will contact you shortly.");
+            // Reset form
+            document.getElementById('cust-name').value = "";
+            document.getElementById('cust-phone').value = "";
+            document.getElementById('cust-address').value = "";
+            showHome();
+        }
+
+        function showHome() { showPage('home-page'); }
     </script>
 </body>
 </html>
