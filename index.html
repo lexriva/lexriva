@@ -14,23 +14,28 @@
         .logo { font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 4px; font-weight: 600; }
         .section-header { padding: 0 15px; font-size: 11px; font-weight: 800; text-transform: uppercase; margin: 20px 0 10px 15px; border-left: 3px solid var(--burgundy); }
 
+        /* BESTSELLERS & REELS */
+        .horizontal-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 0 15px; scrollbar-width: none; }
+        .scroll-item { min-width: 140px; text-align: center; cursor: pointer; }
+        .scroll-item img { width: 140px; height: 180px; object-fit: cover; border-radius: 8px; }
+        .reel-wrapper { display: flex; overflow-x: auto; gap: 12px; padding: 10px 15px; scrollbar-width: none; }
+        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
+
         /* 9-GRID SUB-CATEGORIES */
         .sub-grid-9 { display: grid; grid-template-columns: repeat(3, 1fr); background: #fff; }
         .grid-item { border: 0.5px solid var(--border); padding: 15px 5px; text-align: center; aspect-ratio: 1/1.2; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
-        .grid-item img { width: 65px; height: 65px; object-fit: cover; border-radius: 4px; margin-bottom: 8px; }
-        .black-box { background: #000 !important; color: #fff !important; font-weight: 800; font-size: 10px; line-height: 1.3; }
+        .grid-item img { width: 75px; height: 75px; object-fit: cover; border-radius: 4px; margin-bottom: 8px; }
+        .black-box { background: #000 !important; color: #fff !important; font-weight: 800; font-size: 10px; text-align: center; }
 
-        /* PRODUCT DETAIL PAGE */
+        /* PRODUCT DETAIL */
         .p-detail-img { width: 100%; height: 450px; object-fit: cover; }
-        .p-detail-card { padding: 25px; background: #fff; border-radius: 25px 25px 0 0; margin-top: -30px; position: relative; box-shadow: 0 -10px 20px rgba(0,0,0,0.05); }
+        .p-detail-card { padding: 25px; background: #fff; border-radius: 25px 25px 0 0; margin-top: -30px; position: relative; }
         .btn-row { display: flex; gap: 12px; margin-top: 25px; }
-        .btn { flex: 1; padding: 16px; border: none; font-weight: 800; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 12px; }
-        .btn-wish { background: #f0f0f0; color: #000; }
+        .btn { flex: 1; padding: 16px; border: none; font-weight: 800; border-radius: 8px; cursor: pointer; text-transform: uppercase; }
         .btn-buy { background: var(--burgundy); color: #fff; }
 
-        /* NAV & INPUTS */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 14px 0; border-top: 1px solid var(--border); z-index: 2000; }
-        .input-field { width: 90%; padding: 14px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 14px 0; border-top: 1px solid var(--border); z-index: 2000; font-size: 10px; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -39,85 +44,112 @@
 
     <div id="home-page" class="page active-page">
         <img src="main_banner.jpg" style="width: 100%;">
-        <div class="section-header">Our Collections</div>
+        
+        <div class="section-header">Bestsellers</div>
+        <div id="latest-scroll" class="horizontal-scroll"></div>
+
+        <div class="section-header">Top Collections</div>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px;">
             <div onclick="openSubGrid('western')"><img src="cat_western.jpg" style="width:100%; border-radius:6px;"></div>
             <div onclick="openSubGrid('jewellery_master')"><img src="cat_jewel.jpg" style="width:100%; border-radius:6px;"></div>
             <div onclick="openSubGrid('makeup_master')"><img src="cat_makeup.jpg" style="width:100%; border-radius:6px;"></div>
+            <div onclick="openSubGrid('ethnic')"><img src="cat_ethnic.jpg" style="width:100%; border-radius:6px;"></div>
+        </div>
+
+        <div class="section-header">Product Videos</div>
+        <div class="reel-wrapper">
+            <div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card"><video src="reel5.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card"><video src="reel6.mp4" autoplay muted loop playsinline></video></div>
+        </div>
+
+        <div class="section-header">More Categories</div>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px;">
             <div onclick="openSubGrid('footwear')"><img src="cat_footwear.jpg" style="width:100%; border-radius:6px;"></div>
+            <div onclick="openSubGrid('bags')"><img src="cat_bags.jpg" style="width:100%; border-radius:6px;"></div>
         </div>
     </div>
 
     <div id="sub-grid-page" class="page">
-        <div class="section-header"><span onclick="showPage('home-page')">←</span> <span id="sub-grid-title">Categories</span></div>
+        <div class="section-header"><span onclick="showPage('home-page')">←</span> <span id="sub-grid-title"></span></div>
+        <div id="big-banner-box" style="width:100%; height:300px; overflow:hidden;"><img src="main_banner.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
         <div id="grid-box" class="sub-grid-9"></div>
     </div>
 
     <div id="list-page" class="page">
-        <div class="section-header"><span onclick="showPage('sub-grid-page')">←</span> <span id="list-title">Products</span></div>
+        <div class="section-header"><span onclick="showPage('sub-grid-page')">←</span> <span id="list-title"></span></div>
         <div id="product-items-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px; padding:10px;"></div>
     </div>
 
     <div id="detail-page" class="page">
-        <div style="position:absolute; top:20px; left:20px; z-index:100; background:white; width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.2);" onclick="showPage('list-page')">←</div>
+        <div style="position:absolute; top:20px; left:20px; z-index:100; background:white; width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center;" onclick="showPage('list-page')">←</div>
         <img id="det-img" class="p-detail-img">
         <div class="p-detail-card">
-            <h2 id="det-name" style="margin:0; font-size:22px;"></h2>
-            <p id="det-price" style="color:var(--burgundy); font-size:24px; font-weight:800; margin:10px 0;"></p>
-            <p style="color:#666; font-size:14px; line-height:1.6;">Luxury collection by Lexriva. Designed for elegance and comfort.</p>
+            <h2 id="det-name"></h2>
+            <p id="det-price" style="color:var(--burgundy); font-size:22px; font-weight:800;"></p>
+            <p style="color:#666; font-size:14px; line-height:1.6;">Luxury premium collection from Lexriva. High quality fabric and elegant finish.</p>
             <div class="btn-row">
-                <button class="btn btn-wish" onclick="alert('Added to Wishlist!')">❤ WISHLIST</button>
-                <button class="btn btn-buy" onclick="showPage('checkout-page')">BUY NOW</button>
+                <button class="btn btn-wish" onclick="alert('Added to Wishlist!')">❤ Wishlist</button>
+                <button class="btn btn-buy" onclick="alert('Order Feature Enabled!')">Buy Now</button>
             </div>
         </div>
     </div>
 
-    <div id="checkout-page" class="page">
-        <div class="section-header"><span onclick="showPage('detail-page')">←</span> Secure Checkout</div>
-        <div style="padding:20px; text-align:center;">
-            <input type="text" id="c-name" class="input-field" placeholder="Full Name">
-            <input type="tel" id="c-phone" class="input-field" placeholder="Phone Number">
-            <textarea id="c-addr" class="input-field" placeholder="Full Delivery Address" style="height:100px;"></textarea>
-            <button class="btn btn-buy" style="width:90%; margin-top:20px;" onclick="placeOrder()">CONFIRM COD ORDER</button>
-        </div>
-    </div>
-
-    <div id="account-page" class="page">
-        <div class="header">MY ACCOUNT</div>
-        <div style="padding:40px; text-align:center;">
-            <input type="tel" class="input-field" placeholder="Mobile Number">
-            <button class="btn btn-buy" style="width:90%; margin-top:10px;">LOGIN / SIGNUP</button>
-        </div>
-    </div>
-
     <div class="bottom-nav">
-        <div onclick="showPage('home-page')">Home</div>
-        <div onclick="alert('Wishlist Empty')">Wishlist</div>
-        <div onclick="showPage('account-page')">Account</div>
+        <div onclick="showPage('home-page')">HOME</div>
+        <div onclick="alert('Wishlist Empty')">WISHLIST</div>
+        <div onclick="alert('Login Enabled')">ACCOUNT</div>
     </div>
 
     <script>
         const ADMIN_URL = "https://script.google.com/macros/s/AKfycbyO-sKiVlGqpFvAWz8st_Md6GYWO2c5DOI8AOTtkL7sAYqP1ktcCy0pyDLDOwxRUqLNBA/exec";
-        let storeData = { categories: {} };
+        let storeData = { categories: {}, latest: [] };
 
-        // Sub-category Lists
-        const subMap = {
-            'western': ['Tops', 'Dresses', 'Jeans', 'T-Shirts', 'LEXRIVA', 'Co-ords', 'Skirts', 'Jackets', 'Shorts'],
-            'jewellery_master': ['Rings', 'Necklace', 'Jhumka', 'Bracelet', 'LEXRIVA', 'Anklets', 'Bangles', 'Bridal', 'Pendant']
+        // Sub-category Icons Mapping
+        const subData = {
+            'western': ['Tops', 'Dresses', 'Jeans', 'Skirts', 'LEXRIVA', 'Co-ords', 'Jackets', 'Shorts', 'T-Shirts'],
+            'jewellery_master': ['Rings', 'Necklace', 'Jhumka', 'Bracelet', 'LEXRIVA', 'Anklets', 'Bangles', 'Bridal', 'Pendant'],
+            'makeup_master': ['Lipstick', 'Foundations', 'Nail Polish', 'Eyeliner', 'LEXRIVA', 'Eyeshadow', 'Blush', 'Mascara', 'Primer']
         };
 
         async function init() {
-            try { const res = await fetch(ADMIN_URL); storeData = await res.json(); } catch(e) {}
+            try { 
+                const res = await fetch(ADMIN_URL); 
+                storeData = await res.json();
+                renderLatestScroll(); 
+            } catch (e) { console.log("Connecting..."); }
+        }
+
+        function renderLatestScroll() {
+            const scrollDiv = document.getElementById('latest-scroll');
+            if(storeData.latest) {
+                scrollDiv.innerHTML = storeData.latest.map(p => `
+                    <div class="scroll-item" onclick='openDetail(${JSON.stringify(p)})'>
+                        <img src="${p.i || 'icon.png'}">
+                        <p style="font-size:10px; font-weight:bold;">${p.n}</p>
+                        <span style="color:var(--burgundy); font-weight:800;">₹${p.p}</span>
+                    </div>
+                `).join('');
+            }
         }
 
         function openSubGrid(mainCat) {
             showPage('sub-grid-page');
             document.getElementById('sub-grid-title').innerText = mainCat.toUpperCase();
-            const list = subMap[mainCat] || ['Sub 1', 'Sub 2', 'Sub 3', 'Sub 4', 'LEXRIVA', 'Sub 5', 'Sub 6', 'Sub 7', 'Sub 8'];
+            const list = subData[mainCat] || ['Sub 1', 'Sub 2', 'Sub 3', 'Sub 4', 'LEXRIVA', 'Sub 5', 'Sub 6', 'Sub 7', 'Sub 8'];
             let html = "";
             list.forEach((name, i) => {
                 if(i === 4) html += `<div class="grid-item black-box">LEXRIVA<br>${mainCat.toUpperCase()}</div>`;
-                else html += `<div class="grid-item" onclick="openList('${mainCat}', '${name}')"><img src="${name.toLowerCase()}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px; font-weight:700;">${name}</p></div>`;
+                else {
+                    // Yahan icons enable kiye gaye hain
+                    html += `<div class="grid-item" onclick="openList('${mainCat}', '${name}')">
+                        <img src="${name.toLowerCase()}.jpg" onerror="this.src='icon_product.png'">
+                        <p style="font-size:9px; font-weight:700;">${name}</p>
+                    </div>`;
+                }
             });
             document.getElementById('grid-box').innerHTML = html;
         }
@@ -129,7 +161,7 @@
             document.getElementById('product-items-grid').innerHTML = products.map(p => `
                 <div style="background:white; border-radius:8px; overflow:hidden;" onclick='openDetail(${JSON.stringify(p)})'>
                     <img src="${p.i || 'icon.png'}" style="width:100%; height:180px; object-fit:cover;">
-                    <div style="padding:10px;"><p style="font-size:11px; font-weight:bold; margin:0;">${p.n}</p><p style="color:var(--burgundy); font-weight:800; font-size:13px; margin:5px 0;">₹${p.p}</p></div>
+                    <div style="padding:10px;"><p style="font-size:11px; font-weight:bold;">${p.n}</p><p style="color:var(--burgundy); font-weight:800;">₹${p.p}</p></div>
                 </div>
             `).join('');
         }
@@ -139,16 +171,6 @@
             document.getElementById('det-img').src = p.i || 'icon.png';
             document.getElementById('det-name').innerText = p.n;
             document.getElementById('det-price').innerText = "₹" + p.p;
-        }
-
-        async function placeOrder() {
-            const name = document.getElementById('c-name').value;
-            const phone = document.getElementById('c-phone').value;
-            const addr = document.getElementById('c-addr').value;
-            if(!name || !phone || !addr) { alert("Please fill all fields"); return; }
-            await fetch(ADMIN_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: 'ORDER', contact: `${name} (${phone})`, details: addr }) });
-            alert("Order Placed Successfully!");
-            showPage('home-page');
         }
 
         function showPage(id) {
