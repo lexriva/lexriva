@@ -7,68 +7,58 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .logo{font-family:'Cinzel';font-size:24px;letter-spacing:5px;font-weight:800;color:var(--cherry)}
 .search-container{padding:10px 15px;display:flex;gap:10px;background:#fff;margin:10px;border-radius:30px;box-shadow:0 4px 15px rgba(0,0,0,0.06)}
 .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;border-left:4px solid var(--cherry);margin-top:15px;letter-spacing:1px}
-
-/* EID SPECIAL LUXURY STYLE */
 .eid-box{background:linear-gradient(45deg, #72001A, #a30026);padding:20px 0;margin:15px 0;box-shadow:inset 0 0 50px rgba(0,0,0,0.3)}
 .eid-title{font-family:'Cinzel';color:var(--gold);text-align:center;font-size:18px;letter-spacing:2px;margin-bottom:15px;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
 .h-scroll::-webkit-scrollbar{display:none}
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:8px;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.1)}
 .scroll-item img{width:124px;height:160px;border-radius:8px;object-fit:cover}
-
 .reel-box{display:flex;overflow-x:auto;gap:12px;padding:15px;scrollbar-width:none}
 .reel-card{min-width:280px;height:480px;border-radius:20px;overflow:hidden;flex-shrink:0;background:#000;box-shadow:0 10px 20px rgba(0,0,0,0.2)}
 .reel-card video{width:100%;height:100%;object-fit:cover}
-
 .grid-9{display:grid;grid-template-columns:repeat(3,1fr);background:#fff}
 .grid-item{border:0.5px solid #f2f2f2;padding:15px 5px;text-align:center;aspect-ratio:1/1.2;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
 .grid-item img{width:75px;height:75px;object-fit:cover;border-radius:12px;margin-bottom:5px}
 .cherry-box{background:linear-gradient(145deg, var(--cherry), #4d0011) !important; color:#fff !important; font-size:10px !important; font-weight:800; border:none !important}
-
+.btn-v{width:100%;padding:16px;border:none;border-radius:10px;font-weight:800;cursor:pointer;text-transform:uppercase;margin-top:10px}
+.btn-buy{background:#ffa41c;color:#000}.btn-cart{background:#ffd814;color:#000}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:18px 0;border-top:1px solid #eee;z-index:1000;font-size:10px;font-weight:700}
-.cat-label{font-size:9px;font-weight:800;text-align:center;margin-top:5px;text-transform:uppercase}
 </style></head><body>
-
 <div class="header"><div class="logo">LEXRIVA</div></div>
-<div class="search-container"><input type="text" id="m-search" style="flex:1;border:none;outline:none" placeholder="Search Luxury..."><span onclick="alert('Pic Search Active')">📸</span></div>
+<div class="search-container"><input type="text" id="m-search" style="flex:1;border:none;outline:none" placeholder="Search Lexriva..." onkeyup="hSearch()"><span onclick="alert('Pic Search Active')">📸</span></div>
 
 <div id="h-pg" class="page active">
     <img src="main_banner.jpg" style="width:100%">
-    
     <div class="eid-box">
         <div class="eid-title">🌙 EID SPECIAL COLLECTION 🌙</div>
         <div id="eid-scroll" class="h-scroll"></div>
     </div>
-
     <div class="section-h">🔥 Bestsellers</div>
     <div id="l-scroll" class="h-scroll" style="margin-bottom:20px"></div>
-
     <div class="section-h">Women's Clothing</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px">
-        <div onclick="openSub('western')"><img src="cat_western.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Western Wear</div></div>
-        <div onclick="openSub('ethnic')"><img src="cat_ethnic.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Ethnic Wear</div></div>
+        <div onclick="openSub('western')"><img src="cat_western.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">WESTERN WEAR</p></div>
+        <div onclick="openSub('ethnic')"><img src="cat_ethnic.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">ETHNIC WEAR</p></div>
     </div>
-
     <div class="section-h">🎬 Trending Reels</div>
     <div class="reel-box">
         <div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
         <div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
         <div class="reel-card"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
     </div>
-
     <div class="section-h">Beauty, Jewellery & Accessories</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px">
-        <div onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Makeup & Care</div></div>
-        <div onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Jewellery</div></div>
-        <div onclick="openSub('footwear')"><img src="cat_footwear.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Footwear</div></div>
-        <div onclick="openSub('bags')"><img src="cat_bags.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Women Bags</div></div>
-        <div onclick="openSub('acc_main')"><img src="cat_acc.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Accessories</div></div>
+        <div onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">MAKEUP & CARE</p></div>
+        <div onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">JEWELLERY</p></div>
+        <div onclick="openSub('footwear')"><img src="cat_footwear.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">FOOTWEAR</p></div>
+        <div onclick="openSub('bags')"><img src="cat_bags.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">WOMEN BAGS</p></div>
+        <div onclick="openSub('acc_main')"><img src="cat_acc.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">ACCESSORIES</p></div>
     </div>
 </div>
 
 <div id="s-pg" class="page"><div style="padding:15px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:250px;overflow:hidden"></div><div id="s-grid" class="grid-9"></div></div>
 
-<div id="login-pg" class="page"><div class="header">ACCOUNT</div><div style="padding:40px;text-align:center"><input type="tel" style="width:90%;padding:15px;margin-bottom:10px" placeholder="Mobile Number"><button style="width:100%;padding:16px;background:var(--cherry);color:#fff;border:none;border-radius:8px" onclick="alert('Login Enabled')">LOGIN</button></div></div>
+<div id="login-pg" class="page"><div class="header"><div class="logo">ACCOUNT</div></div><div style="padding:40px;text-align:center"><h3>Login to Lexriva</h3><input type="tel" style="width:90%;padding:15px;margin-bottom:15px;border:1px solid #ddd;border-radius:8px" placeholder="Enter Mobile Number"><button class="btn-v btn-buy" style="width:100%" onclick="alert('OTP Sent!')">GET OTP</button></div></div>
 
 <div class="bottom-nav"><div onclick="showPg('h-pg')">HOME</div><div onclick="alert('Wishlist Empty')">WISHLIST</div><div onclick="showPg('login-pg')">ACCOUNT</div></div>
 
@@ -87,16 +77,11 @@ const subMap={
 };
 
 async function init(){try{const r=await fetch(ADMIN_URL);store=await r.json();renderH()}catch(e){}}
-
 function renderH(){
-    // Unlimited Eid Products from Sheet
-    document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(p=>`<div class="scroll-item"><img src="${p.i}"><p style="font-size:10px;font-weight:700;margin:5px 0">${p.n}</p><p style="color:var(--cherry);font-size:11px;font-weight:800">₹${p.p}</p></div>`).join('');
-    
-    // Bestsellers
+    document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(p=>`<div class="scroll-item"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
     document.getElementById('l-scroll').innerHTML=store.latest.map(p=>`<div class="scroll-item" style="background:transparent;box-shadow:none"><img src="${p.i}"><p style="font-size:10px;font-weight:700">${p.n}</p></div>`).join('');
 }
-
-function openSub(k){showPg('s-pg');const d=store.categories[k]||{b:''};document.getElementById('s-banner').innerHTML=`<img src="${d.b||k+'_banner.jpg'}" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;let h="";const subs=subMap[k]||[];subs.forEach((n,i)=>{if(n === 'LEXRIVA')h+=`<div class="grid-item cherry-box">LEXRIVA<br>${k.toUpperCase()}</div>`;else h+=`<div class="grid-item"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700">${n}</p></div>`});document.getElementById('s-grid').innerHTML=h}
-
+function openSub(k){showPg('s-pg');const d=store.categories[k]||{b:''};document.getElementById('s-banner').innerHTML=`<img src="${d.b||k+'_banner.jpg'}" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;let h="";const subs=subMap[k]||[];subs.forEach((n,i)=>{if(n==='LEXRIVA')h+=`<div class="grid-item cherry-box">LEXRIVA<br>${k.toUpperCase()}</div>`;else h+=`<div class="grid-item" onclick="alert('Opening ${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700">${n}</p></div>`});document.getElementById('s-grid').innerHTML=h}
+function hSearch(){ let q=document.getElementById('m-search').value.toLowerCase(); /* Logic for search */}
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 window.onload=init;</script></body></html>
