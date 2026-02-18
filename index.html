@@ -2,7 +2,6 @@
 :root{
     --lavender:#F4EFFF; 
     --cherry:#72001A; 
-    --gold:#D4AF37;
     --white:#ffffff;
 }
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
@@ -14,7 +13,6 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;border-left:4px solid var(--cherry);margin-top:15px;letter-spacing:1px}
 .reel-box{display:flex;overflow-x:auto;gap:12px;padding:15px;scrollbar-width:none}
 .reel-card{min-width:280px;height:480px;border-radius:20px;overflow:hidden;flex-shrink:0;background:#000;box-shadow:0 10px 20px rgba(0,0,0,0.2)}
-.reel-card video{width:100%;height:100%;object-fit:cover}
 .grid-9{display:grid;grid-template-columns:repeat(3,1fr);background:#fff}
 .grid-item{border:0.5px solid #f2f2f2;padding:15px 5px;text-align:center;aspect-ratio:1/1.2;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
 .grid-item img{width:75px;height:75px;object-fit:cover;border-radius:12px;margin-bottom:5px;box-shadow: 0 4px 8px rgba(0,0,0,0.05)}
@@ -24,47 +22,52 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     font-size: 10px !important;
     font-weight: 800;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    border: none !important;
 }
-.btn-v{width:100%;padding:16px;border:none;border-radius:10px;font-weight:800;cursor:pointer;text-transform:uppercase}
-.btn-buy{background:#ffa41c}
-.btn-cart{background:#ffd814}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:18px 0;border-top:1px solid #eee;z-index:1000;font-size:10px;font-weight:700}
-.cat-label{font-size:9px;font-weight:800;text-align:center;margin-top:5px;text-transform:uppercase}
 </style></head><body><div class="header"><div class="logo">LEXRIVA</div></div><div class="search-container"><input type="text" id="m-search" style="flex:1;border:none;outline:none" placeholder="Search Lexriva..." onkeyup="hSearch()"><span onclick="alert('Pic Search Active')">📸</span></div>
 
-<div id="h-pg" class="page active"><img src="main_banner.jpg" style="width:100%"><div class="section-h">Bestsellers</div><div id="l-scroll" style="display:flex;overflow-x:auto;gap:15px;padding:15px"></div><div class="section-h">Women's Clothing</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px"><div onclick="openSub('western')"><img src="cat_western.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Western Wear</div></div><div onclick="openSub('ethnic')"><img src="cat_ethnic.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Ethnic Wear</div></div></div><div class="section-h">6-7 PRODUCT REELS</div><div class="reel-box"><div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline></video></div><div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline></video></div><div class="reel-card"><video src="reel3.mp4" autoplay muted loop playsinline></video></div><div class="reel-card"><video src="reel4.mp4" autoplay muted loop playsinline></video></div></div><div class="section-h">Beauty, Jewellery & Accessories</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px"><div onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Makeup & Care</div></div><div onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Jewellery</div></div><div onclick="openSub('footwear')"><img src="cat_footwear.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Footwear</div></div><div onclick="openSub('bags')"><img src="cat_bags.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Women Bags</div></div><div onclick="openSub('acc_main')"><img src="cat_acc.jpg" style="width:100%;border-radius:8px"><div class="cat-label">Accessories</div></div></div></div>
+<div id="h-pg" class="page active"><img src="main_banner.jpg" style="width:100%"><div class="section-h">Bestsellers</div><div id="l-scroll" style="display:flex;overflow-x:auto;gap:15px;padding:15px"></div><div class="section-h">Women's Clothing</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px"><div onclick="openSub('western')"><img src="cat_western.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">WESTERN WEAR</p></div><div onclick="openSub('ethnic')"><img src="cat_ethnic.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">ETHNIC WEAR</p></div></div><div class="section-h">6-7 PRODUCT REELS</div><div class="reel-box"><div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline></video></div><div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline></video></div><div class="reel-card"><video src="reel3.mp4" autoplay muted loop playsinline></video></div></div><div class="section-h">Beauty, Jewellery & Accessories</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px"><div onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">MAKEUP & CARE</p></div><div onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg" style="width:100%;border-radius:8px"><p style="text-align:center;font-size:9px;font-weight:800">JEWELLERY</p></div></div></div>
 
-<div id="s-pg" class="page"><div style="padding:15px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:250px;overflow:hidden"></div><div id="s-grid" class="grid-9"></div></div><div id="l-pg" class="page"><div id="list-title" style="padding:15px;font-weight:800"></div><div style="padding:10px;color:var(--cherry)" onclick="showPg('s-pg')">← BACK</div><div id="p-items" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px"></div></div>
+<div id="s-pg" class="page"><div style="padding:15px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:250px;overflow:hidden"></div><div id="s-grid" class="grid-9"></div></div>
 
-<div id="d-pg" class="page"><div style="padding:15px;font-weight:800" onclick="showPg('l-pg')">← BACK</div><div style="padding:20px;text-align:center"><img id="det-img" style="width:100%;height:350px;object-fit:contain"><h1 id="det-name" style="font-size:18px"></h1><div id="det-price" style="font-size:24px;font-weight:800"></div><p id="ship-msg" style="color:green;font-weight:700"></p><p style="font-size:12px;color:#666">2-Day Delivery | Amazon Style COD Enabled</p><button class="btn-v btn-cart" onclick="alert('Wishlist Active')">ADD TO WISHLIST</button><button class="btn-v btn-buy" onclick="showPg('check-pg')">ORDER NOW (COD)</button></div></div>
-
-<div id="check-pg" class="page"><div style="padding:20px"><h3>COD Checkout</h3><input type="text" id="c-n" style="width:90%;padding:14px;margin-bottom:10px" placeholder="Name"><input type="tel" id="c-p" style="width:90%;padding:14px;margin-bottom:10px" placeholder="Phone"><textarea id="c-a" style="width:90%;height:80px;padding:14px" placeholder="Address"></textarea><button class="btn-v btn-buy" onclick="placeOrder()">Confirm Order</button></div></div>
-
-<div id="login-pg" class="page"><div class="header">ACCOUNT</div><div style="padding:40px;text-align:center"><input type="tel" style="width:90%;padding:15px;margin-bottom:10px" placeholder="Mobile Number"><button class="btn-v btn-buy" onclick="alert('Login Active!')">LOGIN / SIGNUP</button></div></div>
-
-<div class="bottom-nav"><div onclick="showPg('h-pg')">HOME</div><div onclick="alert('Wishlist Empty')">WISHLIST</div><div onclick="showPg('login-pg')">ACCOUNT</div></div>
+<div class="bottom-nav"><div onclick="showPg('h-pg')">HOME</div><div onclick="alert('Wishlist Empty')">WISHLIST</div><div onclick="alert('Login Active')">ACCOUNT</div></div>
 
 <script>
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbysgVoApcCnoLQLrHB8FYqNvg9DRzeGXmuPKnQGZHf5IpY0QsPdGVmlvEd-AV6QKJge6g/exec";
-let store={categories:{},latest:[]},activeP={};
+let store={categories:{}};
 
 const subMap={
-'western':['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','LEXRIVA','Trousers','Shorts','Skirts','Jackets'],
-'ethnic':['Saree','Kurtis','Dress Material','Lehengas','Gowns','Anarkali','Suits','LEXRIVA','Palazzo','Sharara','Dupatta'],
-'footwear':['Heels','Sandals','Boots','Bellies','Sneakers','Flats','Ethnic','LEXRIVA','Loafers','Mules','Wedges'],
-'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','LEXRIVA','Eyeliner','Kajal','Mascara','Perfumes','Body Lotion','Face Wash','Face Mask'],
-'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','LEXRIVA','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
-'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
-'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
+'western':['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
+'ethnic':['Saree','Kurtis','Dress Material','Lehengas','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
+'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes','Body Lotion','Face Wash','Face Mask'],
+'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings']
 };
 
-async function init(){try{const r=await fetch(ADMIN_URL);store=await r.json();renderH()}catch(e){}}
-function renderH(){document.getElementById('l-scroll').innerHTML=store.latest.map(p=>`<div onclick='openDet(${JSON.stringify(p)})' style="min-width:140px"><img src="${p.i}" style="width:140px;height:180px;border-radius:12px"><p style="font-size:10px;font-weight:700">${p.n}</p></div>`).join('')}
-function openSub(k){showPg('s-pg');const d=store.categories[k]||{b:''};document.getElementById('s-banner').innerHTML=`<img src="${d.b||k+'_banner.jpg'}" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;let h="";const subs=subMap[k]||[];subs.forEach((n,i)=>{if(n === 'LEXRIVA')h+=`<div class="grid-item cherry-box">LEXRIVA<br>${k.toUpperCase()}</div>`;else h+=`<div class="grid-item" onclick="openList('${k}','${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700">${n}</p></div>`});document.getElementById('s-grid').innerHTML=h}
-function openList(c,s){showPg('l-pg');document.getElementById('list-title').innerText=s;const items=store.categories[c]?.items||[];const filtered=items.filter(p=>p.s&&p.s.toLowerCase()===s.toLowerCase());document.getElementById('p-items').innerHTML=(filtered.length?filtered:items).map(p=>`<div style="background:#fff;border-radius:8px;padding:10px" onclick='openDet(${JSON.stringify(p)})'><img src="${p.i}" style="width:100%;height:150px;object-fit:cover;border-radius:5px"><p style="font-size:11px;font-weight:700">${p.n}</p><p style="color:var(--cherry);font-weight:800">₹${p.p}</p></div>`).join('')}
-function openDet(p){activeP=p;showPg('d-pg');document.getElementById('det-img').src=p.i;document.getElementById('det-name').innerText=p.n;let pr=parseInt(p.p);document.getElementById('det-price').innerText="₹"+pr;document.getElementById('ship-msg').innerText=pr>=1999?"✓ FREE SHIPPING DEAL":"+ ₹49 DELIVERY"}
-async function placeOrder(){const n=document.getElementById('c-n').value,p=document.getElementById('c-p').value,a=document.getElementById('c-a').value;if(!n||!p||!a)return alert("Fill all!");await fetch(ADMIN_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({contact:n+' ('+p+')',details:`Prod: ${activeP.n}, Addr: ${a}`,price:activeP.p})});alert("Order Success!");showPg('h-pg')}
-function hSearch(){const q=document.getElementById('m-search').value.toLowerCase();if(q.length<2)return;showPg('l-pg');}
+async function init(){try{const r=await fetch(ADMIN_URL);store=await r.json()}catch(e){}}
+
+function openSub(k){
+    showPg('s-pg');
+    const d = store.categories[k] || {b:''};
+    document.getElementById('s-banner').innerHTML = `<img src="${d.b||k+'_banner.jpg'}" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
+    
+    let items = subMap[k] || [];
+    let h = "";
+    
+    // RED BOX LOGIC: Always putting it in the middle row
+    let centerPos = Math.floor(items.length / 2);
+    if(centerPos % 3 !== 1) centerPos = centerPos - (centerPos % 3) + 1;
+
+    items.forEach((n, i) => {
+        if(i === centerPos) {
+            h += `<div class="grid-item cherry-box">LEXRIVA<br>${k.toUpperCase()}</div>`;
+        }
+        h += `<div class="grid-item" onclick="alert('${n}')">
+            <img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'">
+            <p style="font-size:9px;font-weight:700">${n}</p>
+        </div>`;
+    });
+    document.getElementById('s-grid').innerHTML = h;
+}
+
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 window.onload=init;</script></body></html>
