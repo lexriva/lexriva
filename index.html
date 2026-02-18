@@ -5,7 +5,6 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .active{display:block}
 .header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
 .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
-.search-container{padding:12px 20px;display:flex;gap:12px;background:#fff;margin:10px 15px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,0.05);border:1px solid #eee}
 .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);display:flex;justify-content:space-between}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05)}
@@ -22,11 +21,10 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
 .cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:45% 45% 10px 10px !important; margin:12px; font-family:'Cinzel'; font-size:9px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold) !important; min-height:140px; box-shadow: 0 8px 15px rgba(114,0,26,0.3)}
 .footer-info{padding:30px 20px;background:#fff;text-align:center;border-radius:30px 30px 0 0;margin-top:20px}
+.social-link{display:inline-block;padding:12px 25px;background:var(--cherry);color:#fff;text-decoration:none;border-radius:50px;font-weight:700;font-size:12px;margin-top:10px}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
 .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
-/* LOGIN STYLING */
 .login-box{padding:40px 20px;text-align:center;background:#fff;margin:20px;border-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,0.05)}
-.input-field{width:100%;padding:15px;margin:15px 0;border-radius:12px;border:1px solid #eee;outline:none}
 .btn-login{width:100%;padding:16px;background:var(--cherry);color:#fff;border:none;border-radius:12px;font-weight:800}
 </style></head><body>
 
@@ -36,7 +34,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
     <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
-    <div class="section-h">🎬 TRENDING STYLE REELS</div>
+    <div class="section-h">🎬 TRENDING REELS</div>
     <div class="reel-box">
         <div class="reel-card" onclick="openSub('jewellery_master')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
         <div class="reel-card" onclick="openSub('makeup_cat')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
@@ -48,10 +46,13 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
         <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
         <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
         <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
+        <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
+        <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
+        <div class="cat-card" onclick="openSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
     </div>
     <div class="footer-info">
         <p style="font-weight:800;font-size:12px;color:green">✓ ₹1999+ FREE SHIPPING | 2-DAY DELIVERY</p>
-        <a href="https://www.instagram.com/lexrivaofficial" style="display:inline-block;padding:12px 25px;background:var(--cherry);color:#fff;text-decoration:none;border-radius:50px;font-weight:700;font-size:12px;margin-top:10px">FOLLOW @LEXRIVAOFFICIAL</a>
+        <a href="https://www.instagram.com/lexrivaofficial" class="social-link">FOLLOW @LEXRIVAOFFICIAL</a>
     </div>
 </div>
 
@@ -59,12 +60,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 
 <div id="account-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div class="login-box">
-        <h2 style="font-family:'Cinzel'">My Account</h2>
-        <p style="font-size:12px;color:#666">Login to access your Lexriva profile</p>
-        <input type="tel" class="input-field" placeholder="Mobile Number">
-        <button class="btn-login" onclick="alert('OTP Sent to your mobile!')">GET OTP</button>
-    </div>
+    <div class="login-box"><h2 style="font-family:'Cinzel'">My Account</h2><input type="tel" style="width:100%;padding:15px;margin:15px 0;border-radius:12px;border:1px solid #eee" placeholder="Mobile Number"><button class="btn-login" onclick="alert('OTP Sent!')">GET OTP</button></div>
 </div>
 
 <div class="bottom-nav">
@@ -84,7 +80,8 @@ const subMap={
 'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers','Flats','Ethnic','Loafers','Mules','Wedges'],
 'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','LEXRIVA','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
 'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
-'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes']
+'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
+'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
 };
 
 async function init(){try{const r=await fetch(ADMIN_URL);store=await r.json();renderH()}catch(e){}}
