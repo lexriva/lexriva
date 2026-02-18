@@ -5,50 +5,34 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .active{display:block}
 .header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
 .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
-
+.search-container{padding:12px 20px;display:flex;gap:12px;background:#fff;margin:10px 15px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,0.05);border:1px solid #eee}
 .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);display:flex;justify-content:space-between}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05)}
 .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
-
-/* REELS SECTION */
 .reel-box{display:flex;overflow-x:auto;gap:15px;padding:15px;scrollbar-width:none}
 .reel-card{min-width:260px;height:450px;border-radius:25px;overflow:hidden;position:relative;box-shadow:0 15px 35px rgba(0,0,0,0.15);cursor:pointer}
 .reel-card video{width:100%;height:100%;object-fit:cover}
-
-/* MAIN CATEGORY GRID */
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05)}
 .cat-card img{width:100%;height:100%;object-fit:cover}
 .cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
-
-/* SUB-GRID CENTRE BOX FIX */
 .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0}
 .sub-item{padding:20px 5px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1/1.3}
 .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-.cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:35px !important; margin:10px; font-family:'Cinzel'; font-size:10px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:none !important; min-height:160px}
-
-/* COMING SOON BANNERS */
-.banner-scroll{display:flex;overflow-x:auto;gap:15px;padding:15px;scrollbar-width:none}
-.soon-img{min-width:300px;height:180px;border-radius:20px;object-fit:cover;box-shadow:0 10px 20px rgba(0,0,0,0.1)}
-
+.cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:45% 45% 10px 10px !important; margin:12px; font-family:'Cinzel'; font-size:9px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold) !important; min-height:140px; box-shadow: 0 8px 15px rgba(114,0,26,0.3)}
 .footer-info{padding:30px 20px;background:#fff;text-align:center;border-radius:30px 30px 0 0;margin-top:20px}
-.social-link{display:inline-block;padding:12px 25px;background:var(--cherry);color:#fff;text-decoration:none;border-radius:50px;font-weight:700;font-size:12px;margin-top:10px}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{font-size:10px;font-weight:800;color:#999}
+.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
 </style></head><body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
+<div class="search-container"><input type="text" id="m-search" style="flex:1;border:none;outline:none" placeholder="Search Lexriva Luxury..."><span onclick="alert('Lens Active')">📸</span></div>
 
 <div id="h-pg" class="page active">
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
-    
-    <div class="section-h">🌙 THE EID EDIT</div>
-    <div id="eid-scroll" class="h-scroll"></div>
-
-    <div class="section-h">🔥 BESTSELLERS</div>
-    <div id="l-scroll" class="h-scroll"></div>
-
+    <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
+    <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
     <div class="section-h">🎬 TRENDING STYLE REELS</div>
     <div class="reel-box">
         <div class="reel-card" onclick="openSub('jewellery_master')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
@@ -56,8 +40,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
         <div class="reel-card" onclick="openSub('western')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
         <div class="reel-card" onclick="openSub('ethnic')"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
     </div>
-
-    <div class="section-h">👗 CURATED CATEGORIES</div>
+    <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
     <div class="cat-grid">
         <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
         <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
@@ -66,24 +49,21 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
         <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
         <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
     </div>
-
-    <div class="section-h">✨ COMING SOON</div>
-    <div class="banner-scroll">
-        <img src="soon1.jpg" class="soon-img" onerror="this.src='main_banner.jpg'">
-        <img src="soon2.jpg" class="soon-img" onerror="this.src='main_banner.jpg'">
-        <img src="soon3.jpg" class="soon-img" onerror="this.src='main_banner.jpg'">
-    </div>
-
     <div class="footer-info">
-        <p style="font-weight:800;font-size:14px;color:var(--cherry)">JOIN THE LEXRIVA CLAN</p>
-        <a href="https://www.instagram.com/lexrivaofficial" class="social-link">FOLLOW ON INSTAGRAM</a>
-        <div style="margin-top:20px; font-size:10px; color:#666">Email: support@lexriva.com</div>
+        <p style="font-weight:800;font-size:12px;color:green">✓ ₹1999+ FREE SHIPPING | 2-DAY DELIVERY</p>
+        <p style="font-size:10px;color:#666">Easy 7-Day Exchange | Luxury COD Guaranteed</p>
+        <a href="https://www.instagram.com/lexrivaofficial" style="display:inline-block;padding:12px 25px;background:var(--cherry);color:#fff;text-decoration:none;border-radius:50px;font-weight:700;font-size:12px;margin-top:10px">FOLLOW ON INSTAGRAM</a>
     </div>
 </div>
 
 <div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
 
-<div class="bottom-nav"><div class="nav-btn" style="color:var(--cherry)" onclick="showPg('h-pg')">HOME</div><div class="nav-btn" onclick="alert('Wishlist Empty')">WISHLIST</div><div class="nav-btn" onclick="alert('Login Active')">ACCOUNT</div></div>
+<div class="bottom-nav">
+    <div class="nav-btn" style="color:var(--cherry)" onclick="showPg('h-pg')">HOME</div>
+    <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView({behavior:'smooth'})">CATEGORIES</div>
+    <div class="nav-btn" onclick="alert('Wishlist Empty')">WISHLIST</div>
+    <div class="nav-btn" onclick="alert('Login Active')">ACCOUNT</div>
+</div>
 
 <script>
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbysgVoApcCnoLQLrHB8FYqNvg9DRzeGXmuPKnQGZHf5IpY0QsPdGVmlvEd-AV6QKJge6g/exec";
@@ -95,7 +75,8 @@ const subMap={
 'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers','Flats','Ethnic','Loafers','Mules','Wedges'],
 'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','LEXRIVA','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
 'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
-'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes']
+'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
+'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
 };
 
 async function init(){try{const r=await fetch(ADMIN_URL);store=await r.json();renderH()}catch(e){}}
@@ -109,7 +90,7 @@ function openSub(k){
     let h=""; const subs=subMap[k]||[];
     subs.forEach((n,i)=>{
         if(n === 'LEXRIVA') h+=`<div class="sub-item cherry-box">ESTD. 2024<br><br><span style="font-size:14px">LEXRIVA</span><br><br>LUXURY MALL</div>`;
-        else h+=`<div class="sub-item"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+        else h+=`<div class="sub-item" onclick="alert('Opening ${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
 }
