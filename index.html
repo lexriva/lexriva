@@ -1,6 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva Luxury Mall</title><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@400;700&display=swap" rel="stylesheet"><style>
 :root{
-    /* LUXURY THEME COLORS */
     --lavender:#F4EFFF; 
     --cherry:#72001A; 
     --gold:#D4AF37;
@@ -19,8 +18,6 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .grid-9{display:grid;grid-template-columns:repeat(3,1fr);background:#fff}
 .grid-item{border:0.5px solid #f2f2f2;padding:15px 5px;text-align:center;aspect-ratio:1/1.2;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
 .grid-item img{width:75px;height:75px;object-fit:cover;border-radius:12px;margin-bottom:5px;box-shadow: 0 4px 8px rgba(0,0,0,0.05)}
-
-/* UPDATED CHERRY BOX DESIGN */
 .cherry-box{
     background: linear-gradient(145deg, var(--cherry), #4d0011) !important;
     color: #fff !important;
@@ -29,7 +26,6 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     border: none !important;
 }
-
 .btn-v{width:100%;padding:16px;border:none;border-radius:10px;font-weight:800;cursor:pointer;text-transform:uppercase}
 .btn-buy{background:#ffa41c}
 .btn-cart{background:#ffd814}
@@ -54,10 +50,10 @@ const ADMIN_URL="https://script.google.com/macros/s/AKfycbysgVoApcCnoLQLrHB8FYqN
 let store={categories:{},latest:[]},activeP={};
 
 const subMap={
-'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
-'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
-'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers','Flats','Ethnic','Loafers','Mules','Wedges'],
-'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','LEXRIVA','Kajal','Mascara','Perfumes','Body Lotion','Face Wash','Face Mask'],
+'western':['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','LEXRIVA','Trousers','Shorts','Skirts','Jackets'],
+'ethnic':['Saree','Kurtis','Dress Material','Lehengas','Gowns','Anarkali','Suits','LEXRIVA','Palazzo','Sharara','Dupatta'],
+'footwear':['Heels','Sandals','Boots','Bellies','Sneakers','Flats','Ethnic','LEXRIVA','Loafers','Mules','Wedges'],
+'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','LEXRIVA','Eyeliner','Kajal','Mascara','Perfumes','Body Lotion','Face Wash','Face Mask'],
 'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','LEXRIVA','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
 'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
 'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
