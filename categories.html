@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexrenzo - Categories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #ff4757; --dark: #2f3542; --light: #ffffff; --bg: #f9f9f9; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: var(--bg); padding-bottom: 80px; }
+
+        /* --- Header --- */
+        header { background: var(--light); padding: 15px; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); sticky top: 0; z-index: 100; }
+        header h1 { font-size: 18px; margin: 0; flex-grow: 1; text-align: center; }
+        .back-btn { font-size: 20px; color: var(--dark); text-decoration: none; }
+
+        /* --- Category Container --- */
+        .category-section { padding: 20px 15px; }
+        .category-title { font-size: 16px; font-weight: bold; margin-bottom: 20px; border-bottom: 2px solid var(--primary); display: inline-block; }
+
+        /* --- Grid Layout --- */
+        .sub-cat-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px 10px; 
+            text-align: center; 
+        }
+
+        /* --- Circle Sub-Categories --- */
+        .sub-item { text-decoration: none; color: var(--dark); }
+        .sub-item .img-container { 
+            width: 80px; 
+            height: 80px; 
+            background: white; 
+            border-radius: 50%; 
+            margin: 0 auto 8px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            overflow: hidden;
+        }
+        .sub-item img { width: 100%; height: 100%; object-fit: cover; }
+        .sub-item p { font-size: 12px; margin: 0; font-weight: 500; }
+
+        /* --- Special Red Box --- */
+        .red-box-special { 
+            grid-column: span 1; 
+            height: 80px; 
+            width: 80px;
+            background: var(--primary); 
+            border-radius: 12px; 
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Bottom Nav --- */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #ddd; }
+        .bottom-nav a { text-align: center; text-decoration: none; color: var(--dark); font-size: 12px; }
+        .bottom-nav i { display: block; font-size: 20px; margin-bottom: 3px; }
+        .bottom-nav a.active { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn"><i class="fa fa-arrow-left"></i></a>
+        <h1>All Categories</h1>
+    </header>
+
+    <section class="category-section">
+        <div class="category-title">Jewellery & Makeup</div>
+        <div class="sub-cat-grid">
+            <a href="#" class="sub-item"><div class="img-container"><img src="earrings.png"></div><p>Earrings</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="necklaces.png"></div><p>Necklaces</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="rings.png"></div><p>Rings</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="bracelets.png"></div><p>Bracelets</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="lipsticks.png"></div><p>Lipsticks</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="eyeliner.png"></div><p>Eyeliner</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="foundation.png"></div><p>Foundation</p></a>
+            
+            <div class="red-box-special">HOT DEALS</div>
+
+            <a href="#" class="sub-item"><div class="img-container"><img src="makeup_kit.png"></div><p>Full Kit</p></a>
+        </div>
+    </section>
+
+    <section class="category-section">
+        <div class="category-title">Clothing & Others</div>
+        <div class="sub-cat-grid">
+            <a href="#" class="sub-item"><div class="img-container"><img src="kurta.png"></div><p>Kurta</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="tops.png"></div><p>Tops</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="jeans.png"></div><p>Jeans</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="dresses.png"></div><p>Dresses</p></a>
+            
+            <div class="red-box-special">SALE 50%</div>
+
+            <a href="#" class="sub-item"><div class="img-container"><img src="shoes.png"></div><p>Shoes</p></a>
+            <a href="#" class="sub-item"><div class="img-container"><img src="bags.png"></div><p>Bags</p></a>
+        </div>
+    </section>
+
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fa fa-home"></i>Home</a>
+        <a href="categories.html" class="active"><i class="fa fa-th-large"></i>Category</a>
+        <a href="wishlist.html"><i class="fa fa-heart"></i>Wishlist</a>
+        <a href="login.html"><i class="fa fa-user"></i>Login</a>
+    </nav>
+
+</body>
+</html>
+
