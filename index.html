@@ -5,64 +5,95 @@
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
 .header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000}
 .logo{font-family:'Cinzel';font-size:24px;letter-spacing:5px;font-weight:900;color:var(--cherry);margin:0 auto}
-.search-bar{padding:12px 20px;display:flex;gap:12px;background:#fff;margin:10px 15px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,0.05);border:1px solid #eee}
+
+/* Search Bar */
+.search-container{padding:10px 15px;background:#fff}
+.search-bar{padding:12px;display:flex;gap:10px;background:var(--lavender);border-radius:15px;border:1px solid #eee;align-items:center}
+.search-bar input{flex:1;border:none;outline:none;background:none;font-size:14px}
+
 .section-h{padding:20px 15px 10px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);letter-spacing:1px}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
-.p-card{min-width:145px;background:#fff;padding:12px;border-radius:25px;text-align:center;position:relative}
-.p-card img{width:130px;height:175px;border-radius:18px;object-fit:cover}
+.p-card{min-width:145px;background:#fff;padding:12px;border-radius:25px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.03)}
+.p-card img{width:130px;height:175px;border-radius:18px;object-fit:cover;background:#eee}
+
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05);cursor:pointer}
 .cat-card img{width:100%;height:100%;object-fit:cover}
+.cat-name{position:absolute;bottom:0;left:0;right:0;background:rgba(114,0,26,0.6);color:#fff;padding:8px;font-size:10px;font-weight:800;text-align:center}
+
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{text-align:center;font-size:10px;font-weight:700;color:#999;cursor:pointer;text-decoration:none}
+.nav-btn{text-align:center;font-size:9px;font-weight:800;color:#999;cursor:pointer;text-decoration:none;flex:1}
+.nav-btn.active{color:var(--cherry)}
 </style></head><body>
 
-<div class="header"><span onclick="alert('Login/Account Soon')">👤</span><div class="logo">LEXRIVA</div><span>🛒</span></div>
+<div class="header">
+    <span onclick="location.href='account.html'">👤</span>
+    <div class="logo">LEXRIVA</div>
+    <span onclick="location.href='cart.html'">🛒</span>
+</div>
 
-<div class="search-bar"><input type="text" placeholder="Search luxury products..." style="flex:1;border:none;outline:none">🔍</div>
+<div class="search-container">
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search luxury products..." onkeydown="if(event.key==='Enter') window.location.href='product_list.html?search='+this.value">
+        <span>🔍</span>
+    </div>
+</div>
 
-<div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:30px" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+LUXURY+MALL'"></div>
+<div style="padding:0 15px;margin-top:10px"><img src="main_banner.jpg" style="width:100%;border-radius:30px" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+LUXURY'"></div>
 
 <div class="section-h">🌙 THE EID EDIT</div>
 <div id="eid-scroll" class="h-scroll"></div>
 
 <div class="section-h">🎬 TRENDING REELS</div>
-<div class="h-scroll" style="padding-bottom:15px">
-    <div onclick="location.href='category.html?type=jewellery_master'" style="min-width:260px;height:450px;border-radius:25px;overflow:hidden;background:#000"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-    <div onclick="location.href='category.html?type=makeup_cat'" style="min-width:260px;height:450px;border-radius:25px;overflow:hidden;background:#000"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+<div class="h-scroll">
+    <div onclick="location.href='category.html?type=makeup_cat'" style="min-width:260px;height:450px;border-radius:25px;overflow:hidden;background:#000"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
 </div>
 
-<div class="section-h" id="cat-main">🛍️ CURATED CATEGORIES</div>
+<div class="section-h" id="all-cats">🛍️ CURATED CATEGORIES</div>
 <div class="cat-grid">
-    <div class="cat-card" onclick="location.href='category.html?type=western'"><img src="cat_western.jpg"></div>
-    <div class="cat-card" onclick="location.href='category.html?type=ethnic'"><img src="cat_ethnic.jpg"></div>
-    <div class="cat-card" onclick="location.href='category.html?type=makeup_cat'"><img src="cat_makeup.jpg"></div>
-    <div class="cat-card" onclick="location.href='category.html?type=jewellery_master'"><img src="cat_jewel.jpg"></div>
-    <div class="cat-card" onclick="location.href='category.html?type=bags'"><img src="cat_bags.jpg"></div>
-    <div class="cat-card" onclick="location.href='category.html?type=footwear'"><img src="cat_footwear.jpg"></div>
-    <div class="cat-card" onclick="location.href='category.html?type=acc_main'"><img src="cat_acc.jpg"></div>
+    <div class="cat-card" onclick="location.href='category.html?type=western'"><img src="cat_western.jpg"><div class="cat-name">WESTERN</div></div>
+    <div class="cat-card" onclick="location.href='category.html?type=ethnic'"><img src="cat_ethnic.jpg"><div class="cat-name">ETHNIC</div></div>
+    <div class="cat-card" onclick="location.href='category.html?type=makeup_cat'"><img src="cat_makeup.jpg"><div class="cat-name">MAKEUP</div></div>
+    <div class="cat-card" onclick="location.href='category.html?type=jewellery_master'"><img src="cat_jewel.jpg"><div class="cat-name">JEWELLERY</div></div>
 </div>
 
 <div class="section-h">🔥 BEST SELLERS</div>
 <div id="best-scroll" class="h-scroll" style="padding-bottom:100px"></div>
 
 <div class="bottom-nav">
-    <div class="nav-btn" style="color:var(--cherry)">HOME</div>
-    <div class="nav-btn" onclick="document.getElementById('cat-main').scrollIntoView({behavior:'smooth'})">CATEGORIES</div>
-    <div class="nav-btn">WISHLIST</div>
-    <div class="nav-btn">BAG</div>
+    <div class="nav-btn active" onclick="location.href='index.html'">🏠<br>HOME</div>
+    <div class="nav-btn" onclick="document.getElementById('all-cats').scrollIntoView({behavior:'smooth'})">🛍️<br>CATEGORIES</div>
+    <div class="nav-btn" onclick="location.href='wishlist.html'">🤍<br>WISHLIST</div>
+    <div class="nav-btn" onclick="location.href='cart.html'">🛒<br>BAG</div>
+    <div class="nav-btn" onclick="location.href='account.html'">👤<br>ACCOUNT</div>
 </div>
 
 <script>
-// JSON & Dynamic Data Enable
+// JSON FETCH LOGIC
 async function init(){
     try{
-        const r=await fetch('products.json');
-        const store=await r.json();
-        const mapP=(p)=>`<div class="p-card" onclick="location.href='product_detail.html?id=${p.id}'"><img src="${p.i}"><p style="font-size:11px;font-weight:800;margin:5px 0">₹${p.p}</p></div>`;
-        document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(mapP).join('');
-        document.getElementById('best-scroll').innerHTML=(store.latest||[]).map(mapP).join('');
-    }catch(e){console.log("JSON not found, please upload products.json");}
+        const r = await fetch('products.json');
+        const store = await r.json();
+        
+        // Function to create HTML for each product
+        const createProductHTML = (p) => `
+            <div class="p-card" onclick="location.href='product_list.html?category=${p.cat || 'All'}'">
+                <img src="${p.i}" onerror="this.src='https://via.placeholder.com/130x175?text=LEXRIVA'">
+                <p style="font-size:11px;font-weight:800;margin:5px 0">₹${p.p}</p>
+            </div>`;
+
+        // Render Eid Edits
+        if(store.eid) {
+            document.getElementById('eid-scroll').innerHTML = store.eid.map(createProductHTML).join('');
+        }
+        
+        // Render Bestsellers
+        if(store.latest) {
+            document.getElementById('best-scroll').innerHTML = store.latest.map(createProductHTML).join('');
+        }
+    }catch(e){
+        console.log("JSON not loading. Make sure products.json is in the same folder.");
+    }
 }
-window.onload=init;
+window.onload = init;
 </script></body></html>
