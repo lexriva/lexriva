@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Categories</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
+body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
+.header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:100;display:flex;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.logo{font-family:'Cinzel';font-size:22px;letter-spacing:4px;font-weight:900;color:var(--cherry);margin:0 auto}
+.back-btn{font-size:24px; color:var(--cherry); cursor:pointer; text-decoration:none; position:absolute; left:20px; font-weight:bold}
+
+/* Grid for Sub-categories */
+.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);padding:15px;gap:15px;margin-bottom:50px}
+
+/* Original Cherry Box Design */
+.cherry-box{background:var(--cherry)!important; color:var(--gold)!important; border-radius:45% 45% 10px 10px!important; margin:10px; font-family:'Cinzel'; font-size:9px!important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold)!important; min-height:140px; box-shadow: 0 8px 15px rgba(114,0,26,0.3); text-align:center}
+
+/* Circular Sub-category Items */
+.sub-item{text-align:center; padding:5px; cursor:pointer}
+.sub-item img{width:85px; height:85px; border-radius:50%; object-fit:cover; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.08); border:2px solid #fff; transition:0.3s}
+.sub-item img:active{transform:scale(0.9)}
+.sub-item p{font-size:9px; font-weight:800; margin-top:10px; color:#333; text-transform:uppercase; letter-spacing:0.5px}
+</style></head><body>
+
+<div class="header">
+    <a href="index.html" class="back-btn">←</a>
+    <div class="logo">LEXRIVA</div>
+</div>
+
+<div id="cat-banner"></div>
+
+<div id="sub-grid" class="sub-grid"></div>
+
+<script>
+// File Names mapping taaki images na hatein
+const subMap = {
+    'western': ['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Skirts','Jackets'],
+    'ethnic': ['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
+    'makeup_cat': ['Lipstick','Lip Gloss','Lip Liner','Lip Care','LEXRIVA','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
+    'jewellery_master': ['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
+    'bags': ['Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
+    'footwear': ['Heels','Sandals','Boots','LEXRIVA','Sneakers','Flats','Ethnic'],
+    'acc_main': ['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
+};
+
+window.onload = function() {
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get('type') || 'western';
+    const grid = document.getElementById('sub-grid');
+    
+    let html = "";
+    const items = subMap[type] || [];
+
+    items.forEach(name => {
+        if(name === 'LEXRIVA') {
+            html += `<div class="cherry-box">ESTD. 2024<br><br><span style="font-size:14px">LEXRIVA</span><br><br>LUXURY MALL</div>`;
+        } else {
+            // File name logic: "Lipstick" -> "lipstick.jpg"
+            let fileName = name.toLowerCase().replace(/ /g, '_') + ".jpg";
+            
+            html += `
+                <div class="sub-item" onclick="goToProducts('${name}')">
+                    <img src="${fileName}" onerror="this.src='https://via.placeholder.com/100?text=${name}'">
+                    <p>${name}</p>
+                </div>`;
+        }
+    });
+
+    grid.innerHTML = html;
+};
+
+function goToProducts(categoryName) {
+    // Ye aapko product list page par le jayega
+    window.location.href = `product_list.html?category=${categoryName}`;
+}
+</script></body></html>
+
