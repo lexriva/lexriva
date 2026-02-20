@@ -3,92 +3,66 @@
 <style>
 :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
-.page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
-.active{display:block}
 .header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000}
 .logo{font-family:'Cinzel';font-size:24px;letter-spacing:5px;font-weight:900;color:var(--cherry);margin:0 auto}
-
-/* Professional Layout Styles */
+.search-bar{padding:12px 20px;display:flex;gap:12px;background:#fff;margin:10px 15px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,0.05);border:1px solid #eee}
+.section-h{padding:20px 15px 10px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);letter-spacing:1px}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
+.p-card{min-width:145px;background:#fff;padding:12px;border-radius:25px;text-align:center;position:relative}
+.p-card img{width:130px;height:175px;border-radius:18px;object-fit:cover}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
-.cat-card{position:relative;border-radius:25px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05);cursor:pointer}
+.cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05);cursor:pointer}
 .cat-card img{width:100%;height:100%;object-fit:cover}
-
-/* Sub-Category Red Boxes (Original Design) */
-.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);padding:15px;gap:15px}
-.cherry-box{background:var(--cherry)!important; color:var(--gold)!important; border-radius:45% 45% 10px 10px!important; margin:10px; font-family:'Cinzel'; font-size:9px!important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold)!important; min-height:140px; box-shadow: 0 8px 15px rgba(114,0,26,0.3)}
-
-/* Product Detail Slider */
-.img-slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding:15px;scrollbar-width:none}
-.img-slider img{width:100%;flex-shrink:0;border-radius:25px;scroll-snap-align:start;height:480px;object-fit:cover}
-
-.btn-prime{width:100%;padding:18px;background:var(--cherry);color:#fff;border:none;border-radius:18px;font-weight:800;cursor:pointer}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #eee;z-index:1000}
+.nav-btn{text-align:center;font-size:10px;font-weight:700;color:#999;cursor:pointer;text-decoration:none}
 </style></head><body>
 
-<div class="header"><span>👤</span><div class="logo">LEXRIVA</div><span onclick="showPg('cart-pg')">🛒</span></div>
+<div class="header"><span onclick="alert('Login/Account Soon')">👤</span><div class="logo">LEXRIVA</div><span>🛒</span></div>
 
-<div id="h-pg" class="page active">
-    <div style="padding:10px 15px"><div style="background:#fff;padding:12px;border-radius:15px;display:flex;gap:10px;border:1px solid #eee">🔍 <input type="text" placeholder="Search Lexriva Luxury..." style="border:none;outline:none;width:100%"></div></div>
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:30px"></div>
-    
-    <div class="section-h" style="padding:15px;font-weight:800;color:var(--cherry)">🛍️ SHOP BY CATEGORY</div>
-    <div class="cat-grid">
-        <div onclick="openSub('western')"><img src="cat_western.jpg" class="cat-card"></div>
-        <div onclick="openSub('ethnic')"><img src="cat_ethnic.jpg" class="cat-card"></div>
-        <div onclick="openSub('makeup')"><img src="cat_makeup.jpg" class="cat-card"></div>
-        <div onclick="openSub('jewel')"><img src="cat_jewel.jpg" class="cat-card"></div>
-        <div onclick="openSub('bags')"><img src="cat_bags.jpg" class="cat-card"></div>
-        <div onclick="openSub('footwear')"><img src="cat_footwear.jpg" class="cat-card"></div>
-        <div onclick="openSub('acc')"><img src="cat_acc.jpg" class="cat-card"></div>
-    </div>
+<div class="search-bar"><input type="text" placeholder="Search luxury products..." style="flex:1;border:none;outline:none">🔍</div>
+
+<div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:30px" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+LUXURY+MALL'"></div>
+
+<div class="section-h">🌙 THE EID EDIT</div>
+<div id="eid-scroll" class="h-scroll"></div>
+
+<div class="section-h">🎬 TRENDING REELS</div>
+<div class="h-scroll" style="padding-bottom:15px">
+    <div onclick="location.href='category.html?type=jewellery_master'" style="min-width:260px;height:450px;border-radius:25px;overflow:hidden;background:#000"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+    <div onclick="location.href='category.html?type=makeup_cat'" style="min-width:260px;height:450px;border-radius:25px;overflow:hidden;background:#000"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
 </div>
 
-<div id="s-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div id="s-grid" class="sub-grid"></div>
+<div class="section-h" id="cat-main">🛍️ CURATED CATEGORIES</div>
+<div class="cat-grid">
+    <div class="cat-card" onclick="location.href='category.html?type=western'"><img src="cat_western.jpg"></div>
+    <div class="cat-card" onclick="location.href='category.html?type=ethnic'"><img src="cat_ethnic.jpg"></div>
+    <div class="cat-card" onclick="location.href='category.html?type=makeup_cat'"><img src="cat_makeup.jpg"></div>
+    <div class="cat-card" onclick="location.href='category.html?type=jewellery_master'"><img src="cat_jewel.jpg"></div>
+    <div class="cat-card" onclick="location.href='category.html?type=bags'"><img src="cat_bags.jpg"></div>
+    <div class="cat-card" onclick="location.href='category.html?type=footwear'"><img src="cat_footwear.jpg"></div>
+    <div class="cat-card" onclick="location.href='category.html?type=acc_main'"><img src="cat_acc.jpg"></div>
 </div>
 
-<div id="d-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div id="d-slider" class="img-slider"></div>
-    <div style="padding:25px;background:#fff;border-radius:35px 35px 0 0">
-        <h2 id="d-name" style="font-family:'Cinzel'"></h2>
-        <h3 id="d-price" style="color:var(--cherry)"></h3>
-        <p style="font-size:11px;color:green;font-weight:700">✓ Semi-Stitched | ₹1999+ Free Shipping</p>
-        <button class="btn-prime" onclick="addToBag()">ADD TO BAG</button>
-    </div>
+<div class="section-h">🔥 BEST SELLERS</div>
+<div id="best-scroll" class="h-scroll" style="padding-bottom:100px"></div>
+
+<div class="bottom-nav">
+    <div class="nav-btn" style="color:var(--cherry)">HOME</div>
+    <div class="nav-btn" onclick="document.getElementById('cat-main').scrollIntoView({behavior:'smooth'})">CATEGORIES</div>
+    <div class="nav-btn">WISHLIST</div>
+    <div class="nav-btn">BAG</div>
 </div>
 
 <script>
-let store={eid:[]}; let cart=[]; let currentProd=null;
-
-// SAARI 10-12 SUB-CATEGORIES HAR EK SECTION MEIN
-const subMap = {
-    'western': ['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Co-ords','Sleep Wear','Jumpsuit','Skirts','Jackets','Trousers'],
-    'ethnic': ['Saree','Kurtis','Dress Material','Lehenga','LEXRIVA','Suit','Gowns','Anarkali','Palazzo','Sharara','Dupatta'],
-    'makeup': ['Lipstick','Foundation','Nails','Perfumes','LEXRIVA','Eyes','Kajal','Mascara','Compact','Face Wash','Primer','Concealer'],
-    'jewel': ['Necklace','Earrings','Rings','Bracelet','LEXRIVA','Maangtika','Bridal','Jhumka','Kashmiri Earrings','Korean Jewellery'],
-    'bags': ['Handbags','Sling Bags','Clutches','Wallets','LEXRIVA','Totes','Bag Packs'],
-    'footwear': ['Heels','Sandals','Juttis','Sneakers','LEXRIVA','Flats','Boots','Bellies'],
-    'acc': ['Watches','Belts','Sunglasses','Hair Acc','LEXRIVA','Socks','Caps','Scarves']
-};
-
+// JSON & Dynamic Data Enable
 async function init(){
-    try {
+    try{
         const r=await fetch('products.json');
-        store=await r.json();
-        renderH();
-    } catch(e) { console.log("JSON Error"); }
+        const store=await r.json();
+        const mapP=(p)=>`<div class="p-card" onclick="location.href='product_detail.html?id=${p.id}'"><img src="${p.i}"><p style="font-size:11px;font-weight:800;margin:5px 0">₹${p.p}</p></div>`;
+        document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(mapP).join('');
+        document.getElementById('best-scroll').innerHTML=(store.latest||[]).map(mapP).join('');
+    }catch(e){console.log("JSON not found, please upload products.json");}
 }
-
-function openSub(k){
-    showPg('s-pg');
-    let h=""; (subMap[k]||[]).forEach(n=>{
-        if(n==='LEXRIVA') h+=`<div class="cherry-box">ESTD. 2024<br><br>LEXRIVA</div>`;
-        else h+=`<div style="text-align:center;padding:15px"><div style="width:85px;height:85px;background:#fff;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,0.05)">✨</div><p style="font-size:10px;font-weight:800;margin-top:10px">${n.toUpperCase()}</p></div>`;
-    });
-    document.getElementById('s-grid').innerHTML=h;
-}
-
-function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-window.onload=init;</script></body></html>
+window.onload=init;
+</script></body></html>
