@@ -7,52 +7,57 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
 
 /* Search Bar */
-.search-wrapper { padding: 5px 20px 15px; background: #fff; }
-.search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; }
+.search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
+.search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
 
 .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);display:flex;justify-content:space-between}
-.h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
+.h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none; -ms-overflow-style: none;}
+.h-scroll::-webkit-scrollbar { display: none; }
+
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05)}
 .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
-/* Cherry Box Shine Effect */
+/* Category Grid */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
+.cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor: pointer;}
+.cat-card img{width:100%;height:100%;object-fit:cover}
+.cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
+
+/* Sub-page Grid */
+.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0}
+.sub-item{padding:20px 5px;text-align:center;display:flex;flex-direction:column;align-items:center;aspect-ratio:1/1.3}
+.sub-item img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+
 .cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:45% 45% 10px 10px !important; margin:12px; font-family:'Cinzel'; font-size:9px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold) !important; min-height:140px; position: relative; overflow: hidden;}
 .cherry-box::after { content: ""; position: absolute; top: -50%; left: -100%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent); transform: rotate(45deg); animation: shine 3s infinite; }
 @keyframes shine { 0% {left: -100%} 100% {left: 100%} }
 
-.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
-.cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05)}
-.cat-card img{width:100%;height:100%;object-fit:cover}
-.cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
-
-.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0}
-.sub-item{padding:20px 5px;text-align:center;display:flex;flex-direction:column;align-items:center;aspect-ratio:1/1.3}
-.sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:10px}
-
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{font-size:9px;font-weight:800;color:#999;text-align:center;cursor:pointer}
+.nav-btn{font-size:9px;font-weight:800;color:#999;text-align:center;cursor:pointer; text-decoration: none;}
 </style></head><body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
-<div class="search-wrapper"><input type="text" class="search-input" placeholder="Search Luxury Items..."></div>
+<div class="search-wrapper"><input type="text" class="search-input" placeholder="Search Jewelry, Makeup, Clothing..."></div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury+Mall'"></div>
+    <div style="padding:0 15px; margin-top:10px;"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury+Mall'"></div>
     
     <div class="section-h">🌙 THE EID EDIT</div>
-    <div id="eid-scroll" class="h-scroll"></div>
+    <div id="eid-scroll" class="h-scroll">
+        <p style="padding:20px; color:#888;">Loading Eid Edits...</p>
+    </div>
 
     <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
     <div class="cat-grid">
-        <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
-        <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
-        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
-        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
+        <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg" onerror="this.src='https://via.placeholder.com/200x180?text=Western'"><div class="cat-label">WESTERN WEAR</div></div>
+        <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg" onerror="this.src='https://via.placeholder.com/200x180?text=Ethnic'"><div class="cat-label">ETHNIC WEAR</div></div>
+        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg" onerror="this.src='https://via.placeholder.com/200x180?text=Makeup'"><div class="cat-label">MAKEUP & CARE</div></div>
+        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg" onerror="this.src='https://via.placeholder.com/200x180?text=Jewelry'"><div class="cat-label">FINE JEWELLERY</div></div>
     </div>
 </div>
 
 <div id="s-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+    <div style="padding:20px;font-weight:800;color:var(--cherry); cursor:pointer;" onclick="showPg('h-pg')">← BACK</div>
     <div id="s-banner" style="width:100%;height:220px"></div>
     <div id="s-grid" class="sub-grid"></div>
 </div>
@@ -64,7 +69,6 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 </div>
 
 <script>
-// Aapka Naya URL
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbyRWkjFx9_hivpflqA6zcua1rMz00yYm6Se51hv4EsZtruH0COxvDO__3P2sJhiV-RbLw/exec";
 let store={};
 
@@ -80,26 +84,33 @@ async function init(){
         const r=await fetch(ADMIN_URL);
         store=await r.json();
         renderH();
-    }catch(e){ console.log("Error loading data"); }
+    }catch(e){
+        document.getElementById('eid-scroll').innerHTML='<p style="padding:20px; color:red;">Connection Error. Please refresh.</p>';
+    }
 }
 
 function renderH(){
     const eidData = store['eid'] || [];
-    document.getElementById('eid-scroll').innerHTML=eidData.map(p=>`
-        <div class="scroll-item">
-            <img src="${p.i}" onerror="this.src='https://via.placeholder.com/120x160?text=Product'">
-            <p style="font-size:10px;font-weight:700;margin-top:5px">₹${p.p}</p>
-        </div>
-    `).join('');
+    if(eidData.length > 0){
+        document.getElementById('eid-scroll').innerHTML=eidData.map(p=>`
+            <div class="scroll-item">
+                <img src="${p.i}" onerror="this.src='https://via.placeholder.com/120x160?text=Product'">
+                <p style="font-size:10px;font-weight:700;margin-top:5px; color:var(--cherry)">₹${p.p}</p>
+                <p style="font-size:8px; color:#555;">${p.n || ''}</p>
+            </div>
+        `).join('');
+    } else {
+        document.getElementById('eid-scroll').innerHTML='<p style="padding:20px; color:#888;">No Eid products found.</p>';
+    }
 }
 
 function openSub(k){
     showPg('s-pg');
-    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='https://via.placeholder.com/500x200?text=Lexriva+Collection'">`;
+    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='https://via.placeholder.com/500x220?text=Lexriva+Collection'">`;
     let h=""; const subs=subMap[k]||[];
     subs.forEach(n=>{
         if(n === 'LEXRIVA') h+=`<div class="sub-item cherry-box">ESTD. 2024<br><br><span style="font-size:14px">LEXRIVA</span><br><br>LUXURY</div>`;
-        else h+=`<div class="sub-item" onclick="alert('Viewing ${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/85x85?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+        else h+=`<div class="sub-item" onclick="alert('Viewing ${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80x80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase; margin-top:5px;">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
 }
