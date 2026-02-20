@@ -26,20 +26,31 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
 .login-box{padding:40px 20px;text-align:center;background:#fff;margin:20px;border-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,0.05)}
 .btn-login{width:100%;padding:16px;background:var(--cherry);color:#fff;border:none;border-radius:12px;font-weight:800}
+
+/* Naye Add To Cart Styles */
+#cart-items { padding: 15px; }
+.cart-item { display: flex; gap: 10px; background: #fff; padding: 10px; border-radius: 15px; margin-bottom: 10px; }
+.cart-item img { width: 60px; height: 60px; border-radius: 10px; }
+.cart-badge { position: absolute; top: 12px; right: 20%; background: var(--cherry); color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; }
 </style></head><body>
 
-<div class="header"><div class="logo">LEXRIVA</div></div>
+<div class="header">
+    <div class="logo">LEXRIVA</div>
+    <div id="cart-count" class="cart-badge">0</div>
+</div>
 
 <div id="h-pg" class="page active">
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
     <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
+    
     <div class="section-h">🎬 TRENDING REELS</div>
     <div class="reel-box">
-        <div class="reel-card" onclick="openSub('jewellery_master')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card" onclick="openSub('makeup_cat')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card" onclick="openSub('western')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openReelProduct(0)"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openReelProduct(1)"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openReelProduct(2)"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
     </div>
+    
     <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
     <div class="cat-grid">
         <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
@@ -56,7 +67,24 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     </div>
 </div>
 
-<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
+<div id="s-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+    <div id="s-banner" style="width:100%;height:220px"></div>
+    <div id="s-grid" class="sub-grid"></div>
+</div>
+
+<div id="cart-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+    <div id="cart-items"></div>
+    <div style="padding:20px; background:#fff; margin:20px; border-radius:20px">
+        <div style="display:flex; justify-content:space-between"><span>Subtotal</span><span id="sub-val">₹0</span></div>
+        <div style="display:flex; justify-content:space-between; margin:10px 0"><span>Delivery</span><span id="del-val">₹49</span></div>
+        <hr>
+        <div style="display:flex; justify-content:space-between; font-weight:800; color:var(--cherry)"><span>Total</span><span id="tot-val">₹0</span></div>
+        <p style="font-size:10px; color:red; margin-top:10px">🛡️ 2-DAY EXCHANGE ONLY AFTER DELIVERY</p>
+        <button class="btn-login" style="margin-top:15px" onclick="alert('Proceeding to Checkout...')">PROCEED TO CHECKOUT</button>
+    </div>
+</div>
 
 <div id="account-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
@@ -64,15 +92,17 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 </div>
 
 <div class="bottom-nav">
-    <div class="nav-btn" style="color:var(--cherry)" onclick="showPg('h-pg')">HOME</div>
+    <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
     <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView({behavior:'smooth'})">CATEGORIES</div>
-    <div class="nav-btn" onclick="alert('Wishlist Empty')">WISHLIST</div>
+    <div class="nav-btn" onclick="showPg('cart-pg')">BAG</div>
     <div class="nav-btn" onclick="showPg('account-pg')">ACCOUNT</div>
 </div>
 
 <script>
-const ADMIN_URL="https://script.google.com/macros/s/AKfycbysgVoApcCnoLQLrHB8FYqNvg9DRzeGXmuPKnQGZHf5IpY0QsPdGVmlvEd-AV6QKJge6g/exec";
+// APNA SCRIPT URL YAHAN FIX HAI
+const ADMIN_URL="https://script.google.com/macros/s/AKfycbxvD9KIRJUN5YumkpKW5K7osSC4N0xH5kfwBT4ojQupvw__ROi3YBqizHicfp6pgf7Ekw/exec";
 let store={categories:{},eid:[],latest:[]};
+let cart=[];
 
 const subMap={
 'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
@@ -84,11 +114,47 @@ const subMap={
 'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
 };
 
-async function init(){try{const r=await fetch(ADMIN_URL);store=await r.json();renderH()}catch(e){}}
-function renderH(){
-    document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(p=>`<div class="scroll-item"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
-    document.getElementById('l-scroll').innerHTML=(store.latest||[]).map(p=>`<div class="scroll-item"><img src="${p.i}"><p style="font-size:10px;font-weight:700">${p.n}</p></div>`).join('');
+async function init(){
+    try{
+        const r=await fetch('products.json'); // JSON se products load honge
+        store=await r.json();
+        renderH();
+    }catch(e){ console.log("JSON Load Error"); }
 }
+
+function renderH(){
+    const mapProd = (p) => `<div class="scroll-item" onclick="addToBag(${JSON.stringify(p).replace(/"/g, '&quot;')})"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`;
+    document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(mapProd).join('');
+    document.getElementById('l-scroll').innerHTML=(store.latest||[]).map(mapProd).join('');
+}
+
+function addToBag(p){
+    cart.push(p);
+    updateCart();
+    alert(p.n + " added to Bag!");
+}
+
+function updateCart(){
+    document.getElementById('cart-count').innerText=cart.length;
+    let sub = cart.reduce((a,b)=>a+parseInt(b.p), 0);
+    let del = (sub > 0 && sub < 1999) ? 49 : 0;
+    document.getElementById('sub-val').innerText='₹'+sub;
+    document.getElementById('del-val').innerText=del === 0 ? 'FREE' : '₹'+del;
+    document.getElementById('tot-val').innerText='₹'+(sub+del);
+    
+    document.getElementById('cart-items').innerHTML=cart.map((item,i)=>`
+        <div class="cart-item">
+            <img src="${item.i}">
+            <div><p style="font-size:12px;margin:0">${item.n}</p><p style="font-weight:800">₹${item.p}</p></div>
+        </div>
+    `).join('');
+}
+
+function openReelProduct(idx){
+    // Reels se product khulne ka logic
+    if(store.eid && store.eid[idx]) addToBag(store.eid[idx]);
+}
+
 function openSub(k){
     showPg('s-pg');
     document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
@@ -99,5 +165,6 @@ function openSub(k){
     });
     document.getElementById('s-grid').innerHTML=h;
 }
+
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 window.onload=init;</script></body></html>
