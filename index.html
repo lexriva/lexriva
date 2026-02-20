@@ -1,147 +1,114 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Luxury Mall</title><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Luxury Mall</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
 :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
 .page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
 .active{display:block}
-.header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000;display:flex;justify-content:space-between;align-items:center}
-.logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry);margin:0 auto}
-
-/* Search Box */
-.search-container{padding:10px 15px;background:#fff}
-.search-bar{padding:12px;display:flex;gap:10px;background:var(--lavender);border-radius:15px;border:1px solid #eee}
-.search-bar input{flex:1;border:none;outline:none;background:none;font-size:14px}
-
-/* Product Card with Quick Actions */
-.scroll-item{min-width:150px;text-align:center;background:#fff;padding:12px;border-radius:25px;box-shadow:0 10px 25px rgba(0,0,0,0.05);position:relative;margin-bottom:10px}
-.scroll-item img{width:130px;height:175px;border-radius:18px;object-fit:cover;cursor:pointer}
-.card-actions{display:flex;justify-content:center;gap:12px;margin-top:10px}
-.action-btn{background:var(--lavender);color:var(--cherry);border:none;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:0.3s}
-.action-btn:hover{background:var(--cherry);color:#fff}
-
-.section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);display:flex;justify-content:space-between}
+.header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000}
+.logo{font-family:'Cinzel';font-size:24px;letter-spacing:5px;font-weight:900;color:var(--cherry);margin:0 auto}
+.search-bar{padding:12px 20px;display:flex;gap:12px;background:#fff;margin:10px 15px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,0.05);border:1px solid #eee}
+.section-h{padding:20px 15px 10px;font-size:12px;font-weight:800;text-transform:uppercase;color:var(--cherry);letter-spacing:1px}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
+.p-card{min-width:145px;background:#fff;padding:12px;border-radius:25px;text-align:center;position:relative}
+.p-card img{width:130px;height:175px;border-radius:18px;object-fit:cover}
+.quick-act{display:flex;justify-content:center;gap:10px;margin-top:10px}
+.icon-btn{background:var(--lavender);border:none;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
-.cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05)}
+.cat-card{border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05)}
 .cat-card img{width:100%;height:100%;object-fit:cover}
-
-/* Bottom Nav */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
-.btn-login{width:100%;padding:18px;background:var(--cherry);color:#fff;border:none;border-radius:15px;font-weight:800;cursor:pointer}
+.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;padding:15px}
+.sub-box{background:var(--cherry);color:#fff;height:90px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;text-align:center;padding:10px;box-sizing:border-box}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #eee;z-index:1000}
+.nav-btn{text-align:center;font-size:10px;font-weight:700;color:#999;cursor:pointer}
+.btn-prime{width:100%;padding:18px;background:var(--cherry);color:#fff;border:none;border-radius:15px;font-weight:800;cursor:pointer}
 </style></head><body>
 
-<div class="header">
-    <div style="width:30px"></div>
-    <div class="logo">LEXRIVA</div>
-    <div onclick="showPg('cart-pg')" style="position:relative">🛒<span id="cart-count" style="position:absolute;top:-5px;right:-5px;background:var(--cherry);color:white;font-size:10px;padding:2px 5px;border-radius:50%">0</span></div>
-</div>
-
-<div class="search-container">
-    <div class="search-bar">
-        <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search luxury products...">
-        <span>🔍</span>
-    </div>
-</div>
+<div class="header"><span>👤</span><div class="logo">LEXRIVA</div><span onclick="showPg('cart-pg')">🛒</span></div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
-    <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-    <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
+    <div class="search-bar"><input type="text" placeholder="Search Lexriva Luxury..." style="flex:1;border:none;outline:none">🔍</div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:30px"></div>
+    
+    <div class="section-h">🌙 THE EID EDIT</div>
+    <div id="eid-scroll" class="h-scroll"></div>
+
+    <div class="section-h">🔥 BESTSELLERS</div>
+    <div id="best-scroll" class="h-scroll"></div>
+
+    <div class="section-h">🎬 TRENDING REELS</div>
+    <div class="h-scroll">
+        <div onclick="openSub('makeup')" style="min-width:160px;height:280px;border-radius:20px;overflow:hidden"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div onclick="openSub('ethnic')" style="min-width:160px;height:280px;border-radius:20px;overflow:hidden"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+    </div>
+
     <div class="section-h">🛍️ CATEGORIES</div>
     <div class="cat-grid">
         <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"></div>
         <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"></div>
-        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"></div>
-        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"></div>
+        <div class="cat-card" onclick="openSub('makeup')"><img src="cat_makeup.jpg"></div>
+        <div class="cat-card" onclick="openSub('jewel')"><img src="cat_jewel.jpg"></div>
     </div>
 </div>
 
-<div id="wish-pg" class="page">
+<div id="s-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <h2 style="text-align:center;font-family:'Cinzel'">My Wishlist</h2>
-    <div id="wish-content" class="cat-grid"></div>
+    <div id="sub-grid" class="sub-grid"></div>
 </div>
 
 <div id="cart-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
     <div id="cart-list" style="padding:15px"></div>
-    <div style="padding:20px;background:#fff;margin:15px;border-radius:25px;box-shadow:0 5px 15px rgba(0,0,0,0.05)">
+    <div style="padding:20px;background:#fff;margin:15px;border-radius:25px">
         <div style="display:flex;justify-content:space-between"><span>Subtotal</span><span id="sub-val">₹0</span></div>
         <div style="display:flex;justify-content:space-between;margin:10px 0"><span>Delivery</span><span id="del-val">₹49</span></div>
         <hr><div style="display:flex;justify-content:space-between;font-weight:800;color:var(--cherry);font-size:18px"><span>Total</span><span id="tot-val">₹0</span></div>
-        <button class="btn-login" style="margin-top:15px" onclick="alert('Proceeding to Checkout...')">PROCEED TO CHECKOUT</button>
+        <p style="font-size:10px;color:red;margin-top:10px">🛡️ 2-DAY EXCHANGE ONLY AFTER DELIVERY</p>
+        <button class="btn-prime" style="margin-top:15px">PROCEED TO CHECKOUT</button>
     </div>
 </div>
 
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
-    <div class="nav-btn" onclick="showPg('wish-pg')">WISHLIST</div>
+    <div class="nav-btn">WISHLIST</div>
     <div class="nav-btn" onclick="showPg('cart-pg')">BAG</div>
-    <div class="nav-btn" onclick="showPg('account-pg')">ACCOUNT</div>
+    <div class="nav-btn">ACCOUNT</div>
 </div>
 
 <script>
-let store = {eid:[], latest:[]};
-let cart = [];
-let wishlist = [];
+let store={eid:[],latest:[]}; let cart=[];
+const subMap={
+    'makeup':['LIPSTICK','FOUNDATION','NAILS','PERFUMES','EYES','KAJAL','MASCARA','COMPACT','FACE WASH'],
+    'ethnic':['SAREE','KURTIS','DRESS MATERIAL','LEHENGA','SUIT','GOWNS'],
+    'western':['DRESSES','TOPS','JEANS','CO-ORDS']
+};
 
 async function init(){
     try{
-        const r = await fetch('products.json');
-        store = await r.json();
-        renderH();
-    }catch(e){ console.log("JSON Error"); }
+        const r=await fetch('products.json');
+        store=await r.json();
+        const mapP=(p)=>`<div class="p-card"><img src="${p.i}" onclick="alert('Opening Detail')"><p style="font-size:11px;font-weight:800;margin:5px 0">₹${p.p}</p><div class="quick-act"><button class="icon-btn" onclick='addToBag(${JSON.stringify(p)})'>🛒</button><button class="icon-btn">🤍</button></div></div>`;
+        document.getElementById('eid-scroll').innerHTML=store.eid.map(mapP).join('');
+        document.getElementById('best-scroll').innerHTML=store.latest.map(mapP).join('');
+    }catch(e){console.log("JSON Error");}
 }
 
-function renderH(){
-    const mapProd = (p) => `
-        <div class="scroll-item">
-            <img src="${p.i}" onclick='alert("Opening ${p.n}")'>
-            <p style="font-size:11px;font-weight:800;margin:5px 0">₹${p.p}</p>
-            <div class="card-actions">
-                <button class="action-btn" onclick='addToWishlist(${JSON.stringify(p)})'>🤍</button>
-                <button class="action-btn" onclick='addToBag(${JSON.stringify(p)})'>🛒</button>
-            </div>
-        </div>`;
-    document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(mapProd).join('');
-    document.getElementById('l-scroll').innerHTML=(store.latest||[]).map(mapProd).join('');
+function openSub(cat){
+    showPg('s-pg');
+    document.getElementById('sub-grid').innerHTML=(subMap[cat]||[]).map(s=>`<div class="sub-item"><div class="sub-box">${s}</div></div>`).join('');
 }
 
 function addToBag(p){
-    cart.push(p);
-    updateCart();
-    alert(p.n + " added to Bag!");
-}
-
-function addToWishlist(p){
-    if(!wishlist.find(x => x.n === p.n)){
-        wishlist.push(p);
-        updateWishlistUI();
-        alert(p.n + " added to Wishlist!");
-    } else { alert("Already in Wishlist!"); }
-}
-
-function updateWishlistUI(){
-    document.getElementById('wish-content').innerHTML = wishlist.map(p => `
-        <div class="cat-card" style="height:230px;background:#fff;padding:10px">
-            <img src="${p.i}" style="height:150px;border-radius:15px">
-            <p style="font-size:10px;font-weight:800;margin:5px 0">₹${p.p}</p>
-            <button class="btn-login" style="padding:8px;font-size:10px" onclick='addToBag(${JSON.stringify(p)})'>MOVE TO BAG</button>
-        </div>`).join('');
+    cart.push(p); updateCart(); alert(p.n + " added to Bag!");
 }
 
 function updateCart(){
-    document.getElementById('cart-count').innerText = cart.length;
-    let sub = cart.reduce((a,b)=>a+parseInt(b.p),0);
-    let del = (sub > 0 && sub < 1999) ? 49 : 0;
-    document.getElementById('sub-val').innerText = '₹'+sub;
-    document.getElementById('del-val').innerText = del===0?'FREE':'₹'+del;
-    document.getElementById('tot-val').innerText = '₹'+(sub+del);
-    document.getElementById('cart-list').innerHTML = cart.map(item => `
-        <div style="background:#fff;padding:15px;border-radius:20px;display:flex;gap:15px;margin-bottom:10px;align-items:center">
-            <img src="${item.i}" style="width:55px;height:55px;border-radius:12px">
-            <div><p style="margin:0;font-size:13px;font-weight:700">${item.n}</p><p style="color:var(--cherry);margin:0">₹${item.p}</p></div>
-        </div>`).join('');
+    let sub=cart.reduce((a,b)=>a+parseInt(b.p),0);
+    let del=(sub>0 && sub<1999)?49:0;
+    document.getElementById('sub-val').innerText='₹'+sub;
+    document.getElementById('del-val').innerText=del===0?'FREE':'₹'+del;
+    document.getElementById('tot-val').innerText='₹'+(sub+del);
+    document.getElementById('cart-list').innerHTML=cart.map(i=>`<div style="display:flex;gap:15px;background:#fff;padding:10px;border-radius:15px;margin-bottom:10px"><img src="${i.i}" style="width:50px;height:50px;border-radius:10px"><div><p style="margin:0;font-size:12px;font-weight:700">${i.n}</p><p style="color:var(--cherry);margin:0">₹${i.p}</p></div></div>`).join('');
 }
 
 function showPg(id){
