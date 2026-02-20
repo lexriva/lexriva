@@ -22,6 +22,9 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 5px 15px rgba(0,0,0,0.1);border:2px solid #fff}
 .sub-item p{font-size:9px;font-weight:800;margin:0;text-transform:uppercase;color:#333}
 .cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:40% 40% 10px 10px !important; font-family:'Cinzel'; font-size:8px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold) !important; height:125px; text-align:center; box-shadow: 0 8px 15px rgba(114,0,26,0.3)}
+.login-card{padding:40px 20px;text-align:center;background:#fff;margin:20px;border-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,0.05)}
+.input-field{width:100%;padding:16px;margin:10px 0;border-radius:12px;border:1.5px solid #eee;box-sizing:border-box}
+.btn-primary{width:100%;padding:18px;background:var(--cherry);color:#fff;border:none;border-radius:15px;font-weight:800;cursor:pointer}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
 .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center;flex:1}
 </style></head><body>
@@ -42,6 +45,12 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
         <div class="sub-item"><img src="eid_suit.jpg"><p>Eid Suit</p></div>
         <div class="sub-item"><img src="eid_jewel.jpg"><p>Festive</p></div>
         <div class="sub-item"><img src="eid_bag.jpg"><p>Luxury</p></div>
+    </div>
+
+    <div class="section-h">🔥 BESTSELLERS</div>
+    <div id="l-scroll" class="h-scroll">
+        <div class="sub-item"><img src="best1.jpg"><p>Saree</p></div>
+        <div class="sub-item"><img src="best2.jpg"><p>Lipstick</p></div>
     </div>
 
     <div class="section-h">🎬 TRENDING REELS</div>
@@ -68,8 +77,25 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     <div id="sub-grid" class="sub-grid"></div>
 </div>
 
-<div id="login-pg" class="page"><div style="padding:20px;" onclick="showPg('h-pg')">← BACK</div><div style="text-align:center;padding:50px;">Login Form Ready</div></div>
-<div id="checkout-pg" class="page"><div style="padding:20px;" onclick="showPg('h-pg')">← BACK</div><div style="text-align:center;padding:50px;">Checkout Ready</div></div>
+<div id="login-pg" class="page">
+    <div style="padding:20px; font-weight:800; color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+    <div class="login-card">
+        <h2 style="font-family:'Cinzel'; color:var(--cherry)">My Account</h2>
+        <input type="tel" class="input-field" placeholder="Mobile Number">
+        <button class="btn-primary" onclick="alert('OTP Sent: 1234')">GET OTP</button>
+    </div>
+</div>
+
+<div id="checkout-pg" class="page">
+    <div style="padding:20px; font-weight:800; color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+    <div class="login-card" style="text-align:left">
+        <h3 style="font-family:'Cinzel'; color:var(--cherry); text-align:center">Order Details</h3>
+        <input type="text" class="input-field" placeholder="Full Name">
+        <input type="tel" class="input-field" placeholder="Mobile Number">
+        <textarea class="input-field" rows="3" placeholder="Address"></textarea>
+        <button class="btn-primary" onclick="alert('Order Recorded!')">CONFIRM ORDER</button>
+    </div>
+</div>
 
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')" style="color:var(--cherry)">HOME</div>
@@ -79,15 +105,14 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 </div>
 
 <script>
-// EXACT SUB-CATEGORIES AS PER YOUR REQUIREMENT
 const subData = {
-    'western': ['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','LEXRIVA','Trousers','Shorts','Skirts','Jackets'],
-    'ethnic': ['Saree','Kurtis','Dress Material','Lehengas','Gowns','Anarkali','Suits','LEXRIVA','Palazzo','Sharara','Dupatta','Gharara'],
-    'footwear': ['Heels','Sandals','Boots','Bellies','Sneakers','Flats','Ethnic','LEXRIVA','Loafers','Mules','Wedges'],
-    'makeup_cat': ['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','LEXRIVA','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
-    'jewellery_master': ['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','LEXRIVA','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
-    'bags': ['Bag Packs','Handbags','Sling Bags','Wallets','Clutches','Totes','Travel Bags','LEXRIVA'],
-    'acc_main': ['Hair Acc','Belts','Sunglasses','Watches','Socks','Caps','Jewel Box','LEXRIVA']
+    'western': ['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','LEXRIVA','Skirts','Jackets','Trousers','Shorts','Party Wear','Shirts'],
+    'ethnic': ['Saree','Kurtis','Dress Material','Lehengas','Suits','Palazzo','Sharara','LEXRIVA','Dupatta','Gharara','Lungi','Abaya','Anarkali'],
+    'makeup_cat': ['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','LEXRIVA','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes','Nails'],
+    'jewellery_master': ['Necklace','Earrings','Maangtika','Rings','Bracelet','Bridal Set','Bangles','LEXRIVA','Jhumka','Korean','Choker','Anklet','Pendant','Traditional'],
+    'bags': ['Handbags','Sling Bags','Wallets','Clutches','Totes','Bag Packs','Travel Bags','LEXRIVA','Laptop Bags','Bucket Bags'],
+    'footwear': ['Heels','Sandals','Sneakers','Flats','Boots','Wedges','Mules','LEXRIVA','Loafers','Bellies','Juttis','Flip Flops'],
+    'acc_main': ['Watches','Belts','Sunglasses','Hair Acc','Socks','Caps','Jewel Box','LEXRIVA','Stoles','Gloves','Scarf']
 };
 
 function openSub(cat) {
@@ -95,7 +120,7 @@ function openSub(cat) {
     let h = "";
     (subData[cat] || []).forEach(name => {
         if(name === 'LEXRIVA') {
-            h += `<div class="cherry-box">ESTD. 2024<br><br><span style="font-size:12px">LEXRIVA</span><br><br>LUXURY MALL</div>`;
+            h += `<div class="cherry-box">ESTD. 2024<br><br><span style="font-size:12px">LEXRIVA</span></div>`;
         } else {
             let fileName = name.toLowerCase().replace(/ /g, '_') + ".jpg";
             h += `<div class="sub-item" onclick="alert('Opening ${name}')">
