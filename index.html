@@ -34,10 +34,10 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
 .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
 </style></head><body>
-<div class="header"><div class="logo">LEXRIVA</div></div>
-<div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..." oninput="filterSearch()"></div>
 
+<div class="header"><div class="logo">LEXRIVA</div></div>
 <div id="h-pg" class="page active">
+    <div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..." oninput="filterSearch()"></div>
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury+Mall'"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
     <div class="section-h">🎬 TRENDING REELS</div>
@@ -74,9 +74,11 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
             <select id="p-size" class="checkout-input" style="background:#fff"></select>
         </div>
         <p id="p-desc" style="font-size:12px; color:#666;"></p>
-        <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
-        <input id="custName" class="checkout-input" placeholder="Full Name">
-        <input id="custEmail" class="checkout-input" placeholder="Email">
+        <div style="background:#fff5f7; padding:10px; border-radius:10px; border:1px dashed var(--cherry); margin:15px 0;">
+            <p style="font-size:10px; font-weight:700; color:var(--cherry); margin:0;">🚚 DELIVERY IN 6-7 DAYS | 2 Days Exchange</p>
+        </div>
+        <input id="custName" class="checkout-input" placeholder="Receiver's Full Name">
+        <input id="custEmail" class="checkout-input" placeholder="Email (For Confirmation)">
         <input id="custMobileCheckout" class="checkout-input" placeholder="Mobile" readonly>
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
             <input id="custFlat" class="checkout-input" placeholder="Flat No.">
@@ -92,13 +94,12 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     <div style="padding:20px;font-weight:800;color:var(--cherry); cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
     <div class="login-box" id="login-form">
         <h2 style="font-family:'Cinzel'">My Account</h2>
-        <input type="tel" id="userPhone" class="checkout-input" placeholder="Mobile Number">
+        <input type="tel" id="userPhone" style="width:100%;padding:15px;margin:15px 0;border-radius:12px;border:1px solid #eee; text-align:center" placeholder="Mobile">
         <div id="recaptcha-container"></div>
         <button class="buy-btn" onclick="handleLogin()">GET OTP</button>
     </div>
     <div class="login-box" id="profile-box" style="display:none">
-        <h2 style="font-family:'Cinzel'">Welcome!</h2>
-        <p id="displayPhone" style="font-weight:800; color:var(--cherry)"></p>
+        <h2 id="displayPhone"></h2>
         <button class="buy-btn" style="background:#ccc" onclick="handleLogout()">LOGOUT</button>
     </div>
 </div>
@@ -109,16 +110,8 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 </div>
 
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyD6rx_X8avqU63I_RoNyA0xJ8EKDFRP6xk",
-  authDomain: "lexriva1.firebaseapp.com",
-  projectId: "lexriva1",
-  storageBucket: "lexriva1.firebasestorage.app",
-  messagingSenderId: "551567272339",
-  appId: "1:551567272339:web:e35e9fd86ccf4832d82866"
-};
+const firebaseConfig = { apiKey: "AIzaSyD6rx_X8avqU63I_RoNyA0xJ8EKDFRP6xk", authDomain: "lexriva1.firebaseapp.com", projectId: "lexriva1", storageBucket: "lexriva1.firebasestorage.app", messagingSenderId: "551567272339", appId: "1:551567272339:web:e35e9fd86ccf4832d82866" };
 firebase.initializeApp(firebaseConfig);
-
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbzHTwI3qwZP3fIMW15wdIYwhtgCUFjpq7NHznPEmvgF-t9C0lGT8DW_BneCfUHbR9VbLg/exec";
 let store={}; let currentP={}; let isLoggedIn = localStorage.getItem('lexUser') ? true : false;
 
@@ -128,8 +121,8 @@ const subMap={
 'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers','Flats','Ethnic','Loafers','Mules','Wedges'],
 'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','LEXRIVA','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
 'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
-'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
-'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
+'bags':['Bag Packs','Handbags','Sling Bags','Wallets','Clutches','Totes'],
+'acc_main':['Hair Acc','Belts','Sunglasses','Watches','Socks','Caps']
 };
 
 window.onload = function() { window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {'size':'invisible'}); init(); };
@@ -149,7 +142,7 @@ function openProduct(n, p, i, i2, i3, d, c, s){
     if(!isLoggedIn){ alert("Login First!"); showPg('account-pg'); return; }
     currentP = {n,p,i,i2,i3,d,c,s};
     document.getElementById('p-name').innerText=n; document.getElementById('p-price').innerText="₹"+p;
-    document.getElementById('p-desc').innerText=d || "Premium Luxury Product";
+    document.getElementById('p-desc').innerText=d || "Lexriva Luxury Quality";
     let imgs = [i, i2, i3].filter(src => src && src.length > 5);
     document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}" style="min-width:100%; border-radius:15px; height:350px; object-fit:cover;">`).join('');
     document.getElementById('p-color').innerHTML = (c || "Original").split(',').map(v => `<option>${v.trim()}</option>`).join('');
@@ -159,22 +152,21 @@ function openProduct(n, p, i, i2, i3, d, c, s){
 }
 async function sendOrder(){
     let data = { name: document.getElementById('custName').value, email: document.getElementById('custEmail').value, mobile: document.getElementById('custMobileCheckout').value, flat: document.getElementById('custFlat').value, area: document.getElementById('custArea').value, pincode: document.getElementById('custPin').value, city: document.getElementById('custCity').value, productName: currentP.n, productPrice: currentP.p, selectedColor: document.getElementById('p-color').value, selectedSize: document.getElementById('p-size').value };
-    if(!data.name || !data.flat) return alert("Fill delivery details!");
+    if(!data.name || !data.flat) return alert("Fill details!");
     try{ await fetch(ADMIN_URL, {method:'POST', body:JSON.stringify(data)}); alert("Order Successful!"); showPg('h-pg'); } catch(e){ alert("Error!"); }
 }
 function openSub(k){
     showPg('s-pg');
     document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
     let h=""; (subMap[k]||[]).forEach(n=>{
-        if(n === 'LEXRIVA') h+=`<div class="sub-item cherry-box">ESTD. 2024<br><br><span style="font-size:14px">LEXRIVA</span><br><br>LUXURY MALL</div>`;
-        else h+=`<div class="sub-item" onclick="openSubCategoryProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+        h+=`<div class="sub-item" onclick="openSubCategoryProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
 }
 async function openSubCategoryProducts(catName){
     showPg('p-list-pg');
     const pData = store[catName.toLowerCase()] || [];
-    document.getElementById('p-list-grid').innerHTML = pData.length === 0 ? `<p style="padding:20px; color:#888;">Coming Soon...</p>` : pData.map(p=>`<div class="p-card" onclick="openProduct('${p.n}','${p.p}','p.i','${p.i2}','${p.i3}','${p.d}','${p.c}','${p.s}')"><img src="${p.i}"><p>₹${p.p}</p></div>`).join('');
+    document.getElementById('p-list-grid').innerHTML = pData.map(p=>`<div class="p-card" onclick="openProduct('${p.n}','${p.p}','${p.i}','${p.i2}','${p.i3}','${p.d}','${p.c}','${p.s}')"><img src="${p.i}"><p>₹${p.p}</p></div>`).join('');
 }
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 function filterSearch(){
