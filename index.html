@@ -8,14 +8,12 @@
     <style>
         :root { --lavender: #F4EFFF; --cherry: #72001A; --gold: #D4AF37; --white: #ffffff; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; padding-bottom: 80px; }
-        .page { display: none; }
-        .active { display: block; }
-
+        
         /* Header */
         .header { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo { font-family: 'Cinzel'; font-size: 24px; letter-spacing: 5px; font-weight: 900; color: var(--cherry); margin: 0 auto; }
 
-        /* Search Bar */
+        /* Working Search Bar */
         .search-container { padding: 10px 15px; background: #fff; }
         .search-bar { padding: 12px; display: flex; gap: 10px; background: var(--lavender); border-radius: 15px; border: 1px solid #eee; align-items: center; }
         .search-bar input { flex: 1; border: none; outline: none; background: none; font-size: 14px; }
@@ -24,145 +22,96 @@
         .section-h { padding: 25px 15px 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--cherry); letter-spacing: 1px; }
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 15px; scrollbar-width: none; }
         
-        /* Reels Style */
-        .reel-box { min-width: 160px; height: 280px; border-radius: 20px; overflow: hidden; background: #000; flex-shrink: 0; cursor: pointer; position: relative; }
-        .reel-box video { width: 100%; height: 100%; object-fit: cover; }
-        .reel-tag { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; color: #fff; font-size: 9px; font-weight: 800; background: rgba(114,0,26,0.6); padding: 8px; }
-
-        /* Product Card */
-        .p-card { min-width: 150px; background: #fff; padding: 12px; border-radius: 25px; text-align: center; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.03); cursor: pointer; }
+        /* Product Cards */
+        .p-card { min-width: 150px; background: #fff; padding: 12px; border-radius: 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.03); cursor: pointer; border: 1px solid transparent; transition: 0.3s; }
+        .p-card:active { border-color: var(--cherry); transform: scale(0.95); }
         .p-card img { width: 130px; height: 175px; border-radius: 18px; object-fit: cover; }
 
-        /* Categories Grid */
+        /* Category Grid */
         .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .cat-card { position: relative; border-radius: 20px; overflow: hidden; height: 180px; cursor: pointer; }
+        .cat-card { position: relative; border-radius: 20px; overflow: hidden; height: 160px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .cat-card img { width: 100%; height: 100%; object-fit: cover; }
         .cat-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(114,0,26,0.7); color: #fff; padding: 8px; font-size: 10px; font-weight: 800; text-align: center; }
 
-        /* Detail Slider */
-        .detail-img-slider { display: flex; overflow-x: auto; gap: 10px; padding: 15px; scrollbar-width: none; }
-        .detail-img-slider img { width: 100%; flex-shrink: 0; border-radius: 25px; height: 400px; object-fit: cover; }
-        .opt-chip { padding: 10px 15px; border: 1.5px solid #ddd; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 8px; background: #fff; }
-        .opt-active { border-color: var(--cherry); background: var(--lavender); color: var(--cherry); }
-
         /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-btn { text-align: center; font-size: 9px; font-weight: 800; color: #999; cursor: pointer; flex: 1; }
-        .nav-active { color: var(--cherry); }
-        .btn-order { width: 100%; padding: 18px; background: var(--cherry); color: #fff; border: none; border-radius: 15px; font-weight: 800; cursor: pointer; margin-top: 20px; }
+        .nav-btn { text-align: center; font-size: 9px; font-weight: 800; color: #999; cursor: pointer; flex: 1; text-decoration: none; }
+        
+        /* Reels Style */
+        .reel-box { min-width: 160px; height: 280px; border-radius: 20px; overflow: hidden; background: #000; flex-shrink: 0; cursor: pointer; position: relative; }
+        .reel-box video { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body>
 
-    <div class="header"><span onclick="showPg('login-pg')">👤</span><div class="logo">LEXRIVA</div><span onclick="showPg('cart-pg')">🛒</span></div>
-
-    <div id="h-pg" class="page active">
-        <div class="search-container"><div class="search-bar"><input type="text" id="mainSearch" oninput="doSearch()" placeholder="Search Lexriva Luxury..."><span>🔍</span></div></div>
-        
-        <div style="padding:0 15px;margin-top:10px"><img src="main_banner.jpg" style="width:100%;border-radius:30px" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+ELEGANCE'"></div>
-        
-        <div class="section-h">🌙 THE EID EDIT</div>
-        <div id="eid-scroll" class="h-scroll"></div>
-
-        <div class="section-h">🎬 TRENDING REELS</div>
-        <div class="h-scroll">
-            <div class="reel-box" onclick="showSub('ethnic')"><video src="reel1.mp4" autoplay muted loop playsinline></video><div class="reel-tag">ETHNIC</div></div>
-            <div class="reel-box" onclick="showSub('western')"><video src="reel2.mp4" autoplay muted loop playsinline></video><div class="reel-tag">WESTERN</div></div>
-            <div class="reel-box" onclick="showSub('makeup')"><video src="reel3.mp4" autoplay muted loop playsinline></video><div class="reel-tag">MAKEUP</div></div>
-            <div class="reel-box" onclick="showSub('jewellery')"><video src="reel4.mp4" autoplay muted loop playsinline></video><div class="reel-tag">JEWELLERY</div></div>
-            <div class="reel-box" onclick="showSub('bags')"><video src="reel5.mp4" autoplay muted loop playsinline></video><div class="reel-tag">BAGS</div></div>
-            <div class="reel-box" onclick="showSub('footwear')"><video src="reel6.mp4" autoplay muted loop playsinline></video><div class="reel-tag">FOOTWEAR</div></div>
-            <div class="reel-box" onclick="showSub('acc')"><video src="reel7.mp4" autoplay muted loop playsinline></video><div class="reel-tag">ACCESSORIES</div></div>
-            <div class="reel-box" onclick="showSub('ethnic')"><video src="reel8.mp4" autoplay muted loop playsinline></video><div class="reel-tag">NEW FESTIVE</div></div>
-        </div>
-
-        <div class="section-h" id="all-cats">🛍️ SHOP BY CATEGORY</div>
-        <div class="cat-grid">
-            <div class="cat-card" onclick="showSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN</div></div>
-            <div class="cat-card" onclick="showSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC</div></div>
-            <div class="cat-card" onclick="showSub('makeup')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP</div></div>
-            <div class="cat-card" onclick="showSub('jewellery')"><img src="cat_jewel.jpg"><div class="cat-label">JEWELLERY</div></div>
-        </div>
-
-        <div class="section-h">🔥 BEST SELLERS</div>
-        <div id="best-scroll" class="h-scroll"></div>
+    <div class="header">
+        <div onclick="window.location.href='login.html'" style="cursor:pointer">👤</div>
+        <div class="logo">LEXRIVA</div>
+        <div onclick="window.location.href='checkout.html'" style="cursor:pointer">🛒</div>
     </div>
 
-    <div id="sub-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="sub-grid" class="cat-grid"></div></div>
-    <div id="det-pg" class="page">
-        <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-        <div id="det-slider" class="detail-img-slider"></div>
-        <div style="padding:25px;background:#fff;border-radius:35px 35px 0 0;margin-top:-20px">
-            <h2 id="det-n" style="font-family:'Cinzel';margin:0"></h2><h3 id="det-p" style="color:var(--cherry);margin:10px 0"></h3>
-            <p style="font-size:11px;color:green;font-weight:700">✓ Premium Quality | 2-Day Exchange</p>
-            <p style="font-weight:800;font-size:12px;margin-top:20px">COLOR</p><div class="h-scroll" style="padding:0"><div class="opt-chip opt-active" onclick="selOpt(this)">Cherry Red</div><div class="opt-chip" onclick="selOpt(this)">Gold</div></div>
-            <p style="font-weight:800;font-size:12px;margin-top:20px">SIZE</p><div class="h-scroll" style="padding:0"><div class="opt-chip opt-active" onclick="selOpt(this)">Standard</div><div class="opt-chip" onclick="selOpt(this)">Plus Size</div></div>
-            <button class="btn-order" onclick="openCheckout()">BUY NOW (COD)</button>
-        </div>
+    <div class="search-container">
+        <form action="category.html" method="GET" class="search-bar">
+            <input type="text" name="search" placeholder="Search Lexriva Luxury...">
+            <button type="submit" style="border:none; background:none; cursor:pointer">🔍</button>
+        </form>
     </div>
-    <div id="cart-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div style="padding:20px;background:#fff;margin:15px;border-radius:25px"><h3>Order Summary</h3><p id="f-name"></p><p id="f-price"></p><form id="orderForm"><input type="text" id="cN" class="btn-order" style="background:#fff;color:#000;border:1px solid #ddd" placeholder="Name" required><input type="tel" id="cP" class="btn-order" style="background:#fff;color:#000;border:1px solid #ddd" placeholder="Phone" required><textarea id="cA" class="btn-order" style="background:#fff;color:#000;border:1px solid #ddd" placeholder="Address" required></textarea><button type="submit" class="btn-order" id="subBtn">CONFIRM ORDER</button></form></div></div>
-    <div id="login-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div style="text-align:center;padding:50px 20px"><h2 style="font-family:'Cinzel'">Account Login</h2><input type="tel" class="btn-order" style="background:#fff;color:#000;border:1px solid #ddd" placeholder="Mobile Number"><button class="btn-order">GET OTP</button></div></div>
+
+    <div style="padding:0 15px; margin-top:10px;"><img src="main_banner.jpg" style="width:100%; border-radius:30px;" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+BANNER'"></div>
+    
+    <div class="section-h">🌙 THE EID EDIT</div>
+    <div id="eid-scroll" class="h-scroll">
+        </div>
+
+    <div class="section-h">🎬 TRENDING REELS</div>
+    <div class="h-scroll">
+        <div class="reel-box" onclick="location.href='category.html?type=ethnic'"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box" onclick="location.href='category.html?type=western'"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box" onclick="location.href='category.html?type=makeup'"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box" onclick="location.href='category.html?type=jewel'"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box" onclick="location.href='category.html?type=bags'"><video src="reel5.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box" onclick="location.href='category.html?type=footwear'"><video src="reel6.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box" onclick="location.href='category.html?type=acc'"><video src="reel7.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box" onclick="location.href='category.html?type=ethnic'"><video src="reel8.mp4" autoplay muted loop playsinline></video></div>
+    </div>
+
+    <div class="section-h" id="all-cats">🛍️ SHOP BY CATEGORY</div>
+    <div class="cat-grid">
+        <div class="cat-card" onclick="location.href='category.html?type=western'"><img src="cat_western.jpg"><div class="cat-label">WESTERN</div></div>
+        <div class="cat-card" onclick="location.href='category.html?type=ethnic'"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC</div></div>
+        <div class="cat-card" onclick="location.href='category.html?type=makeup'"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP</div></div>
+        <div class="cat-card" onclick="location.href='category.html?type=jewel'"><img src="cat_jewel.jpg"><div class="cat-label">JEWELLERY</div></div>
+        <div class="cat-card" onclick="location.href='category.html?type=bags'"><img src="cat_bags.jpg"><div class="cat-label">BAGS</div></div>
+        <div class="cat-card" onclick="location.href='category.html?type=footwear'"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR</div></div>
+        <div class="cat-card" onclick="location.href='category.html?type=acc'"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
+    </div>
 
     <div class="bottom-nav">
-        <div class="nav-btn nav-active" onclick="showPg('h-pg')">HOME</div>
-        <div class="nav-btn" onclick="document.getElementById('all-cats').scrollIntoView({behavior:'smooth'})">CATEGORY</div>
-        <div class="nav-btn" onclick="alert('Wishlist Empty')">WISHLIST</div>
-        <div class="nav-btn" onclick="showPg('cart-pg')">BAG</div>
-        <div class="nav-btn" onclick="showPg('login-pg')">ACCOUNT</div>
+        <a href="index.html" class="nav-btn" style="color:var(--cherry)">🏠<br>HOME</a>
+        <div class="nav-btn" onclick="document.getElementById('all-cats').scrollIntoView({behavior:'smooth'})">🛍️<br>CATEGORY</div>
+        <a href="wishlist.html" class="nav-btn">🤍<br>WISHLIST</a>
+        <a href="checkout.html" class="nav-btn">🛒<br>BAG</a>
     </div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbysgVoApcCnoLQLrHB8FYqNvg9DRzeGXmuPKnQGZHf5IpY0QsPdGVmlvEd-AV6QKJge6g/exec";
-let store={eid:[],latest:[]}; let currentP=null;
-
+// JSON FETCH ENABLED
 async function init(){
-    try{
-        const r=await fetch('products.json');
-        store=await r.json();
-        const mapP=(p)=>`<div class="p-card"><img src="${p.i}" onclick='openDet(${JSON.stringify(p)})'><p>₹${p.p}</p></div>`;
-        document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(mapP).join('');
-        document.getElementById('best-scroll').innerHTML=(store.latest||[]).map(mapP).join('');
-    }catch(e){console.log("JSON Error");}
+    try {
+        const r = await fetch('products.json');
+        const store = await r.json();
+        
+        // Dynamic Eid Products
+        const eidHtml = (store.eid || []).map(p => `
+            <div class="p-card" onclick="window.location.href='checkout.html?n=${encodeURIComponent(p.n)}&p=${p.p}'">
+                <img src="${p.i}" onerror="this.src='https://via.placeholder.com/130x175'">
+                <p>₹${p.p}</p>
+            </div>
+        `).join('');
+        document.getElementById('eid-scroll').innerHTML = eidHtml;
+        
+    } catch(e) { console.log("Check products.json file path"); }
 }
-
-function openDet(p){
-    currentP=p; showPg('det-pg');
-    document.getElementById('det-n').innerText=p.n;
-    document.getElementById('det-p').innerText="₹"+p.p;
-    document.getElementById('det-slider').innerHTML=`<img src="${p.i}"><img src="${p.i2||p.i}"><img src="${p.i3||p.i}">`;
-}
-
-function showSub(cat){
-    showPg('sub-pg');
-    const filtered = (store.latest||[]).filter(p => p.cat === cat);
-    document.getElementById('sub-grid').innerHTML = filtered.map(p => `
-        <div class="cat-card" onclick='openDet(${JSON.stringify(p)})'>
-            <img src="${p.i}"><div class="cat-label">₹${p.p}</div>
-        </div>`).join('');
-}
-
-function doSearch(){
-    const q = document.getElementById('mainSearch').value.toLowerCase();
-    if(q.length > 2){
-        const results = [...store.eid, ...store.latest].filter(p => p.n.toLowerCase().includes(q));
-        showPg('sub-pg');
-        document.getElementById('sub-grid').innerHTML = results.map(p => `
-            <div class="cat-card" onclick='openDet(${JSON.stringify(p)})'><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div>`).join('');
-    }
-}
-
-function openCheckout(){
-    showPg('cart-pg');
-    document.getElementById('f-name').innerText=currentP.n;
-    document.getElementById('f-price').innerText="₹"+currentP.p;
-}
-
-document.getElementById('orderForm').onsubmit=async(e)=>{
-    e.preventDefault(); const btn=document.getElementById('subBtn'); btn.disabled=true; btn.innerText="Sending...";
-    const data={ Name:document.getElementById('cN').value, Phone:document.getElementById('cP').value, Address:document.getElementById('cA').value, Product:currentP.n, Price:currentP.p, Date:new Date().toLocaleString() };
-    try{ await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(data)}); alert("🎉 Order Success!"); showPg('h-pg'); } catch(e){ alert("Success!"); showPg('h-pg'); }
-};
-
-function selOpt(el){ el.parentElement.querySelectorAll('.opt-chip').forEach(c=>c.classList.remove('opt-active')); el.classList.add('opt-active'); }
-function showPg(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
-window.onload=init;</script></body></html>
+window.onload = init;
+</script>
+</body>
+</html>
