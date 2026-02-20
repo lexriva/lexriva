@@ -3,127 +3,106 @@
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
 .page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
 .active{display:block}
-.header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
-.logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
+.header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry);margin:0 auto}
+
+/* Search Box */
+.search-container{padding:10px 15px;background:#fff}
+.search-bar{padding:12px;display:flex;gap:10px;background:var(--lavender);border-radius:15px;border:1px solid #eee}
+.search-bar input{flex:1;border:none;outline:none;background:none;font-size:14px}
+
+/* Product Card with Quick Actions */
+.scroll-item{min-width:150px;text-align:center;background:#fff;padding:12px;border-radius:25px;box-shadow:0 10px 25px rgba(0,0,0,0.05);position:relative;margin-bottom:10px}
+.scroll-item img{width:130px;height:175px;border-radius:18px;object-fit:cover;cursor:pointer}
+.card-actions{display:flex;justify-content:center;gap:12px;margin-top:10px}
+.action-btn{background:var(--lavender);color:var(--cherry);border:none;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:0.3s}
+.action-btn:hover{background:var(--cherry);color:#fff}
+
 .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);display:flex;justify-content:space-between}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
-.scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05)}
-.scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
-.reel-box{display:flex;overflow-x:auto;gap:15px;padding:15px;scrollbar-width:none}
-.reel-card{min-width:260px;height:450px;border-radius:25px;overflow:hidden;position:relative;box-shadow:0 15px 35px rgba(0,0,0,0.15);cursor:pointer}
-.reel-card video{width:100%;height:100%;object-fit:cover}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05)}
 .cat-card img{width:100%;height:100%;object-fit:cover}
-.cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
-.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0}
-.sub-item{padding:20px 5px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1/1.3}
-.sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-.cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:45% 45% 10px 10px !important; margin:12px; font-family:'Cinzel'; font-size:9px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold) !important; min-height:140px; box-shadow: 0 8px 15px rgba(114,0,26,0.3)}
-.footer-info{padding:30px 20px;background:#fff;text-align:center;border-radius:30px 30px 0 0;margin-top:20px}
-.social-link{display:inline-block;padding:12px 25px;background:var(--cherry);color:#fff;text-decoration:none;border-radius:50px;font-weight:700;font-size:12px;margin-top:10px}
+
+/* Bottom Nav */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
 .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
-.login-box{padding:40px 20px;text-align:center;background:#fff;margin:20px;border-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,0.05)}
-.btn-login{width:100%;padding:16px;background:var(--cherry);color:#fff;border:none;border-radius:12px;font-weight:800}
-
-/* Naye Add To Cart Styles */
-#cart-items { padding: 15px; }
-.cart-item { display: flex; gap: 10px; background: #fff; padding: 10px; border-radius: 15px; margin-bottom: 10px; }
-.cart-item img { width: 60px; height: 60px; border-radius: 10px; }
-.cart-badge { position: absolute; top: 12px; right: 20%; background: var(--cherry); color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; }
+.btn-login{width:100%;padding:18px;background:var(--cherry);color:#fff;border:none;border-radius:15px;font-weight:800;cursor:pointer}
 </style></head><body>
 
 <div class="header">
+    <div style="width:30px"></div>
     <div class="logo">LEXRIVA</div>
-    <div id="cart-count" class="cart-badge">0</div>
+    <div onclick="showPg('cart-pg')" style="position:relative">🛒<span id="cart-count" style="position:absolute;top:-5px;right:-5px;background:var(--cherry);color:white;font-size:10px;padding:2px 5px;border-radius:50%">0</span></div>
+</div>
+
+<div class="search-container">
+    <div class="search-bar">
+        <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search luxury products...">
+        <span>🔍</span>
+    </div>
 </div>
 
 <div id="h-pg" class="page active">
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
     <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
-    
-    <div class="section-h">🎬 TRENDING REELS</div>
-    <div class="reel-box">
-        <div class="reel-card" onclick="openReelProduct(0)"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card" onclick="openReelProduct(1)"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card" onclick="openReelProduct(2)"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
-    </div>
-    
-    <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
+    <div class="section-h">🛍️ CATEGORIES</div>
     <div class="cat-grid">
-        <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
-        <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
-        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
-        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
-        <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
-        <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
-        <div class="cat-card" onclick="openSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
-    </div>
-    <div class="footer-info">
-        <p style="font-weight:800;font-size:12px;color:green">✓ ₹1999+ FREE SHIPPING | 2-DAY DELIVERY</p>
-        <a href="https://www.instagram.com/lexrivaofficial" class="social-link">FOLLOW @LEXRIVAOFFICIAL</a>
+        <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"></div>
+        <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"></div>
+        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"></div>
+        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"></div>
     </div>
 </div>
 
-<div id="s-pg" class="page">
+<div id="wish-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div id="s-banner" style="width:100%;height:220px"></div>
-    <div id="s-grid" class="sub-grid"></div>
+    <h2 style="text-align:center;font-family:'Cinzel'">My Wishlist</h2>
+    <div id="wish-content" class="cat-grid"></div>
 </div>
 
 <div id="cart-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div id="cart-items"></div>
-    <div style="padding:20px; background:#fff; margin:20px; border-radius:20px">
-        <div style="display:flex; justify-content:space-between"><span>Subtotal</span><span id="sub-val">₹0</span></div>
-        <div style="display:flex; justify-content:space-between; margin:10px 0"><span>Delivery</span><span id="del-val">₹49</span></div>
-        <hr>
-        <div style="display:flex; justify-content:space-between; font-weight:800; color:var(--cherry)"><span>Total</span><span id="tot-val">₹0</span></div>
-        <p style="font-size:10px; color:red; margin-top:10px">🛡️ 2-DAY EXCHANGE ONLY AFTER DELIVERY</p>
+    <div id="cart-list" style="padding:15px"></div>
+    <div style="padding:20px;background:#fff;margin:15px;border-radius:25px;box-shadow:0 5px 15px rgba(0,0,0,0.05)">
+        <div style="display:flex;justify-content:space-between"><span>Subtotal</span><span id="sub-val">₹0</span></div>
+        <div style="display:flex;justify-content:space-between;margin:10px 0"><span>Delivery</span><span id="del-val">₹49</span></div>
+        <hr><div style="display:flex;justify-content:space-between;font-weight:800;color:var(--cherry);font-size:18px"><span>Total</span><span id="tot-val">₹0</span></div>
         <button class="btn-login" style="margin-top:15px" onclick="alert('Proceeding to Checkout...')">PROCEED TO CHECKOUT</button>
     </div>
 </div>
 
-<div id="account-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div class="login-box"><h2 style="font-family:'Cinzel'">My Account</h2><input type="tel" style="width:100%;padding:15px;margin:15px 0;border-radius:12px;border:1px solid #eee" placeholder="Mobile Number"><button class="btn-login" onclick="alert('OTP Sent!')">GET OTP</button></div>
-</div>
-
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
-    <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView({behavior:'smooth'})">CATEGORIES</div>
+    <div class="nav-btn" onclick="showPg('wish-pg')">WISHLIST</div>
     <div class="nav-btn" onclick="showPg('cart-pg')">BAG</div>
     <div class="nav-btn" onclick="showPg('account-pg')">ACCOUNT</div>
 </div>
 
 <script>
-// APNA SCRIPT URL YAHAN FIX HAI
-const ADMIN_URL="https://script.google.com/macros/s/AKfycbxvD9KIRJUN5YumkpKW5K7osSC4N0xH5kfwBT4ojQupvw__ROi3YBqizHicfp6pgf7Ekw/exec";
-let store={categories:{},eid:[],latest:[]};
-let cart=[];
-
-const subMap={
-'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
-'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
-'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers','Flats','Ethnic','Loafers','Mules','Wedges'],
-'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','LEXRIVA','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
-'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
-'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
-'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
-};
+let store = {eid:[], latest:[]};
+let cart = [];
+let wishlist = [];
 
 async function init(){
     try{
-        const r=await fetch('products.json'); // JSON se products load honge
-        store=await r.json();
+        const r = await fetch('products.json');
+        store = await r.json();
         renderH();
-    }catch(e){ console.log("JSON Load Error"); }
+    }catch(e){ console.log("JSON Error"); }
 }
 
 function renderH(){
-    const mapProd = (p) => `<div class="scroll-item" onclick="addToBag(${JSON.stringify(p).replace(/"/g, '&quot;')})"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`;
+    const mapProd = (p) => `
+        <div class="scroll-item">
+            <img src="${p.i}" onclick='alert("Opening ${p.n}")'>
+            <p style="font-size:11px;font-weight:800;margin:5px 0">₹${p.p}</p>
+            <div class="card-actions">
+                <button class="action-btn" onclick='addToWishlist(${JSON.stringify(p)})'>🤍</button>
+                <button class="action-btn" onclick='addToBag(${JSON.stringify(p)})'>🛒</button>
+            </div>
+        </div>`;
     document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(mapProd).join('');
     document.getElementById('l-scroll').innerHTML=(store.latest||[]).map(mapProd).join('');
 }
@@ -134,37 +113,40 @@ function addToBag(p){
     alert(p.n + " added to Bag!");
 }
 
+function addToWishlist(p){
+    if(!wishlist.find(x => x.n === p.n)){
+        wishlist.push(p);
+        updateWishlistUI();
+        alert(p.n + " added to Wishlist!");
+    } else { alert("Already in Wishlist!"); }
+}
+
+function updateWishlistUI(){
+    document.getElementById('wish-content').innerHTML = wishlist.map(p => `
+        <div class="cat-card" style="height:230px;background:#fff;padding:10px">
+            <img src="${p.i}" style="height:150px;border-radius:15px">
+            <p style="font-size:10px;font-weight:800;margin:5px 0">₹${p.p}</p>
+            <button class="btn-login" style="padding:8px;font-size:10px" onclick='addToBag(${JSON.stringify(p)})'>MOVE TO BAG</button>
+        </div>`).join('');
+}
+
 function updateCart(){
-    document.getElementById('cart-count').innerText=cart.length;
-    let sub = cart.reduce((a,b)=>a+parseInt(b.p), 0);
+    document.getElementById('cart-count').innerText = cart.length;
+    let sub = cart.reduce((a,b)=>a+parseInt(b.p),0);
     let del = (sub > 0 && sub < 1999) ? 49 : 0;
-    document.getElementById('sub-val').innerText='₹'+sub;
-    document.getElementById('del-val').innerText=del === 0 ? 'FREE' : '₹'+del;
-    document.getElementById('tot-val').innerText='₹'+(sub+del);
-    
-    document.getElementById('cart-items').innerHTML=cart.map((item,i)=>`
-        <div class="cart-item">
-            <img src="${item.i}">
-            <div><p style="font-size:12px;margin:0">${item.n}</p><p style="font-weight:800">₹${item.p}</p></div>
-        </div>
-    `).join('');
+    document.getElementById('sub-val').innerText = '₹'+sub;
+    document.getElementById('del-val').innerText = del===0?'FREE':'₹'+del;
+    document.getElementById('tot-val').innerText = '₹'+(sub+del);
+    document.getElementById('cart-list').innerHTML = cart.map(item => `
+        <div style="background:#fff;padding:15px;border-radius:20px;display:flex;gap:15px;margin-bottom:10px;align-items:center">
+            <img src="${item.i}" style="width:55px;height:55px;border-radius:12px">
+            <div><p style="margin:0;font-size:13px;font-weight:700">${item.n}</p><p style="color:var(--cherry);margin:0">₹${item.p}</p></div>
+        </div>`).join('');
 }
 
-function openReelProduct(idx){
-    // Reels se product khulne ka logic
-    if(store.eid && store.eid[idx]) addToBag(store.eid[idx]);
+function showPg(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
 }
-
-function openSub(k){
-    showPg('s-pg');
-    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
-    let h=""; const subs=subMap[k]||[];
-    subs.forEach((n,i)=>{
-        if(n === 'LEXRIVA') h+=`<div class="sub-item cherry-box">ESTD. 2024<br><br><span style="font-size:14px">LEXRIVA</span><br><br>LUXURY MALL</div>`;
-        else h+=`<div class="sub-item" onclick="alert('Opening ${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
-    });
-    document.getElementById('s-grid').innerHTML=h;
-}
-
-function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 window.onload=init;</script></body></html>
