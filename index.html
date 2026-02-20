@@ -6,7 +6,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
 .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
 
-/* Search Bar added as requested */
+/* Search Bar */
 .search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
 .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
 
@@ -14,16 +14,20 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); cursor: pointer;}
 .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
+
 .reel-box{display:flex;overflow-x:auto;gap:15px;padding:15px;scrollbar-width:none}
 .reel-card{min-width:260px;height:450px;border-radius:25px;overflow:hidden;position:relative;box-shadow:0 15px 35px rgba(0,0,0,0.15);cursor:pointer}
 .reel-card video{width:100%;height:100%;object-fit:cover}
+
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor: pointer;}
 .cat-card img{width:100%;height:100%;object-fit:cover}
 .cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
+
 .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0}
 .sub-item{padding:20px 5px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1/1.3; cursor: pointer;}
 .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+
 .cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:45% 45% 10px 10px !important; margin:12px; font-family:'Cinzel'; font-size:9px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold) !important; min-height:140px; box-shadow: 0 8px 15px rgba(114,0,26,0.3)}
 
 /* Checkout Styling */
@@ -31,12 +35,15 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .buy-btn{width:100%; padding:15px; background:var(--cherry); color:#fff; border:none; border-radius:12px; font-weight:800; margin-top:15px; cursor:pointer}
 .checkout-input{width:100%; padding:12px; margin:8px 0; border:1px solid #eee; border-radius:10px; outline:none; box-sizing: border-box;}
 
+/* Sub-category Product Grid */
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:15px}
+.p-card{background:#fff;border-radius:20px;padding:10px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05); cursor: pointer;}
+.p-card img{width:100%;height:180px;object-fit:cover;border-radius:15px}
+
 .footer-info{padding:30px 20px;background:#fff;text-align:center;border-radius:30px 30px 0 0;margin-top:20px}
 .social-link{display:inline-block;padding:12px 25px;background:var(--cherry);color:#fff;text-decoration:none;border-radius:50px;font-weight:700;font-size:12px;margin-top:10px}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
 .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
-.login-box{padding:40px 20px;text-align:center;background:#fff;margin:20px;border-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,0.05)}
-.btn-login{width:100%;padding:16px;background:var(--cherry);color:#fff;border:none;border-radius:12px;font-weight:800}
 </style></head><body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
@@ -71,10 +78,20 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     </div>
 </div>
 
-<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
+<div id="s-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry); cursor: pointer;" onclick="showPg('h-pg')">← BACK</div>
+    <div id="s-banner" style="width:100%;height:220px"></div>
+    <div id="s-grid" class="sub-grid"></div>
+</div>
+
+<div id="p-list-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry); cursor: pointer;" onclick="showPg('s-pg')">← BACK</div>
+    <div class="section-h" id="p-list-title">COLLECTION</div>
+    <div id="p-list-grid" class="product-grid"></div>
+</div>
 
 <div id="p-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+    <div style="padding:20px;font-weight:800;color:var(--cherry); cursor: pointer;" onclick="showPg('h-pg')">← BACK</div>
     <div class="checkout-box" id="p-detail">
         <img id="p-img" style="width:100%; border-radius:15px; height:300px; object-fit:cover">
         <h2 id="p-name" style="margin:10px 0; color:var(--cherry)"></h2>
@@ -85,11 +102,6 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
         <textarea id="custAddr" class="checkout-input" placeholder="Full Address with Pincode"></textarea>
         <button class="buy-btn" id="confirmBuy" onclick="sendOrder()">CONFIRM ORDER</button>
     </div>
-</div>
-
-<div id="account-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div class="login-box"><h2 style="font-family:'Cinzel'">My Account</h2><input type="tel" style="width:100%;padding:15px;margin:15px 0;border-radius:12px;border:1px solid #eee" placeholder="Mobile Number"><button class="btn-login" onclick="alert('OTP Sent!')">GET OTP</button></div>
 </div>
 
 <div class="bottom-nav">
@@ -124,8 +136,8 @@ function renderH(data = store){
 function filterSearch(){
     let q = document.getElementById('mainSearch').value.toLowerCase();
     let filtered = {
-        eid: store.eid.filter(p => p.n.toLowerCase().includes(q)),
-        latest: store.latest.filter(p => p.n.toLowerCase().includes(q))
+        eid: (store.eid||[]).filter(p => p.n.toLowerCase().includes(q)),
+        latest: (store.latest||[]).filter(p => p.n.toLowerCase().includes(q))
     };
     renderH(filtered);
 }
@@ -163,9 +175,27 @@ function openSub(k){
     let h=""; const subs=subMap[k]||[];
     subs.forEach((n,i)=>{
         if(n === 'LEXRIVA') h+=`<div class="sub-item cherry-box">ESTD. 2024<br><br><span style="font-size:14px">LEXRIVA</span><br><br>LUXURY MALL</div>`;
-        else h+=`<div class="sub-item" onclick="alert('Products coming to ${n} soon!')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+        else h+=`<div class="sub-item" onclick="openSubCategoryProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
+}
+
+function openSubCategoryProducts(catName){
+    showPg('p-list-pg');
+    document.getElementById('p-list-title').innerText = catName.toUpperCase();
+    // Yahan hum sheet mein us tab ko dhoondenge jiska naam catName hai
+    const pData = store[catName.toLowerCase()] || [];
+    if(pData.length === 0){
+        document.getElementById('p-list-grid').innerHTML = `<p style="padding:20px; color:#888;">No products in ${catName} yet.</p>`;
+    } else {
+        document.getElementById('p-list-grid').innerHTML = pData.map(p=>`
+            <div class="p-card" onclick="openProduct('${p.n}','${p.p}','${p.i}')">
+                <img src="${p.i}" onerror="this.src='icon.png'">
+                <p style="font-size:11px; font-weight:700; margin:10px 0;">₹${p.p}</p>
+                <p style="font-size:9px; color:#666;">${p.n}</p>
+            </div>
+        `).join('');
+    }
 }
 
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
