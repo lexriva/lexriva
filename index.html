@@ -1,4 +1,9 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Luxury Mall</title><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Luxury Mall</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+
+<style>
 :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
 .page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
@@ -77,6 +82,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
         <p id="p-price" style="font-weight:800; color:#333"></p>
         <hr style="border:0; border-top:1px solid #eee">
         <input id="custName" class="checkout-input" placeholder="Full Name">
+        <input id="custEmail" class="checkout-input" placeholder="Email (For Order Confirmation)">
         <input id="custMobileCheckout" class="checkout-input" placeholder="Mobile Number" readonly>
         <textarea id="custAddr" class="checkout-input" placeholder="Full Address with Pincode"></textarea>
         <button class="buy-btn" id="confirmBuy" onclick="sendOrder()">CONFIRM ORDER</button>
@@ -89,6 +95,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
         <h2 style="font-family:'Cinzel'">My Account</h2>
         <p style="font-size:11px; color:#666">Enter mobile to continue</p>
         <input type="tel" id="userPhone" style="width:100%;padding:15px;margin:15px 0;border-radius:12px;border:1px solid #eee" placeholder="Mobile Number">
+        <div id="recaptcha-container"></div>
         <button class="btn-login" onclick="handleLogin()">GET OTP</button>
     </div>
     <div class="login-box" id="profile-box" style="display:none">
@@ -106,6 +113,19 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 </div>
 
 <script>
+// --- FIREBASE CONFIG ---
+const firebaseConfig = {
+  apiKey: "AIzaSyD6rx_X8avqU63I_RoNyA0xJ8EKDFRP6xk",
+  authDomain: "lexriva1.firebaseapp.com",
+  projectId: "lexriva1",
+  storageBucket: "lexriva1.firebasestorage.app",
+  messagingSenderId: "551567272339",
+  appId: "1:551567272339:web:e35e9fd86ccf4832d82866",
+  measurementId: "G-W7ZLK4DCC5"
+};
+firebase.initializeApp(firebaseConfig);
+
+// --- APP LOGIC ---
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbysgVoApcCnoLQLrHB8FYqNvg9DRzeGXmuPKnQGZHf5IpY0QsPdGVmlvEd-AV6QKJge6g/exec";
 let store={eid:[],latest:[]};
 let currentP={};
@@ -119,6 +139,12 @@ const subMap={
 'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
 'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
 'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
+};
+
+// Initialize Recaptcha
+window.onload = function() {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { 'size': 'invisible' });
+    init();
 };
 
 async function init(){
@@ -137,13 +163,22 @@ function checkAuthUI(){
     }
 }
 
+// REAL OTP LOGIN
 function handleLogin(){
-    let ph = document.getElementById('userPhone').value;
-    if(ph.length < 10){ alert("Valid number please!"); return; }
-    localStorage.setItem('lexUser', ph);
-    isLoggedIn = true;
-    alert("Login Successful!");
-    checkAuthUI();
+    let ph = "+91" + document.getElementById('userPhone').value;
+    if(ph.length < 13){ alert("Valid 10-digit number please!"); return; }
+    
+    firebase.auth().signInWithPhoneNumber(ph, window.recaptchaVerifier)
+    .then((confirmationResult) => {
+        let code = prompt("Enter 6-digit OTP received on your mobile:");
+        return confirmationResult.confirm(code);
+    }).then((result) => {
+        localStorage.setItem('lexUser', result.user.phoneNumber);
+        isLoggedIn = true;
+        alert("Original Login Successful!");
+        checkAuthUI();
+        showPg('h-pg');
+    }).catch((error) => { alert("OTP Error: " + error.message); });
 }
 
 function handleLogout(){
@@ -164,11 +199,7 @@ function filterSearch(){
 }
 
 function openProduct(n, p, i){
-    if(!isLoggedIn){ 
-        alert("Please Login First!"); 
-        showPg('account-pg'); 
-        return; 
-    }
+    if(!isLoggedIn){ alert("Please Login First!"); showPg('account-pg'); return; }
     currentP = {n,p,i};
     document.getElementById('p-name').innerText=n;
     document.getElementById('p-price').innerText="₹"+p;
@@ -177,20 +208,22 @@ function openProduct(n, p, i){
     showPg('p-pg');
 }
 
+// ORDER + EMAIL SYNC
 async function sendOrder(){
     let btn = document.getElementById('confirmBuy');
     let data = {
         name: document.getElementById('custName').value,
+        email: document.getElementById('custEmail').value,
         mobile: document.getElementById('custMobileCheckout').value,
         address: document.getElementById('custAddr').value,
         productName: currentP.n,
         productPrice: currentP.p
     };
-    if(!data.name || !data.address){ alert("Please fill all details!"); return; }
+    if(!data.name || !data.address || !data.email){ alert("Please fill all details!"); return; }
     btn.innerText="Processing...";
     try{
         await fetch(ADMIN_URL, {method:'POST', body:JSON.stringify(data)});
-        alert("Order Received! We will contact you soon.");
+        alert("Order Received! Confirmation email sent to " + data.email);
         showPg('h-pg');
     }catch(e){ alert("Error! Try again."); }
     btn.innerText="CONFIRM ORDER";
@@ -221,5 +254,4 @@ function openSubCategoryProducts(catName){
 }
 
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-window.onload=init;
 </script></body></html>
