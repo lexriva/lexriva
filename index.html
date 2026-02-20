@@ -14,7 +14,8 @@
         .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
         .search-bar{padding:12px 20px;display:flex;gap:12px;background:#fff;margin:10px 15px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,0.05);border:1px solid #eee}
         .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);display:flex;justify-content:space-between}
-        .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
+        .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none;scroll-snap-type: x mandatory;}
+        .h-scroll::-webkit-scrollbar {display: none;}
         .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05)}
         .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
         .reel-card{min-width:160px;height:280px;border-radius:20px;overflow:hidden;position:relative;box-shadow:0 10px 25px rgba(0,0,0,0.1)}
@@ -54,6 +55,10 @@
             <div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
             <div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
             <div class="reel-card"><video src="reel3.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+            <div class="reel-card"><video src="reel4.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+            <div class="reel-card"><video src="reel5.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+            <div class="reel-card"><video src="reel6.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+            <div class="reel-card"><video src="reel7.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
         </div>
 
         <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
@@ -73,7 +78,7 @@
     
     <div id="d-pg" class="page">
         <div style="padding:20px;font-weight:800;position:absolute;z-index:20;color:#fff" onclick="showPg('l-pg')">← BACK</div>
-        <div id="d-imgs" class="h-scroll" style="background:#000;height:420px;padding:0;display:flex;overflow-x:auto;"></div>
+        <div id="d-imgs" class="h-scroll" style="background:#000;height:450px;padding:0;display:flex;overflow-x:auto;"></div>
         <div class="det-pg">
             <h2 id="d-name"></h2>
             <div class="det-price" id="d-price"></div>
@@ -98,22 +103,24 @@
 
 <script>
 let store={categories:{},eid:[],latest:[]};
+
+// --- SAARI SUB-CATEGORIES YAHAN HAIN ---
 const subMap={
     'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear'],
-    'ethnic':['Saree','Kurtis','Suit','Lehengas','LEXRIVA','Gowns'],
+    'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Suit'],
     'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers'],
-    'makeup':['Lipstick','Lip Gloss','Foundation','Compact','LEXRIVA','Eye Shadow','Nails','Perfumes'],
-    'jewellery':['Necklace','Earrings','Rings','Bracelet','LEXRIVA','Anklets'],
-    'bags':['Handbags','Sling Bags','Wallets','LEXRIVA','Clutches'],
-    'acc':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA']
+    'makeup':['Lipstick','Lip Gloss','Lip Liner','Foundation','Compact','Concealer','Highlighter','LEXRIVA','Primer','Eye Shadow','Eye Liner','Kajal','Mascara','Nails','Brushes','Perfumes','Body Lotion','Face Wash','Face Mask'],
+    'jewellery':['Minimal','Bridal Necklace','Haldi Hues','Mehndi Vibes','LEXRIVA','Rajputi Necklace','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings','Maangtika','Rings','Bracelet'],
+    'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches'],
+    'acc':['Hair Accessories','Belts','Sunglasses','Watches','LEXRIVA']
 };
 
-async function init(){try{const r=await fetch('products.json');store=await r.json();renderH()}catch(e){}}
+async function init(){try{const r=await fetch('products.json');store=await r.json();renderH()}catch(e){console.log("JSON Load Error");}}
 
 function renderH(){
     const render=(arr)=>arr.map(p=>`<div class="scroll-item" onclick='openDet(${JSON.stringify(p)})'><img src="${p.i1}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
-    document.getElementById('eid-scroll').innerHTML=render(store.eid);
-    document.getElementById('l-scroll').innerHTML=render(store.latest);
+    document.getElementById('eid-scroll').innerHTML=render(store.eid || []);
+    document.getElementById('l-scroll').innerHTML=render(store.latest || []);
 }
 
 function openSub(k){
@@ -128,8 +135,9 @@ function openSub(k){
 
 function openList(c,s){
     showPg('l-pg');
-    // Hum products.json ke categories object se bhi data uthayenge
-    const items = (store.categories[c]?.items || []).filter(p => p.sub === s) || [];
+    // Categories and Eid both products search fix
+    let allItems = (store.categories[c]?.items || []).concat(store.eid || [], store.latest || []);
+    const items = allItems.filter(p => p.sub === s);
     document.getElementById('p-items').innerHTML=items.map(p=>`<div class="scroll-item" style="min-width:0" onclick='openDet(${JSON.stringify(p)})'><img src="${p.i1}" style="width:100%"><p style="font-size:11px;font-weight:700">${p.n}</p><p style="color:var(--cherry)">₹${p.p}</p></div>`).join('')
 }
 
@@ -137,13 +145,13 @@ function openDet(p){
     showPg('d-pg');
     document.getElementById('d-name').innerText=p.n;
     document.getElementById('d-price').innerText='₹'+p.p;
-    document.getElementById('d-mat').innerText='Material: '+(p.mt||'Premium Fabric');
+    document.getElementById('d-mat').innerText='Material: '+(p.mt || 'Premium');
     document.getElementById('d-desc').innerText=p.ds;
     
-    // Slider Fix
-    let imgs=`<img src="${p.i1}" style="min-width:100%;height:100%;object-fit:cover">`;
-    if(p.i2)imgs+=`<img src="${p.i2}" style="min-width:100%;height:100%;object-fit:cover">`;
-    if(p.i3)imgs+=`<img src="${p.i3}" style="min-width:100%;height:100%;object-fit:cover">`;
+    // SLIDER FIX: object-fit contain taaki image puri dikhe
+    let imgs=`<img src="${p.i1}" style="min-width:100%;height:100%;object-fit:contain;background:#000">`;
+    if(p.i2)imgs+=`<img src="${p.i2}" style="min-width:100%;height:100%;object-fit:contain;background:#000">`;
+    if(p.i3)imgs+=`<img src="${p.i3}" style="min-width:100%;height:100%;object-fit:contain;background:#000">`;
     document.getElementById('d-imgs').innerHTML=imgs;
 
     const clrs=(p.cl||"").split(',');
@@ -153,7 +161,7 @@ function openDet(p){
 }
 
 function selectV(el){el.parentElement.querySelectorAll('.v-item').forEach(i=>i.classList.remove('selected'));el.classList.add('selected');}
-function placeOrder(){alert('🎉 Order Placed!');showPg('h-pg')}
+function placeOrder(){alert('🎉 Order Placed Successfully!');showPg('h-pg')}
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 window.onload=init;
 </script>
