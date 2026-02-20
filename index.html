@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Luxury Mall</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
 <style>
 :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
@@ -7,120 +9,181 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .active{display:block}
 .header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
 .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
+.search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
+.search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
 .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);display:flex;justify-content:space-between}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); cursor: pointer;}
 .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
+.reel-box{display:flex;overflow-x:auto;gap:15px;padding:15px;scrollbar-width:none}
+.reel-card{min-width:260px;height:450px;border-radius:25px;overflow:hidden;position:relative;box-shadow:0 15px 35px rgba(0,0,0,0.15);cursor:pointer}
+.reel-card video{width:100%;height:100%;object-fit:cover}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor: pointer;}
 .cat-card img{width:100%;height:100%;object-fit:cover}
 .cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
-.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0}
-.sub-item{padding:20px 5px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1/1.3; cursor: pointer;}
-.sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-.cherry-box{background:var(--cherry);color:#fff;border-radius:20px;margin:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-family:'Cinzel';font-size:10px;font-weight:700;grid-column: span 1;height:140px;}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
+.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0; align-items:center}
+.sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor: pointer;}
+.sub-item img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+.cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:130px; height:180px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); box-shadow:0 10px 25px rgba(114,0,26,0.3)}
+.checkout-box{padding:20px; background:#fff; margin:20px; border-radius:25px; box-shadow:0 10px 30px rgba(0,0,0,0.05)}
+.buy-btn{width:100%; padding:15px; background:var(--cherry); color:#fff; border:none; border-radius:12px; font-weight:800; margin-top:15px; cursor:pointer}
+.checkout-input{width:100%; padding:12px; margin:8px 0; border:1px solid #eee; border-radius:10px; outline:none; box-sizing: border-box; font-size:13px;}
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:15px}
 .p-card{background:#fff;border-radius:20px;padding:10px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05); cursor: pointer;}
 .p-card img{width:100%;height:180px;object-fit:cover;border-radius:15px}
-.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:15px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
+.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
 </style></head><body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
+<div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..." oninput="filterSearch()"></div>
 
 <div id="h-pg" class="page active">
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury+Mall'"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-    <div class="section-h">👗 EXPLORE CATEGORIES</div>
+    <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
+    <div class="section-h">🎬 TRENDING REELS</div>
+    <div class="reel-box">
+        <div class="reel-card" onclick="openSub('jewellery_master')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openSub('makeup_cat')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openSub('western')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+    </div>
+    <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
     <div class="cat-grid">
         <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
         <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
         <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
         <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
+        <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
+        <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
+        <div class="cat-card" onclick="openSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
     </div>
 </div>
 
-<div id="s-pg" class="page">
+<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry); cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
+<div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry); cursor:pointer" onclick="showPg('s-pg')">← BACK</div><div class="section-h" id="p-list-title">COLLECTION</div><div id="p-list-grid" class="product-grid"></div></div>
+
+<div id="p-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry); cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
-    <div id="s-banner" style="width:100%;height:220px"></div>
-    <div id="s-grid" class="sub-grid"></div>
+    <div class="checkout-box">
+        <div style="display:flex; overflow-x:auto; gap:10px; margin-bottom:15px; scrollbar-width:none;" id="p-gallery"></div>
+        <h2 id="p-name" style="margin:5px 0; color:var(--cherry)"></h2>
+        <p id="p-price" style="font-weight:800; font-size:18px; color:#333; margin-bottom:10px;"></p>
+        <div style="background:#f9f9f9; padding:15px; border-radius:15px; margin-bottom:15px;">
+            <label style="font-size:11px; font-weight:700;">COLOUR / SHADE:</label>
+            <select id="p-color" class="checkout-input" style="background:#fff"></select>
+            <label style="font-size:11px; font-weight:700; margin-top:10px; display:block;">SIZE:</label>
+            <select id="p-size" class="checkout-input" style="background:#fff"></select>
+        </div>
+        <p id="p-desc" style="font-size:12px; color:#666; margin-bottom:15px;"></p>
+        <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
+        <input id="custName" class="checkout-input" placeholder="Full Name">
+        <input id="custEmail" class="checkout-input" placeholder="Email">
+        <input id="custMobileCheckout" class="checkout-input" placeholder="Mobile" readonly>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <input id="custFlat" class="checkout-input" placeholder="Flat No.">
+            <input id="custArea" class="checkout-input" placeholder="Area">
+            <input id="custPin" class="checkout-input" placeholder="Pincode">
+            <input id="custCity" class="checkout-input" placeholder="City">
+        </div>
+        <button class="buy-btn" id="confirmBuy" onclick="sendOrder()">CONFIRM ORDER</button>
+    </div>
 </div>
 
-<div id="p-list-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry); cursor:pointer" onclick="showPg('s-pg')">← BACK</div>
-    <div class="section-h" id="p-list-title">COLLECTION</div>
-    <div id="p-list-grid" class="product-grid"></div>
-</div>
-
-<div id="wish-pg" class="page">
+<div id="account-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry); cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
-    <div class="section-h">MY WISHLIST</div>
-    <div id="wish-list" style="padding:15px; text-align:center; color:#999;">Wishlist loading...</div>
+    <div class="checkout-box" id="login-form">
+        <h2 style="font-family:'Cinzel'; text-align:center">Account</h2>
+        <input type="tel" id="userPhone" class="checkout-input" placeholder="Mobile Number">
+        <div id="recaptcha-container"></div>
+        <button class="buy-btn" onclick="handleLogin()">GET OTP</button>
+    </div>
+    <div class="checkout-box" id="profile-box" style="display:none; text-align:center">
+        <h2 id="displayPhone"></h2>
+        <button class="buy-btn" style="background:#ccc" onclick="handleLogout()">LOGOUT</button>
+    </div>
 </div>
 
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
-    <div class="nav-btn" onclick="showPg('h-pg')">CATEGORIES</div>
-    <div class="nav-btn" onclick="showPg('wish-pg')">WISHLIST</div>
-    <div class="nav-btn" onclick="alert('Login coming soon!')">ACCOUNT</div>
+    <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView()">CATEGORIES</div>
+    <div class="nav-btn" onclick="alert('Wishlist Empty')">WISHLIST</div>
+    <div class="nav-btn" onclick="showPg('account-pg')">ACCOUNT</div>
 </div>
 
 <script>
+const firebaseConfig = { apiKey: "AIzaSyD6rx_X8avqU63I_RoNyA0xJ8EKDFRP6xk", authDomain: "lexriva1.firebaseapp.com", projectId: "lexriva1", storageBucket: "lexriva1.firebasestorage.app", messagingSenderId: "551567272339", appId: "1:551567272339:web:e35e9fd86ccf4832d82866" };
+firebase.initializeApp(firebaseConfig);
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbzHTwI3qwZP3fIMW15wdIYwhtgCUFjpq7NHznPEmvgF-t9C0lGT8DW_BneCfUHbR9VbLg/exec";
-let store={};
+let store={}; let currentP={}; let isLoggedIn = localStorage.getItem('lexUser') ? true : false;
 
 const subMap={
 'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
 'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
+'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers','Flats','Ethnic','Loafers','Mules','Wedges'],
 'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','LEXRIVA','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
-'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings']
+'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
+'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
+'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
 };
 
-window.onload = async function() {
-    try {
-        const r = await fetch(ADMIN_URL);
-        store = await r.json();
-        renderHome();
-    } catch(e) { console.log("Data load fail"); }
-};
+window.onload = function() { window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {'size':'invisible'}); init(); };
+async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){} checkAuthUI(); }
+function checkAuthUI(){ if(isLoggedIn){ document.getElementById('login-form').style.display='none'; document.getElementById('profile-box').style.display='block'; document.getElementById('displayPhone').innerText = localStorage.getItem('lexUser'); } }
 
-function renderHome() {
-    document.getElementById('eid-scroll').innerHTML = (store.eid || []).map(p => `
-        <div class="scroll-item" onclick="alert('Opening: '+ '${p.n}')">
-            <img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p>
-        </div>`).join('');
+function renderH(data=store){
+    document.getElementById('eid-scroll').innerHTML=(data.eid||[]).map(p=>`<div class="scroll-item" onclick="openProduct('${p.n}','${p.p}','${p.i}','${p.i2}','${p.i3}','${p.d}','${p.c}','${p.s}')"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
+    document.getElementById('l-scroll').innerHTML=(data.latest||[]).map(p=>`<div class="scroll-item" onclick="openProduct('${p.n}','${p.p}','${p.i}','${p.i2}','${p.i3}','${p.d}','${p.c}','${p.s}')"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
 }
 
-function openSub(k) {
+function openProduct(n, p, i, i2, i3, d, c, s){
+    if(!isLoggedIn){ alert("Login First!"); showPg('account-pg'); return; }
+    currentP = {n,p,i,i2,i3,d,c,s};
+    document.getElementById('p-name').innerText=n; document.getElementById('p-price').innerText="₹"+p;
+    document.getElementById('p-desc').innerText=d || "Lexriva Luxury Quality";
+    let imgs = [i, i2, i3].filter(src => src && src.length > 5);
+    document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}" style="min-width:100%; border-radius:15px; height:350px; object-fit:cover;">`).join('');
+    document.getElementById('p-color').innerHTML = (c || "Original").split(',').map(v => `<option>${v.trim()}</option>`).join('');
+    document.getElementById('p-size').innerHTML = (s || "Free Size").split(',').map(v => `<option>${v.trim()}</option>`).join('');
+    document.getElementById('custMobileCheckout').value = localStorage.getItem('lexUser');
+    showPg('p-pg');
+}
+
+async function sendOrder(){
+    let data = { name: document.getElementById('custName').value, email: document.getElementById('custEmail').value, mobile: document.getElementById('custMobileCheckout').value, flat: document.getElementById('custFlat').value, area: document.getElementById('custArea').value, pincode: document.getElementById('custPin').value, city: document.getElementById('custCity').value, productName: currentP.n, productPrice: currentP.p, selectedColor: document.getElementById('p-color').value, selectedSize: document.getElementById('p-size').value };
+    if(!data.name || !data.flat) return alert("Fill delivery details!");
+    try{ await fetch(ADMIN_URL, {method:'POST', body:JSON.stringify(data)}); alert("Order Received!"); showPg('h-pg'); } catch(e){ alert("Error!"); }
+}
+
+function openSub(k){
     showPg('s-pg');
-    document.getElementById('s-banner').innerHTML = `<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
-    let h = ""; 
-    (subMap[k]||[]).forEach(n => {
-        if(n === 'LEXRIVA') {
-            h += `<div class="cherry-box">ESTD. 2024<br><br><span style="font-size:14px">LEXRIVA</span><br><br>LUXURY MALL</div>`;
-        } else {
-            h += `<div class="sub-item" onclick="openProducts('${n}')">
-                    <img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'">
-                    <p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p>
-                  </div>`;
-        }
+    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
+    let h=""; (subMap[k]||[]).forEach(n=>{
+        if(n === 'LEXRIVA') h+=`<div class="cherry-box"><span style="font-size:10px">ESTD. 2024</span><br><span style="font-size:16px; letter-spacing:2px">LEXRIVA</span></div>`;
+        else h+=`<div class="sub-item" onclick="openSubCategoryProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
     });
-    document.getElementById('s-grid').innerHTML = h;
+    document.getElementById('s-grid').innerHTML=h;
 }
 
-function openProducts(cat) {
-    showPg('p-list-pg');
-    document.getElementById('p-list-title').innerText = cat.toUpperCase();
-    const items = store[cat.toLowerCase()] || [];
-    document.getElementById('p-list-grid').innerHTML = items.length ? items.map(p => `
-        <div class="p-card" onclick="alert('Order Feature coming after login fix!')">
-            <img src="${p.i}"><p style="font-size:11px;font-weight:700">₹${p.p}</p>
-        </div>`).join('') : '<p style="padding:20px; color:#999;">Coming Soon...</p>';
+async function openSubCategoryProducts(catName){
+    showPg('p-list-pg'); document.getElementById('p-list-title').innerText = catName.toUpperCase();
+    const pData = store[catName.toLowerCase()] || [];
+    document.getElementById('p-list-grid').innerHTML = pData.map(p=>`<div class="p-card" onclick="openProduct('${p.n}','${p.p}','${p.i}','${p.i2}','${p.i3}','${p.d}','${p.c}','${p.s}')"><img src="${p.i}"><p style="font-size:11px; font-weight:700">₹${p.p}</p></div>`).join('');
 }
 
-function showPg(id){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
+function handleLogin(){
+    let ph = "+91" + document.getElementById('userPhone').value;
+    firebase.auth().signInWithPhoneNumber(ph, window.recaptchaVerifier).then((cr) => {
+        let code = prompt("Enter 6-digit OTP:"); return cr.confirm(code);
+    }).then((res) => { localStorage.setItem('lexUser', res.user.phoneNumber); location.reload(); }).catch((e) => alert(e.message));
+}
+
+function handleLogout(){ localStorage.removeItem('lexUser'); location.reload(); }
+function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+function filterSearch(){
+    let q = document.getElementById('mainSearch').value.toLowerCase();
+    let f = { eid: (store.eid||[]).filter(p=>p.n.toLowerCase().includes(q)), latest: (store.latest||[]).filter(p=>p.n.toLowerCase().includes(q)) };
+    renderH(f);
 }
 </script></body></html>
