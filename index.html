@@ -8,111 +8,131 @@
     <style>
         :root { --lavender: #F4EFFF; --cherry: #72001A; --gold: #D4AF37; --white: #ffffff; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; padding-bottom: 80px; }
-        
-        /* Header */
+        .page { display: none; }
+        .active { display: block; }
+
+        /* Header & Search */
         .header { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo { font-family: 'Cinzel'; font-size: 24px; letter-spacing: 5px; font-weight: 900; color: var(--cherry); margin: 0 auto; }
-
-        /* Search Bar Enabled */
         .search-container { padding: 10px 15px; background: #fff; }
         .search-bar { padding: 12px; display: flex; gap: 10px; background: var(--lavender); border-radius: 15px; border: 1px solid #eee; align-items: center; }
         .search-bar input { flex: 1; border: none; outline: none; background: none; font-size: 14px; }
 
-        /* Section Headings */
+        /* Scroll Sections */
         .section-h { padding: 25px 15px 12px; font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--cherry); letter-spacing: 1px; }
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 15px; scrollbar-width: none; }
         
-        /* Eid Edit Card */
-        .p-card { min-width: 150px; background: #fff; padding: 12px; border-radius: 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.03); cursor: pointer; }
-        .p-card img { width: 130px; height: 175px; border-radius: 18px; object-fit: cover; }
-
-        /* Reels */
-        .reel-box { min-width: 160px; height: 280px; border-radius: 20px; overflow: hidden; background: #000; flex-shrink: 0; cursor: pointer; position: relative; }
+        /* 6 Trending Reels */
+        .reel-box { min-width: 160px; height: 280px; border-radius: 20px; overflow: hidden; background: #000; flex-shrink: 0; cursor: pointer; position: relative; box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .reel-box video { width: 100%; height: 100%; object-fit: cover; }
-        .reel-tag { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; color: #fff; font-size: 9px; font-weight: 800; background: rgba(114,0,26,0.6); padding: 8px; text-transform: uppercase; }
+        .reel-tag { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; color: #fff; font-size: 9px; font-weight: 800; background: rgba(114,0,26,0.6); padding: 8px; }
 
         /* Categories Grid */
         .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .cat-card { position: relative; border-radius: 20px; overflow: hidden; height: 180px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .cat-card img { width: 100%; height: 100%; object-fit: cover; }
+        .cat-card { position: relative; border-radius: 20px; overflow: hidden; height: 160px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .cat-card img { width: 100%; height: 100%; object-fit: cover; background: #ddd; }
         .cat-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(114,0,26,0.7); color: #fff; padding: 8px; font-size: 10px; font-weight: 800; text-align: center; }
 
-        /* Bottom Nav with LOGIN instead of BAG */
+        /* RED CHERRY BOXES (Sub-categories) */
+        .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); padding: 15px; gap: 10px; }
+        .cherry-box { background: var(--cherry)!important; color: var(--gold)!important; border-radius: 40% 40% 10px 10px!important; font-family: 'Cinzel'; font-size: 8px!important; font-weight: 700; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1.5px solid var(--gold); height: 120px; text-align: center; box-shadow: 0 8px 15px rgba(114,0,26,0.2); cursor: pointer; }
+
+        /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-btn { text-align: center; font-size: 9px; font-weight: 800; color: #999; cursor: pointer; flex: 1; text-decoration: none; }
-        .nav-active { color: var(--cherry); }
+        .nav-btn { text-align: center; font-size: 9px; font-weight: 800; color: #999; cursor: pointer; flex: 1; }
+        .active-nav { color: var(--cherry); }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <a href="login.html" class="nav-btn">👤</a>
-        <div class="logo">LEXRIVA</div>
-        <a href="checkout.html" class="nav-btn">🛒</a>
-    </div>
+    <div class="header"><span onclick="showPg('login-pg')">👤</span><div class="logo">LEXRIVA</div><span onclick="showPg('cart-pg')">🛒</span></div>
 
-    <div class="search-container">
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search Lexriva Luxury..." onkeydown="if(event.key==='Enter') searchFunction()">
-            <span onclick="searchFunction()" style="cursor:pointer">🔍</span>
+    <div id="h-pg" class="page active">
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search luxury products..." onkeydown="if(event.key==='Enter') searchNow()">
+                <span onclick="searchNow()">🔍</span>
+            </div>
+        </div>
+
+        <div style="padding:0 15px; margin-top:10px;"><img src="main_banner.jpg" style="width:100%; border-radius:30px;" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+BANNER'"></div>
+        
+        <div class="section-h">🌙 THE EID EDIT</div>
+        <div class="h-scroll">
+            <div class="cherry-box" style="min-width:110px; height:150px; border-radius:20px !important;">EID<br>SUITS</div>
+            <div class="cherry-box" style="min-width:110px; height:150px; border-radius:20px !important;">FESTIVE<br>JEWEL</div>
+            <div class="cherry-box" style="min-width:110px; height:150px; border-radius:20px !important;">EID<br>KURTI</div>
+        </div>
+
+        <div class="section-h">🎬 TRENDING REELS</div>
+        <div class="h-scroll">
+            <div class="reel-box" onclick="openSub('ethnic')"><video src="reel1.mp4" autoplay muted loop playsinline></video><div class="reel-tag">ETHNIC</div></div>
+            <div class="reel-box" onclick="openSub('western')"><video src="reel2.mp4" autoplay muted loop playsinline></video><div class="reel-tag">WESTERN</div></div>
+            <div class="reel-box" onclick="openSub('makeup')"><video src="reel3.mp4" autoplay muted loop playsinline></video><div class="reel-tag">MAKEUP</div></div>
+            <div class="reel-box" onclick="openSub('jewel')"><video src="reel4.mp4" autoplay muted loop playsinline></video><div class="reel-tag">JEWELLERY</div></div>
+            <div class="reel-box" onclick="openSub('bags')"><video src="reel5.mp4" autoplay muted loop playsinline></video><div class="reel-tag">BAGS</div></div>
+            <div class="reel-box" onclick="openSub('footwear')"><video src="reel6.mp4" autoplay muted loop playsinline></video><div class="reel-tag">FOOTWEAR</div></div>
+        </div>
+
+        <div class="section-h" id="all-cats">🛍️ SHOP BY CATEGORY</div>
+        <div class="cat-grid">
+            <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN</div></div>
+            <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC</div></div>
+            <div class="cat-card" onclick="openSub('makeup')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP</div></div>
+            <div class="cat-card" onclick="openSub('jewel')"><img src="cat_jewel.jpg"><div class="cat-label">JEWELLERY</div></div>
+            <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">BAGS</div></div>
+            <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR</div></div>
+            <div class="cat-card" onclick="openSub('acc')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
         </div>
     </div>
 
-    <div style="padding:0 15px; margin-top:10px;"><img src="main_banner.jpg" style="width:100%; border-radius:30px;" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+BANNER'"></div>
-    
-    <div class="section-h">🌙 THE EID EDIT</div>
-    <div id="eid-scroll" class="h-scroll">
-        </div>
-
-    <div class="section-h">🎬 TRENDING REELS</div>
-    <div class="h-scroll">
-        <div class="reel-box" onclick="location.href='category.html?type=ethnic'"><video src="reel1.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Ethnic Vibes</div></div>
-        <div class="reel-box" onclick="location.href='category.html?type=western'"><video src="reel2.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Western Hub</div></div>
-        <div class="reel-box" onclick="location.href='category.html?type=makeup'"><video src="reel3.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Makeup</div></div>
-        <div class="reel-box" onclick="location.href='category.html?type=jewel'"><video src="reel4.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Jewellery</div></div>
-        <div class="reel-box" onclick="location.href='category.html?type=bags'"><video src="reel5.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Bags</div></div>
-        <div class="reel-box" onclick="location.href='category.html?type=footwear'"><video src="reel6.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Footwear</div></div>
-        <div class="reel-box" onclick="location.href='category.html?type=acc'"><video src="reel7.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Accessories</div></div>
-        <div class="reel-box" onclick="location.href='category.html?type=ethnic'"><video src="reel8.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Festive Joy</div></div>
+    <div id="sub-pg" class="page">
+        <div style="padding:20px; font-weight:800; color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+        <div id="sub-grid" class="sub-grid"></div>
     </div>
 
-    <div class="section-h" id="all-cats">🛍️ SHOP BY CATEGORY</div>
-    <div class="cat-grid">
-        <div class="cat-card" onclick="location.href='category.html?type=western'"><img src="cat_western.jpg"><div class="cat-label">WESTERN</div></div>
-        <div class="cat-card" onclick="location.href='category.html?type=ethnic'"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC</div></div>
-        <div class="cat-card" onclick="location.href='category.html?type=makeup'"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP</div></div>
-        <div class="cat-card" onclick="location.href='category.html?type=jewel'"><img src="cat_jewel.jpg"><div class="cat-label">JEWELLERY</div></div>
-        <div class="cat-card" onclick="location.href='category.html?type=bags'"><img src="cat_bags.jpg"><div class="cat-label">BAGS</div></div>
-        <div class="cat-card" onclick="location.href='category.html?type=footwear'"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR</div></div>
-        <div class="cat-card" onclick="location.href='category.html?type=acc'"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
-    </div>
+    <div id="cart-pg" class="page"><div style="padding:20px;" onclick="showPg('h-pg')">← BACK</div><div style="text-align:center; padding:50px;">Checkout Ready!</div></div>
+    <div id="login-pg" class="page"><div style="padding:20px;" onclick="showPg('h-pg')">← BACK</div><div style="text-align:center; padding:50px;">Login Ready!</div></div>
 
     <div class="bottom-nav">
-        <a href="index.html" class="nav-btn nav-active">🏠<br>HOME</a>
-        <div class="nav-btn" onclick="document.getElementById('all-cats').scrollIntoView({behavior:'smooth'})">🛍️<br>CATEGORY</div>
-        <a href="wishlist.html" class="nav-btn">🤍<br>WISHLIST</a>
-        <a href="login.html" class="nav-btn">👤<br>LOGIN</a>
+        <div class="nav-btn active-nav" onclick="showPg('h-pg')">HOME</div>
+        <div class="nav-btn" onclick="document.getElementById('all-cats').scrollIntoView({behavior:'smooth'})">CATEGORY</div>
+        <div class="nav-btn" onclick="alert('Wishlist Empty')">WISHLIST</div>
+        <div class="nav-btn" onclick="showPg('login-pg')">LOGIN</div>
     </div>
 
 <script>
-// Search Functionality
-function searchFunction() {
-    let q = document.getElementById('searchInput').value;
-    if(q.trim() !== "") {
-        window.location.href = 'category.html?search=' + encodeURIComponent(q);
-    }
+// SAARI SUB-CATEGORIES KI LIST (Exactly as you wanted)
+const subData = {
+    'western': ['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Skirts','Jackets','Trousers','Shorts'],
+    'ethnic': ['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta','Gharara'],
+    'makeup': ['Lipstick','Lip Gloss','Foundation','Lip Liner','LEXRIVA','Eyeshadow','Eyeliner','Kajal','Mascara','Compact','Lip Care','Concealer','Perfumes'],
+    'jewel': ['Minimal','Necklace','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal Set','Haldi Wear','Mehndi Set','Rajputi','Bangles','Korean'],
+    'bags': ['Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes','Bag Packs','Travel Bags','Laptop Bags'],
+    'footwear': ['Heels','Sandals','Sneakers','Flats','LEXRIVA','Boots','Wedges','Mules','Loafers','Bellies','Juttis'],
+    'acc': ['Watches','Belts','Sunglasses','Hair Acc','LEXRIVA','Socks','Caps','Jewel Box','Stoles']
+};
+
+function openSub(cat) {
+    showPg('sub-pg');
+    let h = "";
+    (subData[cat] || []).forEach(name => {
+        if(name === 'LEXRIVA') h += `<div class="cherry-box" style="font-size:10px !important;">ESTD. 2024<br><br>LEXRIVA<br><br>LUXURY MALL</div>`;
+        else h += `<div class="cherry-box" onclick="alert('Searching for ${name}...')">${name.toUpperCase()}</div>`;
+    });
+    document.getElementById('sub-grid').innerHTML = h;
 }
 
-// JSON Connection for Eid Edits
-async function init(){
-    try {
-        const r = await fetch('products.json');
-        const store = await r.json();
-        const mapP=(p)=>`<div class="p-card" onclick="window.location.href='checkout.html?n=${p.n}&p=${p.p}'"><img src="${p.i}" onerror="this.src='https://via.placeholder.com/130x175'"><p>₹${p.p}</p></div>`;
-        document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(mapP).join('');
-    } catch(e){ console.log("Check products.json path"); }
+function searchNow() {
+    let q = document.getElementById('searchInput').value;
+    if(q) alert("Searching Lexriva for: " + q);
 }
-window.onload = init;
+
+function showPg(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+}
 </script>
 </body>
 </html>
