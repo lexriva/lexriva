@@ -18,9 +18,18 @@
         .h-scroll::-webkit-scrollbar {display: none;}
         .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05)}
         .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
-        .checkout-box{background:#fff;padding:25px;border-radius:30px;margin:15px;box-shadow:0 15px 35px rgba(0,0,0,0.05)}
-        .form-input{width:100%;padding:15px;margin:8px 0;border-radius:12px;border:1px solid #eee;box-sizing:border-box;font-size:14px}
-        .v-item{padding:8px 15px;border:1px solid #ddd;border-radius:8px;font-size:12px;cursor:pointer;background:#fff;font-weight:700}
+        .reel-card{min-width:160px;height:280px;border-radius:20px;overflow:hidden;position:relative;box-shadow:0 10px 25px rgba(0,0,0,0.1)}
+        .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
+        .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05)}
+        .cat-card img{width:100%;height:100%;object-fit:cover}
+        .cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800}
+        .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0}
+        .sub-item{padding:20px 5px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1/1.3}
+        .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+        .det-pg{background:#fff;padding:25px;border-radius:35px 35px 0 0;margin-top:-30px;position:relative;z-index:10}
+        .det-price{font-size:26px;font-weight:800;color:var(--cherry);margin:10px 0}
+        .variant-box{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+        .v-item{padding:8px 15px;border:1px solid #ddd;border-radius:8px;font-size:12px;cursor:pointer;font-weight:700;background:#fff}
         .v-item.selected{border-color:var(--cherry);background:var(--lavender);color:var(--cherry)}
         .btn-confirm{width:100%;padding:18px;background:var(--cherry);color:#fff;border:none;border-radius:15px;font-weight:800;cursor:pointer}
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
@@ -29,31 +38,48 @@
 </head>
 <body>
     <div class="header"><div class="logo">LEXRIVA</div></div>
+    <div class="search-bar"><input type="text" style="flex:1;border:none;outline:none" placeholder="Search Lexriva Luxury..."><span onclick="alert('Camera Search Active')">📸</span></div>
 
     <div id="h-pg" class="page active">
-        <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury'"></div>
+        <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Collection'"></div>
         <div class="section-h">🌙 THE EID EDIT</div>
         <div id="eid-scroll" class="h-scroll"></div>
-        <div class="section-h">👗 CURATED CATEGORIES</div>
-        <div class="cat-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px">
-            <div class="cat-card" onclick="alert('Categories Loading...')"><img src="cat_ethnic.jpg" style="width:100%;border-radius:20px;height:150px;object-fit:cover"></div>
+        <div class="section-h">🔥 BESTSELLERS</div>
+        <div id="l-scroll" class="h-scroll"></div>
+        <div class="section-h">🎬 TRENDING REELS</div>
+        <div class="h-scroll" style="padding:15px">
+            <div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+            <div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+            <div class="reel-card"><video src="reel3.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        </div>
+        <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
+        <div class="cat-grid">
+            <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
+            <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
+            <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR</div></div>
+            <div class="cat-card" onclick="openSub('makeup')"><img src="cat_makeup.jpg"><div class="cat-label">BEAUTY & MAKEUP</div></div>
+            <div class="cat-card" onclick="openSub('jewellery')"><img src="cat_jewel.jpg"><div class="cat-label">JEWELLERY</div></div>
+            <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">BAGS</div></div>
+            <div class="cat-card" onclick="openSub('acc')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
         </div>
     </div>
 
+    <div id="s-pg" class="page"><div style="padding:20px;font-weight:800" onclick="showPg('h-pg')">← BACK</div><div id="s-grid" class="sub-grid"></div></div>
+    <div id="l-pg" class="page"><div style="padding:20px;font-weight:800" onclick="showPg('s-pg')">← BACK</div><div id="p-items" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px"></div></div>
+    
     <div id="d-pg" class="page">
-        <div style="padding:20px;font-weight:800" onclick="showPg('h-pg')">← BACK</div>
-        <div id="d-imgs" class="h-scroll" style="height:450px;background:#000;display:flex;overflow-x:auto;"></div>
-        <div class="checkout-box" style="margin-top:-30px;position:relative;z-index:10">
-            <h2 id="d-name" style="margin:0"></h2>
+        <div style="padding:20px;font-weight:800;position:absolute;z-index:20;color:#fff" onclick="showPg('l-pg')">← BACK</div>
+        <div id="d-imgs" class="h-scroll" style="background:#000;height:450px;padding:0;display:flex;overflow-x:auto;"></div>
+        <div class="det-pg">
+            <h2 id="d-name"></h2>
             <div id="d-price" style="font-size:26px;color:var(--cherry);font-weight:800;margin:10px 0"></div>
-            
-            <p style="font-size:11px;font-weight:800;margin-top:15px;text-transform:uppercase">Select Colour:</p>
-            <div class="variant-box" id="col-variants" style="display:flex;gap:10px;flex-wrap:wrap"></div>
-
-            <p style="font-size:11px;font-weight:800;margin-top:15px;text-transform:uppercase">Select Size:</p>
-            <div class="variant-box" id="size-variants" style="display:flex;gap:10px;flex-wrap:wrap"></div>
-
-            <button class="btn-confirm" style="margin-top:25px;width:100%" onclick="prepareOrder()">ORDER NOW (COD)</button>
+            <p id="d-mat" style="font-size:13px;color:#666;border-bottom:1px solid #eee;padding-bottom:10px"></p>
+            <div style="font-weight:800;font-size:11px;margin-top:15px">SELECT COLOUR:</div>
+            <div class="variant-box" id="col-variants"></div>
+            <div style="font-weight:800;font-size:11px;margin-top:15px">SELECT SIZE:</div>
+            <div class="variant-box" id="size-variants"></div>
+            <p id="d-desc" style="font-size:13px;line-height:1.6;margin-top:15px"></p>
+            <button class="btn-confirm" onclick="prepareOrder()">ORDER NOW (COD)</button>
         </div>
     </div>
 
@@ -67,66 +93,48 @@
                 <input type="tel" name="mobile" class="form-input" placeholder="Mobile Number" required>
                 <input type="text" name="flat" class="form-input" placeholder="Flat / House No. / Building" required>
                 <input type="text" name="area" class="form-input" placeholder="Area / Colony / Road Name" required>
-                <div style="display:flex;gap:10px">
-                    <input type="text" name="pin" class="form-input" placeholder="Pincode" style="width:50%" required>
-                    <input type="text" name="city" class="form-input" placeholder="City" style="width:50%" required>
-                </div>
-                
-                <input type="hidden" name="product_name" id="hidden-pname">
-                <input type="hidden" name="product_price" id="hidden-pprice">
-                <input type="hidden" name="selected_color" id="hidden-color">
-                <input type="hidden" name="selected_size" id="hidden-size">
-
-                <button type="submit" class="btn-confirm" id="submit-btn" style="margin-top:15px;width:100%">CONFIRM ORDER (COD)</button>
+                <div style="display:flex;gap:10px"><input type="text" name="pin" class="form-input" placeholder="Pincode" required><input type="text" name="city" class="form-input" placeholder="City" required></div>
+                <input type="hidden" name="product_name" id="hidden-pname"><input type="hidden" name="product_price" id="hidden-pprice"><input type="hidden" name="selected_color" id="hidden-color"><input type="hidden" name="selected_size" id="hidden-size">
+                <button type="submit" class="btn-confirm" id="submit-btn" style="width:100%;margin-top:15px">CONFIRM ORDER (COD)</button>
             </form>
         </div>
     </div>
 
-    <div id="success-pg" class="page">
-        <div style="padding:60px 20px;text-align:center">
-            <div style="font-size:60px">🎉</div>
-            <h2 style="font-family:'Cinzel'">Order Placed!</h2>
-            <p style="color:#666">Details have been sent to your email.</p>
-            <button class="btn-confirm" onclick="showPg('h-pg')">CONTINUE SHOPPING</button>
-        </div>
-    </div>
+    <div id="success-pg" class="page"><div style="padding:60px 20px;text-align:center"><div style="font-size:60px">🎉</div><h2 style="font-family:'Cinzel'">Order Placed!</h2><p style="color:#666">Check your email for confirmation.</p><button class="btn-confirm" onclick="showPg('h-pg')">CONTINUE SHOPPING</button></div></div>
 
     <div class="bottom-nav">
         <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
-        <div class="nav-btn">CATEGORIES</div>
-        <div class="nav-btn">WISHLIST</div>
-        <div class="nav-btn">ACCOUNT</div>
+        <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView()">CATEGORIES</div>
+        <div class="nav-btn" onclick="alert('Wishlist Empty')">WISHLIST</div>
+        <div class="nav-btn" onclick="showPg('acc-pg')">ACCOUNT</div>
     </div>
 
 <script>
-let store={eid:[]};
+let store={eid:[],latest:[],categories:{}};
 let currentItem=null;
-
-// APNA WEB APP URL YAHAN FIX KAR DIYA HAI
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxvD9KIRJUN5YumkpKW5K7osSC4N0xH5kfwBT4ojQupvw__ROi3YBqizHicfp6pgf7Ekw/exec";
+const subMap={'western':['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear'],'ethnic':['Saree','Kurtis','Dress Material','Lehengas','Gowns','Suit'],'footwear':['Heels','Sandals','Boots','Bellies','Sneakers'],'makeup':['Lipstick','Lip Gloss','Lip Liner','Foundation','Compact','Concealer','Highlighter','Primer','Eye Shadow','Eye Liner','Kajal','Mascara','Nails','Brushes','Perfumes','Body Lotion','Face Wash','Face Mask'],'jewellery':['Minimal','Bridal Necklace','Haldi Hues','Mehndi Vibes','Rajputi Necklace','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings','Maangtika','Rings','Bracelet'],'bags':['Bag Packs','Handbags','Sling Bags','Wallets','Clutches'],'acc':['Hair Accessories','Belts','Sunglasses','Watches']};
 
-async function init(){
-    const r=await fetch('products.json');
-    store=await r.json();
-    document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(p=>`
-        <div class="scroll-item" onclick='openDet(${JSON.stringify(p)})'>
-            <img src="${p.i1}"><p style="font-size:10px;font-weight:700">₹${p.p}</p>
-        </div>`).join('');
+async function init(){try{const r=await fetch('products.json');store=await r.json();renderH()}catch(e){}}
+
+function renderH(){
+    const render=(arr)=>arr.map(p=>`<div class="scroll-item" onclick='openDet(${JSON.stringify(p)})'><img src="${p.i1}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
+    document.getElementById('eid-scroll').innerHTML=render(store.eid||[]);
+    document.getElementById('l-scroll').innerHTML=render(store.latest||[]);
 }
 
+function openSub(k){showPg('s-pg');document.getElementById('s-grid').innerHTML=(subMap[k]||[]).map(n=>`<div class="sub-item" onclick="openList('${k}','${n}')"><div style="width:70px;height:70px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 15px rgba(0,0,0,0.05)">✨</div><p style="font-size:9px;font-weight:700;margin-top:10px">${n}</p></div>`).join('')}
+
+function openList(c,s){showPg('l-pg');const items=[...(store.eid||[]),...(store.latest||[])].filter(p=>p.sub===s);document.getElementById('p-items').innerHTML=items.map(p=>`<div class="scroll-item" style="min-width:0" onclick='openDet(${JSON.stringify(p)})'><img src="${p.i1}" style="width:100%"><p style="font-size:11px;font-weight:700">${p.n}</p><p style="color:var(--cherry)">₹${p.p}</p></div>`).join('')}
+
 function openDet(p){
-    currentItem=p;
-    showPg('d-pg');
-    document.getElementById('d-name').innerText=p.n;
-    document.getElementById('d-price').innerText='₹'+p.p;
-    
-    // Slider Images
+    currentItem=p; showPg('d-pg');
+    document.getElementById('d-name').innerText=p.n; document.getElementById('d-price').innerText='₹'+p.p;
+    document.getElementById('d-mat').innerText='Material: '+(p.mt||'Premium'); document.getElementById('d-desc').innerText=p.ds||'';
     let imgs=`<img src="${p.i1}" style="min-width:100%;height:100%;object-fit:contain;background:#000">`;
     if(p.i2)imgs+=`<img src="${p.i2}" style="min-width:100%;height:100%;object-fit:contain;background:#000">`;
     if(p.i3)imgs+=`<img src="${p.i3}" style="min-width:100%;height:100%;object-fit:contain;background:#000">`;
     document.getElementById('d-imgs').innerHTML=imgs;
-
-    // Colour & Size Buttons
     document.getElementById('col-variants').innerHTML=(p.cl||"").split(',').map(v=>`<div class="v-item" onclick="selectV(this)">${v.trim()}</div>`).join('');
     document.getElementById('size-variants').innerHTML=(p.sz||"").split(',').map(v=>`<div class="v-item" onclick="selectV(this)">${v.trim()}</div>`).join('');
 }
@@ -136,34 +144,18 @@ function selectV(el){el.parentElement.querySelectorAll('.v-item').forEach(i=>i.c
 function prepareOrder(){
     const color=document.querySelector('#col-variants .selected')?.innerText;
     const size=document.querySelector('#size-variants .selected')?.innerText;
-    
-    if(!color || !size){ alert("Please select Colour and Size!"); return; }
-
-    // AUTO-FILL DATA
-    document.getElementById('hidden-pname').value = currentItem.n;
-    document.getElementById('hidden-pprice').value = currentItem.p;
-    document.getElementById('hidden-color').value = color;
-    document.getElementById('hidden-size').value = size;
-    
+    if(!color||!size){alert("Please select Colour and Size!");return;}
+    document.getElementById('hidden-pname').value=currentItem.n; document.getElementById('hidden-pprice').value=currentItem.p;
+    document.getElementById('hidden-color').value=color; document.getElementById('hidden-size').value=size;
     showPg('checkout-pg');
 }
 
-// FINAL DATA SUBMISSION TO GOOGLE SHEET
-document.getElementById('orderForm').onsubmit = async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    btn.innerText = "Processing...";
-    btn.disabled = true;
-
-    try {
-        await fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target)});
-        showPg('success-pg');
-    } catch (e) {
-        showPg('success-pg'); // Error hone par bhi confirm dikhayega backup ke liye
-    }
+document.getElementById('orderForm').onsubmit=async(e)=>{
+    e.preventDefault(); const btn=document.getElementById('submit-btn'); btn.innerText="Processing..."; btn.disabled=true;
+    try{await fetch(SCRIPT_URL,{method:'POST',body:new FormData(e.target)});showPg('success-pg')}catch(e){showPg('success-pg')}
 };
 
-function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 window.onload=init;
 </script>
 </body>
