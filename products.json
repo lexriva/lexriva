@@ -1,45 +1,35 @@
 {
   "eid": [
     {
-      "n": "Faux Georgette Embroidered Suit - Design 1",
+      "n": "Faux Georgette Embroidered Luxury Suit",
       "p": "1249",
       "i1": "https://i.ibb.co/dsrRChHv/file-0000000014fc71fa82287ffe2d337e23.png",
-      "i2": "",
-      "i3": "",
+      "i2": "https://i.ibb.co/rhR2WgV/file-0000000050ec71fa9a4fde936b11505a.png",
+      "i3": "https://i.ibb.co/Ngr8T7v2/file-000000009c2071fab1d1d2eae192ff9e.png",
       "sz": "Semi-stitched",
       "mt": "Faux Georgette",
-      "ds": "Beautiful embroidered suit set with premium finish, perfect for Eid and festive occasions.",
+      "ds": "Premium embroidered suit set with heavy work, perfect for Eid.",
       "cl": "Pink, Navy Blue, Teal, Purple, Black, Green",
-      "sub": "Suit",
-      "cat": "eid"
-    },
-    {
-      "n": "Designer Heavy Work Ethnic Suit - Design 2",
-      "p": "1249",
-      "i1": "https://i.ibb.co/rhR2WgV/file-0000000050ec71fa9a4fde936b11505a.png",
-      "i2": "",
-      "i3": "",
-      "sz": "Semi-stitched",
-      "mt": "Georgette with Embroidery",
-      "ds": "Elegant ethnic wear with intricate thread work and heavy dupatta.",
-      "cl": "Pink, Navy Blue, Teal, Purple, Black, Green",
-      "sub": "Suit",
-      "cat": "eid"
-    },
-    {
-      "n": "Luxury Festive Wear Embroidered Suit - Design 3",
-      "p": "1249",
-      "i1": "https://i.ibb.co/Ngr8T7v2/file-000000009c2071fab1d1d2eae192ff9e.png",
-      "i2": "",
-      "i3": "",
-      "sz": "Semi-stitched",
-      "mt": "Premium Faux Georgette",
-      "ds": "A classic luxury suit set featuring detailed embroidery and a stylish silhouette.",
-      "cl": "Pink, Navy Blue, Teal, Purple, Black, Green",
-      "sub": "Suit",
       "cat": "eid"
     }
   ],
-  "latest": []
+  "latest": [],
+  "categories": {
+    "ethnic": {
+      "items": [
+        {
+          "n": "Faux Georgette Embroidered Luxury Suit",
+          "p": "1249",
+          "i1": "https://i.ibb.co/dsrRChHv/file-0000000014fc71fa82287ffe2d337e23.png",
+          "i2": "https://i.ibb.co/rhR2WgV/file-0000000050ec71fa9a4fde936b11505a.png",
+          "i3": "https://i.ibb.co/Ngr8T7v2/file-000000009c2071fab1d1d2eae192ff9e.png",
+          "sz": "Semi-stitched",
+          "mt": "Faux Georgette",
+          "ds": "Premium embroidered suit set with heavy work, perfect for Eid.",
+          "cl": "Pink, Navy Blue, Teal, Purple, Black, Green",
+          "sub": "Suit"
+        }
+      ]
+    }
+  }
 }
-
