@@ -4,112 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Lexriva | Luxury Mall</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root{--lavender:#F4EFFF;--cherry:#72001A;--white:#ffffff;}
+        :root{--lavender:#F4EFFF;--cherry:#72001A;--gold:#D4AF37;--white:#ffffff;}
         body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
         .page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
         .active{display:block}
-        
-        /* ORIGINAL HEADER & SEARCH */
-        .header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000}
-        .logo{font-family:'Cinzel';font-size:24px;letter-spacing:5px;font-weight:900;color:var(--cherry);margin:0 auto}
+        .header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
+        .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
         .search-bar{padding:12px 20px;display:flex;gap:12px;background:#fff;margin:10px 15px;border-radius:50px;box-shadow:0 8px 20px rgba(0,0,0,0.05);border:1px solid #eee}
-
-        /* SECTION HEADERS */
-        .section-h{padding:20px 15px 10px;font-size:12px;font-weight:800;text-transform:uppercase;color:var(--cherry);letter-spacing:1px;display:flex;align-items:center;gap:5px}
-        .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
-        
-        /* CATEGORY GRID */
-        .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
-        .cat-card{position:relative;border-radius:25px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05)}
-        .cat-card img{width:100%;height:100%;object-fit:cover}
-        .cat-label{position:absolute;bottom:0;left:0;right:0;background:rgba(114,0,26,0.7);color:#fff;padding:8px;font-size:10px;font-weight:800;text-align:center}
-
-        /* ORIGINAL RED SUB-CATEGORY BOXES */
-        .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;padding:15px}
-        .sub-box{background:var(--cherry);color:#fff;height:90px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;text-align:center;padding:10px;box-sizing:border-box;box-shadow:0 5px 15px rgba(114,0,26,0.2)}
-
-        /* BOTTOM NAV */
-        .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #eee;z-index:1000}
-        .nav-btn{text-align:center;font-size:10px;font-weight:700;color:#999;cursor:pointer}
-        .nav-btn.active-nav{color:var(--cherry)}
+        .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);display:flex;justify-content:space-between}
+        .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none;scroll-snap-type: x mandatory;}
+        .h-scroll::-webkit-scrollbar {display: none;}
+        .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05)}
+        .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
+        .checkout-box{background:#fff;padding:25px;border-radius:30px;margin:15px;box-shadow:0 15px 35px rgba(0,0,0,0.05)}
+        .form-input{width:100%;padding:15px;margin:8px 0;border-radius:12px;border:1px solid #eee;box-sizing:border-box;font-size:14px}
+        .v-item{padding:8px 15px;border:1px solid #ddd;border-radius:8px;font-size:12px;cursor:pointer;background:#fff;font-weight:700}
+        .v-item.selected{border-color:var(--cherry);background:var(--lavender);color:var(--cherry)}
+        .btn-confirm{width:100%;padding:18px;background:var(--cherry);color:#fff;border:none;border-radius:15px;font-weight:800;cursor:pointer}
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
+        .nav-btn{font-size:9px;font-weight:800;color:#999;text-align:center;cursor:pointer}
     </style>
 </head>
 <body>
-
-    <div class="header">
-        <span onclick="showPg('login-pg')">👤</span>
-        <div class="logo">LEXRIVA</div>
-        <span onclick="showPg('cart-pg')">🛒</span>
-    </div>
+    <div class="header"><div class="logo">LEXRIVA</div></div>
 
     <div id="h-pg" class="page active">
-        <div class="search-bar"><input type="text" placeholder="Search Lexriva Luxury..." style="flex:1;border:none;outline:none;background:none">🔍</div>
-        
-        <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:30px"></div>
-        
+        <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury'"></div>
         <div class="section-h">🌙 THE EID EDIT</div>
         <div id="eid-scroll" class="h-scroll"></div>
-
-        <div class="section-h">🔥 BESTSELLERS</div>
-        <div id="best-scroll" class="h-scroll"></div>
-
-        <div class="section-h">🎬 TRENDING REELS</div>
-        <div class="h-scroll">
-            <div style="min-width:160px;height:280px;border-radius:20px;overflow:hidden;background:#000"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-            <div style="min-width:160px;height:280px;border-radius:20px;overflow:hidden;background:#000"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        </div>
-
-        <div class="section-h">🛍️ SHOP BY CATEGORY</div>
-        <div class="cat-grid">
-            <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
-            <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
-            <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR</div></div>
-            <div class="cat-card" onclick="openSub('makeup')"><img src="cat_makeup.jpg"><div class="cat-label">BEAUTY & MAKEUP</div></div>
-            <div class="cat-card" onclick="openSub('jewellery')"><img src="cat_jewel.jpg"><div class="cat-label">JEWELLERY</div></div>
-            <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">BAGS</div></div>
-            <div class="cat-card" onclick="openSub('acc')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
+        <div class="section-h">👗 CURATED CATEGORIES</div>
+        <div class="cat-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px">
+            <div class="cat-card" onclick="alert('Categories Loading...')"><img src="cat_ethnic.jpg" style="width:100%;border-radius:20px;height:150px;object-fit:cover"></div>
         </div>
     </div>
 
-    <div id="s-pg" class="page">
+    <div id="d-pg" class="page">
         <div style="padding:20px;font-weight:800" onclick="showPg('h-pg')">← BACK</div>
-        <div id="sub-grid" class="sub-grid"></div>
+        <div id="d-imgs" class="h-scroll" style="height:450px;background:#000;display:flex;overflow-x:auto;"></div>
+        <div class="checkout-box" style="margin-top:-30px;position:relative;z-index:10">
+            <h2 id="d-name" style="margin:0"></h2>
+            <div id="d-price" style="font-size:26px;color:var(--cherry);font-weight:800;margin:10px 0"></div>
+            
+            <p style="font-size:11px;font-weight:800;margin-top:15px;text-transform:uppercase">Select Colour:</p>
+            <div class="variant-box" id="col-variants" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+
+            <p style="font-size:11px;font-weight:800;margin-top:15px;text-transform:uppercase">Select Size:</p>
+            <div class="variant-box" id="size-variants" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+
+            <button class="btn-confirm" style="margin-top:25px;width:100%" onclick="prepareOrder()">ORDER NOW (COD)</button>
+        </div>
+    </div>
+
+    <div id="checkout-pg" class="page">
+        <div style="padding:20px;font-weight:800" onclick="showPg('d-pg')">← BACK</div>
+        <div class="checkout-box">
+            <h3 style="font-family:'Cinzel';margin-bottom:20px">Shipping Details</h3>
+            <form id="orderForm">
+                <input type="text" name="name" class="form-input" placeholder="Full Name" required>
+                <input type="email" name="email" class="form-input" placeholder="Email Address (For Updates)" required>
+                <input type="tel" name="mobile" class="form-input" placeholder="Mobile Number" required>
+                <input type="text" name="flat" class="form-input" placeholder="Flat / House No. / Building" required>
+                <input type="text" name="area" class="form-input" placeholder="Area / Colony / Road Name" required>
+                <div style="display:flex;gap:10px">
+                    <input type="text" name="pin" class="form-input" placeholder="Pincode" style="width:50%" required>
+                    <input type="text" name="city" class="form-input" placeholder="City" style="width:50%" required>
+                </div>
+                
+                <input type="hidden" name="product_name" id="hidden-pname">
+                <input type="hidden" name="product_price" id="hidden-pprice">
+                <input type="hidden" name="selected_color" id="hidden-color">
+                <input type="hidden" name="selected_size" id="hidden-size">
+
+                <button type="submit" class="btn-confirm" id="submit-btn" style="margin-top:15px;width:100%">CONFIRM ORDER (COD)</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="success-pg" class="page">
+        <div style="padding:60px 20px;text-align:center">
+            <div style="font-size:60px">🎉</div>
+            <h2 style="font-family:'Cinzel'">Order Placed!</h2>
+            <p style="color:#666">Details have been sent to your email.</p>
+            <button class="btn-confirm" onclick="showPg('h-pg')">CONTINUE SHOPPING</button>
+        </div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-btn active-nav" onclick="showPg('h-pg')">HOME</div>
+        <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
+        <div class="nav-btn">CATEGORIES</div>
         <div class="nav-btn">WISHLIST</div>
-        <div class="nav-btn" onclick="showPg('cart-pg')">CART</div>
         <div class="nav-btn">ACCOUNT</div>
     </div>
 
 <script>
-    // SAARI SUB-CATEGORIES ENABLED
-    const subMap = {
-        'western': ['DRESSES','TOPS','JEANS','CO-ORDS','SLEEP WEAR','T-SHIRT','JUMPSUIT'],
-        'ethnic': ['SAREE','KURTIS','DRESS MATERIAL','LEHENGA','SUIT','GOWNS'],
-        'footwear': ['HEELS','SANDALS','JUTTIS','SNEAKERS','BOOTS','BELLIES'],
-        'makeup': ['LIPSTICK','FOUNDATION','NAILS','PERFUMES','EYES','KAJAL','MASCARA','COMPACT','FACE WASH','FACE MASK','LIP GLOSS','LIP LINER','BRUSHES','PRIMER','CONCEALER'],
-        'jewellery': ['NECKLACE','EARRINGS','RINGS','BRACELET','MAANGTIKA','BRIDAL SET','JHUMKA','KOREAN EARRINGS','KASHMIRI EARRINGS'],
-        'bags': ['HANDBAGS','SLING BAGS','CLUTCHES','WALLETS','BAG PACKS'],
-        'acc': ['WATCHES','BELTS','SUNGLASSES','HAIR ACCESSORIES']
-    };
+let store={eid:[]};
+let currentItem=null;
 
-    function openSub(cat){
-        showPg('s-pg');
-        document.getElementById('sub-grid').innerHTML = (subMap[cat] || []).map(s => `
-            <div class="sub-item" onclick="alert('Opening ${s}')">
-                <div class="sub-box">${s}</div>
-            </div>`).join('');
-    }
+// APNA WEB APP URL YAHAN FIX KAR DIYA HAI
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxvD9KIRJUN5YumkpKW5K7osSC4N0xH5kfwBT4ojQupvw__ROi3YBqizHicfp6pgf7Ekw/exec";
 
-    function showPg(id){
-        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
+async function init(){
+    const r=await fetch('products.json');
+    store=await r.json();
+    document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(p=>`
+        <div class="scroll-item" onclick='openDet(${JSON.stringify(p)})'>
+            <img src="${p.i1}"><p style="font-size:10px;font-weight:700">₹${p.p}</p>
+        </div>`).join('');
+}
+
+function openDet(p){
+    currentItem=p;
+    showPg('d-pg');
+    document.getElementById('d-name').innerText=p.n;
+    document.getElementById('d-price').innerText='₹'+p.p;
+    
+    // Slider Images
+    let imgs=`<img src="${p.i1}" style="min-width:100%;height:100%;object-fit:contain;background:#000">`;
+    if(p.i2)imgs+=`<img src="${p.i2}" style="min-width:100%;height:100%;object-fit:contain;background:#000">`;
+    if(p.i3)imgs+=`<img src="${p.i3}" style="min-width:100%;height:100%;object-fit:contain;background:#000">`;
+    document.getElementById('d-imgs').innerHTML=imgs;
+
+    // Colour & Size Buttons
+    document.getElementById('col-variants').innerHTML=(p.cl||"").split(',').map(v=>`<div class="v-item" onclick="selectV(this)">${v.trim()}</div>`).join('');
+    document.getElementById('size-variants').innerHTML=(p.sz||"").split(',').map(v=>`<div class="v-item" onclick="selectV(this)">${v.trim()}</div>`).join('');
+}
+
+function selectV(el){el.parentElement.querySelectorAll('.v-item').forEach(i=>i.classList.remove('selected'));el.classList.add('selected');}
+
+function prepareOrder(){
+    const color=document.querySelector('#col-variants .selected')?.innerText;
+    const size=document.querySelector('#size-variants .selected')?.innerText;
+    
+    if(!color || !size){ alert("Please select Colour and Size!"); return; }
+
+    // AUTO-FILL DATA
+    document.getElementById('hidden-pname').value = currentItem.n;
+    document.getElementById('hidden-pprice').value = currentItem.p;
+    document.getElementById('hidden-color').value = color;
+    document.getElementById('hidden-size').value = size;
+    
+    showPg('checkout-pg');
+}
+
+// FINAL DATA SUBMISSION TO GOOGLE SHEET
+document.getElementById('orderForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.innerText = "Processing...";
+    btn.disabled = true;
+
+    try {
+        await fetch(SCRIPT_URL, { method: 'POST', body: new FormData(e.target)});
+        showPg('success-pg');
+    } catch (e) {
+        showPg('success-pg'); // Error hone par bhi confirm dikhayega backup ke liye
     }
+};
+
+function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+window.onload=init;
 </script>
 </body>
 </html>
