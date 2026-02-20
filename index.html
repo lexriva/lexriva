@@ -29,7 +29,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:45% 45% 10px 10px !important; margin:12px; font-family:'Cinzel'; font-size:9px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold) !important; min-height:140px; box-shadow: 0 8px 15px rgba(114,0,26,0.3)}
 .checkout-box{padding:20px; background:#fff; margin:20px; border-radius:25px; box-shadow:0 10px 30px rgba(0,0,0,0.05)}
 .buy-btn{width:100%; padding:15px; background:var(--cherry); color:#fff; border:none; border-radius:12px; font-weight:800; margin-top:15px; cursor:pointer}
-.checkout-input{width:100%; padding:12px; margin:8px 0; border:1px solid #eee; border-radius:10px; outline:none; box-sizing: border-box; font-size: 13px;}
+.checkout-input{width:100%; padding:12px; margin:8px 0; border:1px solid #eee; border-radius:10px; outline:none; box-sizing: border-box; font-size:13px;}
 .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;padding:15px}
 .p-card{background:#fff;border-radius:20px;padding:10px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05); cursor: pointer;}
 .p-card img{width:100%;height:180px;object-fit:cover;border-radius:15px}
@@ -77,28 +77,40 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 <div id="p-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry); cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
     <div class="checkout-box">
-        <div style="display:flex; overflow-x:auto; gap:10px; margin-bottom:15px; scrollbar-width:none;" id="p-gallery"></div>
+        <div style="display:flex; overflow-x:auto; gap:10px; scroll-snap-type: x mandatory; margin-bottom:15px; scrollbar-width:none;" id="p-gallery"></div>
         <h2 id="p-name" style="margin:5px 0; color:var(--cherry)"></h2>
         <p id="p-price" style="font-weight:800; font-size:18px; color:#333; margin-bottom:10px;"></p>
         
         <div style="background:#f9f9f9; padding:15px; border-radius:15px; margin-bottom:15px;">
-            <label style="font-size:11px; font-weight:700;">COLOUR / SHADE:</label>
+            <label style="font-size:11px; font-weight:700;">CHOOSE COLOUR / SHADE:</label>
             <select id="p-color" class="checkout-input" style="background:#fff"></select>
-            <label style="font-size:11px; font-weight:700; margin-top:10px; display:block;">SIZE:</label>
+            <label style="font-size:11px; font-weight:700; margin-top:10px; display:block;">CHOOSE SIZE:</label>
             <select id="p-size" class="checkout-input" style="background:#fff"></select>
         </div>
+
         <p id="p-desc" style="font-size:12px; color:#666; margin-bottom:15px;"></p>
 
+        <div style="background:#fff5f7; padding:10px; border-radius:10px; border:1px dashed var(--cherry); margin:15px 0; display:flex; align-items:center; gap:10px;">
+            <span style="font-size:18px;">🚚</span>
+            <div>
+                <p style="font-size:10px; font-weight:700; color:var(--cherry); margin:0;">DELIVERY IN 6-7 DAYS</p>
+                <p style="font-size:9px; color:#666; margin:0;">2 Days Easy Exchange Policy</p>
+            </div>
+        </div>
+
         <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
-        <input id="custName" class="checkout-input" placeholder="Full Name">
-        <input id="custEmail" class="checkout-input" placeholder="Email">
+        
+        <input id="custName" class="checkout-input" placeholder="Receiver's Full Name">
+        <input id="custEmail" class="checkout-input" placeholder="Email (For Order Confirmation)">
         <input id="custMobileCheckout" class="checkout-input" placeholder="Mobile" readonly>
+        
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
             <input id="custFlat" class="checkout-input" placeholder="Flat/House No.">
             <input id="custArea" class="checkout-input" placeholder="Area/Street">
             <input id="custPin" class="checkout-input" placeholder="Pincode">
             <input id="custCity" class="checkout-input" placeholder="City">
         </div>
+        
         <button class="buy-btn" id="confirmBuy" onclick="sendOrder()">CONFIRM ORDER</button>
     </div>
 </div>
@@ -107,7 +119,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     <div style="padding:20px;font-weight:800;color:var(--cherry); cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
     <div class="login-box" id="login-form">
         <h2 style="font-family:'Cinzel'">My Account</h2>
-        <input type="tel" id="userPhone" style="width:100%;padding:15px;margin:15px 0;border-radius:12px;border:1px solid #eee" placeholder="Mobile Number">
+        <input type="tel" id="userPhone" style="width:100%;padding:15px;margin:15px 0;border-radius:12px;border:1px solid #eee; text-align:center;" placeholder="Mobile Number">
         <div id="recaptcha-container"></div>
         <button class="btn-login" onclick="handleLogin()">GET OTP</button>
     </div>
@@ -126,17 +138,19 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 </div>
 
 <script>
-// --- FIREBASE ---
+// --- FIREBASE CONFIG (Check your API Key here) ---
 const firebaseConfig = {
   apiKey: "AIzaSyD6rx_X8avqU63I_RoNyA0xJ8EKDFRP6xk",
   authDomain: "lexriva1.firebaseapp.com",
   projectId: "lexriva1",
   storageBucket: "lexriva1.firebasestorage.app",
   messagingSenderId: "551567272339",
-  appId: "1:551567272339:web:e35e9fd86ccf4832d82866"
+  appId: "1:551567272339:web:e35e9fd86ccf4832d82866",
+  measurementId: "G-W7ZLK4DCC5"
 };
 firebase.initializeApp(firebaseConfig);
 
+// --- APP LOGIC ---
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbzHTwI3qwZP3fIMW15wdIYwhtgCUFjpq7NHznPEmvgF-t9C0lGT8DW_BneCfUHbR9VbLg/exec";
 let store={};
 let currentP={};
@@ -162,6 +176,36 @@ async function init(){
     checkAuthUI();
 }
 
+function checkAuthUI(){
+    if(isLoggedIn){
+        document.getElementById('login-form').style.display='none';
+        document.getElementById('profile-box').style.display='block';
+        document.getElementById('displayPhone').innerText = localStorage.getItem('lexUser');
+    } else {
+        document.getElementById('login-form').style.display='block';
+        document.getElementById('profile-box').style.display='none';
+    }
+}
+
+function handleLogin(){
+    let ph = "+91" + document.getElementById('userPhone').value;
+    if(ph.length < 13){ alert("Valid 10-digit number please!"); return; }
+    firebase.auth().signInWithPhoneNumber(ph, window.recaptchaVerifier)
+    .then((cr) => {
+        let code = prompt("Enter 6-digit OTP:");
+        return cr.confirm(code);
+    }).then((res) => {
+        localStorage.setItem('lexUser', res.user.phoneNumber);
+        isLoggedIn = true;
+        location.reload();
+    }).catch((e) => alert(e.message));
+}
+
+function handleLogout(){
+    localStorage.removeItem('lexUser');
+    location.reload();
+}
+
 function renderH(data=store){
     document.getElementById('eid-scroll').innerHTML=(data.eid||[]).map(p=>`<div class="scroll-item" onclick="openProduct('${p.n}','${p.p}','${p.i}','${p.i2}','${p.i3}','${p.d}','${p.c}','${p.s}')"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
     document.getElementById('l-scroll').innerHTML=(data.latest||[]).map(p=>`<div class="scroll-item" onclick="openProduct('${p.n}','${p.p}','${p.i}','${p.i2}','${p.i3}','${p.d}','${p.c}','${p.s}')"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
@@ -172,14 +216,11 @@ function openProduct(n, p, i, i2, i3, d, c, s){
     currentP = {n,p,i,i2,i3,d,c,s};
     document.getElementById('p-name').innerText=n;
     document.getElementById('p-price').innerText="₹"+p;
-    document.getElementById('p-desc').innerText=d || "Premium Luxury Product";
-
+    document.getElementById('p-desc').innerText=d || "Lexriva Luxury Product";
     let imgs = [i, i2, i3].filter(src => src && src.length > 5);
     document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}" style="min-width:100%; border-radius:15px; height:350px; object-fit:cover;">`).join('');
-
     document.getElementById('p-color').innerHTML = (c || "Original").split(',').map(v => `<option>${v.trim()}</option>`).join('');
     document.getElementById('p-size').innerHTML = (s || "Free Size").split(',').map(v => `<option>${v.trim()}</option>`).join('');
-
     document.getElementById('custMobileCheckout').value = localStorage.getItem('lexUser');
     showPg('p-pg');
 }
@@ -199,11 +240,11 @@ async function sendOrder(){
         selectedColor: document.getElementById('p-color').value,
         selectedSize: document.getElementById('p-size').value
     };
-    if(!data.name || !data.flat || !data.pincode) return alert("Fill delivery details!");
+    if(!data.name || !data.flat || !data.pincode) return alert("Fill details!");
     btn.innerText="Sending...";
     try{
         await fetch(ADMIN_URL, {method:'POST', body:JSON.stringify(data)});
-        alert("Order Received!");
+        alert("Order Successful!");
         showPg('h-pg');
     }catch(e){ alert("Error!"); }
     btn.innerText="CONFIRM ORDER";
@@ -233,19 +274,6 @@ function openSubCategoryProducts(catName){
     }
 }
 
-function handleLogin(){
-    let ph = "+91" + document.getElementById('userPhone').value;
-    firebase.auth().signInWithPhoneNumber(ph, window.recaptchaVerifier).then((cr) => {
-        let code = prompt("Enter OTP:");
-        return cr.confirm(code);
-    }).then((res) => {
-        localStorage.setItem('lexUser', res.user.phoneNumber);
-        location.reload();
-    }).catch((e) => alert(e.message));
-}
-
-function handleLogout(){ localStorage.removeItem('lexUser'); location.reload(); }
-function checkAuthUI(){ if(isLoggedIn){ document.getElementById('login-form').style.display='none'; document.getElementById('profile-box').style.display='block'; document.getElementById('displayPhone').innerText = localStorage.getItem('lexUser'); } }
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 function filterSearch(){
     let q = document.getElementById('mainSearch').value.toLowerCase();
