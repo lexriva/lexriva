@@ -6,113 +6,109 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
 .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
 
-/* Search Bar Styling */
+/* Search Bar */
 .search-wrapper { padding: 5px 20px 15px; background: #fff; }
-.search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; font-family: 'Inter'; }
+.search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; }
 
 .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);display:flex;justify-content:space-between}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05)}
 .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
-.reel-box{display:flex;overflow-x:auto;gap:15px;padding:15px;scrollbar-width:none}
-.reel-card{min-width:260px;height:450px;border-radius:25px;overflow:hidden;position:relative;box-shadow:0 15px 35px rgba(0,0,0,0.15);cursor:pointer}
-.reel-card video{width:100%;height:100%;object-fit:cover}
+
+/* Cherry Box Shine Effect */
+.cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:45% 45% 10px 10px !important; margin:12px; font-family:'Cinzel'; font-size:9px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold) !important; min-height:140px; position: relative; overflow: hidden;}
+.cherry-box::after { content: ""; position: absolute; top: -50%; left: -100%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent); transform: rotate(45deg); animation: shine 3s infinite; }
+@keyframes shine { 0% {left: -100%} 100% {left: 100%} }
+
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05)}
 .cat-card img{width:100%;height:100%;object-fit:cover}
 .cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
+
 .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0}
-.sub-item{padding:20px 5px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1/1.3}
-.sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+.sub-item{padding:20px 5px;text-align:center;display:flex;flex-direction:column;align-items:center;aspect-ratio:1/1.3}
+.sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:10px}
 
-/* Updated Cherry Box with Shine Animation */
-.cherry-box{background:var(--cherry) !important; color:var(--gold) !important; border-radius:45% 45% 10px 10px !important; margin:12px; font-family:'Cinzel'; font-size:9px !important; font-weight:700; display:flex; flex-direction:column; justify-content:center; align-items:center; border:1px solid var(--gold) !important; min-height:140px; box-shadow: 0 8px 15px rgba(114,0,26,0.3); overflow: hidden; position: relative;}
-.cherry-box::after { content: ""; position: absolute; top: -50%; left: -100%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent); transform: rotate(45deg); animation: shine 3s infinite; }
-@keyframes shine { 0% {left: -100%} 100% {left: 100%} }
-
-.footer-info{padding:30px 20px;background:#fff;text-align:center;border-radius:30px 30px 0 0;margin-top:20px}
-.social-link{display:inline-block;padding:12px 25px;background:var(--cherry);color:#fff;text-decoration:none;border-radius:50px;font-weight:700;font-size:12px;margin-top:10px}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
-.login-box{padding:40px 20px;text-align:center;background:#fff;margin:20px;border-radius:30px;box-shadow:0 10px 30px rgba(0,0,0,0.05)}
-.btn-login{width:100%;padding:16px;background:var(--cherry);color:#fff;border:none;border-radius:12px;font-weight:800}
+.nav-btn{font-size:9px;font-weight:800;color:#999;text-align:center;cursor:pointer}
 </style></head><body>
 
-<div class="header">
-    <div class="logo">LEXRIVA</div>
-</div>
-<div class="search-wrapper">
-    <input type="text" class="search-input" placeholder="Search Jewelry, Makeup, Bags...">
-</div>
+<div class="header"><div class="logo">LEXRIVA</div></div>
+<div class="search-wrapper"><input type="text" class="search-input" placeholder="Search Luxury Items..."></div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
-    <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-    <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
-    <div class="section-h">🎬 TRENDING REELS</div>
-    <div class="reel-box">
-        <div class="reel-card" onclick="openSub('jewellery_master')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card" onclick="openSub('makeup_cat')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card" onclick="openSub('western')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
-    </div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury+Mall'"></div>
+    
+    <div class="section-h">🌙 THE EID EDIT</div>
+    <div id="eid-scroll" class="h-scroll"></div>
+
     <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
     <div class="cat-grid">
         <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
         <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
         <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
         <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
-        <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
-        <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
-        <div class="cat-card" onclick="openSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
-    </div>
-    <div class="footer-info">
-        <p style="font-weight:800;font-size:12px;color:green">✓ ₹1999+ FREE SHIPPING | 2-DAY DELIVERY</p>
-        <a href="https://www.instagram.com/lexrivaofficial" class="social-link">FOLLOW @LEXRIVAOFFICIAL</a>
     </div>
 </div>
 
-<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
-
-<div id="account-pg" class="page">
+<div id="s-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div class="login-box"><h2 style="font-family:'Cinzel'">My Account</h2><input type="tel" style="width:100%;padding:15px;margin:15px 0;border-radius:12px;border:1px solid #eee" placeholder="Mobile Number"><button class="btn-login" onclick="alert('OTP Sent!')">GET OTP</button></div>
+    <div id="s-banner" style="width:100%;height:220px"></div>
+    <div id="s-grid" class="sub-grid"></div>
 </div>
 
 <div class="bottom-nav">
     <div class="nav-btn" style="color:var(--cherry)" onclick="showPg('h-pg')">HOME</div>
     <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView({behavior:'smooth'})">CATEGORIES</div>
-    <div class="nav-btn" onclick="alert('Wishlist Empty')">WISHLIST</div>
-    <div class="nav-btn" onclick="showPg('account-pg')">ACCOUNT</div>
+    <div class="nav-btn" onclick="alert('Account Coming Soon')">ACCOUNT</div>
 </div>
 
 <script>
-const ADMIN_URL="https://script.google.com/macros/s/AKfycbysgVoApcCnoLQLrHB8FYqNvg9DRzeGXmuPKnQGZHf5IpY0QsPdGVmlvEd-AV6QKJge6g/exec";
-let store={categories:{},eid:[],latest:[]};
+// Aapka Naya URL
+const ADMIN_URL="https://script.google.com/macros/s/AKfycbyRWkjFx9_hivpflqA6zcua1rMz00yYm6Se51hv4EsZtruH0COxvDO__3P2sJhiV-RbLw/exec";
+let store={};
 
 const subMap={
-'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
-'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
-'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers','Flats','Ethnic','Loafers','Mules','Wedges'],
-'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','LEXRIVA','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
-'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
-'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
-'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
+'western':['Dresses','Tops','Jeans','LEXRIVA','Co-ords','Skirts'],
+'ethnic':['Saree','Kurtis','Dress Material','LEXRIVA','Lehengas','Gowns'],
+'makeup_cat':['Lipstick','Lip Gloss','Foundation','LEXRIVA','Eye Shadow','Perfumes'],
+'jewellery_master':['Minimal','Necklace Set','Earrings','LEXRIVA','Rings','Bracelet']
 };
 
-async function init(){try{const r=await fetch(ADMIN_URL);store=await r.json();renderH()}catch(e){}}
-function renderH(){
-    document.getElementById('eid-scroll').innerHTML=(store.eid||[]).map(p=>`<div class="scroll-item"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
-    document.getElementById('l-scroll').innerHTML=(store.latest||[]).map(p=>`<div class="scroll-item"><img src="${p.i}"><p style="font-size:10px;font-weight:700">${p.n}</p></div>`).join('');
+async function init(){
+    try{
+        const r=await fetch(ADMIN_URL);
+        store=await r.json();
+        renderH();
+    }catch(e){ console.log("Error loading data"); }
 }
+
+function renderH(){
+    const eidData = store['eid'] || [];
+    document.getElementById('eid-scroll').innerHTML=eidData.map(p=>`
+        <div class="scroll-item">
+            <img src="${p.i}" onerror="this.src='https://via.placeholder.com/120x160?text=Product'">
+            <p style="font-size:10px;font-weight:700;margin-top:5px">₹${p.p}</p>
+        </div>
+    `).join('');
+}
+
 function openSub(k){
     showPg('s-pg');
-    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
+    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='https://via.placeholder.com/500x200?text=Lexriva+Collection'">`;
     let h=""; const subs=subMap[k]||[];
-    subs.forEach((n,i)=>{
-        if(n === 'LEXRIVA') h+=`<div class="sub-item cherry-box">ESTD. 2024<br><br><span style="font-size:14px">LEXRIVA</span><br><br>LUXURY MALL</div>`;
-        else h+=`<div class="sub-item" onclick="alert('Opening ${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='icon.png'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+    subs.forEach(n=>{
+        if(n === 'LEXRIVA') h+=`<div class="sub-item cherry-box">ESTD. 2024<br><br><span style="font-size:14px">LEXRIVA</span><br><br>LUXURY</div>`;
+        else h+=`<div class="sub-item" onclick="alert('Viewing ${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/85x85?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
 }
-function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-window.onload=init;</script></body></html>
+
+function showPg(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+}
+
+window.onload=init;
+</script></body></html>
