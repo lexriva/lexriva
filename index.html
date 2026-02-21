@@ -7,124 +7,100 @@
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
 .page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
 .active{display:block}
-.header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
-.logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
+.header{background:#fff;padding:15px;text-align:center;position:sticky;top:0;z-index:1000}
+.logo{font-family:'Cinzel';font-size:24px;letter-spacing:5px;font-weight:900;color:var(--cherry)}
 .search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
 .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
+
+/* REEL SIZE FIXED */
+.reel-scroll{display:flex;overflow-x:auto;gap:12px;padding:0 15px;scrollbar-width:none}
+.reel-card{min-width:160px;height:280px;background:#000;border-radius:15px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.2)}
+.reel-card video{width:100%;height:100%;object-fit:cover}
+
 .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry)}
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
-.scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative;}
+.scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 8px 15px rgba(0,0,0,0.05); position:relative;}
 .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
-.wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:10;}
-.wish-btn.active{color:red}
+
+/* CATEGORY GRID FIXED */
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
-.cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
+.cat-card{position:relative;border-radius:20px;overflow:hidden;height:160px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer; background:#fff}
 .cat-card img{width:100%;height:100%;object-fit:cover}
-.cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
+.cat-label{position:absolute;bottom:0;left:0;right:0;background:rgba(114,0,26,0.8);color:#fff;font-size:10px;font-weight:700;padding:8px;text-align:center}
+
+.cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:130px; height:180px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold)}
 .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0;}
 .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
-.sub-item img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-.cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:130px; height:180px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); box-shadow:0 10px 25px rgba(114,0,26,0.3)}
-#p-gallery img{min-width:100%; height:550px; object-fit:cover; border-bottom: 2px solid var(--cherry)}
-.option-box{display:inline-block; padding:8px 15px; border:1px solid #ddd; margin:5px; border-radius:8px; cursor:pointer; font-size:12px; background:#fff}
-.option-box.selected{background:var(--cherry); color:#fff; border-color:var(--cherry)}
-.btn-group{display:flex; gap:10px; padding:15px; background:#fff; position:fixed; bottom:0; left:0; right:0; max-width:500px; margin:0 auto; z-index:1001}
-.cart-btn{flex:1; padding:18px; border:2px solid var(--cherry); color:var(--cherry); background:transparent; border-radius:15px; font-weight:800; cursor:pointer}
-.buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
+.sub-item img{width:70px;height:70px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+
+.wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:10;}
+.wish-btn.active{color:red}
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #eee;z-index:1000}
+.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center;text-transform:uppercase}
+
+.buy-btn{width:100%; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
 .checkout-input{width:100%; padding:15px; margin:10px 0; border:1px solid #ddd; border-radius:12px; box-sizing:border-box}
-.auth-box{background:#fff; padding:30px; border-radius:25px; margin:20px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.05)}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
 </style></head><body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
 <div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..." oninput="filterSearch()"></div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury+Mall'"></div>
-    <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-    <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury+Collection'"></div>
+    
     <div class="section-h">🎬 TRENDING REELS</div>
-    <div class="h-scroll" style="padding-bottom:15px">
-        <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+    <div class="reel-scroll">
+        <div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
     </div>
-    <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
+
+    <div class="section-h">🌙 EID SPECIAL</div><div id="eid-scroll" class="h-scroll"></div>
+
+    <div class="section-h">👗 SHOP BY CATEGORY</div>
     <div class="cat-grid" id="main-cat-grid"></div>
 </div>
 
+<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
+
 <div id="account-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div id="login-section" class="auth-box">
-        <h2 style="font-family:'Cinzel'">Member Login</h2>
+    <div id="login-section" style="padding:30px; text-align:center">
+        <h2 style="font-family:'Cinzel'">Login</h2>
         <input id="phone" class="checkout-input" placeholder="+91 00000 00000">
-        <div id="recaptcha-container"></div>
-        <button class="buy-btn" style="width:100%" onclick="sendOTP()">SEND OTP</button>
+        <div id="recaptcha-container" style="margin:10px 0"></div>
+        <button class="buy-btn" onclick="sendOTP()">SEND OTP</button>
         <div id="otp-area" style="display:none; margin-top:15px">
             <input id="otp" class="checkout-input" placeholder="6-digit OTP">
-            <button class="buy-btn" style="width:100%" onclick="verifyOTP()">VERIFY & LOGIN</button>
+            <button class="buy-btn" onclick="verifyOTP()">VERIFY</button>
         </div>
     </div>
-    <div id="profile-section" class="auth-box" style="display:none">
-        <h2 style="font-family:'Cinzel'">My Account</h2>
-        <p id="user-display" style="font-weight:800; font-size:18px"></p>
-        <button class="buy-btn" style="background:#ddd; color:#333; margin-top:20px" onclick="logout()">LOGOUT</button>
-    </div>
-</div>
-
-<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
-<div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('s-pg')">← BACK</div><div class="section-h" id="p-list-title">COLLECTION</div><div id="p-list-grid" class="cat-grid"></div></div>
-<div id="wish-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div class="section-h">💖 MY WISHLIST</div><div id="wish-grid" class="cat-grid"></div></div>
-
-<div id="p-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div id="p-gallery" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none"></div>
-    <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative; z-index:10">
-        <h2 id="p-name" style="color:var(--cherry); margin-bottom:5px"></h2>
-        <p id="p-price" style="font-weight:800; font-size:22px; margin:0"></p>
-        <div id="color-options" style="margin-top:15px"></div>
-        <div id="size-options" style="margin-top:10px"></div>
-        <p id="p-desc" style="font-size:13px; color:#666; margin-top:15px; padding-bottom:100px"></p>
-    </div>
-    <div class="btn-group"><button class="cart-btn" onclick="addToCart()">ADD TO CART</button><button class="buy-btn" onclick="goToCheckout()">BUY NOW</button></div>
-</div>
-
-<div id="checkout-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('p-pg')">← BACK</div>
-    <div style="padding:20px">
-        <h2 style="font-family:'Cinzel'; text-align:center">Order Details</h2>
-        <input id="cName" class="checkout-input" placeholder="Full Name">
-        <input id="cMobile" class="checkout-input" placeholder="Mobile Number" readonly>
-        <input id="cFlat" class="checkout-input" placeholder="Flat No. / House No.">
-        <input id="cArea" class="checkout-input" placeholder="Area / Landmark">
-        <input id="cCity" class="checkout-input" placeholder="City">
-        <input id="cPincode" class="checkout-input" placeholder="Pincode">
-        <button class="buy-btn" style="width:100%; margin-top:20px" onclick="confirmOrder()">PLACE ORDER</button>
+    <div id="profile-section" style="display:none; padding:30px; text-align:center">
+        <p id="user-display" style="font-weight:800"></p>
+        <button class="buy-btn" style="background:#eee; color:#333" onclick="logout()">LOGOUT</button>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
-    <div class="nav-btn" onclick="showWishlist()">WISHLIST</div>
-    <div class="nav-btn" onclick="checkAuth()">ACCOUNT</div>
+    <div class="nav-btn" onclick="showPg('h-pg')">Home</div>
+    <div class="nav-btn" onclick="showWishlist()">Wishlist</div>
+    <div class="nav-btn" onclick="showPg('account-pg')">Account</div>
 </div>
 
 <script>
-// YOUR UPDATED FIREBASE CONFIG
+// UPDATED FIREBASE CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyD6rx_X0avqU63I_RoNyA0xJ8EKDFRP6xk",
   authDomain: "lexriva1.firebaseapp.com",
   projectId: "lexriva1",
   storageBucket: "lexriva1.firebasestorage.app",
   messagingSenderId: "551567272339",
-  appId: "1:551567272339:web:e35e9fd06ccf4032d02066",
-  measurementId: "G-W7ZLK4DCC5"
+  appId: "1:551567272339:web:e35e9fd06ccf4032d02066"
 };
 firebase.initializeApp(firebaseConfig);
 
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbzSsDtANnhXgAs5M0LK-tZ4uHr4_Ij0pxEY8ZJknqf8a5ZMsHSC1EQRCXEHz5RcW7rD/exec";
-let store={}; let currentP={}; let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
-let confirmationResult; let selectedColor=""; let selectedSize="";
+let store={};
 
 const subMap={
 'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
@@ -141,49 +117,22 @@ async function init(){
     firebase.auth().onAuthStateChanged(user => { if(user) updateAuthUI(user); });
 }
 
-function renderH(data=store){
-    document.getElementById('eid-scroll').innerHTML=(data.eid||[]).map(p=>renderItem(p, 'scroll')).join('');
-    document.getElementById('l-scroll').innerHTML=(data.latest||[]).map(p=>renderItem(p, 'scroll')).join('');
-}
-
 function renderCats(){
-    const cats = [['western','WESTERN'],['ethnic','ETHNIC'],['makeup_cat','MAKEUP'],['jewellery_master','JEWEL'],['bags','BAGS'],['footwear','FOOTWEAR'],['acc_main','ACC']];
-    document.getElementById('main-cat-grid').innerHTML = cats.map(c=>`<div class="cat-card" onclick="openSub('${c[0]}')"><img src="cat_${c[0]}.jpg"><div class="cat-label">${c[1]}</div></div>`).join('');
-}
-
-function renderItem(p, type){
-    const isWished = wishlist.find(x => x.n === p.n) ? 'active' : '';
-    const click = `onclick="openProduct('${p.n.replace(/'/g,"")}','${p.p}','${p.i}','${p.i2}','${p.i3}','${p.d.replace(/'/g,"")}','${p.c}','${p.s}')"`;
-    if(type === 'scroll') return `<div class="scroll-item"><button class="wish-btn ${isWished}" onclick="toggleWish('${p.n.replace(/'/g,"")}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div></div>`;
-    return `<div class="cat-card"><button class="wish-btn ${isWished}" onclick="toggleWish('${p.n.replace(/'/g,"")}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div></div>`;
-}
-
-function toggleWish(n, p, i){
-    const idx = wishlist.findIndex(x => x.n === n);
-    if(idx > -1) wishlist.splice(idx, 1); else wishlist.push({n, p, i});
-    localStorage.setItem('lexWish', JSON.stringify(wishlist));
-    renderH(); if(document.getElementById('wish-pg').classList.contains('active')) showWishlist();
-}
-
-function showWishlist(){
-    showPg('wish-pg');
-    document.getElementById('wish-grid').innerHTML = wishlist.length ? wishlist.map(p=>renderItem(p,'grid')).join('') : "<p style='padding:20px'>Wishlist Empty</p>";
-}
-
-function openProduct(n, p, i, i2, i3, d, c, s){
-    currentP = {n,p,i,i2,i3,d,c,s};
-    document.getElementById('p-name').innerText=n; document.getElementById('p-price').innerText="₹"+p;
-    document.getElementById('p-desc').innerText=d;
-    let imgs = [i, i2, i3].filter(x => x && x.length > 5);
-    document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}" style="scroll-snap-align:center">`).join('');
-    document.getElementById('color-options').innerHTML = (c||"Original").split(',').map(v => `<div class="option-box" onclick="selectOpt(this, 'color', '${v.trim()}')">${v.trim()}</div>`).join('');
-    document.getElementById('size-options').innerHTML = (s||"Free").split(',').map(v => `<div class="option-box" onclick="selectOpt(this, 'size', '${v.trim()}')">${v.trim()}</div>`).join('');
-    showPg('p-pg');
-}
-
-function selectOpt(el, type, val){
-    el.parentElement.querySelectorAll('.option-box').forEach(x => x.classList.remove('selected'));
-    el.classList.add('selected'); if(type==='color') selectedColor = val; else selectedSize = val;
+    const cats = [
+        {id:'western', n:'WESTERN WEAR', img:'cat_western.jpg'},
+        {id:'ethnic', n:'ETHNIC WEAR', img:'cat_ethnic.jpg'},
+        {id:'makeup_cat', n:'MAKEUP & CARE', img:'cat_makeup.jpg'},
+        {id:'jewellery_master', n:'FINE JEWELLERY', img:'cat_jewel.jpg'},
+        {id:'bags', n:'LUXURY BAGS', img:'cat_bags.jpg'},
+        {id:'footwear', n:'FOOTWEAR EDIT', img:'cat_footwear.jpg'},
+        {id:'acc_main', n:'ACCESSORIES', img:'cat_acc.jpg'}
+    ];
+    document.getElementById('main-cat-grid').innerHTML = cats.map(c=>`
+        <div class="cat-card" onclick="openSub('${c.id}')">
+            <img src="${c.img}" onerror="this.src='https://via.placeholder.com/300x160?text=${c.n}'">
+            <div class="cat-label">${c.n}</div>
+        </div>
+    `).join('');
 }
 
 function openSub(k){
@@ -191,15 +140,21 @@ function openSub(k){
     document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
     let h=""; (subMap[k]||[]).forEach(n=>{
         if(n === 'LEXRIVA') h+=`<div class="cherry-box"><span style="font-size:10px">ESTD. 2024</span><br><span style="font-size:16px; letter-spacing:2px">LEXRIVA</span></div>`;
-        else h+=`<div class="sub-item" onclick="openSubCategoryProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+        else h+=`<div class="sub-item"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
 }
 
-async function openSubCategoryProducts(catName){
-    showPg('p-list-pg'); document.getElementById('p-list-title').innerText = catName.toUpperCase();
-    const pData = store[catName.toLowerCase()] || [];
-    document.getElementById('p-list-grid').innerHTML = pData.map(p=>renderItem(p, 'grid')).join('');
+function renderH(){
+    const data = store.eid || [];
+    document.getElementById('eid-scroll').innerHTML = data.map(p=>`
+        <div class="scroll-item"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>
+    `).join('');
+}
+
+function showPg(id){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
 }
 
 function sendOTP(){
@@ -216,28 +171,10 @@ function verifyOTP(){
     confirmationResult.confirm(code).then(() => { alert("Login Successful!"); location.reload(); }).catch(() => alert("Invalid OTP"));
 }
 
-function updateAuthUI(user){
+function updateAuthUI(user){ 
     document.getElementById('login-section').style.display='none';
     document.getElementById('profile-section').style.display='block';
-    document.getElementById('user-display').innerText = "Logged in: " + user.phoneNumber;
-}
-
-function checkAuth(){ showPg('account-pg'); }
-function logout(){ firebase.auth().signOut().then(() => location.reload()); }
-function goToCheckout(){ if(!firebase.auth().currentUser){ alert("Login First!"); showPg('account-pg'); } else { document.getElementById('cMobile').value = firebase.auth().currentUser.phoneNumber; showPg('checkout-pg'); } }
-
-async function confirmOrder(){
-    let data = { name: document.getElementById('cName').value, mobile: document.getElementById('cMobile').value, flat: document.getElementById('cFlat').value, area: document.getElementById('cArea').value, city: document.getElementById('cCity').value, pincode: document.getElementById('cPincode').value, productName: currentP.n, productPrice: currentP.p, selectedColor: selectedColor, selectedSize: selectedSize };
-    if(!data.name || !data.flat) return alert("Fill all details!");
-    try{ await fetch(ADMIN_URL, {method:'POST', body:JSON.stringify(data)}); alert("Order Placed!"); showPg('h-pg'); } catch(e){ alert("Error!"); }
-}
-
-function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-
-function filterSearch(){
-    let q = document.getElementById('mainSearch').value.toLowerCase();
-    let res = []; Object.keys(store).forEach(k => { if(Array.isArray(store[k])) store[k].forEach(p => { if(p.n.toLowerCase().includes(q)) res.push(p); })});
-    document.getElementById('eid-scroll').innerHTML = res.slice(0,10).map(p=>renderItem(p, 'scroll')).join('');
+    document.getElementById('user-display').innerText = user.phoneNumber;
 }
 
 window.onload = init;
