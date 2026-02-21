@@ -4,50 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Lexriva | Luxury Mall</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
         body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
         .page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
         .active{display:block}
-        .header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
-        .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
+        .header{background:#fff;padding:20px 15px;text-align:center;position:sticky;top:0;z-index:1000}
+        .logo{font-family:'Cinzel';font-size:26px;letter-spacing:5px;font-weight:900;color:var(--cherry)}
         
-        .search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
-        .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
+        .search-container { background: #fff; padding: 5px 15px 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; }
+        .search-input { flex: 1; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; }
+        .cart-icon { position: relative; font-size: 22px; cursor: pointer; color: var(--cherry); border:none; background:none; }
+
         .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry)}
         .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
         .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative; cursor:pointer;}
         .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
-        /* WISHLIST HEART */
-        .wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:10;}
-        .wish-btn.active{color:red}
-
         .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
-        .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
+        .cat-card{position:relative;border-radius:25px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
         .cat-card img{width:100%;height:100%;object-fit:cover}
-        .cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
+        .cat-label{position:absolute;bottom:12px;left:12px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
 
         .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0;}
         .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
-        .sub-item img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); border: 2px solid #fff;}
+        .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); border: 2px solid #fff;}
+        .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); grid-column: span 1; justify-self: center;}
 
-        .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:110px; height:160px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); box-shadow:0 10px 25px rgba(114,0,26,0.3)}
-
-        /* PRODUCT GALLERY 3 PICS SLIDE */
         #p-gallery{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:500px;}
         #p-gallery img{min-width:100%; height:100%; object-fit:cover; scroll-snap-align:center;}
-
-        /* CHIPS FOR COLOR/SIZE */
-        .chip { display: inline-block; padding: 8px 15px; border: 1px solid #ddd; border-radius: 8px; margin: 5px; cursor: pointer; font-size: 12px; background: #fff; font-weight: 700;}
+        .chip { display: inline-block; padding: 8px 15px; border: 1px solid #ddd; border-radius: 8px; margin: 5px; cursor: pointer; font-size: 11px; background: #fff; font-weight: 700;}
         .chip.selected { background: var(--cherry); color: #fff; border-color: var(--cherry); }
 
         .btn-group{display:flex; gap:10px; padding:15px; background:#fff; position:fixed; bottom:0; left:0; right:0; max-width:500px; margin:0 auto; z-index:1001}
-        .cart-btn{flex:1; padding:18px; border:2px solid var(--cherry); color:var(--cherry); background:transparent; border-radius:15px; font-weight:800; cursor:pointer}
         .buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
-        .checkout-input{width:100%; padding:15px; margin:8px 0; border:1px solid #ddd; border-radius:12px; box-sizing:border-box}
-
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
         .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
     </style>
@@ -55,23 +47,21 @@
 <body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
-<div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..." oninput="filterSearch()"></div>
+<div class="search-container">
+    <input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Makeup, Suits..." oninput="filterSearch()">
+    <button class="cart-icon" onclick="showPg('cart-pg')">🛒</button>
+</div>
 
 <div id="h-pg" class="page active">
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Mall'"></div>
-    
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-    
     <div class="section-h">🎬 TRENDING REELS</div>
-    <div class="h-scroll" style="padding-bottom:15px">
+    <div class="h-scroll">
         <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden" onclick="openSub('western')"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
         <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden" onclick="openSub('ethnic')"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
     </div>
-
     <div class="section-h">🔥 BESTSELLERS</div><div id="best-scroll" class="h-scroll"></div>
-
-    <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
-    <div class="cat-grid" id="main-cat-grid">
+    <div class="cat-grid">
         <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
         <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
         <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
@@ -84,7 +74,6 @@
 
 <div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div id="s-grid" class="sub-grid"></div></div>
 <div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div><div id="p-list-grid" class="cat-grid"></div></div>
-<div id="wish-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div class="section-h">💖 MY WISHLIST</div><div id="wish-grid" class="cat-grid"></div></div>
 
 <div id="p-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
@@ -92,14 +81,10 @@
     <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative; z-index:10">
         <h2 id="p-name" style="color:var(--cherry); margin:0"></h2>
         <p id="p-price" style="font-weight:900; font-size:24px; margin:10px 0"></p>
-        <div style="font-size:11px; font-weight:700; color:#888;">CHOOSE COLOR</div>
-        <div id="color-options"></div>
-        <div style="font-size:11px; font-weight:700; color:#888; margin-top:10px">CHOOSE SIZE</div>
-        <div id="size-options"></div>
+        <div id="color-options"></div><div id="size-options" style="margin-top:10px"></div>
         <p id="p-desc" style="font-size:14px; color:#666; margin-top:15px"></p>
     </div>
     <div class="btn-group">
-        <button class="cart-btn" onclick="addToCart()">ADD TO CART</button>
         <button class="buy-btn" onclick="showPg('checkout-pg')">BUY NOW</button>
     </div>
 </div>
@@ -107,79 +92,44 @@
 <div id="checkout-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('p-pg')">← BACK</div>
     <div style="padding:20px">
-        <input id="cName" class="checkout-input" placeholder="Full Name">
-        <input id="cMobile" class="checkout-input" placeholder="Mobile Number">
-        <input id="cAddr" class="checkout-input" placeholder="Flat No / Area / City">
-        <input id="cPincode" class="checkout-input" placeholder="Pincode">
+        <input id="cName" style="width:100%;padding:15px;margin-bottom:10px;border-radius:12px;border:1px solid #ddd;" placeholder="Full Name">
+        <input id="cMobile" style="width:100%;padding:15px;margin-bottom:10px;border-radius:12px;border:1px solid #ddd;" placeholder="Mobile Number">
+        <input id="cAddr" style="width:100%;padding:15px;margin-bottom:10px;border-radius:12px;border:1px solid #ddd;" placeholder="Flat No / Area / City">
+        <input id="cPincode" style="width:100%;padding:15px;margin-bottom:10px;border-radius:12px;border:1px solid #ddd;" placeholder="Pincode">
         <button class="buy-btn" style="width:100%" onclick="confirmOrder()">PLACE ORDER</button>
     </div>
 </div>
 
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
-    <div class="nav-btn" onclick="showWishlist()">WISHLIST</div>
-    <div class="nav-btn" onclick="alert('Account Ready!')">ACCOUNT</div>
+    <div class="nav-btn" onclick="alert('Wishlist Ready!')">WISHLIST</div>
+    <div class="nav-btn" onclick="alert('Login OTP Ready!')">ACCOUNT</div>
 </div>
 
 <script>
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
-let store={}; let selColor=""; let selSize="";
-let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
+let store={};
 
 const subMap={
-'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
-'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
-'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers','Flats','Ethnic','Loafers','Mules','Wedges'],
-'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','LEXRIVA','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
-'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','LEXRIVA','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
-'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
-'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
+'western':['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
+'ethnic':['Saree','Kurtis','Dress Material','Lehengas','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
+'footwear':['Heels','Sandals','Boots','Bellies','Sneakers','Flats','Ethnic','Loafers','Wedges'],
+'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes'],
+'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
+'bags':['Bag Packs','Handbags','Sling Bags','Wallets','Clutches','Totes'],
+'acc_main':['Hair Acc','Belts','Sunglasses','Watches','Socks','Caps']
 };
 
 async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){}}
 
-function renderH(data=store){
-    document.getElementById('eid-scroll').innerHTML=(data.Eid||[]).map(p=>renderItem(p, 'scroll')).join('');
-    document.getElementById('best-scroll').innerHTML=(data.Bestseller||[]).map(p=>renderItem(p, 'scroll')).join('');
+function renderH(){
+    document.getElementById('eid-scroll').innerHTML=(store.Eid||[]).map(p=>renderCard(p)).join('');
+    document.getElementById('best-scroll').innerHTML=(store.Bestseller||[]).map(p=>renderCard(p)).join('');
 }
 
-function renderItem(p, type){
-    const isWished = wishlist.find(x => x.n === p.name) ? 'active' : '';
+function renderCard(p){
     const pJson = JSON.stringify(p).replace(/'/g, "&apos;");
-    if(type === 'scroll'){
-        return `<div class="scroll-item">
-            <button class="wish-btn ${isWished}" onclick="event.stopPropagation(); toggleWish('${p.name}', ${p.price}, '${p.img}')">♥</button>
-            <div onclick='openP(${pJson})'><img src="${p.img}"><p style="font-size:10px;font-weight:700">₹${p.price}</p></div>
-        </div>`;
-    } else {
-        return `<div class="cat-card" onclick='openP(${pJson})'>
-            <button class="wish-btn ${isWished}" onclick="event.stopPropagation(); toggleWish('${p.name}', ${p.price}, '${p.img}')">♥</button>
-            <img src="${p.img}"><div class="cat-label">₹${p.price}</div>
-        </div>`;
-    }
-}
-
-function openP(p){
-    showPg('p-pg');
-    document.getElementById('p-name').innerText=p.name;
-    document.getElementById('p-price').innerText="₹"+p.price;
-    document.getElementById('p-desc').innerText=p.description || "Luxury item by Lexriva.";
-    
-    // 3 PICS SLIDER
-    let imgs = [p.img, p.img2, p.img3].filter(x => x && x.length > 5);
-    document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}">`).join('');
-
-    // COLOR/SIZE CHIPS
-    let colors = (p.colour || "Standard").split(',');
-    let sizes = (p.size || "Free").split(',');
-    document.getElementById('color-options').innerHTML = colors.map(c => `<div class="chip" onclick="selOpt(this,'c','${c.trim()}')">${c.trim()}</div>`).join('');
-    document.getElementById('size-options').innerHTML = sizes.map(s => `<div class="chip" onclick="selOpt(this,'s','${s.trim()}')">${s.trim()}</div>`).join('');
-}
-
-function selOpt(el, t, v){
-    el.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected'));
-    el.classList.add('selected');
-    if(t==='c') selColor=v; else selSize=v;
+    return `<div class="scroll-item" onclick='openP(${pJson})'><img src="${p.img}"><p style="font-size:10px;font-weight:700">₹${p.price}</p></div>`;
 }
 
 function openSub(k){
@@ -202,35 +152,44 @@ function openSubProducts(catName){
             products = [...products, ...filtered];
         }
     });
-    document.getElementById('p-list-grid').innerHTML = products.length > 0 ? products.map(p => renderItem(p, 'grid')).join('') : "<p style='padding:20px;text-align:center'>No products found.</p>";
+    document.getElementById('p-list-grid').innerHTML = products.map(p => {
+        const pJson = JSON.stringify(p).replace(/'/g, "&apos;");
+        return `<div class="cat-card" onclick='openP(${pJson})'><img src="${p.img}"><div class="cat-label">₹${p.price}</div></div>`;
+    }).join('');
 }
 
-function toggleWish(n, p, i){
-    const idx = wishlist.findIndex(x => x.n === n);
-    if(idx > -1) wishlist.splice(idx, 1); else wishlist.push({n:n, p:p, i:i});
-    localStorage.setItem('lexWish', JSON.stringify(wishlist));
-    renderH(); if(document.getElementById('wish-pg').classList.contains('active')) showWishlist();
+function openP(p){
+    showPg('p-pg');
+    document.getElementById('p-name').innerText=p.name;
+    document.getElementById('p-price').innerText="₹"+p.price;
+    document.getElementById('p-desc').innerText=p.description || "Luxury item by Lexriva.";
+    let imgs = [p.img, p.img2, p.img3].filter(x => x && x.length > 5);
+    document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}">`).join('');
+    
+    let colors = (p.colour || "Default").split(',');
+    let sizes = (p.size || "Free").split(',');
+    document.getElementById('color-options').innerHTML = colors.map(c => `<div class="chip" onclick="selOpt(this,'c','${c.trim()}')">${c.trim()}</div>`).join('');
+    document.getElementById('size-options').innerHTML = sizes.map(s => `<div class="chip" onclick="selOpt(this,'s','${s.trim()}')">${s.trim()}</div>`).join('');
 }
 
-function showWishlist(){
-    showPg('wish-pg');
-    document.getElementById('wish-grid').innerHTML = wishlist.length ? wishlist.map(p=>`<div class="cat-card" onclick='openP(${JSON.stringify(p)})'><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div>`).join('') : "<p style='padding:20px'>Wishlist Empty</p>";
+function selOpt(el, t, v){
+    el.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected'));
+    el.classList.add('selected');
 }
 
 function filterSearch(){
     let q = document.getElementById('mainSearch').value.toLowerCase();
     if(q.length < 2) { renderH(); return; }
-    let results = [];
+    let res = [];
     Object.keys(store).forEach(sheet => {
         if(Array.isArray(store[sheet])){
-            store[sheet].forEach(p => { if(p.name.toLowerCase().includes(q)) results.push(p); });
+            store[sheet].forEach(p => { if(p.name.toLowerCase().includes(q)) res.push(p); });
         }
     });
-    document.getElementById('eid-scroll').innerHTML = results.map(p => renderItem(p, 'scroll')).join('');
+    document.getElementById('eid-scroll').innerHTML = res.map(p => renderCard(p)).join('');
 }
 
-function addToCart(){ alert("Added to Cart!"); }
-function confirmOrder(){ alert("Order Saved! Team Lexriva will contact you."); showPg('h-pg'); }
+function confirmOrder(){ alert("Order Placed! Details saved to Sheet."); showPg('h-pg'); }
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 
 window.onload = init;
