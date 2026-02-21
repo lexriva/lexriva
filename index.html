@@ -1,140 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Lexriva | Luxury Mall</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; --white: #ffffff; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; }
-        .page { display: none; max-width: 500px; margin: 0 auto; min-height: 100vh; padding-bottom: 100px; background: var(--lavender); }
-        .active { display: block; }
-        .header { background: #fff; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Cinzel'; font-size: 26px; letter-spacing: 5px; color: var(--cherry); font-weight: 900; }
-        
-        /* Search & Navigation */
+        :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
+        body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
+        .page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
+        .active{display:block}
+        .header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
+        .logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
         .search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
-        .search-input { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-btn { font-size: 10px; font-weight: 800; color: #999; cursor: pointer; text-align: center; }
-
-        /* Banner & Sections */
-        .section-h { padding: 15px; font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--cherry); letter-spacing: 1px; }
-        .h-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 0 15px; scrollbar-width: none; }
-        .banner { width: 92%; margin: 10px 4%; border-radius: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-
-        /* Reels */
-        .reel-box { min-width: 220px; height: 380px; background: #000; border-radius: 20px; overflow: hidden; cursor: pointer; }
-        .reel-box video { width: 100%; height: 100%; object-fit: cover; }
-
-        /* Category Grid */
-        .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .cat-card { position: relative; border-radius: 25px; overflow: hidden; height: 180px; box-shadow: 0 8px 15px rgba(0,0,0,0.08); cursor: pointer; }
-        .cat-card img { width: 100%; height: 100%; object-fit: cover; }
-        .cat-label { position: absolute; bottom: 15px; left: 15px; color: #fff; font-size: 10px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-
-        /* Sub-Category Circular */
-        .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 20px 10px; }
-        .sub-item { text-align: center; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-        .sub-item img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 8px; }
-        .sub-item p { font-size: 9px; font-weight: 800; text-transform: uppercase; }
-
-        /* Cherry Box */
-        .cherry-box { background: var(--cherry); color: var(--gold); border-radius: 120px 120px 10px 10px; width: 130px; height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'Cinzel'; border: 2px solid var(--gold); box-shadow: 0 10px 25px rgba(114,0,26,0.3); margin: 0 auto; }
+        .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
         
-        /* Product Pic & Checkout */
-        #p-img-full { width: 100%; height: 500px; object-fit: cover; }
-        .buy-btn { width: 90%; margin: 15px 5%; padding: 18px; background: var(--cherry); color: #fff; border: none; border-radius: 15px; font-weight: 800; cursor: pointer; }
+        .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry)}
+        .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
+        .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative;}
+        .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
+
+        /* CATEGORY & SUB GRID */
+        .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
+        .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
+        .cat-card img{width:100%;height:100%;object-fit:cover}
+        .cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
+        
+        /* SUB GRID CIRCULAR */
+        .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0;}
+        .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
+        .sub-item img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); border: 2px solid #fff;}
+
+        /* CHERRY BOX */
+        .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:110px; height:160px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); box-shadow:0 10px 25px rgba(114,0,26,0.3)}
+
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
+        .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="logo">LEXRIVA</div>
-</div>
-<div class="search-wrapper">
-    <input type="text" class="search-input" placeholder="Search Jewelry, Suits, Bags..." id="mainSearch">
-</div>
+<div class="header"><div class="logo">LEXRIVA</div></div>
+<div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..."></div>
 
 <div id="h-pg" class="page active">
-    <img src="banner.jpg" class="banner" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury+Collection'">
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Mall'"></div>
     
     <div class="section-h">🌙 THE EID EDIT</div>
     <div id="eid-scroll" class="h-scroll"></div>
-
+    
     <div class="section-h">🎬 TRENDING REELS</div>
-    <div class="h-scroll">
-        <div class="reel-box" onclick="openSub('western')"><video src="r1.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-box" onclick="openSub('ethnic')"><video src="r2.mp4" autoplay muted loop playsinline></video></div>
+    <div class="h-scroll" style="padding-bottom:15px">
+        <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden" onclick="openSub('western')"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden" onclick="openSub('ethnic')"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
     </div>
 
     <div class="section-h">🔥 BESTSELLERS</div>
-    <div id="best-scroll" class="h-scroll"></div>
+    <div id="l-scroll" class="h-scroll"></div>
 
-    <div class="section-h">👗 CURATED CATEGORIES</div>
+    <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
     <div class="cat-grid">
-        <div class="cat-card" onclick="openSub('western')"><img src="w.jpg"><div class="cat-label">WESTERN WEAR</div></div>
-        <div class="cat-card" onclick="openSub('ethnic')"><img src="e.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
-        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="m.jpg"><div class="cat-label">BEAUTY & CARE</div></div>
-        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="j.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
-        <div class="cat-card" onclick="openSub('bags')"><img src="b.jpg"><div class="cat-label">LUXURY BAGS</div></div>
-        <div class="cat-card" onclick="openSub('footwear')"><img src="f.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
-        <div class="cat-card" onclick="openSub('acc_main')"><img src="a.jpg"><div class="cat-label">ACCESSORIES</div></div>
+        <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
+        <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
+        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
+        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
+        <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
+        <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
+        <div class="cat-card" onclick="openSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
     </div>
 </div>
 
 <div id="s-pg" class="page">
-    <div style="padding:20px; font-weight:800; color:var(--cherry); cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
+    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
+    <div id="s-banner" style="width:92%;height:200px;margin:0 auto;border-radius:20px;overflow:hidden"></div>
     <div id="s-grid" class="sub-grid"></div>
 </div>
 
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
-    <div class="nav-btn" onclick="alert('Search Active!')">SEARCH</div>
-    <div class="nav-btn" onclick="alert('Wishlist Ready!')">WISHLIST</div>
-    <div class="nav-btn" onclick="alert('Login with Gmail Ready!')">ACCOUNT</div>
+    <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView()">SHOP</div>
+    <div class="nav-btn" onclick="alert('Wishlist')">WISHLIST</div>
+    <div class="nav-btn" onclick="alert('Account')">ACCOUNT</div>
 </div>
 
 <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
+const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
+
+// POORI SUB-CATEGORIES LIST (Jitni thi sab add kar di hain)
+const subMap={
+'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets','Blazers'],
+'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta','Ethnic Sets'],
+'footwear':['Heels','Sandals','Boots','Bellies','LEXRIVA','Sneakers','Flats','Ethnic','Loafers','Mules','Wedges','Sliders'],
+'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','LEXRIVA','Eyeliner','Kajal','Mascara','Perfumes','Nail Polish'],
+'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','LEXRIVA','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri Earrings','Jhumka','Korean Earrings'],
+'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes','Messenger Bags','Backpacks'],
+'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps','Scarves','Wallets']
+};
+
+async function init(){ try{const r=await fetch(ADMIN_URL); const data=await r.json(); renderH(data);}catch(e){}}
+
+function renderH(data){
+    document.getElementById('eid-scroll').innerHTML=(data.Eid||[]).map(p=>`<div class="scroll-item"><img src="${p.img}"><p style="font-size:10px;font-weight:700">₹${p.price}</p></div>`).join('');
+    document.getElementById('l-scroll').innerHTML=(data.Bestseller||[]).map(p=>`<div class="scroll-item"><img src="${p.img}"><p style="font-size:10px;font-weight:700">₹${p.price}</p></div>`).join('');
+}
+
+function openSub(k){
+    showPg('s-pg');
+    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
+    let h=""; 
     
-    // Sub-Map with Cherry Box logic
-    const subMap = {
-        'western': ['Dresses','Tops','Jeans','T-shirt','CHERRY','Jumpsuit','Co-ords','Sleep Wear'],
-        'ethnic': ['Saree','Kurtis','Dress Material','Lehengas','CHERRY','Gowns','Anarkali','Suits'],
-        'makeup_cat': ['Lipstick','Foundation','Kajal','Mascara','Eyeliner','Perfumes','Compact','CHERRY','Kajal'],
-        'jewellery_master': ['Minimal','Necklace','Earrings','Rings','Bracelet','Bridal','Jhumka','CHERRY','Korean'],
-        'bags': ['Handbags','Sling Bags','Wallets','Clutches','CHERRY','Totes'],
-        'footwear': ['Heels','Sandals','Boots','Sneakers','CHERRY','Flats','Ethnic','Wedges'],
-        'acc_main': ['Hair Acc','Belts','Sunglasses','Watches','CHERRY','Socks','Caps']
-    };
+    (subMap[k]||[]).forEach((n, index)=>{
+        if(n === 'LEXRIVA') {
+            h+=`<div class="cherry-box"><span style="font-size:10px">ESTD. 2024</span><br><span style="font-size:16px; letter-spacing:2px">LEXRIVA</span></div>`;
+        } else {
+            h+=`<div class="sub-item"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/100?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+        }
+    });
+    document.getElementById('s-grid').innerHTML=h;
+}
 
-    function openSub(k) {
-        showPg('s-pg');
-        let h = "";
-        let cherryPos = (k === 'jewellery_master' || k === 'makeup_cat') ? 8 : 5;
-        
-        let items = subMap[k] || [];
-        items.forEach((n, index) => {
-            if (n === 'CHERRY') {
-                h += `<div class="cherry-box"><span style="font-size:10px">ESTD. 2024</span><br><span style="font-size:16px; letter-spacing:2px">LEXRIVA</span></div>`;
-            } else {
-                h += `<div class="sub-item" onclick="alert('Opening '+n)">
-                        <img src="${n.toLowerCase()}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'">
-                        <p>${n}</p>
-                      </div>`;
-            }
-        });
-        document.getElementById('s-grid').innerHTML = h;
-    }
+function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 
-    function showPg(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
-    }
+window.onload = init;
 </script>
 </body>
 </html>
