@@ -32,6 +32,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .cart-btn{flex:1; padding:18px; border:2px solid var(--cherry); color:var(--cherry); background:transparent; border-radius:15px; font-weight:800; cursor:pointer}
 .buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
 .checkout-input{width:100%; padding:15px; margin:10px 0; border:1px solid #ddd; border-radius:12px; box-sizing:border-box}
+.auth-box{background:#fff; padding:30px; border-radius:25px; margin:20px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.05)}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
 .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
 </style></head><body>
@@ -55,7 +56,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 <div id="account-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
     <div id="login-section" class="auth-box">
-        <h2 style="font-family:'Cinzel'">Professional Login</h2>
+        <h2 style="font-family:'Cinzel'">Member Login</h2>
         <input id="phone" class="checkout-input" placeholder="+91 00000 00000">
         <div id="recaptcha-container"></div>
         <button class="buy-btn" style="width:100%" onclick="sendOTP()">SEND OTP</button>
@@ -66,8 +67,8 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     </div>
     <div id="profile-section" class="auth-box" style="display:none">
         <h2 style="font-family:'Cinzel'">My Account</h2>
-        <p id="user-display" style="font-weight:800"></p>
-        <button class="buy-btn" style="background:#ddd; color:#333" onclick="logout()">LOGOUT</button>
+        <p id="user-display" style="font-weight:800; font-size:18px"></p>
+        <button class="buy-btn" style="background:#ddd; color:#333; margin-top:20px" onclick="logout()">LOGOUT</button>
     </div>
 </div>
 
@@ -91,10 +92,10 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 <div id="checkout-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('p-pg')">← BACK</div>
     <div style="padding:20px">
-        <h2 style="font-family:'Cinzel'; text-align:center">Checkout</h2>
+        <h2 style="font-family:'Cinzel'; text-align:center">Order Details</h2>
         <input id="cName" class="checkout-input" placeholder="Full Name">
         <input id="cMobile" class="checkout-input" placeholder="Mobile Number" readonly>
-        <input id="cFlat" class="checkout-input" placeholder="Flat No. / Building">
+        <input id="cFlat" class="checkout-input" placeholder="Flat No. / House No.">
         <input id="cArea" class="checkout-input" placeholder="Area / Landmark">
         <input id="cCity" class="checkout-input" placeholder="City">
         <input id="cPincode" class="checkout-input" placeholder="Pincode">
@@ -109,9 +110,18 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 </div>
 
 <script>
-// UPDATE FIREBASE CONFIG
-const firebaseConfig = { apiKey: "AIzaSy...", authDomain: "lexriva.firebaseapp.com", projectId: "lexriva", storageBucket: "lexriva.appspot.com", messagingSenderId: "...", appId: "..." };
+// YOUR UPDATED FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyD6rx_X0avqU63I_RoNyA0xJ8EKDFRP6xk",
+  authDomain: "lexriva1.firebaseapp.com",
+  projectId: "lexriva1",
+  storageBucket: "lexriva1.firebasestorage.app",
+  messagingSenderId: "551567272339",
+  appId: "1:551567272339:web:e35e9fd06ccf4032d02066",
+  measurementId: "G-W7ZLK4DCC5"
+};
 firebase.initializeApp(firebaseConfig);
+
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbzSsDtANnhXgAs5M0LK-tZ4uHr4_Ij0pxEY8ZJknqf8a5ZMsHSC1EQRCXEHz5RcW7rD/exec";
 let store={}; let currentP={}; let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
 let confirmationResult; let selectedColor=""; let selectedSize="";
