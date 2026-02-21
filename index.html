@@ -3,110 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva | Official Luxury Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Lexriva | Official Luxury Mall</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
-        :root { --lavender: #F4EFFF; --cherry: #72001A; --gold: #D4AF37; --white: #ffffff; --text: #333; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); color: var(--text); overflow-x: hidden; }
-        .page { display: none; max-width: 500px; margin: 0 auto; min-height: 100vh; padding-bottom: 100px; background: var(--white); }
+        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; --white: #ffffff; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; }
+        .page { display: none; max-width: 500px; margin: 0 auto; min-height: 100vh; padding-bottom: 100px; background: #fff; }
         .active { display: block; }
         
         /* Header & Search */
-        .header { background: var(--white); padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #eee; }
-        .logo { font-family: 'Cinzel'; font-size: 26px; letter-spacing: 4px; color: var(--cherry); font-weight: 900; }
-        .search-container { padding: 10px 15px; position: relative; }
-        .search-bar { width: 100%; padding: 12px 40px 12px 15px; border-radius: 25px; border: 1px solid #ddd; outline: none; box-sizing: border-box; }
+        .header { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: 'Cinzel'; font-size: 26px; letter-spacing: 5px; color: var(--cherry); font-weight: 900; }
+        .search-box { padding: 10px 15px; }
+        .search-input { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none; box-sizing: border-box; }
 
-        /* Banner & Sections */
-        .section-title { padding: 20px 15px 10px; font-size: 13px; font-weight: 800; letter-spacing: 1px; color: var(--cherry); text-transform: uppercase; }
-        .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 15px; scrollbar-width: none; }
+        /* Reel & Scroll Sections */
+        .section-title { padding: 15px; font-size: 14px; font-weight: 900; color: var(--cherry); text-transform: uppercase; border-left: 5px solid var(--cherry); margin: 15px; }
+        .h-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 0 15px; scrollbar-width: none; }
+        .reel-card { min-width: 120px; height: 200px; background: #000; border-radius: 15px; overflow: hidden; position: relative; }
+        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
         
-        /* Reels */
-        .reel { min-width: 140px; height: 240px; background: #000; border-radius: 15px; overflow: hidden; cursor: pointer; position: relative; }
-        .reel video { width: 100%; height: 100%; object-fit: cover; }
-        .reel-tag { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.5); color: #fff; font-size: 10px; padding: 4px 8px; border-radius: 10px; }
+        /* Product Cards */
+        .prod-card { min-width: 160px; background: #fff; border-radius: 15px; overflow: hidden; border: 1px solid #eee; position: relative; }
+        .prod-card img { width: 100%; height: 200px; object-fit: cover; }
+        .wish-icon { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.8); padding: 5px; border-radius: 50%; font-size: 12px; }
 
-        /* Category Grid */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .card { position: relative; border-radius: 15px; overflow: hidden; height: 180px; background: #eee; cursor: pointer; border: 1px solid #eee; }
-        .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
-        .card-label { position: absolute; bottom: 0; width: 100%; background: rgba(114,0,26,0.85); color: #fff; text-align: center; padding: 8px 0; font-size: 11px; font-weight: 600; }
+        /* Cherry Box */
+        .cherry-box { background: var(--cherry); color: var(--gold); border-radius: 20px; padding: 20px; text-align: center; font-family: 'Cinzel'; border: 2px solid var(--gold); margin: 15px; }
 
-        /* Sub-Category & Cherry Box */
-        .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 15px; }
-        .sub-item { text-align: center; font-size: 10px; font-weight: 600; cursor: pointer; }
-        .sub-item img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 5px; border: 2px solid var(--cherry); }
-        .cherry-box { background: var(--cherry); color: var(--gold); border-radius: 100px 100px 20px 20px; grid-column: span 1; height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px solid var(--gold); text-align: center; font-family: 'Cinzel'; }
+        /* Full Pic Product View */
+        .full-pic-view { width: 100%; height: 70vh; object-fit: cover; }
 
-        /* UI Elements */
-        .btn { width: 90%; margin: 10px 5%; padding: 15px; background: var(--cherry); color: #fff; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; }
-        .nav { position: fixed; bottom: 0; width: 100%; max-width: 500px; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
-        .badge { position: absolute; top: -5px; right: -10px; background: var(--cherry); color: #white; font-size: 9px; padding: 2px 6px; border-radius: 50%; }
-        
-        /* Modal for OTP */
-        .login-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        /* Bottom Nav */
+        .nav { position: fixed; bottom: 0; width: 100%; max-width: 500px; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .btn { width: 90%; margin: 15px 5%; padding: 15px; background: var(--cherry); color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="header">
     <div class="logo">LEXRIVA</div>
-</div>
-
-<div class="search-container">
-    <input type="text" class="search-bar" placeholder="Search Eid Suits, Jewelry, Makeup..." id="mainSearch">
+    <div class="search-box"><input type="text" class="search-input" placeholder="Search luxury products..." id="searchInp" onkeyup="searchFunc()"></div>
 </div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="eid_banner.jpg" style="width:100%; border-radius:20px" onerror="this.src='https://via.placeholder.com/500x250?text=Eid+Special+Edits'"></div>
-    
-    <div class="section-title">🎬 Trending Reels</div>
-    <div class="h-scroll">
-        <div class="reel" onclick="openCat('ethnic')"><video src="reel1.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Ethnic</div></div>
-        <div class="reel" onclick="openCat('western')"><video src="reel2.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Western</div></div>
-        <div class="reel" onclick="openCat('jewellery')"><video src="reel3.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Jewel</div></div>
-        <div class="reel" onclick="openCat('makeup')"><video src="reel4.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Makeup</div></div>
-        <div class="reel" onclick="openCat('footwear')"><video src="reel5.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Heels</div></div>
-        <div class="reel" onclick="openCat('bags')"><video src="reel6.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Bags</div></div>
-        <div class="reel" onclick="openCat('accessories')"><video src="reel7.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Acc</div></div>
-        <div class="reel" onclick="openCat('western')"><video src="reel8.mp4" autoplay muted loop playsinline></video><div class="reel-tag">Trends</div></div>
+    <div class="section-title">🎬 Lexriva Reels</div>
+    <div class="h-scroll" id="reel-list">
+        <div class="reel-card"><video src="r1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card"><video src="r2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card"><video src="r3.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card"><video src="r4.mp4" autoplay muted loop playsinline></video></div>
     </div>
 
-    <div class="section-title">🔥 Best Sellers</div>
-    <div class="h-scroll" id="bestSellers"></div>
+    <div id="eid-section"></div>
+    <div id="best-section"></div>
 
-    <div class="section-title">👗 Categories</div>
-    <div class="grid" id="catGrid"></div>
+    <div class="cherry-box">ESTD 2024<br><span style="font-size:24px">LEXRIVA</span><br>Luxury Mall</div>
+
+    <div class="section-title">Categories</div>
+    <div id="cat-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px;"></div>
 </div>
 
-<div id="s-pg" class="page">
-    <div style="padding:15px; font-weight:800; color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
-    <div class="sub-grid" id="subGrid"></div>
+<div id="p-pg" class="page">
+    <div style="position:relative">
+        <div style="position:absolute; top:20px; left:20px; background:#fff; padding:10px; border-radius:50%" onclick="showPg('h-pg')">←</div>
+        <img id="p-img" class="full-pic-view">
+    </div>
+    <div style="padding:20px">
+        <h2 id="p-name" style="margin:0; font-family:'Cinzel'"></h2>
+        <h3 id="p-price" style="color:var(--cherry)"></h3>
+        <p id="p-desc" style="font-size:14px; color:#666"></p>
+        <button class="btn" onclick="addToCart()">ADD TO CART</button>
+    </div>
 </div>
 
-<div id="cart-pg" class="page">
-    <div style="padding:20px; text-align:center;">
-        <h2 style="font-family:'Cinzel'">Your Luxury Cart</h2>
-        <div id="cartItems"></div>
-        <hr>
-        <div id="checkout-form" style="padding:15px; display:none;">
-            <input type="text" id="custName" class="login-input" placeholder="Full Name">
-            <input type="text" id="custAddr" class="login-input" placeholder="Delivery Address">
-            <input type="text" id="custPhone" class="login-input" placeholder="Phone Number">
-            <button class="btn" onclick="confirmOrder()">CONFIRM ORDER</button>
-        </div>
-        <button class="btn" id="checkBtn" onclick="toggleCheckout()">CHECKOUT NOW</button>
+<div id="checkout-pg" class="page">
+    <div style="padding:20px">
+        <h2 style="text-align:center">Checkout</h2>
+        <input type="text" id="cName" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Full Name">
+        <input type="email" id="cEmail" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Email">
+        <input type="text" id="cMobile" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Mobile Number">
+        <input type="text" id="cAddress" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Full Address with Pincode">
+        <button class="btn" onclick="placeOrder()">CONFIRM & PAY</button>
     </div>
 </div>
 
 <div id="login-pg" class="page">
-    <div style="padding:40px; text-align:center;">
-        <h2 style="font-family:'Cinzel'">Member Login</h2>
-        <input type="email" id="loginEmail" class="login-input" placeholder="Enter Gmail">
+    <div style="padding:50px 20px; text-align:center">
+        <h2 style="font-family:'Cinzel'">Login</h2>
+        <input type="email" id="lEmail" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Enter Gmail">
         <button class="btn" onclick="sendOTP()">SEND OTP</button>
-        <div id="otpDiv" style="display:none;">
-            <input type="text" id="otpInp" class="login-input" placeholder="4-Digit Code">
+        <div id="otp-div" style="display:none">
+            <input type="text" id="lOtp" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Enter 4-Digit OTP">
             <button class="btn" onclick="verifyOTP()">VERIFY</button>
         </div>
     </div>
@@ -114,115 +103,74 @@
 
 <div class="nav">
     <div onclick="showPg('h-pg')">Home</div>
-    <div onclick="alert('Wishlist Saved!')" style="position:relative">Wishlist</div>
-    <div onclick="showPg('cart-pg')" style="position:relative">Cart <span class="badge" id="cartCount">0</span></div>
-    <div onclick="showPg('login-pg')">Login</div>
+    <div onclick="alert('Added to Wishlist!')">Wishlist</div>
+    <div onclick="showPg('checkout-pg')">Cart</div>
+    <div onclick="showPg('login-pg')">Account</div>
 </div>
 
 <script>
-    // --- CONFIGURATION (Sumayya, apni IDs yahan dalein) ---
-    const EMAILJS_PUBLIC_KEY = "YAHAN_KEY_DAALEIN";
-    const SERVICE_ID = "service_eygnyi7";
-    const OTP_TEMPLATE = "template_u5ewa3r";
-    const SMART_TEMPLATE = "template_3ubs2uj";
-    const GOOGLE_SHEET_URL = "YAHAN_SHEET_LINK_DAALEIN";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
+    let storeData = {};
+    let currentProd = null;
+    let genOtp;
 
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-
-    let cart = [];
-    let generatedOTP;
-
-    const data = {
-        'western': ['Dresses', 'Tops', 'Jeans', 'T-shirt', 'LEXRIVA', 'Jumpsuit', 'Co-ords', 'Sleep Wear', 'Trousers', 'Shorts', 'Skirts', 'Jackets'],
-        'ethnic': ['Saree', 'Kurtis', 'Dress Material', 'Lehengas', 'LEXRIVA', 'Gowns', 'Anarkali', 'Suits', 'Palazzo', 'Sharara', 'Dupatta'],
-        'jewellery': ['Minimal', 'Necklace Set', 'Earrings', 'Maangtika', 'LEXRIVA', 'Rings', 'Bracelet', 'Bridal', 'Kashmiri', 'Jhumka', 'Korean'],
-        'makeup': ['Lipstick', 'Foundation', 'Eyeliner', 'Mascara', 'LEXRIVA', 'Perfumes', 'Kajal', 'Eyeshadow'],
-        'footwear': ['Heels', 'Sandals', 'Boots', 'Sneakers', 'LEXRIVA', 'Flats', 'Ethnic', 'Wedges'],
-        'bags': ['Handbags', 'Sling Bags', 'Wallets', 'LEXRIVA', 'Clutches', 'Totes'],
-        'accessories': ['Watches', 'Sunglasses', 'Belts', 'LEXRIVA', 'Hair Acc', 'Caps']
-    };
+    async function loadStore() {
+        const res = await fetch(SCRIPT_URL);
+        storeData = await res.json();
+        renderHome();
+    }
 
     function renderHome() {
-        const cats = Object.keys(data);
-        document.getElementById('catGrid').innerHTML = cats.map(c => `
-            <div class="card" onclick="openCat('${c}')">
-                <img src="${c}.jpg" onerror="this.src='https://via.placeholder.com/200?text=${c.toUpperCase()}'">
-                <div class="card-label">${c.toUpperCase()}</div>
-            </div>
-        `).join('');
+        // Eid & Bestseller
+        if(storeData['Eid']) renderSection('eid-section', '🌙 Eid Edits', storeData['Eid']);
+        if(storeData['Bestseller']) renderSection('best-section', '🔥 Best Sellers', storeData['Bestseller']);
 
-        // Best Sellers (Example)
-        document.getElementById('bestSellers').innerHTML = ['Premium Suit', 'Silk Saree', 'Gold Jhumka'].map(i => `
-            <div style="min-width:120px; text-align:center;">
-                <img src="best.jpg" style="width:100px; height:100px; border-radius:15px; border:1px solid #eee;">
-                <p style="font-size:10px; font-weight:700;">${i}</p>
-            </div>
+        // Categories
+        const cats = Object.keys(storeData).filter(n => n !== 'Orders' && n !== 'Eid' && n !== 'Bestseller');
+        document.getElementById('cat-list').innerHTML = cats.map(c => `
+            <div onclick="openCat('${c}')" style="background:var(--lavender); padding:20px; border-radius:15px; text-align:center; font-weight:800; color:var(--cherry)">${c.toUpperCase()}</div>
         `).join('');
     }
 
-    function openCat(cat) {
-        showPg('s-pg');
-        let html = "";
-        data[cat].forEach(item => {
-            if(item === 'LEXRIVA') {
-                html += `<div class="cherry-box"><span>ESTD</span><br><strong>LEXRIVA</strong><br><span>2024</span></div>`;
-            } else {
-                html += `
-                <div class="sub-item" onclick="addToCart('${item}')">
-                    <img src="${item.toLowerCase()}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${item}'">
-                    <p>${item}</p>
-                </div>`;
-            }
-        });
-        document.getElementById('subGrid').innerHTML = html;
+    function renderSection(divId, title, data) {
+        document.getElementById(divId).innerHTML = `
+            <div class="section-title">${title}</div>
+            <div class="h-scroll">${data.map(p => `
+                <div class="prod-card" onclick="openProd('${p.name}', '${p.price}', '${p.img}', '${p.description}')">
+                    <img src="${p.img}">
+                    <div class="prod-info"><b>${p.name}</b><br><span style="color:var(--cherry)">₹${p.price}</span></div>
+                </div>
+            `).join('')}</div>`;
     }
 
-    function addToCart(item) {
-        cart.push(item);
-        document.getElementById('cartCount').innerText = cart.length;
-        alert(item + " added to Cart!");
+    function openProd(name, price, img, desc) {
+        currentProd = { name, price };
+        document.getElementById('p-name').innerText = name;
+        document.getElementById('p-price').innerText = "₹" + price;
+        document.getElementById('p-img').src = img;
+        document.getElementById('p-desc').innerText = desc || "Luxury product by Lexriva.";
+        showPg('p-pg');
     }
 
-    function toggleCheckout() {
-        document.getElementById('checkout-form').style.display = 'block';
-        document.getElementById('checkBtn').style.display = 'none';
+    function openCat(catName) {
+        // Sub-category logic yahan aayegi
+        alert("Opening " + catName + " with sub-categories!");
     }
 
-    // --- EMAIL & ORDER LOGIC ---
+    // OTP Logic
     function sendOTP() {
-        let email = document.getElementById('loginEmail').value;
-        generatedOTP = Math.floor(1000 + Math.random() * 9000);
-        emailjs.send(SERVICE_ID, OTP_TEMPLATE, { to_email: email, otp: generatedOTP })
-        .then(() => { alert("OTP Sent!"); document.getElementById('otpDiv').style.display='block'; });
+        let email = document.getElementById('lEmail').value;
+        genOtp = Math.floor(1000 + Math.random() * 9000);
+        // EmailJS call yahan karein
+        alert("OTP Sent to " + email);
+        document.getElementById('otp-div').style.display = 'block';
     }
 
     function verifyOTP() {
-        if(document.getElementById('otpInp').value == generatedOTP) {
-            alert("Login Successful!");
+        if(document.getElementById('lOtp').value == genOtp) {
+            alert("Login Success!");
             showPg('h-pg');
-        } else { alert("Invalid OTP"); }
-    }
-
-    function confirmOrder() {
-        const name = document.getElementById('custName').value;
-        const email = document.getElementById('loginEmail').value || "Guest";
-        
-        // Send Confirmation Mail
-        emailjs.send(SERVICE_ID, SMART_TEMPLATE, {
-            to_email: email,
-            customer_name: name,
-            subject_line: "Order Confirmed! 🎉",
-            main_status_message: "Thank you! Your order has been placed successfully.",
-            extra_details: "Items: " + cart.join(", ")
-        }).then(() => {
-            alert("Order Placed! Check Email.");
-            // Reset Cart
-            cart = [];
-            document.getElementById('cartCount').innerText = 0;
-            showPg('h-pg');
-        });
-
-        // Sumayya, yahan aap Google Sheet API fetch call add kar sakti hain
+        } else { alert("Wrong OTP!"); }
     }
 
     function showPg(id) {
@@ -231,8 +179,7 @@
         window.scrollTo(0,0);
     }
 
-    window.onload = renderHome;
+    window.onload = loadStore;
 </script>
-
 </body>
 </html>
