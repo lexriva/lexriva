@@ -5,95 +5,122 @@
 <style>
 :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
-.page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
+.page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:120px;background:var(--lavender)}
 .active{display:block}
-.header{background:#fff;padding:15px;text-align:center;position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.header{background:#fff;padding:15px;text-align:center;position:sticky;top:0;z-index:1000}
 .logo{font-family:'Cinzel';font-size:24px;letter-spacing:5px;font-weight:900;color:var(--cherry)}
 
-/* REELS SECTION */
-.reel-scroll{display:flex;overflow-x:auto;gap:12px;padding:10px 15px;scrollbar-width:none}
-.reel-card{min-width:140px;height:240px;background:#000;border-radius:15px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1)}
+/* SEARCH BAR */
+.search-wrapper { padding: 10px 15px; background: #fff; border-bottom: 1px solid #eee; }
+.search-input { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none; box-sizing: border-box; }
+
+/* REELS (Clickable) */
+.section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);letter-spacing:1px}
+.h-scroll{display:flex;overflow-x:auto;gap:12px;padding:0 15px;scrollbar-width:none}
+.reel-card{min-width:140px;height:240px;background:#000;border-radius:15px;overflow:hidden;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.1)}
 .reel-card video{width:100%;height:100%;object-fit:cover}
 
-/* CATEGORY & PRODUCTS */
-.section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry);letter-spacing:1px}
+/* CATEGORY & PRODUCT GRID */
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
-.cat-card{position:relative;border-radius:20px;overflow:hidden;height:150px;box-shadow:0 8px 15px rgba(0,0,0,0.05);cursor:pointer;background:#fff}
+.cat-card{position:relative;border-radius:20px;overflow:hidden;height:160px;background:#fff;cursor:pointer}
 .cat-card img{width:100%;height:100%;object-fit:cover}
 .cat-label{position:absolute;bottom:0;left:0;right:0;background:rgba(114,0,26,0.85);color:#fff;font-size:10px;font-weight:700;padding:10px;text-align:center}
 
-/* SUB GRID & CHERRY BOX */
+/* CHERRY BOX & SUB GRID */
 .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);padding:10px;gap:10px}
 .sub-item{text-align:center;padding:10px 0;cursor:pointer}
-.sub-item img{width:75px;height:75px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-.cherry-box{background:var(--cherry);color:var(--gold);border-radius:120px 120px 20px 20px;margin:15px auto;width:130px;height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;border:2px solid var(--gold)}
+.sub-item img{width:75px;height:75px;border-radius:50%;object-fit:cover;border:2px solid #fff;box-shadow:0 4px 8px rgba(0,0,0,0.1)}
+.cherry-box{background:var(--cherry);color:var(--gold);border-radius:120px 120px 20px 20px;margin:15px auto;width:130px;height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-family:'Cinzel';border:2px solid var(--gold)}
 
-/* PRODUCT PAGE */
-.p-image-box img{width:100%;height:450px;object-fit:cover}
-.p-details{background:#fff;padding:25px;border-radius:30px 30px 0 0;margin-top:-30px;position:relative}
-.option-btn{padding:8px 15px;border:1px solid #ddd;border-radius:8px;margin-right:8px;cursor:pointer;font-size:12px;display:inline-block}
-.option-btn.selected{background:var(--cherry);color:#fff;border-color:var(--cherry)}
+/* PRODUCT PAGE STYLES */
+.product-img-big{width:100%;height:450px;object-fit:cover;border-radius:0 0 30px 30px}
+.variant-btn{padding:10px 15px;border:1px solid #ddd;border-radius:8px;margin-right:10px;cursor:pointer;background:#fff}
+.variant-btn.selected{background:var(--cherry);color:#fff;border-color:var(--cherry)}
 
-/* CHECKOUT */
-.checkout-input{width:100%;padding:15px;margin:10px 0;border:1px solid #ddd;border-radius:12px;box-sizing:border-box}
-.buy-btn{width:100%;padding:18px;background:var(--cherry);color:#fff;border:none;border-radius:15px;font-weight:800;cursor:pointer;text-transform:uppercase}
-
+/* FOOTER NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
+.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center;position:relative}
+.cart-count{position:absolute;top:-5px;right:-5px;background:red;color:#fff;padding:2px 5px;border-radius:50%;font-size:9px}
+
+.buy-btn{width:100%;padding:18px;background:var(--cherry);color:#fff;border:none;border-radius:15px;font-weight:800;cursor:pointer}
+.checkout-input{width:100%;padding:15px;margin:10px 0;border:1px solid #ddd;border-radius:12px;box-sizing:border-box}
 </style></head><body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
+<div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..." oninput="filterSearch()"></div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Mall'"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Collection'"></div>
+    
     <div class="section-h">🎬 TRENDING REELS</div>
-    <div class="reel-scroll">
-        <div class="reel-card"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+    <div class="reel-scroll h-scroll">
+        <div class="reel-card" onclick="openSub('western')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openSub('ethnic')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openSub('jewellery_master')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openSub('makeup_cat')"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openSub('bags')"><video src="reel5.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openSub('footwear')"><video src="reel6.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openSub('acc_main')"><video src="reel7.mp4" autoplay muted loop playsinline></video></div>
     </div>
-    <div class="section-h">👗 TOP CATEGORIES</div>
-    <div id="main-cat-grid" class="cat-grid"></div>
+
+    <div class="section-h">🌙 EID EDITS</div><div id="eid-scroll" class="h-scroll"></div>
+    <div class="section-h">🔥 BEST SELLERS</div><div id="best-scroll" class="h-scroll"></div>
+    <div class="section-h">👗 SHOP BY CATEGORY</div><div id="main-cat-grid" class="cat-grid"></div>
 </div>
 
-<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:200px"></div><div id="s-grid" class="sub-grid"></div></div>
-
-<div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('s-pg')">← BACK</div><div id="p-list-grid" class="cat-grid"></div></div>
-
-<div id="p-detail-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('p-list-pg')">← BACK</div>
-    <div class="p-image-box" id="p-img"></div>
-    <div class="p-details">
-        <h2 id="p-title" style="margin:0;color:var(--cherry)"></h2>
-        <p id="p-price" style="font-size:20px;font-weight:800;margin:10px 0"></p>
-        <div class="section-h" style="padding:10px 0">Select Variant</div>
-        <div id="p-variants"></div>
-        <p id="p-desc" style="color:#666;font-size:13px;line-height:1.6;margin-top:20px"></p>
-        <button class="buy-btn" style="margin-top:20px" onclick="showPg('checkout-pg')">BUY NOW</button>
+<div id="p-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+    <img id="p-img" class="product-img-big">
+    <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative">
+        <h2 id="p-name" style="margin:0;color:var(--cherry)"></h2>
+        <p id="p-price" style="font-size:22px;font-weight:800;margin:10px 0"></p>
+        <p style="font-size:12px;font-weight:700">SELECT VARIANT</p>
+        <div id="p-variants" style="display:flex;margin-bottom:20px"></div>
+        <p id="p-desc" style="color:#666;font-size:13px;line-height:1.6;margin-bottom:100px"></p>
+    </div>
+    <div style="position:fixed;bottom:70px;left:0;right:0;padding:15px;background:#fff;display:flex;gap:10px;max-width:500px;margin:0 auto">
+        <button class="buy-btn" style="background:#fff;color:var(--cherry);border:2px solid var(--cherry)" onclick="addToCart()">ADD TO CART</button>
+        <button class="buy-btn" onclick="showPg('checkout-pg')">BUY NOW</button>
     </div>
 </div>
+
+<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-grid" class="sub-grid"></div></div>
 
 <div id="checkout-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('p-detail-pg')">← BACK</div>
+    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('p-pg')">← BACK</div>
     <div style="padding:20px">
-        <h2 style="font-family:'Cinzel';text-align:center">Shipping Details</h2>
+        <h2 style="font-family:'Cinzel';text-align:center">Delivery Details</h2>
         <input id="cName" class="checkout-input" placeholder="Full Name">
-        <input id="cPhone" class="checkout-input" placeholder="Mobile Number">
-        <input id="cAddress" class="checkout-input" placeholder="Full Address">
+        <input id="cMobile" class="checkout-input" placeholder="Mobile Number">
+        <input id="cAddress" class="checkout-input" placeholder="Complete Address">
         <input id="cCity" class="checkout-input" placeholder="City & Pincode">
-        <div style="background:#f9f9f9;padding:15px;border-radius:12px;margin:15px 0">
-            <p style="margin:0;font-size:12px">Payment Mode: <b>Cash on Delivery (COD)</b></p>
+        <button class="buy-btn" style="margin-top:20px" onclick="confirmOrder()">PLACE ORDER</button>
+    </div>
+</div>
+
+<div id="account-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+    <div id="login-section" style="padding:30px; text-align:center; background:#fff; margin:20px; border-radius:25px">
+        <h2 style="font-family:'Cinzel'">Branded Login</h2>
+        <input id="phone" class="checkout-input" placeholder="+91 00000 00000">
+        <div id="recaptcha-container" style="margin:10px 0"></div>
+        <button class="buy-btn" onclick="sendOTP()">SEND OTP</button>
+        <div id="otp-area" style="display:none; margin-top:15px">
+            <input id="otp" class="checkout-input" placeholder="6-digit OTP">
+            <button class="buy-btn" onclick="verifyOTP()">VERIFY</button>
         </div>
-        <button class="buy-btn" onclick="placeOrder()">PLACE ORDER</button>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <div class="nav-btn" onclick="showPg('h-pg')">Home</div>
-    <div class="nav-btn" onclick="alert('Wishlist coming soon')">Wishlist</div>
-    <div class="nav-btn" onclick="showPg('h-pg')">Account</div>
+    <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
+    <div class="nav-btn" onclick="alert('Wishlist Saved!')">WISHLIST</div>
+    <div class="nav-btn" onclick="alert('Cart is empty')">CART<span class="cart-count">0</span></div>
+    <div class="nav-btn" onclick="showPg('account-pg')">ACCOUNT</div>
 </div>
 
 <script>
+// FIREBASE CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyD6rx_X0avqU63I_RoNyA0xJ8EKDFRP6xk",
   authDomain: "lexriva1.firebaseapp.com",
@@ -104,6 +131,9 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
+const ADMIN_URL="https://script.google.com/macros/s/AKfycbzSsDtANnhXgAs5M0LK-tZ4uHr4_Ij0pxEY8ZJknqf8a5ZMsHSC1EQRCXEHz5RcW7rD/exec";
+let store={}; let cart=[];
+
 const subMap={
 'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
 'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
@@ -113,6 +143,10 @@ const subMap={
 'bags':['Bag Packs','Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
 'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
 };
+
+async function init(){ 
+    try{ const r=await fetch(ADMIN_URL); store=await r.json(); renderH(); renderCats(); }catch(e){}
+}
 
 function renderCats(){
     const cats = [
@@ -126,7 +160,7 @@ function renderCats(){
     ];
     document.getElementById('main-cat-grid').innerHTML = cats.map(c=>`
         <div class="cat-card" onclick="openSub('${c.id}')">
-            <img src="${c.img}" onerror="this.src='https://via.placeholder.com/300x150?text=${c.n}'">
+            <img src="${c.img}" onerror="this.src='https://via.placeholder.com/300x160?text=${c.n}'">
             <div class="cat-label">${c.n}</div>
         </div>
     `).join('');
@@ -134,36 +168,51 @@ function renderCats(){
 
 function openSub(k){
     showPg('s-pg');
-    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
     let h=""; (subMap[k]||[]).forEach(n=>{
-        if(n === 'LEXRIVA') h+=`<div class="cherry-box"><span style="font-size:10px">ESTD. 2024</span><br><span style="font-size:16px; letter-spacing:2px">LEXRIVA</span></div>`;
-        else h+=`<div class="sub-item" onclick="showProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700">${n}</p></div>`;
+        if(n === 'LEXRIVA') h+=`<div class="cherry-box"><span>ESTD. 2024</span><br><span style="font-size:16px">LEXRIVA</span></div>`;
+        else h+=`<div class="sub-item" onclick="openProductList('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
 }
 
-function showProducts(sub){
-    showPg('p-list-pg');
-    // Dummy product for demo - Aapke Sheet data se link hoga
-    document.getElementById('p-list-grid').innerHTML = `<div class="cat-card" onclick="openProductDetail()"><img src="https://via.placeholder.com/300x400?text=Luxury+Item"><div class="cat-label">New Arrival - ₹999</div></div>`;
+function renderH(){
+    const eid = store.eid || [];
+    const best = store.latest || [];
+    document.getElementById('eid-scroll').innerHTML = eid.map(p=>`<div class="scroll-item" onclick="openProduct('${p.n}','${p.p}','${p.i}','${p.d}')"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
+    document.getElementById('best-scroll').innerHTML = best.map(p=>`<div class="scroll-item" onclick="openProduct('${p.n}','${p.p}','${p.i}','${p.d}')"><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div>`).join('');
 }
 
-function openProductDetail(){
-    showPg('p-detail-pg');
-    document.getElementById('p-title').innerText = "Premium Luxury Suit";
-    document.getElementById('p-price').innerText = "₹1,299";
-    document.getElementById('p-desc').innerText = "High quality fabric with elegant design. Perfect for parties and special occasions. Limited edition Lexriva collection.";
-    document.getElementById('p-img').innerHTML = `<img src="https://via.placeholder.com/500x700?text=Product+Image">`;
-    document.getElementById('p-variants').innerHTML = `<div class="option-btn selected">M</div><div class="option-btn">L</div><div class="option-btn">XL</div>`;
-}
-
-function placeOrder(){
-    const name = document.getElementById('cName').value;
-    if(!name) return alert("Please fill details!");
-    alert("Order Placed Successfully! We will contact you soon.");
-    showPg('h-pg');
+function openProduct(n, p, i, d){
+    document.getElementById('p-name').innerText = n;
+    document.getElementById('p-price').innerText = "₹" + p;
+    document.getElementById('p-img').src = i;
+    document.getElementById('p-desc').innerText = d || "Luxury quality product by Lexriva.";
+    showPg('p-pg');
 }
 
 function showPg(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
-window.onload = renderCats;
+
+// GOOGLE SHEET ORDER
+async function confirmOrder(){
+    alert("Order data sending to Sheet...");
+    // Sheet POST logic here
+}
+
+// LOGIN FUNCTIONS
+let confirmationResult;
+function sendOTP(){
+    let ph = document.getElementById('phone').value;
+    if(!ph.includes('+')) ph = "+91" + ph;
+    let appVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+    firebase.auth().signInWithPhoneNumber(ph, appVerifier).then(res => {
+        confirmationResult = res; document.getElementById('otp-area').style.display='block'; alert("OTP Sent!");
+    }).catch(e => alert(e.message));
+}
+
+function verifyOTP(){
+    let code = document.getElementById('otp').value;
+    confirmationResult.confirm(code).then(() => { alert("Login Successful!"); location.reload(); }).catch(() => alert("Invalid OTP"));
+}
+
+window.onload = init;
 </script></body></html>
