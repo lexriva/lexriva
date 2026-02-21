@@ -1,5 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Luxury Mall</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
 <style>
 :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
@@ -13,12 +15,8 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative;}
 .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
-
-/* WISHLIST BUTTON */
 .wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:10;}
 .wish-btn.active{color:red}
-
-/* CATEGORY & SUB GRID */
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
 .cat-card img{width:100%;height:100%;object-fit:cover}
@@ -26,20 +24,14 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0;}
 .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
 .sub-item img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-
-/* CHERRY BOX */
 .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:130px; height:180px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); box-shadow:0 10px 25px rgba(114,0,26,0.3)}
-
-/* PRODUCT & CHECKOUT */
 #p-gallery img{min-width:100%; height:550px; object-fit:cover; border-bottom: 2px solid var(--cherry)}
 .option-box{display:inline-block; padding:8px 15px; border:1px solid #ddd; margin:5px; border-radius:8px; cursor:pointer; font-size:12px; background:#fff}
 .option-box.selected{background:var(--cherry); color:#fff; border-color:var(--cherry)}
-.info-badge{display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; color:#444; margin-top:10px; background:#f9f9f9; padding:10px; border-radius:10px}
 .btn-group{display:flex; gap:10px; padding:15px; background:#fff; position:fixed; bottom:0; left:0; right:0; max-width:500px; margin:0 auto; z-index:1001}
 .cart-btn{flex:1; padding:18px; border:2px solid var(--cherry); color:var(--cherry); background:transparent; border-radius:15px; font-weight:800; cursor:pointer}
 .buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
 .checkout-input{width:100%; padding:15px; margin:10px 0; border:1px solid #ddd; border-radius:12px; box-sizing:border-box}
-
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
 .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
 </style></head><body>
@@ -48,77 +40,81 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 <div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..." oninput="filterSearch()"></div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Mall'"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury+Mall'"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
     <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
-    
     <div class="section-h">🎬 TRENDING REELS</div>
     <div class="h-scroll" style="padding-bottom:15px">
         <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
         <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
     </div>
-
     <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
-    <div class="cat-grid">
-        <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
-        <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
-        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
-        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
-        <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
-        <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
-        <div class="cat-card" onclick="openSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
+    <div class="cat-grid" id="main-cat-grid"></div>
+</div>
+
+<div id="account-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
+    <div id="login-section" class="auth-box">
+        <h2 style="font-family:'Cinzel'">Professional Login</h2>
+        <input id="phone" class="checkout-input" placeholder="+91 00000 00000">
+        <div id="recaptcha-container"></div>
+        <button class="buy-btn" style="width:100%" onclick="sendOTP()">SEND OTP</button>
+        <div id="otp-area" style="display:none; margin-top:15px">
+            <input id="otp" class="checkout-input" placeholder="6-digit OTP">
+            <button class="buy-btn" style="width:100%" onclick="verifyOTP()">VERIFY & LOGIN</button>
+        </div>
+    </div>
+    <div id="profile-section" class="auth-box" style="display:none">
+        <h2 style="font-family:'Cinzel'">My Account</h2>
+        <p id="user-display" style="font-weight:800"></p>
+        <button class="buy-btn" style="background:#ddd; color:#333" onclick="logout()">LOGOUT</button>
     </div>
 </div>
 
-<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
-<div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div><div class="section-h" id="p-list-title">COLLECTION</div><div id="p-list-grid" class="cat-grid"></div></div>
-<div id="wish-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div class="section-h">💖 MY WISHLIST</div><div id="wish-grid" class="cat-grid"></div></div>
+<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
+<div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('s-pg')">← BACK</div><div class="section-h" id="p-list-title">COLLECTION</div><div id="p-list-grid" class="cat-grid"></div></div>
+<div id="wish-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div><div class="section-h">💖 MY WISHLIST</div><div id="wish-grid" class="cat-grid"></div></div>
 
 <div id="p-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
+    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('h-pg')">← BACK</div>
     <div id="p-gallery" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none"></div>
     <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative; z-index:10">
         <h2 id="p-name" style="color:var(--cherry); margin-bottom:5px"></h2>
         <p id="p-price" style="font-weight:800; font-size:22px; margin:0"></p>
-        <p id="p-delivery-tag" style="font-size:12px; color:var(--cherry); font-weight:700; margin-top:5px"></p>
-        <div class="info-badge">🚚 Delivery in 6-7 Days</div>
-        <div class="info-badge">🔄 Exchange available after 2 days</div>
-        <p style="font-size:11px; font-weight:700; margin-top:20px; color:#888">CHOOSE COLOR</p><div id="color-options"></div>
-        <p style="font-size:11px; font-weight:700; margin-top:15px; color:#888">CHOOSE SIZE</p><div id="size-options"></div>
-        <p id="p-desc" style="font-size:13px; color:#666; margin-top:20px; padding-bottom:100px"></p>
+        <div id="color-options" style="margin-top:15px"></div>
+        <div id="size-options" style="margin-top:10px"></div>
+        <p id="p-desc" style="font-size:13px; color:#666; margin-top:15px; padding-bottom:100px"></p>
     </div>
-    <div class="btn-group">
-        <button class="cart-btn" onclick="addToCart()">ADD TO CART</button>
-        <button class="buy-btn" onclick="showPg('checkout-pg')">BUY NOW</button>
-    </div>
+    <div class="btn-group"><button class="cart-btn" onclick="addToCart()">ADD TO CART</button><button class="buy-btn" onclick="goToCheckout()">BUY NOW</button></div>
 </div>
 
 <div id="checkout-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('p-pg')">← BACK</div>
+    <div style="padding:20px;font-weight:800;color:var(--cherry)" onclick="showPg('p-pg')">← BACK</div>
     <div style="padding:20px">
-        <h2 style="font-family:'Cinzel'; text-align:center">Checkout Details</h2>
+        <h2 style="font-family:'Cinzel'; text-align:center">Checkout</h2>
         <input id="cName" class="checkout-input" placeholder="Full Name">
-        <input id="cEmail" class="checkout-input" placeholder="Email Address">
-        <input id="cMobile" class="checkout-input" placeholder="Mobile Number">
-        <input id="cFlat" class="checkout-input" placeholder="Flat / House No. / Building">
-        <input id="cArea" class="checkout-input" placeholder="Area / Landmark / Street">
+        <input id="cMobile" class="checkout-input" placeholder="Mobile Number" readonly>
+        <input id="cFlat" class="checkout-input" placeholder="Flat No. / Building">
+        <input id="cArea" class="checkout-input" placeholder="Area / Landmark">
         <input id="cCity" class="checkout-input" placeholder="City">
         <input id="cPincode" class="checkout-input" placeholder="Pincode">
-        <button class="buy-btn" style="width:100%; margin-top:20px" onclick="confirmOrder()">CONFIRM ORDER</button>
+        <button class="buy-btn" style="width:100%; margin-top:20px" onclick="confirmOrder()">PLACE ORDER</button>
     </div>
 </div>
 
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
-    <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView()">SHOP</div>
     <div class="nav-btn" onclick="showWishlist()">WISHLIST</div>
-    <div class="nav-btn" onclick="alert('Account Coming Soon')">ACCOUNT</div>
+    <div class="nav-btn" onclick="checkAuth()">ACCOUNT</div>
 </div>
 
 <script>
+// UPDATE FIREBASE CONFIG
+const firebaseConfig = { apiKey: "AIzaSy...", authDomain: "lexriva.firebaseapp.com", projectId: "lexriva", storageBucket: "lexriva.appspot.com", messagingSenderId: "...", appId: "..." };
+firebase.initializeApp(firebaseConfig);
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbzSsDtANnhXgAs5M0LK-tZ4uHr4_Ij0pxEY8ZJknqf8a5ZMsHSC1EQRCXEHz5RcW7rD/exec";
-let store={}; let currentP={}; let selectedColor=""; let selectedSize="";
-let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
+let store={}; let currentP={}; let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
+let confirmationResult; let selectedColor=""; let selectedSize="";
 
 const subMap={
 'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
@@ -130,21 +126,26 @@ const subMap={
 'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks','Caps']
 };
 
-async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){}}
+async function init(){ 
+    try{ const r=await fetch(ADMIN_URL); store=await r.json(); renderH(); renderCats(); }catch(e){}
+    firebase.auth().onAuthStateChanged(user => { if(user) updateAuthUI(user); });
+}
 
 function renderH(data=store){
     document.getElementById('eid-scroll').innerHTML=(data.eid||[]).map(p=>renderItem(p, 'scroll')).join('');
     document.getElementById('l-scroll').innerHTML=(data.latest||[]).map(p=>renderItem(p, 'scroll')).join('');
 }
 
+function renderCats(){
+    const cats = [['western','WESTERN'],['ethnic','ETHNIC'],['makeup_cat','MAKEUP'],['jewellery_master','JEWEL'],['bags','BAGS'],['footwear','FOOTWEAR'],['acc_main','ACC']];
+    document.getElementById('main-cat-grid').innerHTML = cats.map(c=>`<div class="cat-card" onclick="openSub('${c[0]}')"><img src="cat_${c[0]}.jpg"><div class="cat-label">${c[1]}</div></div>`).join('');
+}
+
 function renderItem(p, type){
     const isWished = wishlist.find(x => x.n === p.n) ? 'active' : '';
     const click = `onclick="openProduct('${p.n.replace(/'/g,"")}','${p.p}','${p.i}','${p.i2}','${p.i3}','${p.d.replace(/'/g,"")}','${p.c}','${p.s}')"`;
-    if(type === 'scroll'){
-        return `<div class="scroll-item"><button class="wish-btn ${isWished}" onclick="toggleWish('${p.n.replace(/'/g,"")}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div></div>`;
-    } else {
-        return `<div class="cat-card"><button class="wish-btn ${isWished}" onclick="toggleWish('${p.n.replace(/'/g,"")}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div></div>`;
-    }
+    if(type === 'scroll') return `<div class="scroll-item"><button class="wish-btn ${isWished}" onclick="toggleWish('${p.n.replace(/'/g,"")}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div></div>`;
+    return `<div class="cat-card"><button class="wish-btn ${isWished}" onclick="toggleWish('${p.n.replace(/'/g,"")}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div></div>`;
 }
 
 function toggleWish(n, p, i){
@@ -156,18 +157,17 @@ function toggleWish(n, p, i){
 
 function showWishlist(){
     showPg('wish-pg');
-    document.getElementById('wish-grid').innerHTML = wishlist.length ? wishlist.map(p=>`<div class="cat-card"><img src="${p.i}"><div class="cat-label">₹${p.p}</div><button onclick="toggleWish('${p.n}',${p.p},'${p.i}')" style="position:absolute;bottom:5px;right:5px;border:none;background:red;color:white;border-radius:5px;font-size:8px;padding:3px 8px">Remove</button></div>`).join('') : "<p style='padding:20px'>Wishlist Empty</p>";
+    document.getElementById('wish-grid').innerHTML = wishlist.length ? wishlist.map(p=>renderItem(p,'grid')).join('') : "<p style='padding:20px'>Wishlist Empty</p>";
 }
 
 function openProduct(n, p, i, i2, i3, d, c, s){
     currentP = {n,p,i,i2,i3,d,c,s};
     document.getElementById('p-name').innerText=n; document.getElementById('p-price').innerText="₹"+p;
     document.getElementById('p-desc').innerText=d;
-    document.getElementById('p-delivery-tag').innerText = parseInt(p) < 1999 ? "+ ₹29 Delivery Charges" : "FREE Delivery (Above ₹1999)";
     let imgs = [i, i2, i3].filter(x => x && x.length > 5);
     document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}" style="scroll-snap-align:center">`).join('');
-    document.getElementById('color-options').innerHTML = c.split(',').map(v => `<div class="option-box" onclick="selectOpt(this, 'color', '${v.trim()}')">${v.trim()}</div>`).join('');
-    document.getElementById('size-options').innerHTML = s.split(',').map(v => `<div class="option-box" onclick="selectOpt(this, 'size', '${v.trim()}')">${v.trim()}</div>`).join('');
+    document.getElementById('color-options').innerHTML = (c||"Original").split(',').map(v => `<div class="option-box" onclick="selectOpt(this, 'color', '${v.trim()}')">${v.trim()}</div>`).join('');
+    document.getElementById('size-options').innerHTML = (s||"Free").split(',').map(v => `<div class="option-box" onclick="selectOpt(this, 'size', '${v.trim()}')">${v.trim()}</div>`).join('');
     showPg('p-pg');
 }
 
@@ -175,8 +175,6 @@ function selectOpt(el, type, val){
     el.parentElement.querySelectorAll('.option-box').forEach(x => x.classList.remove('selected'));
     el.classList.add('selected'); if(type==='color') selectedColor = val; else selectedSize = val;
 }
-
-function addToCart(){ alert("Product added to cart!"); }
 
 function openSub(k){
     showPg('s-pg');
@@ -194,10 +192,34 @@ async function openSubCategoryProducts(catName){
     document.getElementById('p-list-grid').innerHTML = pData.map(p=>renderItem(p, 'grid')).join('');
 }
 
+function sendOTP(){
+    let ph = document.getElementById('phone').value;
+    if(!ph.includes('+')) ph = "+91" + ph;
+    let appVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+    firebase.auth().signInWithPhoneNumber(ph, appVerifier).then(res => {
+        confirmationResult = res; document.getElementById('otp-area').style.display='block'; alert("OTP Sent!");
+    }).catch(e => alert(e.message));
+}
+
+function verifyOTP(){
+    let code = document.getElementById('otp').value;
+    confirmationResult.confirm(code).then(() => { alert("Login Successful!"); location.reload(); }).catch(() => alert("Invalid OTP"));
+}
+
+function updateAuthUI(user){
+    document.getElementById('login-section').style.display='none';
+    document.getElementById('profile-section').style.display='block';
+    document.getElementById('user-display').innerText = "Logged in: " + user.phoneNumber;
+}
+
+function checkAuth(){ showPg('account-pg'); }
+function logout(){ firebase.auth().signOut().then(() => location.reload()); }
+function goToCheckout(){ if(!firebase.auth().currentUser){ alert("Login First!"); showPg('account-pg'); } else { document.getElementById('cMobile').value = firebase.auth().currentUser.phoneNumber; showPg('checkout-pg'); } }
+
 async function confirmOrder(){
-    let data = { name: document.getElementById('cName').value, email: document.getElementById('cEmail').value, mobile: document.getElementById('cMobile').value, flat: document.getElementById('cFlat').value, area: document.getElementById('cArea').value, city: document.getElementById('cCity').value, pincode: document.getElementById('cPincode').value, productName: currentP.n, productPrice: currentP.p, selectedColor: selectedColor, selectedSize: selectedSize };
-    if(!data.name || !data.mobile || !selectedColor || !selectedSize) return alert("Please fill all details!");
-    try{ await fetch(ADMIN_URL, {method:'POST', body:JSON.stringify(data)}); alert("Order Placed Successfully!"); showPg('h-pg'); } catch(e){ alert("Error!"); }
+    let data = { name: document.getElementById('cName').value, mobile: document.getElementById('cMobile').value, flat: document.getElementById('cFlat').value, area: document.getElementById('cArea').value, city: document.getElementById('cCity').value, pincode: document.getElementById('cPincode').value, productName: currentP.n, productPrice: currentP.p, selectedColor: selectedColor, selectedSize: selectedSize };
+    if(!data.name || !data.flat) return alert("Fill all details!");
+    try{ await fetch(ADMIN_URL, {method:'POST', body:JSON.stringify(data)}); alert("Order Placed!"); showPg('h-pg'); } catch(e){ alert("Error!"); }
 }
 
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
