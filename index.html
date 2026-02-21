@@ -3,174 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva | Official Luxury Mall</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <title>Lexriva | Luxury Mall</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; --white: #ffffff; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; }
         .page { display: none; max-width: 500px; margin: 0 auto; min-height: 100vh; padding-bottom: 100px; background: #fff; }
         .active { display: block; }
-        
-        /* Header & Search */
         .header { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
         .logo { font-family: 'Cinzel'; font-size: 26px; letter-spacing: 5px; color: var(--cherry); font-weight: 900; }
-        .search-box { padding: 10px 15px; }
-        .search-input { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none; box-sizing: border-box; }
-
-        /* Reel & Scroll Sections */
-        .section-title { padding: 15px; font-size: 14px; font-weight: 900; color: var(--cherry); text-transform: uppercase; border-left: 5px solid var(--cherry); margin: 15px; }
-        .h-scroll { display: flex; overflow-x: auto; gap: 15px; padding: 0 15px; scrollbar-width: none; }
-        .reel-card { min-width: 120px; height: 200px; background: #000; border-radius: 15px; overflow: hidden; position: relative; }
-        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
         
-        /* Product Cards */
-        .prod-card { min-width: 160px; background: #fff; border-radius: 15px; overflow: hidden; border: 1px solid #eee; position: relative; }
-        .prod-card img { width: 100%; height: 200px; object-fit: cover; }
-        .wish-icon { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.8); padding: 5px; border-radius: 50%; font-size: 12px; }
+        /* Search & Reels */
+        .search-container { padding: 10px 15px; }
+        .search-bar { width: 100%; padding: 12px; border-radius: 25px; border: 1px solid #ddd; outline: none; box-sizing: border-box; }
+        .section-title { padding: 15px; font-size: 13px; font-weight: 900; color: var(--cherry); text-transform: uppercase; border-left: 5px solid var(--cherry); margin-left: 15px; margin-top: 15px; }
+        .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 15px; scrollbar-width: none; }
+        .reel-box { min-width: 130px; height: 220px; background: #000; border-radius: 18px; overflow: hidden; }
+        .reel-box video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Cherry Box */
-        .cherry-box { background: var(--cherry); color: var(--gold); border-radius: 20px; padding: 20px; text-align: center; font-family: 'Cinzel'; border: 2px solid var(--gold); margin: 15px; }
+        /* Wahi Purana Category Grid */
+        .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .cat-card { position: relative; border-radius: 15px; overflow: hidden; height: 160px; border: 1px solid #eee; cursor: pointer; }
+        .cat-card img { width: 100%; height: 100%; object-fit: cover; }
+        .cat-label { position: absolute; bottom: 0; width: 100%; background: rgba(114,0,26,0.85); color: #fff; text-align: center; padding: 10px 0; font-size: 11px; font-weight: 800; }
 
-        /* Full Pic Product View */
-        .full-pic-view { width: 100%; height: 70vh; object-fit: cover; }
+        /* Sub-Category Look (With Cherry Box) */
+        .cherry-box { background: var(--cherry); color: var(--gold); border-radius: 80px 80px 20px 20px; margin: 20px 15px; padding: 35px; text-align: center; font-family: 'Cinzel'; border: 2px solid var(--gold); }
+        .prod-card { min-width: 160px; background: #fff; border-radius: 12px; border: 1px solid #eee; overflow: hidden; }
+        .prod-card img { width: 100%; height: 180px; object-fit: cover; }
 
-        /* Bottom Nav */
-        .nav { position: fixed; bottom: 0; width: 100%; max-width: 500px; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
-        .btn { width: 90%; margin: 15px 5%; padding: 15px; background: var(--cherry); color: #fff; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; }
+        /* Full Pic Product Page */
+        .p-image-box { width: 100%; height: 480px; position: relative; }
+        .p-image-box img { width: 100%; height: 100%; object-fit: cover; }
+        .opt-btn { padding: 8px 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 12px; cursor: pointer; }
+        .opt-btn.selected { background: var(--cherry); color: #fff; border-color: var(--cherry); }
+
+        .nav { position: fixed; bottom: 0; width: 100%; max-width: 500px; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; z-index: 100; }
+        .btn-main { width: 90%; margin: 10px 5%; padding: 15px; background: var(--cherry); color: #fff; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="logo">LEXRIVA</div>
-    <div class="search-box"><input type="text" class="search-input" placeholder="Search luxury products..." id="searchInp" onkeyup="searchFunc()"></div>
-</div>
+<div class="header"><div class="logo">LEXRIVA</div></div>
+<div class="search-container"><input type="text" id="mainSearch" class="search-bar" placeholder="Search Saree, Dress, Jewellery..."></div>
 
 <div id="h-pg" class="page active">
     <div class="section-title">🎬 Lexriva Reels</div>
-    <div class="h-scroll" id="reel-list">
-        <div class="reel-card"><video src="r1.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card"><video src="r2.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card"><video src="r3.mp4" autoplay muted loop playsinline></video></div>
-        <div class="reel-card"><video src="r4.mp4" autoplay muted loop playsinline></video></div>
+    <div class="h-scroll">
+        <div class="reel-box"><video src="r1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box"><video src="r2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box"><video src="r3.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-box"><video src="r4.mp4" autoplay muted loop playsinline></video></div>
     </div>
 
-    <div id="eid-section"></div>
-    <div id="best-section"></div>
+    <div id="eid-scroll"></div>
+    <div id="best-scroll"></div>
 
-    <div class="cherry-box">ESTD 2024<br><span style="font-size:24px">LEXRIVA</span><br>Luxury Mall</div>
+    <div class="section-title">🛍️ Shop By Category</div>
+    <div class="cat-grid">
+        <div class="cat-card" onclick="openCat('Western')"><img src="w.jpg"><div class="cat-label">WESTERN</div></div>
+        <div class="cat-card" onclick="openCat('Ethnic')"><img src="e.jpg"><div class="cat-label">ETHNIC</div></div>
+        <div class="cat-card" onclick="openCat('Jewellery')"><img src="j.jpg"><div class="cat-label">JEWELLERY</div></div>
+        <div class="cat-card" onclick="openCat('Makeup')"><img src="m.jpg"><div class="cat-label">MAKEUP</div></div>
+        <div class="cat-card" onclick="openCat('Footwear')"><img src="f.jpg"><div class="cat-label">FOOTWEAR</div></div>
+        <div class="cat-card" onclick="openCat('Bags')"><img src="b.jpg"><div class="cat-label">BAGS</div></div>
+        <div class="cat-card" onclick="openCat('Accessories')"><img src="a.jpg"><div class="cat-label">ACCESSORIES</div></div>
+    </div>
+</div>
 
-    <div class="section-title">Categories</div>
-    <div id="cat-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px;"></div>
+<div id="s-pg" class="page">
+    <div style="padding:15px; font-weight:900;" onclick="showPg('h-pg')">← BACK</div>
+    <div class="cherry-box">ESTD 2024<br><span style="font-size:28px">LEXRIVA</span><br>Luxury Mall</div>
+    <div id="subContent"></div>
 </div>
 
 <div id="p-pg" class="page">
-    <div style="position:relative">
-        <div style="position:absolute; top:20px; left:20px; background:#fff; padding:10px; border-radius:50%" onclick="showPg('h-pg')">←</div>
-        <img id="p-img" class="full-pic-view">
+    <div class="p-image-box">
+        <div style="position:absolute; top:20px; left:20px; background:#fff; padding:10px; border-radius:50%; font-weight:900;" onclick="showPg('s-pg')">←</div>
+        <img id="p-img-main" src="">
     </div>
-    <div style="padding:20px">
-        <h2 id="p-name" style="margin:0; font-family:'Cinzel'"></h2>
-        <h3 id="p-price" style="color:var(--cherry)"></h3>
-        <p id="p-desc" style="font-size:14px; color:#666"></p>
-        <button class="btn" onclick="addToCart()">ADD TO CART</button>
-    </div>
-</div>
-
-<div id="checkout-pg" class="page">
-    <div style="padding:20px">
-        <h2 style="text-align:center">Checkout</h2>
-        <input type="text" id="cName" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Full Name">
-        <input type="email" id="cEmail" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Email">
-        <input type="text" id="cMobile" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Mobile Number">
-        <input type="text" id="cAddress" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Full Address with Pincode">
-        <button class="btn" onclick="placeOrder()">CONFIRM & PAY</button>
+    <div style="padding:20px;">
+        <h2 id="p-title" style="margin:0; font-family:Cinzel;"></h2>
+        <h3 id="p-price" style="color:var(--cherry);"></h3>
+        <div style="font-size:12px; font-weight:800; margin:15px 0 5px;">SELECT SIZE</div>
+        <div class="h-scroll" id="size-area"></div>
+        <div style="font-size:12px; font-weight:800; margin:15px 0 5px;">SELECT COLOUR</div>
+        <div class="h-scroll" id="color-area"></div>
+        <button class="btn-main" onclick="openCheckout()">BUY NOW</button>
     </div>
 </div>
 
-<div id="login-pg" class="page">
-    <div style="padding:50px 20px; text-align:center">
-        <h2 style="font-family:'Cinzel'">Login</h2>
-        <input type="email" id="lEmail" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Enter Gmail">
-        <button class="btn" onclick="sendOTP()">SEND OTP</button>
-        <div id="otp-div" style="display:none">
-            <input type="text" id="lOtp" class="btn" style="background:#fff; color:#000; border:1px solid #ddd" placeholder="Enter 4-Digit OTP">
-            <button class="btn" onclick="verifyOTP()">VERIFY</button>
-        </div>
+<div id="c-pg" class="page">
+    <div style="padding:20px;">
+        <h2 style="text-align:center; font-family:Cinzel;">Order Details</h2>
+        <div id="summary" style="background:#f4f4f4; padding:15px; border-radius:10px; margin-bottom:15px; font-size:12px;"></div>
+        <input type="text" id="cName" class="search-bar" style="margin-bottom:10px; border-radius:10px" placeholder="Full Name">
+        <input type="text" id="cPhone" class="search-bar" style="margin-bottom:10px; border-radius:10px" placeholder="Mobile Number">
+        <input type="text" id="cAddr" class="search-bar" style="margin-bottom:10px; border-radius:10px" placeholder="Address & City">
+        <input type="text" id="cPin" class="search-bar" style="margin-bottom:10px; border-radius:10px" placeholder="Pincode">
+        <button class="btn-main" onclick="placeOrder()">PLACE ORDER</button>
     </div>
 </div>
 
 <div class="nav">
     <div onclick="showPg('h-pg')">Home</div>
-    <div onclick="alert('Added to Wishlist!')">Wishlist</div>
-    <div onclick="showPg('checkout-pg')">Cart</div>
-    <div onclick="showPg('login-pg')">Account</div>
+    <div onclick="alert('Wishlist Saved!')">Wishlist</div>
+    <div onclick="showPg('c-pg')">Cart</div>
+    <div onclick="alert('Login Ready!')">Login</div>
 </div>
 
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
     let storeData = {};
-    let currentProd = null;
-    let genOtp;
+    let activeItem = null;
+    let choices = { size: '', color: '' };
 
     async function loadStore() {
         const res = await fetch(SCRIPT_URL);
         storeData = await res.json();
-        renderHome();
+        if(storeData['Eid']) renderScroll('eid-scroll', '🌙 Eid Special', storeData['Eid']);
+        if(storeData['Bestseller']) renderScroll('best-scroll', '🔥 Best Sellers', storeData['Bestseller']);
     }
 
-    function renderHome() {
-        // Eid & Bestseller
-        if(storeData['Eid']) renderSection('eid-section', '🌙 Eid Edits', storeData['Eid']);
-        if(storeData['Bestseller']) renderSection('best-section', '🔥 Best Sellers', storeData['Bestseller']);
-
-        // Categories
-        const cats = Object.keys(storeData).filter(n => n !== 'Orders' && n !== 'Eid' && n !== 'Bestseller');
-        document.getElementById('cat-list').innerHTML = cats.map(c => `
-            <div onclick="openCat('${c}')" style="background:var(--lavender); padding:20px; border-radius:15px; text-align:center; font-weight:800; color:var(--cherry)">${c.toUpperCase()}</div>
-        `).join('');
+    function renderScroll(id, title, data) {
+        document.getElementById(id).innerHTML = `<div class="section-title">${title}</div><div class="h-scroll">${data.map(p => `
+            <div class="prod-card" onclick='openProduct(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
+                <img src="${p.img}"><div style="padding:10px; text-align:center;"><b>${p.name}</b><br><span>₹${p.price}</span></div>
+            </div>`).join('')}</div>`;
     }
 
-    function renderSection(divId, title, data) {
-        document.getElementById(divId).innerHTML = `
-            <div class="section-title">${title}</div>
-            <div class="h-scroll">${data.map(p => `
-                <div class="prod-card" onclick="openProd('${p.name}', '${p.price}', '${p.img}', '${p.description}')">
-                    <img src="${p.img}">
-                    <div class="prod-info"><b>${p.name}</b><br><span style="color:var(--cherry)">₹${p.price}</span></div>
-                </div>
-            `).join('')}</div>`;
+    function openCat(cat) {
+        showPg('s-pg');
+        const prods = storeData[cat] || [];
+        let grouped = {};
+        prods.forEach(p => { if(!grouped[p.subCat]) grouped[p.subCat] = []; grouped[p.subCat].push(p); });
+        let html = "";
+        for (let sub in grouped) {
+            html += `<div class="section-title">${sub}</div><div class="h-scroll">${grouped[sub].map(p => `
+                <div class="prod-card" onclick='openProduct(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
+                    <img src="${p.img}"><div style="padding:10px; text-align:center;"><b>${p.name}</b><br><span>₹${p.price}</span></div>
+                </div>`).join('')}</div>`;
+        }
+        document.getElementById('subContent').innerHTML = html;
     }
 
-    function openProd(name, price, img, desc) {
-        currentProd = { name, price };
-        document.getElementById('p-name').innerText = name;
-        document.getElementById('p-price').innerText = "₹" + price;
-        document.getElementById('p-img').src = img;
-        document.getElementById('p-desc').innerText = desc || "Luxury product by Lexriva.";
+    function openProduct(p) {
+        activeItem = p;
         showPg('p-pg');
+        document.getElementById('p-img-main').src = p.img;
+        document.getElementById('p-title').innerText = p.name;
+        document.getElementById('p-price').innerText = "₹" + p.price;
+        let sz = p.size ? p.size.split(',') : ['S','M','L','XL'];
+        let cl = p.colour ? p.colour.split(',') : ['Default'];
+        document.getElementById('size-area').innerHTML = sz.map(s => `<div class="opt-btn" onclick="setChoice('size','${s}',this)">${s}</div>`).join('');
+        document.getElementById('color-area').innerHTML = cl.map(c => `<div class="opt-btn" onclick="setChoice('color','${c}',this)">${c}</div>`).join('');
     }
 
-    function openCat(catName) {
-        // Sub-category logic yahan aayegi
-        alert("Opening " + catName + " with sub-categories!");
+    function setChoice(t, v, el) {
+        Array.from(el.parentElement.children).forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+        choices[t] = v;
     }
 
-    // OTP Logic
-    function sendOTP() {
-        let email = document.getElementById('lEmail').value;
-        genOtp = Math.floor(1000 + Math.random() * 9000);
-        // EmailJS call yahan karein
-        alert("OTP Sent to " + email);
-        document.getElementById('otp-div').style.display = 'block';
+    function openCheckout() {
+        if(!choices.size || !choices.color) return alert("Please select Size & Color!");
+        showPg('c-pg');
+        document.getElementById('summary').innerHTML = `<b>Items:</b> ${activeItem.name}<br><b>Selection:</b> ${choices.size} / ${choices.color}`;
     }
 
-    function verifyOTP() {
-        if(document.getElementById('lOtp').value == genOtp) {
-            alert("Login Success!");
-            showPg('h-pg');
-        } else { alert("Wrong OTP!"); }
+    async function placeOrder() {
+        const d = { name: document.getElementById('cName').value, mobile: document.getElementById('cPhone').value, flat: document.getElementById('cAddr').value, pincode: document.getElementById('cPin').value, product: activeItem.name, price: activeItem.price, size: choices.size, colour: choices.color };
+        await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(d) });
+        alert("Order Placed!");
+        showPg('h-pg');
     }
 
     function showPg(id) {
@@ -178,7 +184,6 @@
         document.getElementById(id).classList.add('active');
         window.scrollTo(0,0);
     }
-
     window.onload = loadStore;
 </script>
 </body>
