@@ -13,6 +13,7 @@
         .header{background:#fff;padding:20px 15px;text-align:center;position:sticky;top:0;z-index:1000}
         .logo{font-family:'Cinzel';font-size:26px;letter-spacing:5px;font-weight:900;color:var(--cherry)}
         
+        /* SEARCH & ICONS */
         .search-container { background: #fff; padding: 5px 15px 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; }
         .search-input { flex: 1; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
         
@@ -21,47 +22,45 @@
         .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative; cursor:pointer;}
         .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
-        /* REEL SIZE ADJUSTED */
+        /* REELS & CATEGORY GRID */
         .reel-box{min-width:180px;height:320px;background:#000;border-radius:20px;overflow:hidden;margin-right:10px;cursor:pointer}
-
-        /* CATEGORY GRID */
         .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
         .cat-card{position:relative;border-radius:25px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
         .cat-card img{width:100%;height:100%;object-fit:cover}
         .cat-label{position:absolute;bottom:12px;left:12px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
 
-        /* SUB GRID CIRCULAR (Fixed) */
-        .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0; align-items: center;}
+        /* SUB GRID LOGIC */
+        .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0;}
         .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
         .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); border: 2px solid #fff;}
         .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); grid-column: span 1; justify-self: center;}
 
-        /* PRODUCT DETAIL & 3 PIC SLIDER */
+        /* PRODUCT GALLERY & OPTIONS */
         #p-gallery{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:450px;}
         #p-gallery img{min-width:100%; height:100%; object-fit:cover; scroll-snap-align:center;}
         .chip { display: inline-block; padding: 10px 18px; border: 1px solid #ddd; border-radius: 10px; margin: 5px; cursor: pointer; font-size: 11px; background: #fff; font-weight: 700;}
         .chip.selected { background: var(--cherry); color: #fff; border-color: var(--cherry); }
 
+        /* CHECKOUT & BUTTONS */
         .btn-group{display:flex; gap:10px; padding:15px; background:#fff; position:fixed; bottom:0; left:0; right:0; max-width:500px; margin:0 auto; z-index:1001}
         .buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
-        .checkout-input {width:100%; padding:15px; margin-bottom:10px; border-radius:12px; border:1px solid #ddd; box-sizing:border-box;}
+        .checkout-input {width:100%; padding:15px; margin-bottom:12px; border-radius:12px; border:1px solid #ddd; box-sizing:border-box; font-size: 14px;}
         
+        /* BOTTOM NAVIGATION */
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-        .nav-btn{font-size:10px;font-weight:800;color:#999;cursor:pointer;text-align:center;display:flex;flex-direction:column;gap:4px;}
+        .nav-btn{font-size:10px;font-weight:800;color:#999;cursor:pointer;text-align:center;display:flex;flex-direction:column;gap:5px;}
     </style>
 </head>
 <body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
 <div class="search-container">
-    <input type="text" id="mainSearch" class="search-input" placeholder="Search Makeup, Jewelry, Suits..." oninput="filterSearch()">
+    <input type="text" id="mainSearch" class="search-input" placeholder="Search Makeup, Jewelry, Bags..." oninput="filterSearch()">
 </div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Mall'"></div>
-    
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-
     <div class="section-h">🎬 TRENDING PRODUCTS</div>
     <div class="h-scroll">
         <div class="reel-box" onclick="openSub('western')"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
@@ -72,10 +71,11 @@
         <div class="reel-box" onclick="openSub('footwear')"><video src="reel6.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
         <div class="reel-box" onclick="openSub('acc_main')"><video src="reel7.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
     </div>
-
     <div class="section-h">🔥 BESTSELLERS</div><div id="best-scroll" class="h-scroll"></div>
+</div>
 
-    <div class="section-h">👗 CURATED CATEGORIES</div>
+<div id="cat-pg" class="page">
+    <div class="section-h">👗 ALL CATEGORIES</div>
     <div class="cat-grid">
         <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
         <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
@@ -88,6 +88,12 @@
 </div>
 
 <div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div id="s-grid" class="sub-grid"></div></div>
+<div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div><div id="p-list-grid" class="cat-grid"></div></div>
+
+<div id="wish-pg" class="page">
+    <div class="section-h">💖 MY WISHLIST</div>
+    <div id="wish-grid" class="cat-grid"></div>
+</div>
 
 <div id="p-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
@@ -98,7 +104,8 @@
             <p id="p-price" style="font-weight:900; font-size:22px; margin:0"></p>
             <p id="ship-tag" style="font-size:11px; font-weight:800; color:red"></p>
         </div>
-        <div id="color-options"></div><div id="size-options" style="margin-top:10px"></div>
+        <div style="font-size:11px; font-weight:800; color:#888;">SELECT COLOR</div><div id="color-options" style="margin-top:5px"></div>
+        <div style="font-size:11px; font-weight:800; color:#888; margin-top:10px">SELECT SIZE</div><div id="size-options" style="margin-top:5px"></div>
     </div>
     <div class="btn-group"><button class="buy-btn" onclick="showPg('checkout-pg')">BUY NOW</button></div>
 </div>
@@ -106,19 +113,20 @@
 <div id="checkout-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('p-pg')">← BACK</div>
     <div style="padding:20px">
+        <h2 style="font-family:'Cinzel'; text-align:center; color:var(--cherry)">Shipping Details</h2>
         <input id="cName" class="checkout-input" placeholder="Full Name">
         <input id="cMobile" class="checkout-input" placeholder="Mobile Number">
-        <input id="cFlat" class="checkout-input" placeholder="Flat No / House No">
+        <input id="cEmail" class="checkout-input" placeholder="Email (Optional)">
+        <input id="cFlat" class="checkout-input" placeholder="House No / Area">
+        <input id="cCity" class="checkout-input" placeholder="City">
         <input id="cPincode" class="checkout-input" placeholder="Pincode">
-        <button class="buy-btn" onclick="alert('Order Successful!')">PLACE ORDER</button>
+        <button class="buy-btn" onclick="alert('Order Successful! Thank you for shopping with Lexriva.')">PLACE ORDER</button>
     </div>
 </div>
 
-<div id="wish-pg" class="page"><div class="section-h">💖 MY WISHLIST</div><div id="wish-grid" class="cat-grid"></div></div>
-
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')"><span>🏠</span>HOME</div>
-    <div class="nav-btn" onclick="showPg('h-pg')"><span>👜</span>CATEGORY</div>
+    <div class="nav-btn" onclick="showPg('cat-pg')"><span>👜</span>CATEGORY</div>
     <div class="nav-btn" onclick="showWishlist()"><span>💖</span>WISHLIST</div>
 </div>
 
@@ -129,11 +137,11 @@
     const subMap={
         'western':['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets','Blazers'],
         'ethnic':['Saree','Kurtis','Dress Material','Lehengas','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta','Ethnic Sets'],
-        'footwear':['Heels','Sandals','Boots','Bellies','Sneakers','Flats','Ethnic','Loafers','Wedges','Sliders','Mules'],
+        'footwear':['Heels','Sandals','Boots','Bellies','Sneakers','Flats','Wedges','Sliders','Mules'],
         'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes','Nail Polish'],
-        'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','American Diamond','Jhumka','Korean Earrings','Antique'],
+        'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','American Diamond','Jhumka','Korean Earrings'],
         'bags':['Handbags','Sling Bags','Wallets','Clutches','Totes','Backpacks','Messenger Bags','Potli Bags'],
-        'acc_main':['Hair Acc','Belts','Sunglasses','Watches','Socks','Caps','Scarves','Keychains']
+        'acc_main':['Hair Acc','Belts','Sunglasses','Watches','Socks','Caps','Scarves']
     };
 
     async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){}}
@@ -150,12 +158,24 @@
 
     function openSub(k){
         showPg('s-pg');
-        let h = ""; let cherryPos = (k === 'makeup_cat' || k === 'jewellery_master') ? 7 : 4;
+        let h = ""; let cherryPos = 4;
         (subMap[k]||[]).forEach((n, idx)=>{
             if(idx === cherryPos) h+=`<div class="cherry-box"><span>ESTD. 2024</span><br><span>LEXRIVA</span></div>`;
-            h+=`<div class="sub-item" onclick="alert('Category Clicked!')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80'"><p style="font-size:9px;font-weight:700">${n}</p></div>`;
+            h+=`<div class="sub-item" onclick="openSubProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80'"><p style="font-size:9px;font-weight:700">${n}</p></div>`;
         });
         document.getElementById('s-grid').innerHTML = h;
+    }
+
+    function openSubProducts(catName){
+        showPg('p-list-pg');
+        let products = [];
+        Object.keys(store).forEach(sheet => {
+            if(Array.isArray(store[sheet])){
+                let filtered = store[sheet].filter(p => p.subCat && p.subCat.toLowerCase().trim() === catName.toLowerCase().trim());
+                products = [...products, ...filtered];
+            }
+        });
+        document.getElementById('p-list-grid').innerHTML = products.length > 0 ? products.map(p => renderItem(p)).join('') : "<p style='padding:20px;text-align:center'>Loading...</p>";
     }
 
     function openP(p){
@@ -182,6 +202,11 @@
             if(Array.isArray(store[sheet])) store[sheet].forEach(p => { if(p.name.toLowerCase().includes(q)) res.push(p); });
         });
         document.getElementById('eid-scroll').innerHTML = res.map(p => renderItem(p)).join('');
+    }
+
+    function showWishlist(){
+        showPg('wish-pg');
+        document.getElementById('wish-grid').innerHTML = wishlist.length ? wishlist.map(p=>`<div class="cat-card" onclick='openP(${JSON.stringify(p)})'><img src="${p.img}"><div class="cat-label">₹${p.price}</div></div>`).join('') : "<p style='padding:20px;text-align:center'>Wishlist Empty</p>";
     }
 
     function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
