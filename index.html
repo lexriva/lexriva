@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Lexriva | Luxury Mall</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
     <style>
         :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
         body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
@@ -16,16 +14,15 @@
         .header{background:#fff;padding:20px 15px;text-align:center;position:sticky;top:0;z-index:1000}
         .logo{font-family:'Cinzel';font-size:26px;letter-spacing:5px;font-weight:900;color:var(--cherry)}
         
-        /* SEARCH & CART BAR */
         .search-container { background: #fff; padding: 5px 15px 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; }
         .search-input { flex: 1; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
-        
+        .cart-icon { font-size: 22px; cursor: pointer; color: var(--cherry); border:none; background:none; }
+
         .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry)}
         .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
         .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative; cursor:pointer;}
         .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
-        /* WISHLIST HEART ICON */
         .wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:10;}
         .wish-btn.active{color:red}
 
@@ -34,18 +31,14 @@
         .cat-card img{width:100%;height:100%;object-fit:cover}
         .cat-label{position:absolute;bottom:12px;left:12px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
 
-        /* SUB GRID CIRCULAR (Lexriva extra circle removed) */
-        .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0;}
+        .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0; align-items: center;}
         .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
         .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); border: 2px solid #fff;}
         .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); grid-column: span 1; justify-self: center;}
 
-        /* PRODUCT GALLERY 3 PICS SLIDE */
         #p-gallery{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:500px;}
         #p-gallery img{min-width:100%; height:100%; object-fit:cover; scroll-snap-align:center;}
 
-        .btn-group{display:flex; gap:10px; padding:15px; background:#fff; position:fixed; bottom:0; left:0; right:0; max-width:500px; margin:0 auto; z-index:1001}
-        .buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
         .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center}
     </style>
@@ -55,18 +48,26 @@
 <div class="header"><div class="logo">LEXRIVA</div></div>
 <div class="search-container">
     <input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Makeup..." oninput="filterSearch()">
-    <button style="border:none; background:none; font-size:22px;">🛒</button>
+    <button class="cart-icon">🛒</button>
 </div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Mall'"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
+    <div class="section-h">🎬 TRENDING REELS</div>
+    <div class="h-scroll" style="padding-bottom:15px">
+        <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden" onclick="openSub('western')"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden" onclick="openSub('ethnic')"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+    </div>
     <div class="section-h">🔥 BESTSELLERS</div><div id="best-scroll" class="h-scroll"></div>
     <div class="cat-grid">
         <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
         <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
         <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
         <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
+        <div class="cat-card" onclick="openSub('bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
+        <div class="cat-card" onclick="openSub('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
+        <div class="cat-card" onclick="openSub('acc_main')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
     </div>
 </div>
 
@@ -74,8 +75,8 @@
 
 <div id="login-pg" class="page">
     <div style="padding:40px 20px; text-align:center">
-        <h2 style="font-family:'Cinzel'; color:var(--cherry)">Account Login</h2>
-        <input id="userEmail" style="width:100%; padding:15px; margin-bottom:15px; border-radius:12px; border:1px solid #ddd; box-sizing:border-box" placeholder="Enter your Gmail">
+        <h2 style="font-family:'Cinzel'; color:var(--cherry)">ACCOUNT LOGIN</h2>
+        <input id="userEmail" style="width:100%; padding:15px; margin-bottom:15px; border-radius:12px; border:1px solid #ddd; box-sizing:border-box" placeholder="sumayyakhani3791@gmail.com">
         <button onclick="sendOTPEmail()" style="width:100%; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer">SEND OTP</button>
     </div>
 </div>
@@ -87,65 +88,62 @@
 </div>
 
 <script>
-    // Asli EmailJS Connection Setup
+    // FIXING 404: Apne EmailJS dashboard se ye 3 values sahi daalein
     (function(){
-        emailjs.init("Vf1_m5f6X2T4wzG1s"); // Dashboard se Public Key yahan daalein
+        emailjs.init("Vf1_m5f6X2T4wzG1s"); 
     })();
 
     const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
     let store={}; let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
 
+    const subMap={
+        'western':['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
+        'ethnic':['Saree','Kurtis','Dress Material','Lehengas','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
+        'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes']
+    };
+
     async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){}}
 
     function renderH(){
-        document.getElementById('eid-scroll').innerHTML=(store.Eid||[]).map(p=>renderItem(p)).join('');
-        document.getElementById('best-scroll').innerHTML=(store.Bestseller||[]).map(p=>renderItem(p)).join('');
+        document.getElementById('eid-scroll').innerHTML=(store.Eid||[]).map(p=>renderCard(p)).join('');
+        document.getElementById('best-scroll').innerHTML=(store.Bestseller||[]).map(p=>renderCard(p)).join('');
     }
 
-    function renderItem(p){
+    function renderCard(p){
         const isWished = wishlist.find(x => x.name === p.name) ? 'active' : '';
-        const pJson = JSON.stringify(p).replace(/'/g, "&apos;");
-        return `<div class="scroll-item">
-            <button class="wish-btn ${isWished}" onclick="event.stopPropagation(); toggleWish('${p.name}', ${p.price}, '${p.img}')">♥</button>
-            <div onclick='openP(${pJson})'><img src="${p.img}"><p style="font-size:10px;font-weight:700">₹${p.price}</p></div>
+        return `<div class="scroll-item" onclick='openP(${JSON.stringify(p)})'>
+            <button class="wish-btn ${isWished}">♥</button>
+            <img src="${p.img}"><p style="font-size:10px;font-weight:700">₹${p.price}</p>
         </div>`;
-    }
-
-    // OTP Bhejne ka asli function
-    function sendOTPEmail() {
-        let email = document.getElementById('userEmail').value;
-        if(!email) return alert("Pehle Email toh daalo!");
-        
-        // EmailJS trigger
-        emailjs.send("service_eygnyi7", "template_qay4kxp", {
-            to_email: email,
-            otp_code: Math.floor(1000 + Math.random() * 9000)
-        }).then(() => {
-            alert("Success! OTP aapke Gmail par bhej diya gaya hai.");
-        }, (error) => {
-            alert("Galti ho gayi: " + JSON.stringify(error));
-        });
     }
 
     function openSub(k){
         showPg('s-pg');
         let h = ""; 
-        let cherryPos = (k === 'makeup_cat') ? 7 : 4; // Branding Box position
-        let subItems = ['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara'];
-        
-        subItems.forEach((n, idx)=>{
+        let cherryPos = (k === 'makeup_cat') ? 7 : 4; // Center branding box
+        (subMap[k]||[]).forEach((n, idx)=>{
             if(idx === cherryPos) h+=`<div class="cherry-box"><span>ESTD. 2024</span><br><span style="font-size:16px;letter-spacing:2px">LEXRIVA</span></div>`;
-            h+=`<div class="sub-item"><img src="${n.toLowerCase()}.jpg" onerror="this.src='https://via.placeholder.com/80'"><p>${n}</p></div>`;
+            h+=`<div class="sub-item" onclick="alert('Open '+n)"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80'"><p>${n}</p></div>`;
         });
         document.getElementById('s-grid').innerHTML = h;
     }
 
-    function showPg(id){
-        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
+    function sendOTPEmail() {
+        let email = document.getElementById('userEmail').value;
+        if(!email) return alert("Email daalein!");
+        
+        // service_eygnyi7 is correct
+        emailjs.send("service_eygnyi7", "template_qay4kxp", {
+            to_email: email,
+            otp_code: Math.floor(1000 + Math.random() * 9000)
+        }).then(() => {
+            alert("EmailJS OTP Sent! System is fully active now.");
+        }, (err) => {
+            alert("Galti ho gayi: " + JSON.stringify(err));
+        });
     }
 
+    function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
     window.onload = init;
 </script>
 </body>
