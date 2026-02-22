@@ -7,103 +7,121 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F9F7FF; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; padding-bottom: 80px; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; padding-bottom: 100px; }
         
-        /* Header */
         .header { background: #fff; padding: 15px 20px; display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .back-btn { font-size: 24px; color: var(--cherry); cursor: pointer; text-decoration: none; margin-right: 15px; }
-        .page-title { font-family: 'Cinzel'; font-size: 16px; font-weight: 900; color: var(--cherry); flex-grow: 1; text-align: center; letter-spacing: 2px; text-transform: uppercase; }
+        .page-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); flex-grow: 1; text-align: center; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* CIRCULAR SUB-CATEGORIES GRID */
-        .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; padding: 30px 15px; align-items: start; }
+        .main-title { font-family: 'Cinzel'; font-size: 16px; font-weight: 900; color: var(--cherry); padding: 25px 20px 10px; border-bottom: 2px solid var(--cherry); margin: 10px 20px; text-align: center; }
+
+        .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; padding: 20px 15px; align-items: start; }
         .sub-item { text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-decoration: none; }
         
-        .circle-frame { width: 90px; height: 90px; border-radius: 50%; background: #eee; overflow: hidden; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 10px; }
+        .circle-frame { width: 90px; height: 90px; border-radius: 50%; background: #fff; overflow: hidden; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 10px; }
         .circle-frame img { width: 100%; height: 100%; object-fit: cover; }
         
-        .sub-item p { font-size: 10px; font-weight: 800; color: #444; text-transform: uppercase; margin: 0; letter-spacing: 0.5px; }
+        .sub-item p { font-size: 9px; font-weight: 800; color: #444; text-transform: uppercase; margin: 0; letter-spacing: 0.5px; line-height: 1.2; height: 22px; }
         
-        /* THE ARCH CHERRY BOX (BICH MEIN) */
-        .cherry-arch { background: var(--cherry); color: var(--gold); border-radius: 50px 50px 10px 10px; width: 95px; height: 130px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'Cinzel'; position: relative; box-shadow: 0 10px 20px rgba(114,0,26,0.3); grid-column: 3; grid-row: 2; margin-top: -10px; }
-        .cherry-arch span { font-size: 8px; margin-bottom: 15px; opacity: 0.8; }
-        .cherry-arch b { font-size: 12px; letter-spacing: 2px; }
+        /* ARCH CHERRY BOX POSITIONING */
+        .cherry-arch { background: var(--cherry); color: var(--gold); border-radius: 50px 50px 10px 10px; width: 90px; height: 125px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'Cinzel'; box-shadow: 0 10px 20px rgba(114,0,26,0.25); margin-top: -5px; }
+        .cherry-arch span { font-size: 7px; margin-bottom: 12px; opacity: 0.8; }
+        .cherry-arch b { font-size: 11px; letter-spacing: 2px; }
 
-        /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-btn { font-size: 10px; font-weight: 800; color: #bbb; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .nav-btn.active { color: var(--cherry); }
-        .nav-btn img { width: 18px; height: 18px; filter: grayscale(1); opacity: 0.5; }
-        .nav-btn.active img { filter: none; opacity: 1; }
+        .nav-btn { font-size: 10px; font-weight: 800; color: #bbb; text-align: center; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="index.html" class="back-btn">←</a>
-        <div class="page-title" id="catTitle">WESTERN COLLECTION</div>
+        <div class="page-title" id="displayTitle">WOMEN'S CLOTHING</div>
     </div>
 
-    <div id="subGridContainer" class="sub-grid">
+    <div id="content-area">
         </div>
 
     <div class="bottom-nav">
         <a href="index.html" class="nav-btn">🏠<br>HOME</a>
-        <a href="#" class="nav-btn active">👗<br>CATEGORY</a>
+        <a href="#" class="nav-btn" style="color: var(--cherry);">👗<br>CATEGORY</a>
         <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
         <a href="login.html" class="nav-btn">👤<br>LOGIN</a>
     </div>
 
     <script>
-        // Exact Sub-Categories from your screenshot
-        const allData = {
-            'western': ['Dresses','Tops','Jeans','Co-ords','Jumpsuits','T-shirts','Jackets','Skirts','Shorts','Blazers','Sweaters','Trousers'],
-            'ethnic': ['Saree','Kurtis','Suits','Lehenga','Anarkali','Sharara','Dupatta','Gowns','Gharara','Palazzo','Ethnic Sets','Abayas'],
-            'makeup': ['Lipstick','Foundation','Kajal','Perfumes','Compact','Eyeliner','Primer','Blush','Mascara','Highlighter','Nail Polish','Skin Care'],
-            'jewel': ['Necklace','Earrings','Rings','Bangles','Bracelet','Bridal','Maangtika','Anklets','Chokers','Antique','AD Stone','Nosepin'],
-            'bags': ['Handbags','Sling Bags','Backpacks','Clutches','Totes','Wallets','Baguettes','Satchels','Pouches','Luxury Bags','Travel','Clutch'],
-            'footwear': ['Heels','Flats','Sandals','Sneakers','Ethnic','Boots','Wedges','Bellies','Mules','Loafers','Slippers','Platforms'],
-            'acc': ['Hair Accessories','Belts','Sunglasses','Watches','Socks','Caps','Brooches','Scarf','Stoles','Keychains','Jewelry Box','Hair Pins']
+        // FULL DATA STRUCTURE BASED ON YOUR LIST
+        const categoryData = {
+            'women_clothing': {
+                title: "WOMEN'S CLOTHING",
+                items: ['Dresses','Tops','Jeans','T-shirts','Jumpsuit','Co-ords','Sleep Wear','Saree','Kurtis','Dress Material','Lehengas','Gowns'],
+                cherryPos: 5 // As per
+            },
+            'footwear': {
+                title: "WOMEN'S FOOTWEAR",
+                items: ['Heels','Sandals','Boots','Ballerinas','Sneakers'],
+                cherryPos: 5
+            },
+            'beauty': {
+                title: "BEAUTY AND HEALTH",
+                items: ['Lipstick','Lip Gloss','Lip Liner','Foundation','Concealer','Highlighter','Eye Shadow','Eye Liner','Kajal','Mascara','Body Lotion','Face Wash','Face Mask'],
+                cherryPos: 8 // As requested
+            },
+            'jewellery': {
+                title: "WOMEN JEWELLERY",
+                items: ['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri','Jhumka','Korean'],
+                cherryPos: 8 // As requested
+            },
+            'accessories': {
+                title: "WOMEN ACCESSORIES",
+                items: ['Hair Acc','Belts','Sunglasses','Watches','Bag Packs','Handbags','Sling Bags','Wallets','Clutches'],
+                cherryPos: 5
+            }
         };
 
         function init() {
-            const cat = localStorage.getItem('selectedCat') || 'western';
-            document.getElementById('catTitle').innerText = cat.toUpperCase() + " COLLECTION";
-            renderSubCats(cat);
+            // Hum abhi Clothing dikha rahe hain, aap use change kar sakte hain
+            const catKey = localStorage.getItem('activeCat') || 'women_clothing';
+            renderView(catKey);
         }
 
-        function renderSubCats(cat) {
-            const list = allData[cat] || [];
-            const container = document.getElementById('subGridContainer');
-            let html = "";
-
-            list.forEach((name, idx) => {
-                // Circular Sub-item
-                html += `
-                    <div class="sub-item" onclick="goToProductList('${name}')">
-                        <div class="circle-frame">
-                            <img src="${name.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/150/F4EFFF/72001A?text=${name}'">
-                        </div>
-                        <p>${name}</p>
-                    </div>`;
-
-                // INSERT CHERRY ARCH AT 6th POSITION
-                if(idx === 4) {
+        function renderView(key) {
+            const data = categoryData[key];
+            document.getElementById('displayTitle').innerText = data.title;
+            
+            let html = `<div class="sub-grid">`;
+            
+            data.items.forEach((item, index) => {
+                const currentPos = index + 1;
+                
+                // INSERT CHERRY BOX AT SPECIFIC POSITION
+                if (currentPos === data.cherryPos) {
                     html += `
-                    <div class="cherry-arch">
-                        <span>ESTD.<br>2024</span>
-                        <b>LEXRIVA</b>
+                    <div class="sub-item">
+                        <div class="cherry-arch">
+                            <span>ESTD.<br>2024</span>
+                            <b>LEXRIVA</b>
+                        </div>
                     </div>`;
                 }
+
+                html += `
+                <div class="sub-item" onclick="openProducts('${item}')">
+                    <div class="circle-frame">
+                        <img src="${item.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/150/F4EFFF/72001A?text=${item}'">
+                    </div>
+                    <p>${item}</p>
+                </div>`;
             });
-            container.innerHTML = html;
+            
+            html += `</div>`;
+            document.getElementById('content-area').innerHTML = html;
         }
 
-        function goToProductList(subName) {
-            // Click working: saves choice and goes to product display
-            localStorage.setItem('selectedSubCat', subName);
-            // Aapka product page ya filtered list khulegi
-            alert("Opening " + subName + " Collection...");
-            // window.location.href = "products.html"; 
+        function openProducts(subName) {
+            // FIX: Ab alert nahi aayega, direct page khulega
+            localStorage.setItem('selectedSub', subName);
+            window.location.href = "product_list.html"; 
         }
 
         window.onload = init;
