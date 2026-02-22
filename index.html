@@ -35,9 +35,10 @@
         .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); border: 2px solid #fff;}
         .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); grid-column: span 1; justify-self: center;}
 
-        /* 3-PIC SCROLL SLIDER CSS */
+        /* FIX: 3-PIC SCROLL SLIDER CSS */
         #p-gallery{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:450px; background:#fff;}
         #p-gallery img{min-width:100%; height:100%; object-fit:cover; scroll-snap-align:center;}
+        
         .chip { display: inline-block; padding: 10px 18px; border: 1px solid #ddd; border-radius: 10px; margin: 5px; cursor: pointer; font-size: 11px; background: #fff; font-weight: 700;}
         .chip.selected { background: var(--cherry); color: #fff; border-color: var(--cherry); }
 
@@ -63,18 +64,18 @@
 </div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury'"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
     
     <div class="section-h">🎬 TRENDING PRODUCTS</div>
     <div class="h-scroll">
-        <div class="reel-box" onclick="showPg('cat-pg')"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="showPg('cat-pg')"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="showPg('cat-pg')"><video src="reel3.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="showPg('cat-pg')"><video src="reel4.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="showPg('cat-pg')"><video src="reel5.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="showPg('cat-pg')"><video src="reel6.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="showPg('cat-pg')"><video src="reel7.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('western')"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('ethnic')"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('makeup_cat')"><video src="reel3.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('jewellery_master')"><video src="reel4.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('bags')"><video src="reel5.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('footwear')"><video src="reel6.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('acc_main')"><video src="reel7.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
     </div>
 
     <div class="section-h">🔥 BESTSELLERS</div><div id="best-scroll" class="h-scroll"></div>
@@ -199,16 +200,14 @@
         document.getElementById('p-list-grid').innerHTML = products.length > 0 ? products.map(p => renderItem(p)).join('') : "<p style='padding:20px;text-align:center'>No products found.</p>";
     }
 
-    // UPDATED OPEN-P WITH 3-PIC LOGIC AND EXACT SHEET COLUMN NAMES
+    // FIX: 3-PIC LOGIC WITH YOUR SHEET COLUMN NAMES (Image 1, Image 2, Image 3)
     function openP(p){
         showPg('p-pg');
         document.getElementById('p-name').innerText=p.name;
         document.getElementById('p-price').innerText="₹"+p.price;
         
-        // 3-PIC SCROLL FIX (USING YOUR SHEET NAMES: Image 1, Image 2, Image 3)
-        //
         let imgs = [p['Image 1'], p['Image 2'], p['Image 3']].filter(x => x && x.length > 5);
-        if(imgs.length === 0) imgs.push(p.img); // Fallback for 'img' name
+        if(imgs.length === 0) imgs.push(p.img); 
 
         document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}" onerror="this.src='https://via.placeholder.com/500x600?text=Lexriva+Luxury'">`).join('');
         document.getElementById('p-gallery').scrollLeft = 0;
