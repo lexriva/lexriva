@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Luxury Mall</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
@@ -14,15 +14,14 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative; cursor:pointer;}
 .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
-/* WISHLIST & CART ELEMENTS */
-.wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:10;}
-.wish-btn.active{color:red}
-.cart-badge { position: absolute; top: -8px; right: -8px; background: red; color: white; font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
+/* CART BADGE */
+.cart-badge { position: absolute; top: -5px; right: 10px; background: red; color: white; font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
 
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
 .cat-card img{width:100%;height:100%;object-fit:cover}
 .cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
+
 .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0;}
 .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
 .sub-item img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
@@ -36,29 +35,36 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .btn-group{display:flex; gap:10px; padding:15px; background:#fff; position:fixed; bottom:0; left:0; right:0; max-width:500px; margin:0 auto; z-index:1001}
 .cart-btn{flex:1; padding:18px; border:2px solid var(--cherry); color:var(--cherry); background:transparent; border-radius:15px; font-weight:800; cursor:pointer}
 .buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
-.checkout-input{width:100%; padding:15px; margin:10px 0; border:1px solid #ddd; border-radius:12px; box-sizing:border-box}
+.checkout-input{width:100%; padding:15px; margin:10px 0; border:1px solid #ddd; border-radius:12px; box-sizing:border-box; font-size:14px;}
 
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center; position:relative;}
+.nav-btn{font-size:10px;font-weight:800;color:#999;cursor:pointer;text-align:center; position:relative;}
 
-/* CART ITEM STYLE */
-.bag-item { background: #fff; padding: 15px; margin: 10px; border-radius: 15px; display: flex; gap: 15px; align-items: center; }
-.bag-item img { width: 70px; height: 90px; object-fit: cover; border-radius: 10px; }
+/* CART VIEW */
+.bag-item { background: #fff; padding: 15px; margin: 10px; border-radius: 15px; display: flex; gap: 15px; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
+.bag-item img { width: 60px; height: 80px; object-fit: cover; border-radius: 10px; }
+
+.wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:10;}
+.wish-btn.active{color:red}
 </style></head><body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
-<div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Products..." oninput="filterSearch()"></div>
+<div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Makeup, Jewellery, Suits..." oninput="filterSearch()"></div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Mall'"></div>
-    <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-    <div class="section-h">🔥 BESTSELLERS</div><div id="l-scroll" class="h-scroll"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury'"></div>
     
+    <div class="section-h">🌙 THE EID EDIT</div>
+    <div id="eid-scroll" class="h-scroll"></div>
+
     <div class="section-h">🎬 TRENDING REELS</div>
     <div class="h-scroll" style="padding-bottom:15px">
-        <div onclick="openReel(0)" style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden;cursor:pointer"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div onclick="openReel(1)" style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden;cursor:pointer"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div onclick="openReel(0)" style="min-width:180px;height:320px;background:#000;border-radius:20px;overflow:hidden;cursor:pointer"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div onclick="openReel(1)" style="min-width:180px;height:320px;background:#000;border-radius:20px;overflow:hidden;cursor:pointer"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
     </div>
+
+    <div class="section-h">🔥 BESTSELLERS</div>
+    <div id="l-scroll" class="h-scroll"></div>
 
     <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
     <div class="cat-grid">
@@ -69,27 +75,22 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     </div>
 </div>
 
-<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
-<div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div><div class="section-h" id="p-list-title">COLLECTION</div><div id="p-list-grid" class="cat-grid"></div></div>
-<div id="wish-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div class="section-h">💖 MY WISHLIST</div><div id="wish-grid" class="cat-grid"></div></div>
-
 <div id="bag-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
-    <div class="section-h" style="text-align:center; font-size:16px">🛍️ YOUR SHOPPING BAG</div>
+    <div class="section-h" style="text-align:center; font-size:16px">🛍️ YOUR BAG</div>
     <div id="bag-items"></div>
-    <div id="bag-empty" style="text-align:center; padding:50px; color:#888; display:none">Your bag is empty</div>
-    <div class="btn-group" id="bag-footer"><button class="buy-btn" onclick="showPg('checkout-pg')">CHECKOUT ALL</button></div>
+    <div class="btn-group" id="bag-footer" style="display:none"><button class="buy-btn" onclick="showPg('checkout-pg')">CHECKOUT NOW</button></div>
 </div>
 
 <div id="p-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
     <div id="p-gallery" style="display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none"></div>
     <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative; z-index:10">
-        <h2 id="p-name" style="color:var(--cherry); margin-bottom:5px"></h2>
-        <p id="p-price" style="font-weight:800; font-size:22px; margin:0"></p>
-        <div id="p-ship-info" style="font-size:12px; color:green; font-weight:700; margin-top:5px"></div>
+        <h2 id="p-name" style="color:var(--cherry); margin:0"></h2>
+        <p id="p-price" style="font-weight:800; font-size:22px; margin:5px 0"></p>
+        <div id="p-ship" style="font-size:11px; color:green; font-weight:700"></div>
         <div style="margin-top:15px; border-top:1px solid #eee; padding-top:10px">
-            <p style="font-size:11px; font-weight:700; color:var(--cherry)">DESCRIPTION</p>
+            <p style="font-size:12px; font-weight:700; color:var(--cherry)">DESCRIPTION</p>
             <p id="p-desc" style="font-size:13px; color:#666; line-height:1.5"></p>
         </div>
         <p style="font-size:11px; font-weight:700; margin-top:20px; color:#888">CHOOSE COLOR</p><div id="color-options"></div>
@@ -102,30 +103,31 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 </div>
 
 <div id="checkout-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('p-pg')">← BACK</div>
+    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
     <div style="padding:20px">
-        <h2 style="font-family:'Cinzel'; text-align:center; color:var(--cherry)">Order Checkout</h2>
+        <h2 style="font-family:'Cinzel'; text-align:center; color:var(--cherry)">Shipping Details</h2>
         <input id="cName" class="checkout-input" placeholder="Full Name">
         <input id="cMobile" class="checkout-input" placeholder="Mobile Number">
-        <input id="cFlat" class="checkout-input" placeholder="Flat / House / Building">
-        <input id="cArea" class="checkout-input" placeholder="Area / Street / Landmark">
+        <input id="cFlat" class="checkout-input" placeholder="Flat / Building">
+        <input id="cArea" class="checkout-input" placeholder="Area / Street">
         <input id="cCity" class="checkout-input" placeholder="City">
         <input id="cPincode" class="checkout-input" placeholder="Pincode">
-        <button class="buy-btn" style="width:100%; margin-top:20px" onclick="confirmOrder()">CONFIRM ORDER</button>
+        <button class="buy-btn" style="width:100%; margin-top:20px" onclick="confirmOrder()">PLACE ORDER NOW</button>
     </div>
 </div>
 
+<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div id="s-banner" style="width:100%;height:220px"></div><div id="s-grid" class="sub-grid"></div></div>
+<div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div><div class="section-h" id="p-list-title">COLLECTION</div><div id="p-list-grid" class="cat-grid"></div></div>
+
 <div class="bottom-nav">
-    <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
-    <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView({behavior:'smooth'})">SHOP</div>
-    <div class="nav-btn" onclick="showWishlist()">WISHLIST</div>
-    <div class="nav-btn" onclick="showBag()">BAG <span id="badge-count" class="cart-badge" style="display:none">0</span></div>
+    <div class="nav-btn" onclick="showPg('h-pg')">🏠<br>HOME</div>
+    <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView()">👜<br>SHOP</div>
+    <div class="nav-btn" onclick="showBag()">🛍️<span id="badge" class="cart-badge" style="display:none">0</span><br>BAG</div>
 </div>
 
 <script>
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
-let store={}; let currentP={}; let selectedColor="Standard"; let selectedSize="Free";
-let bag = []; 
+let store={}; let currentP={}; let bag=[]; let selCol="Standard", selSiz="Free";
 let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
 
 const subMap={
@@ -136,148 +138,74 @@ const subMap={
 async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){}}
 
 function renderH(data=store){
-    document.getElementById('eid-scroll').innerHTML=(data.eid||[]).map((p,i)=>renderItem(p, 'scroll', i)).join('');
-    document.getElementById('l-scroll').innerHTML=(data.latest||[]).map((p,i)=>renderItem(p, 'scroll', i)).join('');
+    document.getElementById('eid-scroll').innerHTML=(data.eid||[]).map((p,i)=>renderItem(p, 'eid', i)).join('');
+    document.getElementById('l-scroll').innerHTML=(data.latest||[]).map((p,i)=>renderItem(p, 'latest', i)).join('');
 }
 
-function renderItem(p, type, index){
-    const isWished = wishlist.find(x => x.n === p.n) ? 'active' : '';
-    // Click Fix: Passing object properly
-    const pData = btoa(JSON.stringify(p)); 
-    const action = `onclick="viewProduct('${pData}')"`;
-
-    if(type === 'scroll'){
-        return `<div class="scroll-item"><button class="wish-btn ${isWished}" onclick="event.stopPropagation(); toggleWish('${p.n}', ${p.p}, '${p.i}')">♥</button><div ${action}><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div></div>`;
-    } else {
-        return `<div class="cat-card"><button class="wish-btn ${isWished}" onclick="event.stopPropagation(); toggleWish('${p.n}', ${p.p}, '${p.i}')">♥</button><div ${action}><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div></div>`;
-    }
+function renderItem(p, sheet, idx){
+    const click = `onclick="openP('${sheet}', ${idx})"`;
+    return `<div class="scroll-item"><div ${click}><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div></div>`;
 }
 
-function viewProduct(data){
-    const p = JSON.parse(atob(data));
-    currentP = p;
+function openP(sheet, idx){
+    const p = store[sheet][idx]; currentP = p;
     document.getElementById('p-name').innerText=p.n; 
     document.getElementById('p-price').innerText="₹"+p.p;
     document.getElementById('p-desc').innerText=p.d || "Lexriva Luxury Quality Product";
-    document.getElementById('p-ship-info').innerText = parseInt(p.p) < 1999 ? "+ ₹29 Delivery Charges" : "FREE Delivery (Prepaid)";
-    
+    document.getElementById('p-ship').innerText=parseInt(p.p) < 1999 ? "+ ₹29 Delivery Charges" : "FREE Delivery";
     let imgs = [p.i, p.i2, p.i3].filter(x => x && x.length > 5);
     document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}" style="scroll-snap-align:center">`).join('');
-    
     document.getElementById('color-options').innerHTML = p.c ? p.c.split(',').map(v => `<div class="option-box" onclick="selectOpt(this, 'color', '${v.trim()}')">${v.trim()}</div>`).join('') : "Standard";
     document.getElementById('size-options').innerHTML = p.s ? p.s.split(',').map(v => `<div class="option-box" onclick="selectOpt(this, 'size', '${v.trim()}')">${v.trim()}</div>`).join('') : "Free";
     showPg('p-pg');
 }
 
-function selectOpt(el, type, val){
-    el.parentElement.querySelectorAll('.option-box').forEach(x => x.classList.remove('selected'));
-    el.classList.add('selected'); if(type==='color') selectedColor = val; else selectedSize = val;
-}
+function selectOpt(el, type, val){ el.parentElement.querySelectorAll('.option-box').forEach(x => x.classList.remove('selected')); el.classList.add('selected'); if(type==='color') selCol = val; else selSiz = val; }
 
-// BAG SYSTEM
-function addToBag(){
-    bag.push({...currentP, selectedColor, selectedSize});
-    updateBagBadge();
-    alert("Added to Bag! 🛍️");
-}
-
-function directBuy(){
-    bag = [{...currentP, selectedColor, selectedSize}];
-    showPg('checkout-pg');
-}
-
-function updateBagBadge(){
-    const b = document.getElementById('badge-count');
-    if(bag.length > 0){ b.style.display="block"; b.innerText = bag.length; }
-    else b.style.display="none";
-}
+function addToBag(){ bag.push({...currentP, selCol, selSiz}); updateBadge(); alert("Added to Bag!"); }
+function directBuy(){ bag=[{...currentP, selCol, selSiz}]; showPg('checkout-pg'); }
+function updateBadge(){ const b=document.getElementById('badge'); if(bag.length>0){ b.style.display="block"; b.innerText=bag.length; } else b.style.display="none"; }
 
 function showBag(){
-    showPg('bag-pg');
-    const container = document.getElementById('bag-items');
-    if(bag.length === 0){
-        container.innerHTML = "";
-        document.getElementById('bag-empty').style.display = "block";
-        document.getElementById('bag-footer').style.display = "none";
-    } else {
-        document.getElementById('bag-empty').style.display = "none";
-        document.getElementById('bag-footer').style.display = "flex";
-        container.innerHTML = bag.map((item, idx) => `
-            <div class="bag-item">
-                <img src="${item.i}">
-                <div style="flex:1">
-                    <div style="font-weight:800; font-size:13px">${item.n}</div>
-                    <div style="color:var(--cherry); font-weight:800">₹${item.p}</div>
-                    <div style="font-size:10px; color:#666">${item.selectedSize} | ${item.selectedColor}</div>
-                </div>
-                <button onclick="removeFromBag(${idx})" style="border:none; background:none; color:red; font-weight:800">×</button>
-            </div>
-        `).join('');
+    showPg('bag-pg'); const div=document.getElementById('bag-items');
+    if(bag.length===0){ div.innerHTML="<p style='text-align:center;padding:50px'>Bag is empty</p>"; document.getElementById('bag-footer').style.display="none"; }
+    else {
+        document.getElementById('bag-footer').style.display="flex";
+        div.innerHTML = bag.map((item, i) => `<div class="bag-item"><img src="${item.i}"><div><div style="font-weight:800">${item.n}</div><div>₹${item.p}</div><div style="font-size:10px;color:#666">${item.selSiz} | ${item.selCol}</div></div><button onclick="bag.splice(${i},1);showBag();updateBadge();" style="margin-left:auto;border:none;background:none;color:red;font-weight:800">REMOVE</button></div>`).join('');
     }
 }
 
-function removeFromBag(idx){ bag.splice(idx, 1); updateBagBadge(); showBag(); }
-
-function toggleWish(n, p, i){
-    const idx = wishlist.findIndex(x => x.n === n);
-    if(idx > -1) wishlist.splice(idx, 1); else wishlist.push({n, p, i});
-    localStorage.setItem('lexWish', JSON.stringify(wishlist));
-    renderH(); if(document.getElementById('wish-pg').classList.contains('active')) showWishlist();
-}
-
-function showWishlist(){
-    showPg('wish-pg');
-    document.getElementById('wish-grid').innerHTML = wishlist.length ? wishlist.map(p=>`<div class="cat-card" onclick="viewProduct('${btoa(JSON.stringify(p))}')"><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div>`).join('') : "<p style='padding:20px; text-align:center;'>Empty</p>";
-}
-
-function openReel(idx){
-    let pool = (store.eid || []).concat(store.latest || []);
-    if(pool[idx]) viewProduct(btoa(JSON.stringify(pool[idx])));
-}
+function openReel(idx){ let pool=(store.eid||[]).concat(store.latest||[]); if(pool[idx]){ currentP=pool[idx]; openP('eid', idx); } }
 
 function openSub(k){
-    showPg('s-pg');
-    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
+    showPg('s-pg'); document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
     let h=""; (subMap[k]||[]).forEach(n=>{
         if(n === 'LEXRIVA') h+=`<div class="cherry-box"><span>ESTD. 2024</span><br><span>LEXRIVA</span></div>`;
-        else h+=`<div class="sub-item" onclick="openSubCategoryProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+        else h+=`<div class="sub-item" onclick="openSubProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
 }
 
-async function openSubCategoryProducts(catName){
+async function openSubProducts(catName){
     showPg('p-list-pg'); document.getElementById('p-list-title').innerText = catName.toUpperCase();
-    let pData = [];
-    Object.keys(store).forEach(key => { if(Array.isArray(store[key])) pData = pData.concat(store[key].filter(p => p.sub === catName)); });
-    document.getElementById('p-list-grid').innerHTML = pData.map((p,i)=>renderItem(p, 'grid', i)).join('');
+    let pData = []; Object.keys(store).forEach(key => { if(Array.isArray(store[key])) pData = pData.concat(store[key].filter(p => p.sub === catName)); });
+    document.getElementById('p-list-grid').innerHTML = pData.map((p,i)=>renderItem(p, 'eid', i)).join('');
 }
 
 async function confirmOrder(){
-    if(bag.length === 0) return alert("Bag is empty!");
-    const details = {
-        name: document.getElementById('cName').value,
-        mobile: document.getElementById('cMobile').value,
-        address: `${document.getElementById('cFlat').value}, ${document.getElementById('cArea').value}, ${document.getElementById('cCity').value} (${document.getElementById('cPincode').value})`,
-        items: bag.map(i => `${i.n}(${i.selectedSize})`).join(', '),
-        total: bag.reduce((s, i) => s + parseInt(i.p), 0)
-    };
-    
-    if(!details.name || !details.mobile) return alert("Fill details!");
-    
-    try{ 
-        fetch(ADMIN_URL, {method:'POST', mode:'no-cors', body:JSON.stringify(details)}); 
-        alert("🎉 Order Successful!"); bag=[]; updateBagBadge(); showPg('h-pg'); 
-    } catch(e){ alert("Error!"); }
+    if(bag.length===0) return;
+    const data = { name:document.getElementById('cName').value, mobile:document.getElementById('cMobile').value, address: `${document.getElementById('cFlat').value}, ${document.getElementById('cArea').value}, ${document.getElementById('cCity').value}`, items: bag.map(i=>`${i.n}(${i.selSiz})`).join(', '), total: bag.reduce((s,i)=>s+parseInt(i.p),0) };
+    fetch(ADMIN_URL, {method:'POST', mode:'no-cors', body:JSON.stringify(data)});
+    alert("🎉 Order Successful!"); bag=[]; updateBadge(); showPg('h-pg');
 }
-
-function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 
 function filterSearch(){
     let q = document.getElementById('mainSearch').value.toLowerCase();
     if(!q) { renderH(); return; }
-    let res = []; Object.keys(store).forEach(k => { if(Array.isArray(store[k])) store[k].forEach(p => { if(p.n.toLowerCase().includes(q)) res.push(p); })});
-    document.getElementById('eid-scroll').innerHTML = res.slice(0,10).map((p,i)=>renderItem(p, 'scroll', i)).join('');
+    let res = []; Object.keys(store).forEach(k => { if(Array.isArray(store[k])) store[k].forEach((p,i) => { if(p.n.toLowerCase().includes(q)) res.push({p,i,k}); })});
+    document.getElementById('eid-scroll').innerHTML = res.slice(0,10).map(item=>renderItem(item.p, item.k, item.i)).join('');
 }
 
+function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
 window.onload = init;
 </script></body></html>
