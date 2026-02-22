@@ -13,29 +13,16 @@
         .header{background:#fff;padding:20px 15px;text-align:center;position:sticky;top:0;z-index:1000}
         .logo{font-family:'Cinzel';font-size:26px;letter-spacing:5px;font-weight:900;color:var(--cherry)}
         
-        /* SLIDER CSS FIX */
-        #p-gallery {
-            display: flex !important;
-            overflow-x: auto !important;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            height: 450px;
-            background: #fff;
-        }
-        #p-gallery::-webkit-scrollbar { display: none; }
-        #p-gallery img {
-            min-width: 100% !important;
-            width: 100% !important;
-            height: 100%;
-            object-fit: cover;
-            scroll-snap-align: center;
-            flex-shrink: 0;
-        }
+        /* IMAGE GRID STYLE */
+        #p-grid-gallery { display: grid; grid-template-columns: 1fr; gap: 5px; background: #fff; padding: 5px; }
+        #p-grid-gallery img { width: 100%; border-radius: 10px; object-fit: cover; }
+        #p-grid-gallery img:first-child { height: 450px; } /* Main image badi dikhegi */
+        #p-grid-gallery .sub-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        #p-grid-gallery .sub-imgs img { height: 200px; }
 
         .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry)}
         .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
-        .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative; cursor:pointer;}
+        .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); cursor:pointer;}
         .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
         .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
@@ -54,7 +41,7 @@
         .buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
         
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-        .nav-btn{font-size:10px;font-weight:800;color:#999;cursor:pointer;text-align:center;display:flex;flex-direction:column;gap:5px;}
+        .nav-btn{font-size:10px;font-weight:800;color:#999;cursor:pointer;text-align:center;}
         .chip { display: inline-block; padding: 8px 15px; border: 1px solid #ddd; border-radius: 8px; margin: 4px; cursor: pointer; font-size: 11px; background: #fff; font-weight: 700;}
         .chip.selected { background: var(--cherry); color: #fff; border-color: var(--cherry); }
     </style>
@@ -66,12 +53,10 @@
 <div id="h-pg" class="page active">
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-    <div class="section-h">👗 CURATED CATEGORIES</div>
+    <div class="section-h">👗 CATEGORIES</div>
     <div class="cat-grid">
-        <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
-        <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
-        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
-        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
+        <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN</div></div>
+        <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC</div></div>
     </div>
 </div>
 
@@ -80,15 +65,13 @@
 
 <div id="p-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
-    <div id="p-gallery"></div>
+    <div id="p-grid-gallery"></div>
     
-    <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative; z-index:10">
+    <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-20px; position:relative; z-index:10">
         <h2 id="p-name" style="color:var(--cherry); margin:0"></h2>
         <p id="p-price" style="font-weight:900; font-size:22px; margin:10px 0"></p>
-        <div style="font-size:11px; font-weight:800; color:#888;">SELECT COLOR</div><div id="color-options"></div>
-        <div style="font-size:11px; font-weight:800; color:#888; margin-top:10px">SELECT SIZE</div><div id="size-options"></div>
         <div class="desc-box">
-            <div style="font-weight:800; font-size:11px; color:var(--cherry); margin-bottom:5px">DESCRIPTION</div>
+            <div style="font-weight:800; font-size:11px; color:var(--cherry); margin-bottom:5px">PRODUCT DETAILS</div>
             <div id="p-desc" class="desc-text"></div>
         </div>
     </div>
@@ -97,30 +80,16 @@
 
 <div id="checkout-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('p-pg')">← BACK</div>
-    <div style="padding:20px">
-        <h2 style="font-family:'Cinzel'; text-align:center; color:var(--cherry);">Shipping Details</h2>
-        <input id="cName" class="checkout-input" style="width:100%; padding:15px; margin-bottom:10px; border-radius:12px; border:1px solid #ddd;" placeholder="Full Name">
-        <input id="cMobile" class="checkout-input" style="width:100%; padding:15px; margin-bottom:10px; border-radius:12px; border:1px solid #ddd;" placeholder="Mobile Number">
-        <input id="cCity" class="checkout-input" style="width:100%; padding:15px; margin-bottom:10px; border-radius:12px; border:1px solid #ddd;" placeholder="City">
-        <button class="buy-btn" onclick="alert('Order Successful!')">PLACE ORDER</button>
-    </div>
+    <div style="padding:20px"><h2 style="text-align:center; color:var(--cherry);">Checkout</h2><button class="buy-btn">PLACE ORDER</button></div>
 </div>
 
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')">🏠 HOME</div>
-    <div class="nav-btn" onclick="showPg('h-pg')">👜 CATEGORY</div>
 </div>
 
 <script>
     const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
     let store={}; 
-
-    const subMap={
-        'western':['Dresses','Tops','Jeans','T-shirt'],
-        'ethnic':['Saree','Kurtis','Suits'],
-        'makeup_cat':['Lipstick','Foundation','Kajal'],
-        'jewellery_master':['Minimal','Earrings','Bangles']
-    };
 
     async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){}}
 
@@ -138,9 +107,8 @@
 
     function openSub(k){
         showPg('s-pg');
-        let h = ""; (subMap[k] || []).forEach(n=>{
-            h+=`<div class="sub-item" onclick="openSubProducts('${n}')"><img src="${n.toLowerCase()}.jpg" onerror="this.src='https://via.placeholder.com/80'"><p style="font-size:9px;font-weight:700">${n}</p></div>`;
-        });
+        let h = ""; let list = k==='western'?['Dresses','Tops']:['Saree','Suits'];
+        list.forEach(n=>{ h+=`<div class="sub-item" onclick="openSubProducts('${n}')"><img src="${n.toLowerCase()}.jpg" onerror="this.src='https://via.placeholder.com/80'"><p>${n}</p></div>`; });
         document.getElementById('s-grid').innerHTML = h;
     }
 
@@ -160,23 +128,21 @@
         document.getElementById('p-price').innerText="₹"+p.price;
         document.getElementById('p-desc').innerText= p.description || p.Description || "Premium Quality Product.";
         
-        // SMART SLIDER LOGIC - Exact Small "i" mapping
-        let imgs = [
-            p['image 1'] || p.img, 
-            p['image 2'] || p.img2, 
-            p['image 3'] || p.img3
-        ].filter(x => x && x.length > 10);
+        // GRID DISPLAY LOGIC
+        let mainImg = p['image 1'] || p.img;
+        let img2 = p['image 2'] || p.img2;
+        let img3 = p['image 3'] || p.img3;
 
-        document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}">`).join('');
-        document.getElementById('p-gallery').scrollLeft = 0; 
-        
-        let colors = (p.colour || p.Colour || "Standard").split(',');
-        let sizes = (p.size || p.Size || "Free").split(',');
-        document.getElementById('color-options').innerHTML = colors.map(c => `<div class="chip" onclick="selChip(this)">${c.trim()}</div>`).join('');
-        document.getElementById('size-options').innerHTML = sizes.map(s => `<div class="chip" onclick="selChip(this)">${s.trim()}</div>`).join('');
+        let galleryHtml = `<img src="${mainImg}">`;
+        if((img2 && img2.length > 10) || (img3 && img3.length > 10)){
+            galleryHtml += `<div class="sub-imgs">`;
+            if(img2) galleryHtml += `<img src="${img2}">`;
+            if(img3) galleryHtml += `<img src="${img3}">`;
+            galleryHtml += `</div>`;
+        }
+        document.getElementById('p-grid-gallery').innerHTML = galleryHtml;
     }
 
-    function selChip(el){ el.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); }
     function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
     window.onload = init;
 </script>
