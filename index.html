@@ -13,32 +13,29 @@
         .header{background:#fff;padding:20px 15px;text-align:center;position:sticky;top:0;z-index:1000}
         .logo{font-family:'Cinzel';font-size:26px;letter-spacing:5px;font-weight:900;color:var(--cherry)}
         
-        /* SEARCH */
         .search-container { background: #fff; padding: 5px 15px 15px; display: flex; border-bottom: 1px solid #eee; }
         .search-input { flex: 1; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; }
 
-        /* GRID & CARDS */
         .section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry)}
         .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
         .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); cursor:pointer;}
         .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
+        .reel-box{min-width:200px;height:350px;background:#000;border-radius:20px;overflow:hidden;margin-right:12px;cursor:pointer;flex-shrink:0;}
+        
         .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
         .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
         .cat-card img{width:100%;height:100%;object-fit:cover}
         .cat-label{position:absolute;bottom:12px;left:12px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
 
-        /* SUB GRID & CHERRY BOX */
         .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0;}
         .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
         .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); border: 2px solid #fff;}
-        .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); grid-column: span 1; justify-self: center;}
+        .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); grid-column: span 1; justify-self: center; box-shadow:0 10px 20px rgba(114,0,26,0.3)}
 
-        /* PRODUCT GALLERY STACK */
         #p-gallery-stack { display: flex; flex-direction: column; gap: 8px; background: #fff; }
         #p-gallery-stack img { width: 100%; height: auto; object-fit: cover; }
 
-        /* BUTTONS */
         .btn-group{display:flex; gap:10px; padding:15px; background:#fff; position:fixed; bottom:0; left:0; right:0; max-width:500px; margin:0 auto; z-index:1001}
         .buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
         .cart-btn{flex:1; padding:18px; border:2px solid var(--cherry); color:var(--cherry); background:#fff; border-radius:15px; font-weight:800; cursor:pointer}
@@ -55,20 +52,30 @@
 <body>
 
 <div class="header"><div class="logo">LEXRIVA</div></div>
-<div class="search-container"><input type="text" id="mainSearch" class="search-input" placeholder="Search Makeup, Jewelry..." oninput="filterSearch()"></div>
+<div class="search-container"><input type="text" id="mainSearch" class="search-input" placeholder="Search Makeup, Jewelry, Suits..." oninput="filterSearch()"></div>
 
 <div id="h-pg" class="page active">
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Lexriva+Luxury'"></div>
-    <div class="section-h">🎬 TRENDING PRODUCTS</div>
+    
+    <div class="section-h">🎬 TRENDING REELS</div>
+    <div class="h-scroll" id="reel-scroll">
+        <div class="reel-box" onclick="openSub('western')"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('ethnic')"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('makeup_cat')"><video src="reel3.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+    </div>
+
+    <div class="section-h">🌙 NEW ARRIVALS</div>
     <div class="h-scroll" id="eid-scroll"></div>
+
     <div class="section-h">🔥 BESTSELLERS</div>
     <div class="h-scroll" id="best-scroll"></div>
+
     <div class="section-h">👗 TOP CATEGORIES</div>
     <div class="cat-grid" id="home-cat-grid"></div>
 </div>
 
 <div id="cat-pg" class="page">
-    <div class="section-h">👜 ALL CATEGORIES</div>
+    <div class="section-h">👜 EXPLORE ALL CATEGORIES</div>
     <div class="cat-grid" id="full-cat-grid"></div>
 </div>
 
@@ -76,10 +83,10 @@
 <div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div><div id="p-list-grid" class="cat-grid"></div></div>
 
 <div id="cart-pg" class="page">
-    <div class="section-h" style="text-align:center">🛍️ YOUR BAG</div>
+    <div class="section-h" style="text-align:center">🛍️ YOUR SHOPPING BAG</div>
     <div id="cart-items-container"></div>
-    <div id="cart-empty-msg" style="text-align:center; padding:100px 20px; display:none">Empty!</div>
-    <div class="btn-group" id="cart-footer" style="display:none"><button class="buy-btn" onclick="showPg('checkout-pg')">CHECKOUT</button></div>
+    <div id="cart-empty-msg" style="text-align:center; padding:100px 20px; display:none">Your bag is empty!</div>
+    <div class="btn-group" id="cart-footer" style="display:none"><button class="buy-btn" onclick="showPg('checkout-pg')">PROCEED TO CHECKOUT</button></div>
 </div>
 
 <div id="p-pg" class="page">
@@ -95,7 +102,7 @@
         </div>
     </div>
     <div class="btn-group">
-        <button class="cart-btn" onclick="addToCart()">ADD TO BAG</button>
+        <button class="cart-btn" onclick="addToBag()">ADD TO BAG</button>
         <button class="buy-btn" onclick="directBuy()">BUY NOW</button>
     </div>
 </div>
@@ -122,22 +129,21 @@
 
 <script>
     const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
-    let store={}; let cart=[]; let currentP={}; let selColor="N/A", selSize="N/A";
+    let store={}; let cart=[]; let currentP={}; let selCol="N/A", selSiz="N/A";
 
     const subMap={
-        'western':['Dresses','Tops','Jeans','Co-ords','Jumpsuits','T-shirts','Skirts','Jackets','Trousers','Shorts'],
-        'ethnic':['Saree','Kurtis','Dress Material','Suits','Lehenga','Dupatta','Anarkali','Sharara','Palazzo'],
-        'makeup_cat':['Lipstick','Foundation','Kajal','Perfumes','Eyeliner','Nailpolish','Mascara','Primer','Blush'],
-        'jewellery_master':['Necklace','Earrings','Rings','Bangles','Bracelet','Bridal','Minimal','Maangtika'],
-        'bags':['Handbags','Sling Bags','Wallets','Clutches','Totes','Backpacks','Potli Bags'],
-        'footwear':['Heels','Flats','Sneakers','Sandals','Wedges','Ethnic','Boots'],
-        'acc_main':['Hair Acc','Belts','Sunglasses','Watches','Socks','Caps','Scarves']
+        'western':['Dresses','Tops','Jeans','Co-ords','Jumpsuits','T-shirts','Skirts','Jackets','Trousers','Shorts','Blazers','Sweaters'],
+        'ethnic':['Saree','Kurtis','Suits','Lehenga','Dupatta','Anarkali','Sharara','Palazzo','Ethnic Sets','Gowns','Dress Material'],
+        'makeup_cat':['Lipstick','Foundation','Kajal','Perfumes','Eyeliner','Nailpolish','Mascara','Primer','Blush','Setting Spray','Concealer'],
+        'jewellery_master':['Necklace','Earrings','Rings','Bangles','Bracelet','Bridal','Minimal','Maangtika','Anklets','Chokers','Antique'],
+        'bags':['Handbags','Sling Bags','Wallets','Clutches','Totes','Backpacks','Potli Bags','Messenger Bags','Travel Bags'],
+        'footwear':['Heels','Flats','Sneakers','Sandals','Wedges','Ethnic','Boots','Loafers','Bellies','Sliders'],
+        'acc_main':['Hair Acc','Belts','Sunglasses','Watches','Socks','Caps','Scarves','Keychains','Phone Covers']
     };
 
     async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){}}
 
     function renderH(data=store){
-        // SHEET PROTECTION: Filter out Order sheet if it exists
         const eid = data.Eid || [];
         const best = data.Bestseller || [];
         document.getElementById('eid-scroll').innerHTML=eid.map(p=>renderItem(p)).join('');
@@ -165,7 +171,6 @@
     function openSubProducts(catName){
         showPg('p-list-pg');
         let products=[];
-        // Loop through sheets but IGNORE "Orders" or "Order Details" sheets
         Object.keys(store).forEach(sheet=>{ 
             if(sheet.toLowerCase().includes("order")) return; 
             if(Array.isArray(store[sheet])){
@@ -180,16 +185,16 @@
         currentP=p; showPg('p-pg');
         document.getElementById('p-name').innerText=p.name;
         document.getElementById('p-price').innerText="₹"+p.price;
-        document.getElementById('p-desc').innerText=p.description || p.Description || "Premium quality product.";
+        document.getElementById('p-desc').innerText=p.description || p.Description || "Luxury quality product by Lexriva.";
         let imgs=[p['image 1']||p.img, p['image 2']||p.img2, p['image 3']||p.img3].filter(x=>x && x.length>10);
         document.getElementById('p-gallery-stack').innerHTML = imgs.map(src=>`<img src="${src}">`).join('');
         document.getElementById('color-options').innerHTML = (p.colour||"One Color").split(',').map(c=>`<div class="chip" onclick="selChip(this, 'color')">${c.trim()}</div>`).join('');
         document.getElementById('size-options').innerHTML = (p.size||"Free").split(',').map(s=>`<div class="chip" onclick="selChip(this, 'size')">${s.trim()}</div>`).join('');
     }
 
-    function selChip(el, type){ el.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); if(type==='color') selColor=el.innerText; else selSize=el.innerText; }
-    function addToCart(){ cart.push({...currentP, selCol:selColor, selSiz:selSize}); document.getElementById('cart-badge').innerText=cart.length; alert("Added to Bag! 🛍️"); }
-    function directBuy(){ cart=[{...currentP, selCol:selColor, selSiz:selSize}]; showPg('checkout-pg'); }
+    function selChip(el, type){ el.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); if(type==='color') selCol=el.innerText; else selSiz=el.innerText; }
+    function addToBag(){ cart.push({...currentP, selCol:selCol, selSiz:selSize}); document.getElementById('cart-badge').innerText=cart.length; alert("Added to Bag! 🛍️"); }
+    function directBuy(){ cart=[{...currentP, selCol:selCol, selSiz:selSize}]; showPg('checkout-pg'); }
 
     function renderBag(){
         showPg('cart-pg');
@@ -198,10 +203,10 @@
             document.getElementById('cart-empty-msg').style.display='none';
             document.getElementById('cart-footer').style.display='flex';
             document.getElementById('cart-items-container').innerHTML = cart.map((item, idx)=>`
-                <div style="background:#fff; padding:15px; margin:10px; border-radius:15px; display:flex; gap:15px; align-items:center;">
+                <div style="background:#fff; padding:15px; margin:10px; border-radius:15px; display:flex; gap:15px; align-items:center; box-shadow:0 4px 10px rgba(0,0,0,0.05)">
                     <img src="${item['image 1'] || item.img}" style="width:60px; height:80px; border-radius:10px; object-fit:cover;">
                     <div><div style="font-weight:800; font-size:12px">${item.name}</div><div style="color:var(--cherry); font-weight:900">₹${item.price}</div></div>
-                    <button style="margin-left:auto; color:red; border:none; background:none" onclick="cart.splice(${idx},1); renderBag(); document.getElementById('cart-badge').innerText=cart.length;">REMOVE</button>
+                    <button style="margin-left:auto; color:red; border:none; background:none; font-weight:800" onclick="cart.splice(${idx},1); renderBag(); document.getElementById('cart-badge').innerText=cart.length;">REMOVE</button>
                 </div>`).join('');
         }
     }
@@ -213,7 +218,7 @@
             address: addr, items: cart.map(i=>`${i.name}(${i.selSiz})`).join(', '),
             total: cart.reduce((sum, i)=>sum + parseInt(i.price), 0)
         };
-        if(!data.name || !data.mobile) return alert("Fill Name & Mobile!");
+        if(!data.name || !data.mobile) return alert("Please fill details!");
         fetch(ADMIN_URL, {method:'POST', mode:'no-cors', body:JSON.stringify(data)});
         alert("🎉 Order Successful!"); cart=[]; document.getElementById('cart-badge').innerText="0"; showPg('h-pg');
     }
