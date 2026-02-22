@@ -6,56 +6,52 @@
     <title>Lexriva | Categories</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; --white: #ffffff; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; }
+        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; padding-bottom: 80px; }
         
         .header { background: #fff; padding: 15px 20px; display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
-        .back-btn { font-size: 20px; color: var(--cherry); cursor: pointer; text-decoration: none; font-weight: 900; }
-        .page-title { font-family: 'Cinzel'; font-size: 16px; font-weight: 900; color: var(--cherry); flex-grow: 1; text-align: center; letter-spacing: 2px; }
+        .back-btn { font-size: 24px; color: var(--cherry); cursor: pointer; text-decoration: none; font-weight: 900; }
+        .page-title { font-family: 'Cinzel'; font-size: 15px; font-weight: 900; color: var(--cherry); flex-grow: 1; text-align: center; letter-spacing: 2px; }
 
-        /* Sub-Category Circular Grid */
+        /* CIRCULAR SUB-CATEGORIES SECTION */
         .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; align-items: center; }
         .sub-item { text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
-        .sub-item img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 8px; transition: 0.3s; }
-        .sub-item p { font-size: 9px; font-weight: 800; color: #444; text-transform: uppercase; letter-spacing: 1px; }
+        .sub-item img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 2.5px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 8px; transition: 0.3s; }
+        .sub-item p { font-size: 9px; font-weight: 800; color: #444; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* The Iconic Cherry Box */
-        .cherry-box { background: var(--cherry); color: var(--gold); border-radius: 120px 120px 10px 10px; width: 100px; height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'Cinzel'; border: 2px solid var(--gold); grid-column: span 1; justify-self: center; box-shadow: 0 8px 20px rgba(114,0,26,0.2); }
+        /* ICONIC ROUND CHERRY BOX */
+        .cherry-box { background: var(--cherry); color: var(--gold); border-radius: 120px 120px 10px 10px; width: 100px; height: 145px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'Cinzel'; border: 2.5px solid var(--gold); grid-column: span 1; justify-self: center; box-shadow: 0 8px 25px rgba(114,0,26,0.3); }
+        .cherry-box span { font-size: 8px; font-weight: 400; }
+        .cherry-box b { font-size: 14px; letter-spacing: 1px; }
 
-        /* Product Grid */
-        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .p-card { background: #fff; border-radius: 15px; padding: 10px; text-align: center; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.05); cursor: pointer; }
-        .p-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; }
-        .p-card h3 { font-size: 11px; margin: 8px 0 4px; color: #333; height: 30px; overflow: hidden; }
-        .price { font-weight: 800; color: var(--cherry); font-size: 14px; }
-        
-        .wish-icon { position: absolute; top: 15px; right: 15px; color: #ddd; font-size: 18px; }
-        .wish-icon.active { color: red; }
+        /* DYNAMIC PRODUCT LISTING */
+        .product-section-title { padding: 15px; font-size: 11px; font-weight: 900; color: var(--cherry); text-align: center; background: rgba(255,255,255,0.5); border-top: 1px solid #ddd; margin-top: 10px; }
+        .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .p-card { background: #fff; border-radius: 20px; padding: 10px; text-align: center; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; border: 0.5px solid #eee; }
+        .p-card img { width: 100%; height: 190px; object-fit: cover; border-radius: 15px; }
+        .p-card h3 { font-size: 11px; margin: 10px 0 5px; color: #333; height: 28px; overflow: hidden; font-weight: 600; }
+        .price { font-weight: 900; color: var(--cherry); font-size: 15px; }
 
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-btn { font-size: 9px; font-weight: 800; color: #999; text-align: center; cursor: pointer; text-decoration: none; }
+        .nav-btn { font-size: 10px; font-weight: 800; color: #bbb; text-align: center; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <a href="index.html" class="back-btn">←</a>
-        <div class="page-title" id="catTitle">COLLECTION</div>
+        <div class="page-title" id="catTitle">LEXRIVA MALL</div>
     </div>
 
-    <div id="subGridContainer" class="sub-grid">
-        </div>
+    <div id="subGridContainer" class="sub-grid"></div>
 
-    <div class="section-h" style="padding: 15px; font-size: 11px; font-weight: 800; color: var(--cherry); text-align: center; border-top: 1px solid #eee;">
-        ✨ EXPLORE PRODUCTS
-    </div>
+    <div class="product-section-title" id="subLabel">TOUCH A CATEGORY TO VIEW PRODUCTS</div>
 
-    <div id="pListGrid" class="product-grid">
-        </div>
+    <div id="pListGrid" class="p-grid"></div>
 
     <div class="bottom-nav">
         <a href="index.html" class="nav-btn">🏠<br>HOME</a>
-        <a href="category.html" class="nav-btn" style="color: var(--cherry);">👗<br>CATEGORY</a>
+        <a href="#" class="nav-btn" style="color: var(--cherry);">👗<br>CATEGORY</a>
         <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
         <a href="login.html" class="nav-btn">👤<br>LOGIN</a>
     </div>
@@ -63,67 +59,82 @@
     <script>
         const API = "https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
         
+        // ALL 7 CATEGORIES WITH 10-12 SUB-CATEGORIES
         const subData = {
-            'western': ['Dresses','Tops','Jeans','Co-ords','Jumpsuits','T-shirts','Jackets','Skirts','Shorts','Blazers'],
-            'ethnic': ['Saree','Kurtis','Suits','Lehenga','Anarkali','Sharara','Dupatta','Palazzo','Gowns','Ethnic Sets'],
-            'makeup': ['Lipstick','Foundation','Kajal','Perfumes','Compact','Eyeliner','Primer','Blush','Mascara','Highlighter'],
-            'jewel': ['Necklace','Earrings','Rings','Bangles','Bracelet','Bridal','Maangtika','Anklets','Chokers','Antique']
+            'western': ['Dresses','Tops','Jeans','Co-ords','Jumpsuits','T-shirts','Jackets','Skirts','Shorts','Blazers','Sweaters','Trousers'],
+            'ethnic': ['Saree','Kurtis','Suits','Lehenga','Anarkali','Sharara','Dupatta','Palazzo','Gowns','Gharara','Abayas','Dress Material'],
+            'makeup': ['Lipstick','Foundation','Kajal','Perfumes','Compact','Eyeliner','Primer','Blush','Mascara','Highlighter','Nail Polish','Lip Gloss'],
+            'jewel': ['Necklace','Earrings','Rings','Bangles','Bracelet','Bridal','Maangtika','Anklets','Chokers','Antique','AD Stone','Jhumka'],
+            'bags': ['Handbags','Sling Bags','Backpacks','Clutches','Totes','Wallets','Baguettes','Satchels','Pouches','Luxury Bags','Travel','Clutch'],
+            'footwear': ['Heels','Flats','Sandals','Sneakers','Ethnic','Boots','Wedges','Bellies','Mules','Loafers','Slippers','Platforms'],
+            'acc': ['Hair Accessories','Belts','Sunglasses','Watches','Socks','Caps','Brooches','Scarf','Stoles','Keychains','Jewelry Box','Hair Pins']
         };
 
         async function init() {
             const cat = localStorage.getItem('selectedCat') || 'western';
-            document.getElementById('catTitle').innerText = cat.toUpperCase() + " MALL";
+            document.getElementById('catTitle').innerText = cat.toUpperCase() + " COLLECTION";
             renderSubCats(cat);
-            loadProducts(cat);
+            loadAllProducts();
         }
 
         function renderSubCats(cat) {
             let list = subData[cat] || [];
             let html = "";
             list.forEach((name, idx) => {
-                // Insert Cherry Box exactly at 5th position
-                if(idx === 4) {
-                    html += `<div class="cherry-box"><span style="font-size:8px">ESTD. 2024</span><br><span style="font-size:14px;letter-spacing:1px">LEXRIVA</span></div>`;
-                }
+                // Circle Sub-item
                 html += `
-                    <div class="sub-item" onclick="filterBySub('${name}')">
-                        <img src="${name.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${name}'">
+                    <div class="sub-item" onclick="filterProducts('${name}')">
+                        <img src="${name.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/100?text=${name}'">
                         <p>${name}</p>
                     </div>`;
+                // Cherry Box at position 5
+                if(idx === 4) {
+                    html += `<div class="cherry-box"><span>ESTD.<br>2024</span><br><b>LEXRIVA</b></div>`;
+                }
             });
             document.getElementById('subGridContainer').innerHTML = html;
         }
 
-        async function loadProducts(cat) {
-            const res = await fetch(API);
-            const data = await res.json();
-            window.allProducts = data;
-            displayProducts(data.latest || []); // Default view
+        async function loadAllProducts() {
+            try {
+                const res = await fetch(API);
+                window.fullStore = await res.json();
+                // Default: show first sub-category products or some latest
+                filterProducts(subData[localStorage.getItem('selectedCat') || 'western'][0]);
+            } catch(e) { console.error("Sheet Sync Error"); }
         }
 
-        function displayProducts(list) {
-            document.getElementById('pListGrid').innerHTML = list.map((p, i) => `
-                <div class="p-card" onclick="openProductDetail('${p.n}')">
-                    <span class="wish-icon">♥</span>
-                    <img src="${p.i}">
-                    <h3>${p.n}</h3>
-                    <div class="price">₹${p.p}</div>
-                </div>
-            `).join('');
-        }
-
-        function filterBySub(subName) {
+        function filterProducts(subName) {
+            document.getElementById('subLabel').innerText = "SHOWING: " + subName.toUpperCase();
             let filtered = [];
-            Object.keys(window.allProducts).forEach(sheet => {
-                if(Array.isArray(window.allProducts[sheet])) {
-                    filtered = filtered.concat(window.allProducts[sheet].filter(p => p.subCat && p.subCat.trim() === subName));
+            // Looking through all sheets in the Google Sheet data
+            Object.keys(window.fullStore).forEach(sheet => {
+                if(Array.isArray(window.fullStore[sheet])) {
+                    let match = window.fullStore[sheet].filter(p => 
+                        (p.subCat && p.subCat.trim().toLowerCase() === subName.toLowerCase()) || 
+                        (p.sub && p.sub.trim().toLowerCase() === subName.toLowerCase())
+                    );
+                    filtered = [...filtered, ...match];
                 }
             });
-            displayProducts(filtered.length ? filtered : []);
+            
+            const grid = document.getElementById('pListGrid');
+            if(filtered.length === 0) {
+                grid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding:50px; color:#888;'>Coming Soon to Lexriva...</p>";
+            } else {
+                grid.innerHTML = filtered.map((p, i) => `
+                    <div class="p-card" onclick="openProductDetail('${p.n}', '${p.sheetName || 'eid'}', ${i})">
+                        <img src="${p.i}">
+                        <h3>${p.n}</h3>
+                        <div class="price">₹${p.p}</div>
+                    </div>
+                `).join('');
+            }
         }
 
-        function openProductDetail(pName) {
-            localStorage.setItem('selectedProductName', pName);
+        function openProductDetail(name, sheet, idx) {
+            localStorage.setItem('targetSheet', sheet);
+            localStorage.setItem('targetIdx', idx);
             window.location.href = "product.html";
         }
 
@@ -131,4 +142,3 @@
     </script>
 </body>
 </html>
-
