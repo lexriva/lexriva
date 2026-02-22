@@ -21,10 +21,10 @@
         .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative; cursor:pointer;}
         .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
-        /* Heart Button */
         .wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; z-index:10;}
         .wish-btn.active{color:red}
 
+        .reel-box{min-width:180px;height:320px;background:#000;border-radius:20px;overflow:hidden;margin-right:10px;cursor:pointer}
         .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
         .cat-card{position:relative;border-radius:25px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
         .cat-card img{width:100%;height:100%;object-fit:cover}
@@ -34,10 +34,6 @@
         .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
         .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); border: 2px solid #fff;}
         .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); grid-column: span 1; justify-self: center;}
-
-        /* Popup */
-        .order-popup { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:30px; border-radius:20px; box-shadow:0 10px 40px rgba(0,0,0,0.2); text-align:center; z-index:2000; width:80%; max-width:350px; }
-        .popup-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1999; }
 
         #p-gallery{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:450px;}
         #p-gallery img{min-width:100%; height:100%; object-fit:cover; scroll-snap-align:center;}
@@ -60,8 +56,14 @@
 </div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Mall'"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
+    <div class="section-h">🎬 TRENDING PRODUCTS</div>
+    <div class="h-scroll">
+        <div class="reel-box" onclick="openSub('western')"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('ethnic')"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div class="reel-box" onclick="openSub('makeup_cat')"><video src="reel3.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+    </div>
     <div class="section-h">🔥 BESTSELLERS</div><div id="best-scroll" class="h-scroll"></div>
     <div class="section-h">👗 CURATED CATEGORIES</div>
     <div id="main-cat-grid" class="cat-grid"></div>
@@ -95,16 +97,8 @@
         <input id="cName" class="checkout-input" placeholder="Full Name">
         <input id="cMobile" class="checkout-input" placeholder="Mobile Number">
         <input id="cCity" class="checkout-input" placeholder="City">
-        <button class="buy-btn" onclick="placeOrder()">PLACE ORDER</button>
+        <button class="buy-btn" onclick="alert('Order Successful!')">PLACE ORDER</button>
     </div>
-</div>
-
-<div class="popup-overlay" id="overlay"></div>
-<div class="order-popup" id="successPopup">
-    <div style="font-size:50px;">✨</div>
-    <h2>Order Placed!</h2>
-    <p>Thank you for shopping with Lexriva!</p>
-    <button class="buy-btn" onclick="closePopup()">OKAY</button>
 </div>
 
 <div class="bottom-nav">
@@ -131,13 +125,15 @@
     const subMap = {
         'western':['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets','Blazers'],
         'ethnic':['Saree','Kurtis','Dress Material','Lehengas','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta','Ethnic Sets'],
-        'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes','Nail Polish'],
-        'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','American Diamond','Jhumka','Korean Earrings']
+        'footwear':['Heels','Sandals','Boots','Bellies','Sneakers','Flats','Ethnic','Loafers','Wedges','Sliders','Mules'],
+        'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes','Nail Polish','Primer','Setting Spray','Blush','Highlighter','Contour'],
+        'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','American Diamond','Jhumka','Korean Earrings','Antique','Nose Rings','Anklets','Bangles','Chokers'],
+        'bags':['Handbags','Sling Bags','Wallets','Clutches','Totes','Backpacks','Messenger Bags','Potli Bags'],
+        'acc_main':['Hair Acc','Belts','Sunglasses','Watches','Socks','Caps','Scarves','Keychains']
     };
 
     async function init(){ 
-        const r=await fetch(ADMIN_URL); 
-        store=await r.json(); 
+        const r=await fetch(ADMIN_URL); store=await r.json(); 
         renderH();
         renderCategories();
     }
@@ -164,9 +160,10 @@
 
     function openSub(k){
         showPg('s-pg');
-        let h = ""; let subs = subMap[k] || [];
-        subs.forEach((n, idx)=>{
-            if(idx === 4) h+=`<div class="cherry-box"><span>ESTD. 2024</span><br><span>LEXRIVA</span></div>`;
+        let h = ""; let currentSubs = subMap[k] || [];
+        let cherryPos = (k === 'makeup_cat' || k === 'jewellery_master') ? 7 : 4;
+        currentSubs.forEach((n, idx)=>{
+            if(idx === cherryPos) h+=`<div class="cherry-box"><span>ESTD. 2024</span><br><span>LEXRIVA</span></div>`;
             h+=`<div class="sub-item" onclick="openSubProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80'"><p style="font-size:9px;font-weight:700">${n}</p></div>`;
         });
         document.getElementById('s-grid').innerHTML = h;
@@ -176,7 +173,10 @@
         showPg('p-list-pg');
         let products = [];
         Object.keys(store).forEach(sheet => {
-            if(Array.isArray(store[sheet])) products = [...products, ...store[sheet].filter(p => p.subCat && p.subCat.toLowerCase().trim() === catName.toLowerCase().trim())];
+            if(Array.isArray(store[sheet])) {
+                let filtered = store[sheet].filter(p => p.subCat && p.subCat.toLowerCase().trim() === catName.toLowerCase().trim());
+                products = [...products, ...filtered];
+            }
         });
         document.getElementById('p-list-grid').innerHTML = products.map(p => renderItem(p)).join('');
     }
@@ -197,13 +197,19 @@
         const idx = wishlist.findIndex(x => x.name === name);
         if(idx > -1) wishlist.splice(idx, 1); else wishlist.push({name, price, img});
         localStorage.setItem('lexWish', JSON.stringify(wishlist));
-        renderH();
+        renderH(); 
     }
 
     function selChip(el){ el.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); }
-    function placeOrder(){ document.getElementById('overlay').style.display='block'; document.getElementById('successPopup').style.display='block'; }
-    function closePopup(){ document.getElementById('overlay').style.display='none'; document.getElementById('successPopup').style.display='none'; showPg('h-pg'); }
-    function showPg(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+    function filterSearch(){
+        let q = document.getElementById('mainSearch').value.toLowerCase();
+        if(q.length < 2) { renderH(); return; }
+        let res = [];
+        Object.keys(store).forEach(sheet => { if(Array.isArray(store[sheet])) store[sheet].forEach(p => { if(p.name.toLowerCase().includes(q)) res.push(p); }); });
+        document.getElementById('eid-scroll').innerHTML = res.map(p => renderItem(p)).join('');
+    }
+
+    function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
     window.onload = init;
 </script>
 </body>
