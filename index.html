@@ -54,8 +54,8 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     
     <div class="section-h">🎬 TRENDING REELS</div>
     <div class="h-scroll" style="padding-bottom:15px">
-        <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div onclick="openReelProduct(0)" style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden;cursor:pointer"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div onclick="openReelProduct(1)" style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden;cursor:pointer"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
     </div>
 
     <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
@@ -116,7 +116,8 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 </div>
 
 <script>
-const ADMIN_URL="https://script.google.com/macros/s/AKfycbzSsDtANnhXgAs5M0LK-tZ4uHr4_Ij0pxEY8ZJknqf8a5ZMsHSC1EQRCXEHz5RcW7rD/exec";
+// NEW URL CONNECTED
+const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
 let store={}; let currentP={}; let selectedColor=""; let selectedSize="";
 let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
 
@@ -145,6 +146,13 @@ function renderItem(p, type){
     } else {
         return `<div class="cat-card"><button class="wish-btn ${isWished}" onclick="toggleWish('${p.n.replace(/'/g,"")}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div></div>`;
     }
+}
+
+// REEL CLICK FUNCTION
+function openReelProduct(idx){
+    let pool = (store.eid || []).concat(store.latest || []);
+    if(pool[idx]) openProduct(pool[idx].n, pool[idx].p, pool[idx].i, pool[idx].i2, pool[idx].i3, pool[idx].d, pool[idx].c, pool[idx].s);
+    else alert("Feature coming soon with more products!");
 }
 
 function toggleWish(n, p, i){
