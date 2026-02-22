@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Luxury Mall</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
 body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
@@ -14,11 +14,9 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative;}
 .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
-/* WISHLIST BUTTON */
 .wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:10;}
 .wish-btn.active{color:red}
 
-/* CATEGORY & SUB GRID */
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
 .cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
 .cat-card img{width:100%;height:100%;object-fit:cover}
@@ -27,10 +25,8 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
 .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
 .sub-item img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
 
-/* CHERRY BOX */
 .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:130px; height:180px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); box-shadow:0 10px 25px rgba(114,0,26,0.3)}
 
-/* PRODUCT & CHECKOUT */
 #p-gallery img{min-width:100%; height:550px; object-fit:cover; border-bottom: 2px solid var(--cherry)}
 .option-box{display:inline-block; padding:8px 15px; border:1px solid #ddd; margin:5px; border-radius:8px; cursor:pointer; font-size:12px; background:#fff}
 .option-box.selected{background:var(--cherry); color:#fff; border-color:var(--cherry)}
@@ -56,6 +52,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     <div class="h-scroll" style="padding-bottom:15px">
         <div onclick="openReelProduct(0)" style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden;cursor:pointer"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
         <div onclick="openReelProduct(1)" style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden;cursor:pointer"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+        <div onclick="openReelProduct(2)" style="min-width:220px;height:380px;background:#000;border-radius:20px;overflow:hidden;cursor:pointer"><video src="reel3.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
     </div>
 
     <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
@@ -98,10 +95,7 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     <div style="padding:20px">
         <h2 style="font-family:'Cinzel'; text-align:center">Checkout Details</h2>
         <input id="cName" class="checkout-input" placeholder="Full Name">
-        <input id="cEmail" class="checkout-input" placeholder="Email Address">
         <input id="cMobile" class="checkout-input" placeholder="Mobile Number">
-        <input id="cFlat" class="checkout-input" placeholder="Flat / House No. / Building">
-        <input id="cArea" class="checkout-input" placeholder="Area / Landmark / Street">
         <input id="cCity" class="checkout-input" placeholder="City">
         <input id="cPincode" class="checkout-input" placeholder="Pincode">
         <button class="buy-btn" style="width:100%; margin-top:20px" onclick="confirmOrder()">CONFIRM ORDER</button>
@@ -112,11 +106,10 @@ body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow
     <div class="nav-btn" onclick="showPg('h-pg')">HOME</div>
     <div class="nav-btn" onclick="document.getElementById('cat-main-list').scrollIntoView()">SHOP</div>
     <div class="nav-btn" onclick="showWishlist()">WISHLIST</div>
-    <div class="nav-btn" onclick="alert('Account Coming Soon')">ACCOUNT</div>
 </div>
 
 <script>
-// NEW URL CONNECTED
+// UPDATED URL
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
 let store={}; let currentP={}; let selectedColor=""; let selectedSize="";
 let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
@@ -134,44 +127,54 @@ const subMap={
 async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){}}
 
 function renderH(data=store){
-    document.getElementById('eid-scroll').innerHTML=(data.eid||[]).map(p=>renderItem(p, 'scroll')).join('');
-    document.getElementById('l-scroll').innerHTML=(data.latest||[]).map(p=>renderItem(p, 'scroll')).join('');
+    // Smart detection for sheet tabs
+    let eidData = data.Eid || data.eid || [];
+    let bestData = data.Bestseller || data.latest || [];
+    document.getElementById('eid-scroll').innerHTML=eidData.map(p=>renderItem(p, 'scroll')).join('');
+    document.getElementById('l-scroll').innerHTML=bestData.map(p=>renderItem(p, 'scroll')).join('');
 }
 
 function renderItem(p, type){
-    const isWished = wishlist.find(x => x.n === p.n) ? 'active' : '';
-    const click = `onclick="openProduct('${p.n.replace(/'/g,"")}','${p.p}','${p.i}','${p.i2}','${p.i3}','${p.d.replace(/'/g,"")}','${p.c}','${p.s}')"`;
+    // Smart detection for column names
+    let name = p.name || p.n || "Lexriva Product";
+    let price = p.price || p.p || "0";
+    let img = p['image 1'] || p.img || p.i || "";
+    let img2 = p['image 2'] || p.img2 || p.i2 || "";
+    let img3 = p['image 3'] || p.img3 || p.i3 || "";
+    let desc = p.description || p.d || "Luxury Product";
+    let color = p.colour || p.color || p.c || "Standard";
+    let size = p.size || p.s || "Free";
+
+    const isWished = wishlist.find(x => x.n === name) ? 'active' : '';
+    const click = `onclick="openProduct('${name.replace(/'/g,"")}','${price}','${img}','${img2}','${img3}','${desc.replace(/'/g,"")}','${color}','${size}')"`;
+    
     if(type === 'scroll'){
-        return `<div class="scroll-item"><button class="wish-btn ${isWished}" onclick="toggleWish('${p.n.replace(/'/g,"")}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div></div>`;
+        return `<div class="scroll-item"><button class="wish-btn ${isWished}" onclick="toggleWish('${name.replace(/'/g,"")}', ${price}, '${img}')">♥</button><div ${click}><img src="${img}"><p style="font-size:10px;font-weight:700">₹${price}</p></div></div>`;
     } else {
-        return `<div class="cat-card"><button class="wish-btn ${isWished}" onclick="toggleWish('${p.n.replace(/'/g,"")}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div></div>`;
+        return `<div class="cat-card"><button class="wish-btn ${isWished}" onclick="toggleWish('${name.replace(/'/g,"")}', ${price}, '${img}')">♥</button><div ${click}><img src="${img}"><div class="cat-label">₹${price}</div></div></div>`;
     }
 }
 
-// REEL CLICK FUNCTION
+// REEL CLICK LOGIC FIXED
 function openReelProduct(idx){
-    let pool = (store.eid || []).concat(store.latest || []);
-    if(pool[idx]) openProduct(pool[idx].n, pool[idx].p, pool[idx].i, pool[idx].i2, pool[idx].i3, pool[idx].d, pool[idx].c, pool[idx].s);
-    else alert("Feature coming soon with more products!");
-}
-
-function toggleWish(n, p, i){
-    const idx = wishlist.findIndex(x => x.n === n);
-    if(idx > -1) wishlist.splice(idx, 1); else wishlist.push({n, p, i});
-    localStorage.setItem('lexWish', JSON.stringify(wishlist));
-    renderH(); if(document.getElementById('wish-pg').classList.contains('active')) showWishlist();
-}
-
-function showWishlist(){
-    showPg('wish-pg');
-    document.getElementById('wish-grid').innerHTML = wishlist.length ? wishlist.map(p=>`<div class="cat-card"><img src="${p.i}"><div class="cat-label">₹${p.p}</div><button onclick="toggleWish('${p.n}',${p.p},'${p.i}')" style="position:absolute;bottom:5px;right:5px;border:none;background:red;color:white;border-radius:5px;font-size:8px;padding:3px 8px">Remove</button></div>`).join('') : "<p style='padding:20px'>Wishlist Empty</p>";
+    let pool = (store.Eid || store.eid || []).concat(store.Bestseller || store.latest || []);
+    if(pool[idx]) {
+        let p = pool[idx];
+        openProduct(
+            p.name || p.n, p.price || p.p, 
+            p['image 1'] || p.img || p.i, p['image 2'] || p.img2 || p.i2, p['image 3'] || p.img3 || p.i3, 
+            p.description || p.d, p.colour || p.color || p.c, p.size || p.s
+        );
+    } else {
+        alert("Product loading...");
+    }
 }
 
 function openProduct(n, p, i, i2, i3, d, c, s){
     currentP = {n,p,i,i2,i3,d,c,s};
     document.getElementById('p-name').innerText=n; document.getElementById('p-price').innerText="₹"+p;
     document.getElementById('p-desc').innerText=d;
-    document.getElementById('p-delivery-tag').innerText = parseInt(p) < 1999 ? "+ ₹29 Delivery Charges" : "FREE Delivery (Above ₹1999)";
+    document.getElementById('p-delivery-tag').innerText = parseInt(p) < 1999 ? "+ ₹29 Delivery Charges" : "FREE Delivery";
     let imgs = [i, i2, i3].filter(x => x && x.length > 5);
     document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}" style="scroll-snap-align:center">`).join('');
     document.getElementById('color-options').innerHTML = c.split(',').map(v => `<div class="option-box" onclick="selectOpt(this, 'color', '${v.trim()}')">${v.trim()}</div>`).join('');
@@ -179,16 +182,25 @@ function openProduct(n, p, i, i2, i3, d, c, s){
     showPg('p-pg');
 }
 
+function toggleWish(n, p, i){
+    const idx = wishlist.findIndex(x => x.n === n);
+    if(idx > -1) wishlist.splice(idx, 1); else wishlist.push({n, p, i});
+    localStorage.setItem('lexWish', JSON.stringify(wishlist));
+    renderH(); 
+}
+
+function showWishlist(){
+    showPg('wish-pg');
+    document.getElementById('wish-grid').innerHTML = wishlist.length ? wishlist.map(p=>`<div class="cat-card"><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div>`).join('') : "<p style='padding:20px'>Wishlist Empty</p>";
+}
+
 function selectOpt(el, type, val){
     el.parentElement.querySelectorAll('.option-box').forEach(x => x.classList.remove('selected'));
     el.classList.add('selected'); if(type==='color') selectedColor = val; else selectedSize = val;
 }
 
-function addToCart(){ alert("Product added to cart!"); }
-
 function openSub(k){
     showPg('s-pg');
-    document.getElementById('s-banner').innerHTML=`<img src="${k}_banner.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
     let h=""; (subMap[k]||[]).forEach(n=>{
         if(n === 'LEXRIVA') h+=`<div class="cherry-box"><span style="font-size:10px">ESTD. 2024</span><br><span style="font-size:16px; letter-spacing:2px">LEXRIVA</span></div>`;
         else h+=`<div class="sub-item" onclick="openSubCategoryProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
@@ -198,23 +210,17 @@ function openSub(k){
 
 async function openSubCategoryProducts(catName){
     showPg('p-list-pg'); document.getElementById('p-list-title').innerText = catName.toUpperCase();
-    const pData = store[catName.toLowerCase()] || [];
+    let pData = [];
+    Object.keys(store).forEach(key => {
+        if(Array.isArray(store[key])) {
+            let filtered = store[key].filter(p => (p.subCat || "").toLowerCase() === catName.toLowerCase());
+            pData = pData.concat(filtered);
+        }
+    });
     document.getElementById('p-list-grid').innerHTML = pData.map(p=>renderItem(p, 'grid')).join('');
 }
 
-async function confirmOrder(){
-    let data = { name: document.getElementById('cName').value, email: document.getElementById('cEmail').value, mobile: document.getElementById('cMobile').value, flat: document.getElementById('cFlat').value, area: document.getElementById('cArea').value, city: document.getElementById('cCity').value, pincode: document.getElementById('cPincode').value, productName: currentP.n, productPrice: currentP.p, selectedColor: selectedColor, selectedSize: selectedSize };
-    if(!data.name || !data.mobile || !selectedColor || !selectedSize) return alert("Please fill all details!");
-    try{ await fetch(ADMIN_URL, {method:'POST', body:JSON.stringify(data)}); alert("Order Placed Successfully!"); showPg('h-pg'); } catch(e){ alert("Error!"); }
-}
-
 function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-
-function filterSearch(){
-    let q = document.getElementById('mainSearch').value.toLowerCase();
-    let res = []; Object.keys(store).forEach(k => { if(Array.isArray(store[k])) store[k].forEach(p => { if(p.n.toLowerCase().includes(q)) res.push(p); })});
-    document.getElementById('eid-scroll').innerHTML = res.slice(0,10).map(p=>renderItem(p, 'scroll')).join('');
-}
 
 window.onload = init;
 </script></body></html>
