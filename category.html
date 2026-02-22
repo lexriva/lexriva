@@ -1,3 +1,4 @@
+</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,23 +10,27 @@
         :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; padding-bottom: 80px; }
         
-        /* Header & Search */
-        .header { background: #fff; padding: 15px 20px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Cinzel'; font-size: 24px; font-weight: 900; color: var(--cherry); letter-spacing: 4px; }
+        /* Header */
+        .header { background: #fff; padding: 15px 20px; text-align: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cinzel'; font-size: 22px; font-weight: 900; color: var(--cherry); letter-spacing: 4px; margin: 0 auto; }
+        .user-icon { font-size: 20px; color: var(--cherry); cursor: pointer; }
+
+        /* Banner */
+        .hero-banner { width: 100%; height: auto; display: block; border-bottom: 3px solid var(--cherry); }
+
+        /* Search Bar Fix */
         .search-container { background: #fff; padding: 10px 20px; border-bottom: 1px solid #eee; }
         .search-bar { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
 
-        .banner { width: 100%; display: block; }
-
-        /* Story/Status Circles */
+        /* Status Circles */
         .story-container { display: flex; gap: 15px; padding: 20px; overflow-x: auto; scrollbar-width: none; background: #fff; }
         .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
         .story-img { width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--cherry); padding: 2px; object-fit: cover; }
-        .story-circle p { font-size: 10px; font-weight: 800; margin-top: 5px; color: var(--cherry); }
+        .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); }
 
         .section-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); padding: 20px; text-align: center; letter-spacing: 2px; }
 
-        /* Reels & Product Scrolls */
+        /* Reels */
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; }
         .reel-card { min-width: 170px; height: 300px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
@@ -34,17 +39,16 @@
         .product-card img { width: 100%; height: 170px; object-fit: cover; border-radius: 10px; }
         .price { font-weight: 800; color: var(--cherry); font-size: 14px; margin-top: 5px; }
 
-        /* Category Overlay */
-        .cat-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--lavender); z-index: 2000; overflow-y: auto; }
+        /* Categories Grid */
         .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px; }
         .cat-card { position: relative; height: 160px; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; }
         .cat-card img { width: 100%; height: 100%; object-fit: cover; }
-        .cat-label { position: absolute; bottom: 10px; left: 10px; color: #fff; font-size: 11px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .cat-label { position: absolute; bottom: 10px; left: 10px; color: #fff; font-size: 10px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
         /* Footer Email */
         .newsletter { background: #111; color: #fff; padding: 40px 20px; text-align: center; margin-top: 20px; }
-        .news-input { width: 80%; padding: 12px; background: #222; border: 1px solid #333; color: #fff; border-radius: 5px; margin-bottom: 10px; }
-        .news-btn { background: #fff; color: #000; padding: 12px 30px; border: none; font-weight: 800; border-radius: 5px; cursor: pointer; }
+        .news-input { width: 75%; padding: 12px; background: #111; border: 1px solid #fff; color: #fff; outline: none; }
+        .news-btn { width: 20%; padding: 12px; background: #fff; color: #000; border: none; font-weight: 800; cursor: pointer; }
 
         /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
@@ -53,25 +57,25 @@
 </head>
 <body>
 
-    <div class="header"><div class="logo">LEXRIVA</div></div>
+    <div class="header">
+        <div class="logo">LEXRIVA</div>
+        <div class="user-icon" onclick="alert('Login Coming Soon')">👤</div>
+    </div>
     
     <div class="search-container">
-        <input type="text" id="mainSearch" class="search-bar" placeholder="Search Jewelry, Suits, Bags..." oninput="searchProducts()">
+        <input type="text" id="mainSearch" class="search-bar" placeholder="Search Jewelry, Suits, Bags...">
     </div>
 
-    <img src="main_banner.jpg" class="banner">
+    <img src="main_banner.jpg" class="hero-banner">
 
     <div class="story-container">
-        <div class="story-circle" onclick="openStory('under499')"><img src="s1.jpg" class="story-img"><p>UNDER 499</p></div>
-        <div class="story-circle" onclick="openStory('under999')"><img src="s2.jpg" class="story-img"><p>UNDER 999</p></div>
-        <div class="story-circle" onclick="openStory('under1499')"><img src="s3.jpg" class="story-img"><p>UNDER 1499</p></div>
-        <div class="story-circle" onclick="openStory('lux_edit')"><img src="s4.jpg" class="story-img"><p>LUXURY EDIT</p></div>
+        <div class="story-circle" onclick="openStory('under499')"><img src="story_499.jpg" class="story-img"><p>UNDER 499</p></div>
+        <div class="story-circle" onclick="openStory('under999')"><img src="story_999.jpg" class="story-img"><p>UNDER 999</p></div>
+        <div class="story-circle" onclick="openStory('under1499')"><img src="story_1499.jpg" class="story-img"><p>UNDER 1499</p></div>
+        <div class="story-circle" onclick="openStory('lux_edit')"><img src="story_lux.jpg" class="story-img"><p>LUXURY EDIT</p></div>
     </div>
 
-    <div class="section-title">🌙 THE EID EDIT</div>
-    <div id="eid-scroll" class="h-scroll"></div>
-
-    <div class="section-title">🎬 TRENDING PRODUCTS</div>
+    <div class="section-title">🎬 TRENDING REELS</div>
     <div class="h-scroll">
         <div class="reel-card" onclick="openProduct('eid', 0)"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
         <div class="reel-card" onclick="openProduct('eid', 1)"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
@@ -79,70 +83,50 @@
         <div class="reel-card" onclick="openProduct('latest', 1)"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
     </div>
 
+    <div class="section-title">🌙 THE EID EDIT</div>
+    <div id="eid-scroll" class="h-scroll"></div>
+
     <div class="section-title">🔥 BEST SELLERS</div>
     <div id="best-scroll" class="h-scroll"></div>
 
-    <div class="section-title">OUR STORY</div>
-    <div style="padding: 20px;"><video src="brand_story.mp4" style="width:100%; border-radius:20px;" controls></video></div>
-
-    <div class="newsletter">
-        <h3>LEXRIVA INSIDER</h3>
-        <input type="email" id="email" class="news-input" placeholder="Enter your email">
-        <button class="news-btn">SUBSCRIBE</button>
+    <div class="section-title">👗 SHOP BY CATEGORY</div>
+    <div class="cat-grid">
+        <div class="cat-card" onclick="goToCat('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
+        <div class="cat-card" onclick="goToCat('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
+        <div class="cat-card" onclick="goToCat('makeup')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP</div></div>
+        <div class="cat-card" onclick="goToCat('jewel')"><img src="cat_jewel.jpg"><div class="cat-label">JEWELLERY</div></div>
     </div>
 
-    <div id="catOverlay" class="cat-overlay">
-        <div style="padding:20px; font-weight:800; color:var(--cherry);" onclick="toggleCat()">← BACK</div>
-        <div class="cat-grid">
-            <div class="cat-card" onclick="goToCat('western')"><img src="cat1.jpg"><div class="cat-label">WESTERN WEAR</div></div>
-            <div class="cat-card" onclick="goToCat('ethnic')"><img src="cat2.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
-            <div class="cat-card" onclick="goToCat('makeup')"><img src="cat3.jpg"><div class="cat-label">MAKEUP</div></div>
-            <div class="cat-card" onclick="goToCat('jewel')"><img src="cat4.jpg"><div class="cat-label">JEWELLERY</div></div>
-            <div class="cat-card" onclick="goToCat('footwear')"><img src="cat5.jpg"><div class="cat-label">FOOTWEAR</div></div>
-            <div class="cat-card" onclick="goToCat('bags')"><img src="cat6.jpg"><div class="cat-label">BAGS</div></div>
-            <div class="cat-card" onclick="goToCat('acc')"><img src="cat7.jpg"><div class="cat-label">ACCESSORIES</div></div>
+    <div class="newsletter">
+        <h3>NEWSLETTER SIGN UP</h3>
+        <p style="font-size: 11px; color: #888;">Sign up for exclusive updates & insider only discounts</p>
+        <div style="display:flex; justify-content:center;">
+            <input type="email" class="news-input" placeholder="enter your email address">
+            <button class="news-btn">SUBMIT</button>
         </div>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-btn" onclick="location.reload()" style="color:var(--cherry)">🏠<br>HOME</div>
-        <div class="nav-btn" onclick="toggleCat()">👗<br>CATEGORY</div>
-        <div class="nav-btn" onclick="window.location.href='wishlist.html'">💖<br>WISHLIST</div>
-        <div class="nav-btn" onclick="window.location.href='login.html'">👤<br>LOGIN</div>
+        <a href="index.html" class="nav-btn" style="color:var(--cherry)">🏠<br>HOME</a>
+        <a href="#" onclick="toggleCat()" class="nav-btn">👗<br>CATEGORY</a>
+        <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
+        <a href="bag.html" class="nav-btn">🛍️<br>BAG</a>
     </div>
 
     <script>
         const API = "https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
         
         async function load() {
-            const res = await fetch(API);
-            const data = await res.json();
-            window.store = data;
-            document.getElementById('eid-scroll').innerHTML = data.eid.map((p,i)=>`<div class="product-card" onclick="openProduct('eid',${i})"><img src="${p.i}"><div class="price">₹${p.p}</div></div>`).join('');
-            document.getElementById('best-scroll').innerHTML = data.latest.map((p,i)=>`<div class="product-card" onclick="openProduct('latest',${i})"><img src="${p.i}"><div class="price">₹${p.p}</div></div>`).join('');
+            try {
+                const res = await fetch(API);
+                const data = await res.json();
+                document.getElementById('eid-scroll').innerHTML = data.eid.map((p,i)=>`<div class="product-card" onclick="openProduct('eid',${i})"><img src="${p.i}"><div class="price">₹${p.p}</div></div>`).join('');
+                document.getElementById('best-scroll').innerHTML = data.latest.map((p,i)=>`<div class="product-card" onclick="openProduct('latest',${i})"><img src="${p.i}"><div class="price">₹${p.p}</div></div>`).join('');
+            } catch(e) { console.log("Check API/Internet"); }
         }
 
-        function toggleCat() { 
-            const el = document.getElementById('catOverlay');
-            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function goToCat(name) {
-            localStorage.setItem('selectedCat', name);
-            window.location.href = "category.html";
-        }
-
-        function openProduct(sheet, idx) {
-            localStorage.setItem('targetSheet', sheet);
-            localStorage.setItem('targetIdx', idx);
-            window.location.href = "product.html";
-        }
-
-        function openStory(type) {
-            localStorage.setItem('selectedSub', type);
-            window.location.href = "product_list.html";
-        }
-
+        function goToCat(name) { localStorage.setItem('selectedCat', name); window.location.href = "category.html"; }
+        function openProduct(sheet, idx) { localStorage.setItem('targetSheet', sheet); localStorage.setItem('targetIdx', idx); window.location.href = "product.html"; }
         window.onload = load;
     </script>
 </body>
