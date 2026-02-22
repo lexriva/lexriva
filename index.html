@@ -21,7 +21,10 @@
         .scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative; cursor:pointer;}
         .scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
 
-        .reel-box{min-width:180px;height:320px;background:#000;border-radius:20px;overflow:hidden;margin-right:10px;cursor:pointer}
+        /* Heart Button */
+        .wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; z-index:10;}
+        .wish-btn.active{color:red}
+
         .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
         .cat-card{position:relative;border-radius:25px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
         .cat-card img{width:100%;height:100%;object-fit:cover}
@@ -35,6 +38,11 @@
         /* Popup */
         .order-popup { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:30px; border-radius:20px; box-shadow:0 10px 40px rgba(0,0,0,0.2); text-align:center; z-index:2000; width:80%; max-width:350px; }
         .popup-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1999; }
+
+        #p-gallery{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; height:450px;}
+        #p-gallery img{min-width:100%; height:100%; object-fit:cover; scroll-snap-align:center;}
+        .chip { display: inline-block; padding: 10px 18px; border: 1px solid #ddd; border-radius: 10px; margin: 5px; cursor: pointer; font-size: 11px; background: #fff; font-weight: 700;}
+        .chip.selected { background: var(--cherry); color: #fff; border-color: var(--cherry); }
 
         .btn-group{display:flex; gap:10px; padding:15px; background:#fff; position:fixed; bottom:0; left:0; right:0; max-width:500px; margin:0 auto; z-index:1001}
         .buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
@@ -54,14 +62,6 @@
 <div id="h-pg" class="page active">
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Luxury+Mall'"></div>
     <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-    <div class="section-h">🎬 TRENDING PRODUCTS</div>
-    <div class="h-scroll">
-        <div class="reel-box" onclick="openSub('western')"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="openSub('ethnic')"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="openSub('makeup_cat')"><video src="reel3.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="openSub('jewellery_master')"><video src="reel4.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="openSub('bags')"><video src="reel5.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-    </div>
     <div class="section-h">🔥 BESTSELLERS</div><div id="best-scroll" class="h-scroll"></div>
     <div class="section-h">👗 CURATED CATEGORIES</div>
     <div id="main-cat-grid" class="cat-grid"></div>
@@ -75,14 +75,26 @@
 <div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div id="s-grid" class="sub-grid"></div></div>
 <div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div><div id="p-list-grid" class="cat-grid"></div></div>
 
-<div id="checkout-pg" class="page">
+<div id="p-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
+    <div id="p-gallery"></div>
+    <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative; z-index:10">
+        <h2 id="p-name" style="color:var(--cherry); margin:0"></h2>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0">
+            <p id="p-price" style="font-weight:900; font-size:22px; margin:0"></p>
+        </div>
+        <div id="color-options"></div><div id="size-options" style="margin-top:10px"></div>
+    </div>
+    <div class="btn-group"><button class="buy-btn" onclick="showPg('checkout-pg')">BUY NOW</button></div>
+</div>
+
+<div id="checkout-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('p-pg')">← BACK</div>
     <div style="padding:20px">
         <h2 style="font-family:'Cinzel'; text-align:center; color:var(--cherry);">Shipping Details</h2>
         <input id="cName" class="checkout-input" placeholder="Full Name">
         <input id="cMobile" class="checkout-input" placeholder="Mobile Number">
         <input id="cCity" class="checkout-input" placeholder="City">
-        <input id="cPincode" class="checkout-input" placeholder="Pincode">
         <button class="buy-btn" onclick="placeOrder()">PLACE ORDER</button>
     </div>
 </div>
@@ -90,7 +102,7 @@
 <div class="popup-overlay" id="overlay"></div>
 <div class="order-popup" id="successPopup">
     <div style="font-size:50px;">✨</div>
-    <h2 style="color:var(--cherry); font-family:'Cinzel';">Order Placed!</h2>
+    <h2>Order Placed!</h2>
     <p>Thank you for shopping with Lexriva!</p>
     <button class="buy-btn" onclick="closePopup()">OKAY</button>
 </div>
@@ -104,6 +116,8 @@
 <script>
     const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
     let store={}; 
+    let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
+
     const categories = [
         {id:'western', name:'WESTERN WEAR', img:'cat_western.jpg'},
         {id:'ethnic', name:'ETHNIC WEAR', img:'cat_ethnic.jpg'},
@@ -114,13 +128,18 @@
         {id:'acc_main', name:'ACCESSORIES', img:'cat_acc.jpg'}
     ];
 
+    const subMap = {
+        'western':['Dresses','Tops','Jeans','T-shirt','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets','Blazers'],
+        'ethnic':['Saree','Kurtis','Dress Material','Lehengas','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta','Ethnic Sets'],
+        'makeup_cat':['Lipstick','Lip Gloss','Lip Liner','Lip Care','Foundation','Compact','Concealer','Eye Shadow','Eyeliner','Kajal','Mascara','Perfumes','Nail Polish'],
+        'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','American Diamond','Jhumka','Korean Earrings']
+    };
+
     async function init(){ 
-        try {
-            const r=await fetch(ADMIN_URL); 
-            store=await r.json(); 
-            renderH();
-            renderCategories();
-        } catch(e) { console.log(e) }
+        const r=await fetch(ADMIN_URL); 
+        store=await r.json(); 
+        renderH();
+        renderCategories();
     }
 
     function renderH(){
@@ -129,41 +148,62 @@
     }
 
     function renderItem(p){
-        return `<div class="scroll-item" onclick='alert("Product Details Loaded")'><img src="${p.img}"><p style="font-size:10px;font-weight:700">₹${p.price}</p></div>`;
+        const isWished = wishlist.find(x => x.name === p.name) ? 'active' : '';
+        const pJson = JSON.stringify(p).replace(/'/g, "&apos;");
+        return `<div class="scroll-item">
+            <button class="wish-btn ${isWished}" onclick="event.stopPropagation(); toggleWish('${p.name}', ${p.price}, '${p.img}')">♥</button>
+            <div onclick='openP(${pJson})'><img src="${p.img}"><p style="font-size:10px;font-weight:700">₹${p.price}</p></div>
+        </div>`;
     }
 
     function renderCategories(){
-        const html = categories.map(c => `
-            <div class="cat-card" onclick="openSub('${c.id}')">
-                <img src="${c.img}">
-                <div class="cat-label">${c.name}</div>
-            </div>`).join('');
+        const html = categories.map(c => `<div class="cat-card" onclick="openSub('${c.id}')"><img src="${c.img}"><div class="cat-label">${c.name}</div></div>`).join('');
         document.getElementById('main-cat-grid').innerHTML = html;
         document.getElementById('full-cat-grid').innerHTML = html;
     }
 
     function openSub(k){
         showPg('s-pg');
-        // Sub-category logic to fetch items based on category 'k'
+        let h = ""; let subs = subMap[k] || [];
+        subs.forEach((n, idx)=>{
+            if(idx === 4) h+=`<div class="cherry-box"><span>ESTD. 2024</span><br><span>LEXRIVA</span></div>`;
+            h+=`<div class="sub-item" onclick="openSubProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80'"><p style="font-size:9px;font-weight:700">${n}</p></div>`;
+        });
+        document.getElementById('s-grid').innerHTML = h;
     }
 
-    function placeOrder(){
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('successPopup').style.display = 'block';
+    function openSubProducts(catName){
+        showPg('p-list-pg');
+        let products = [];
+        Object.keys(store).forEach(sheet => {
+            if(Array.isArray(store[sheet])) products = [...products, ...store[sheet].filter(p => p.subCat && p.subCat.toLowerCase().trim() === catName.toLowerCase().trim())];
+        });
+        document.getElementById('p-list-grid').innerHTML = products.map(p => renderItem(p)).join('');
     }
 
-    function closePopup(){
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('successPopup').style.display = 'none';
-        showPg('h-pg');
+    function openP(p){
+        showPg('p-pg');
+        document.getElementById('p-name').innerText=p.name;
+        document.getElementById('p-price').innerText="₹"+p.price;
+        let imgs = [p.img, p.img2, p.img3].filter(x => x && x.length > 5);
+        document.getElementById('p-gallery').innerHTML = imgs.map(src => `<img src="${src}">`).join('');
+        let colors = (p.colour || "Standard").split(',');
+        let sizes = (p.size || "Free").split(',');
+        document.getElementById('color-options').innerHTML = colors.map(c => `<div class="chip" onclick="selChip(this)">${c.trim()}</div>`).join('');
+        document.getElementById('size-options').innerHTML = sizes.map(s => `<div class="chip" onclick="selChip(this)">${s.trim()}</div>`).join('');
     }
 
-    function showPg(id){
-        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
+    function toggleWish(name, price, img){
+        const idx = wishlist.findIndex(x => x.name === name);
+        if(idx > -1) wishlist.splice(idx, 1); else wishlist.push({name, price, img});
+        localStorage.setItem('lexWish', JSON.stringify(wishlist));
+        renderH();
     }
 
+    function selChip(el){ el.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); }
+    function placeOrder(){ document.getElementById('overlay').style.display='block'; document.getElementById('successPopup').style.display='block'; }
+    function closePopup(){ document.getElementById('overlay').style.display='none'; document.getElementById('successPopup').style.display='none'; showPg('h-pg'); }
+    function showPg(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
     window.onload = init;
 </script>
 </body>
