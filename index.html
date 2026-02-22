@@ -162,10 +162,11 @@
                 </div>`).join('');
         }
 
-        function updateBagCount() {
-            let bag = JSON.parse(localStorage.getItem('lexBag')) || [];
-            document.getElementById('cartCount').innerText = bag.length;
+        function goToCat(catName) {
+    localStorage.setItem('selectedCat', catName); // Yeh line bohot zaruri hai
+    window.location.href = "category.html";
         }
+        
 
         window.onload = loadStore;
     </script>
