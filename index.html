@@ -1,221 +1,143 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Lexriva | Luxury Mall</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-:root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
-body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
-.page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
-.active{display:block}
-.header{background:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:1000}
-.logo{font-family:'Cinzel';font-size:26px;letter-spacing:6px;font-weight:900;color:var(--cherry)}
-.search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
-.search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
-.section-h{padding:15px;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--cherry)}
-.h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px;scrollbar-width:none}
-.scroll-item{min-width:140px;text-align:center;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05); position:relative; cursor:pointer;}
-.scroll-item img{width:120px;height:160px;border-radius:15px;object-fit:cover}
-
-/* REELS STYLE */
-.reel-box{min-width:180px;height:320px;background:#000;border-radius:20px;overflow:hidden;margin-right:10px;cursor:pointer;flex-shrink:0}
-
-/* BADGE & WISHLIST */
-.cart-badge { position: absolute; top: -5px; right: 10px; background: red; color: white; font-size: 10px; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
-.wish-btn{position:absolute; top:15px; right:15px; background:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none; color:#ccc; cursor:pointer; font-size:16px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:10;}
-.wish-btn.active{color:red}
-
-/* CATEGORY SYSTEM */
-.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
-.cat-card{position:relative;border-radius:20px;overflow:hidden;height:180px;box-shadow:0 8px 15px rgba(0,0,0,0.05); cursor:pointer}
-.cat-card img{width:100%;height:100%;object-fit:cover}
-.cat-label{position:absolute;bottom:10px;left:10px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.5)}
-.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:10px 0;}
-.sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
-.sub-item img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1); border:2px solid #fff}
-.cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:15px auto; width:130px; height:180px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); box-shadow:0 10px 25px rgba(114,0,26,0.3)}
-
-/* PRODUCT PAGE */
-#p-gallery-stack img { width: 100%; height: auto; object-fit: cover; }
-.chip { display: inline-block; padding: 10px 18px; border: 1px solid #ddd; border-radius: 10px; margin: 5px; cursor: pointer; font-size: 11px; background: #fff; font-weight: 700;}
-.chip.selected { background: var(--cherry); color: #fff; border-color: var(--cherry); }
-
-.btn-group{display:flex; gap:10px; padding:15px; background:#fff; position:fixed; bottom:0; left:0; right:0; max-width:500px; margin:0 auto; z-index:1001}
-.cart-btn{flex:1; padding:18px; border:2px solid var(--cherry); color:var(--cherry); background:transparent; border-radius:15px; font-weight:800; cursor:pointer}
-.buy-btn{flex:1; padding:18px; background:var(--cherry); color:#fff; border:none; border-radius:15px; font-weight:800; cursor:pointer}
-.checkout-input{width:100%; padding:15px; margin:10px 0; border:1px solid #ddd; border-radius:12px; box-sizing:border-box; font-size:14px;}
-
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
-.nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center; position:relative;}
-.bag-item { background: #fff; padding: 15px; margin: 10px; border-radius: 15px; display: flex; gap: 15px; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05);}
-.bag-item img { width: 60px; height: 80px; object-fit: cover; border-radius: 10px; }
-</style></head><body>
-
-<div class="header"><div class="logo">LEXRIVA</div></div>
-<div class="search-wrapper"><input type="text" id="mainSearch" class="search-input" placeholder="Search Makeup, Jewelry, Suits..." oninput="filterSearch()"></div>
-
-<div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=Eid+Edit+Collection'"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexriva | Luxury Mall</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
-    <div class="section-h">🎬 TRENDING REELS</div>
-    <div class="h-scroll">
-        <div class="reel-box" onclick="openReel(0)"><video src="reel1.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="openReel(1)"><video src="reel2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="openReel(2)"><video src="reel3.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
-        <div class="reel-box" onclick="openReel(3)"><video src="reel4.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover"></video></div>
+    <style>
+        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); color: #333; overflow-x: hidden; }
+        
+        /* Nav Bar */
+        .nav-bar { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-family: 'Cinzel'; font-size: 24px; font-weight: 900; color: var(--cherry); letter-spacing: 4px; }
+        .nav-icons { display: flex; gap: 15px; font-size: 20px; cursor: pointer; }
+
+        /* Banner */
+        .hero-banner { width: 100%; height: auto; display: block; border-bottom: 3px solid var(--cherry); }
+
+        /* Festival Section */
+        .festival-section { background: linear-gradient(135deg, #72001A 0%, #4a0011 100%); padding: 30px 0; color: var(--gold); position: relative; }
+        .section-title { font-family: 'Cinzel'; font-size: 20px; text-align: center; margin-bottom: 20px; letter-spacing: 3px; font-weight: 700; }
+        
+        /* Reels/Video Slider */
+        .reels-container { display: flex; overflow-x: auto; gap: 12px; padding: 0 15px; scrollbar-width: none; }
+        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 20px; overflow: hidden; border: 2px solid var(--gold); flex-shrink: 0; cursor: pointer; }
+        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Product Cards */
+        .product-card { background: #fff; border-radius: 15px; padding: 12px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; }
+        .product-card img { width: 100%; border-radius: 10px; height: 180px; object-fit: cover; margin-bottom: 10px; }
+        .price { font-weight: 900; color: var(--cherry); font-size: 16px; }
+
+        /* Footer Email Section */
+        .footer-luxury { background: #1a1a1a; color: #fff; padding: 40px 20px; text-align: center; border-top: 4px solid var(--gold); }
+        .footer-logo { font-family: 'Cinzel'; color: var(--gold); font-size: 22px; margin-bottom: 10px; }
+        .social-link { color: #fff; text-decoration: none; font-size: 14px; display: block; margin: 8px 0; font-weight: 300; }
+        
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .nav-item { font-size: 10px; font-weight: 800; color: #888; text-align: center; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-bar">
+        <div class="logo">LEXRIVA</div>
+        <div class="nav-icons"><span id="loginBtn">👤</span></div>
     </div>
 
-    <div class="section-h">🌙 THE EID EDIT</div>
-    <div id="eid-scroll" class="h-scroll"></div>
+    <img src="main_banner.jpg" class="hero-banner" onerror="this.src='https://via.placeholder.com/800x400?text=Lexriva+Luxury+Collection'">
 
-    <div class="section-h">🔥 BESTSELLERS</div>
-    <div id="l-scroll" class="h-scroll"></div>
-
-    <div class="section-h" id="cat-main-list">👗 CURATED CATEGORIES</div>
-    <div class="cat-grid">
-        <div class="cat-card" onclick="openSub('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
-        <div class="cat-card" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
-        <div class="cat-card" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
-        <div class="cat-card" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
-    </div>
-</div>
-
-<div id="bag-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
-    <div class="section-h" style="text-align:center; font-size:16px">🛍️ YOUR BAG</div>
-    <div id="bag-items"></div>
-    <div class="btn-group" id="bag-footer" style="display:none"><button class="buy-btn" onclick="showPg('checkout-pg')">CHECKOUT NOW</button></div>
-</div>
-
-<div id="p-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
-    <div id="p-gallery-stack"></div>
-    <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative; z-index:10">
-        <h2 id="p-name" style="color:var(--cherry); margin:0"></h2>
-        <p id="p-price" style="font-weight:900; font-size:22px; margin:10px 0"></p>
-        <div id="color-options"></div><div id="size-options"></div>
-        <div style="background:#f9f9f9; padding:15px; border-radius:15px; margin-top:15px">
-            <p id="p-desc" style="font-size:13px; color:#666; line-height:1.5"></p>
+    <div style="padding: 25px 0; background: #fff;">
+        <div class="section-title" style="color: var(--cherry);">🎬 TRENDING REELS</div>
+        <div class="reels-container" id="reels-wrapper">
+            <div class="reel-card" onclick="openProduct('reel1')"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="openProduct('reel2')"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="openProduct('reel3')"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="openProduct('reel4')"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="openProduct('reel5')"><video src="reel5.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="openProduct('reel6')"><video src="reel6.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="openProduct('reel7')"><video src="reel7.mp4" autoplay muted loop playsinline></video></div>
+            <div class="reel-card" onclick="openProduct('reel8')"><video src="reel8.mp4" autoplay muted loop playsinline></video></div>
         </div>
     </div>
-    <div class="btn-group"><button class="cart-btn" onclick="addToBag()">ADD TO BAG</button><button class="buy-btn" onclick="directBuy()">BUY NOW</button></div>
-</div>
 
-<div id="checkout-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
-    <div style="padding:20px">
-        <h2 style="font-family:'Cinzel'; text-align:center; color:var(--cherry)">Shipping Details</h2>
-        <input id="cName" class="checkout-input" placeholder="Full Name">
-        <input id="cMobile" class="checkout-input" placeholder="Mobile Number">
-        <input id="cFlat" class="checkout-input" placeholder="Flat / House / Building">
-        <input id="cArea" class="checkout-input" placeholder="Area / Street">
-        <input id="cCity" class="checkout-input" placeholder="City">
-        <input id="cPincode" class="checkout-input" placeholder="Pincode">
-        <button class="buy-btn" style="width:100%; margin-top:20px" onclick="confirmOrder()">PLACE ORDER NOW</button>
+    <div class="festival-section">
+        <div class="section-title">✨ MUBARAK EID EDITS</div>
+        <div id="eid-scroll" class="reels-container"></div>
     </div>
-</div>
 
-<div id="s-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div id="s-grid" class="sub-grid"></div></div>
-<div id="p-list-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div><div id="p-list-grid" class="cat-grid"></div></div>
-<div id="wish-pg" class="page"><div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div><div class="section-h">💖 MY WISHLIST</div><div id="wish-grid" class="cat-grid"></div></div>
+    <div style="padding: 20px;">
+        <div class="section-title" style="color: var(--cherry); text-align: left;">🔥 BESTSELLERS</div>
+        <div id="best-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;"></div>
+    </div>
 
-<div class="bottom-nav">
-    <div class="nav-btn" onclick="showPg('h-pg')">🏠 HOME</div>
-    <div class="nav-btn" onclick="showWishlist()">💖 WISHLIST</div>
-    <div class="nav-btn" onclick="showBag()">🛍️<span id="badge" class="cart-badge" style="display:none">0</span> BAG</div>
-</div>
+    <div style="padding: 30px 20px; text-align: center; background: #fff;">
+        <div class="section-title" style="color: var(--cherry);">OUR STORY</div>
+        <video src="brand_story.mp4" style="width: 100%; border-radius: 15px; border: 1px solid #ddd;" controls></video>
+    </div>
 
-<script>
-const ADMIN_URL="https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
-let store={}; let currentP={}; let bag=[]; let selCol="Standard", selSiz="Free";
-let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
+    <div class="footer-luxury">
+        <div class="footer-logo">LEXRIVA</div>
+        <p style="font-size: 12px; color: #888;">LUXURY MALL ESTD. 2024</p>
+        <div style="margin: 20px 0;">
+            <a href="mailto:lexrivaofficial@gmail.com" class="social-link">✉ lexrivaofficial@gmail.com</a>
+            <a href="https://instagram.com/lexrivaofficial" class="social-link">📸 @lexrivaofficial</a>
+        </div>
+        <p style="font-size: 10px; color: #555;">© Lexriva Luxury Mall | All Rights Reserved</p>
+    </div>
 
-const subMap={
-'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear','Trousers','Shorts','Skirts','Jackets'],
-'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Anarkali','Suits','Palazzo','Sharara','Dupatta'],
-'makeup_cat':['Lipstick','Foundation','Kajal','Perfumes','Eyeliner','LEXRIVA','Primer','Blush','Highlighter'],
-'jewellery_master':['Necklace','Earrings','Rings','Bangles','Bracelet','LEXRIVA','Minimal','Maangtika']
-};
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item" style="color: var(--cherry);">🏠<br>HOME</a>
+        <a href="search.html" class="nav-item">🔍<br>SEARCH</a>
+        <a href="wishlist.html" class="nav-item">💖<br>WISHLIST</a>
+        <a href="bag.html" class="nav-item">🛍️<br>BAG</a>
+    </div>
 
-async function init(){ try{const r=await fetch(ADMIN_URL); store=await r.json(); renderH();}catch(e){}}
+    <script>
+        const SHEET_URL = "https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
+        
+        // Initialize EmailJS
+        (function(){
+            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your key later
+        })();
 
-function renderH(data=store){
-    document.getElementById('eid-scroll').innerHTML=(data.eid||[]).map((p,i)=>renderItem(p, 'eid', i)).join('');
-    document.getElementById('l-scroll').innerHTML=(data.latest||[]).map((p,i)=>renderItem(p, 'latest', i)).join('');
-}
+        async function fetchProducts() {
+            try {
+                const response = await fetch(SHEET_URL);
+                const data = await response.json();
+                
+                // Show Eid Edits
+                document.getElementById('eid-scroll').innerHTML = data.eid.map(p => `
+                    <div class="product-card" style="min-width: 140px;" onclick="openProduct('${p.n}')">
+                        <img src="${p.i}">
+                        <div class="price">₹${p.p}</div>
+                    </div>
+                `).join('');
 
-function renderItem(p, sheet, idx){
-    const click = `onclick="openP('${sheet}', ${idx})"`;
-    const isWished = wishlist.find(x => x.n === p.n) ? 'active' : '';
-    return `<div class="scroll-item"><button class="wish-btn ${isWished}" onclick="event.stopPropagation(); toggleWish('${p.n}', ${p.p}, '${p.i}')">♥</button><div ${click}><img src="${p.i}"><p style="font-size:10px;font-weight:700">₹${p.p}</p></div></div>`;
-}
+                // Show Bestsellers
+                document.getElementById('best-grid').innerHTML = data.latest.slice(0, 4).map(p => `
+                    <div class="product-card" onclick="openProduct('${p.n}')">
+                        <img src="${p.i}">
+                        <div style="font-size: 11px; font-weight: 700;">${p.n}</div>
+                        <div class="price">₹${p.p}</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.log("Error loading products");
+            }
+        }
 
-function openP(sheet, idx){
-    const p = store[sheet][idx]; currentP = p;
-    document.getElementById('p-name').innerText=p.n; document.getElementById('p-price').innerText="₹"+p.p;
-    document.getElementById('p-desc').innerText=p.d || "Lexriva Luxury Quality Product";
-    let imgs = [p.i, p.i2, p.i3].filter(x => x && x.length > 5);
-    document.getElementById('p-gallery-stack').innerHTML = imgs.map(src => `<img src="${src}">`).join('');
-    document.getElementById('color-options').innerHTML = p.c ? p.c.split(',').map(v => `<div class="chip" onclick="selChip(this, 'color', '${v.trim()}')">${v.trim()}</div>`).join('') : "Standard";
-    document.getElementById('size-options').innerHTML = p.s ? p.s.split(',').map(v => `<div class="chip" onclick="selChip(this, 'size', '${v.trim()}')">${v.trim()}</div>`).join('') : "Free";
-    showPg('p-pg');
-}
+        function openProduct(pName) {
+            // Save selected product to localStorage for the next page
+            localStorage.setItem('selectedProductName', pName);
+            window.location.href = "product.html";
+        }
 
-function selChip(el, type, val){ el.parentElement.querySelectorAll('.chip').forEach(x => x.classList.remove('selected')); el.classList.add('selected'); if(type==='color') selCol = val; else selSiz = val; }
-
-function addToBag(){ bag.push({...currentP, selCol, selSiz}); updateBadge(); alert("Added to Bag! 🛍️"); }
-function directBuy(){ bag = [{...currentP, selCol, selSiz}]; showPg('checkout-pg'); }
-function updateBadge(){ const b=document.getElementById('badge'); if(bag.length>0){ b.style.display="block"; b.innerText=bag.length; } else b.style.display="none"; }
-
-function showBag(){
-    showPg('bag-pg'); const div=document.getElementById('bag-items');
-    if(bag.length===0){ div.innerHTML="<p style='text-align:center;padding:50px'>Empty Bag</p>"; document.getElementById('bag-footer').style.display="none"; }
-    else {
-        document.getElementById('bag-footer').style.display="flex";
-        div.innerHTML = bag.map((item, i) => `<div class="bag-item"><img src="${item.i}"><div><div style="font-weight:800">${item.n}</div><div>₹${item.p}</div><div style="font-size:10px;color:#666">${item.selSiz} | ${item.selCol}</div></div><button onclick="bag.splice(${i},1);showBag();updateBadge();" style="margin-left:auto;border:none;background:none;color:red;font-weight:800">REMOVE</button></div>`).join('');
-    }
-}
-
-function openReel(idx){ let pool=(store.eid||[]).concat(store.latest||[]); if(pool[idx]){ currentP=pool[idx]; openP('eid', idx); } }
-
-function openSub(k){
-    showPg('s-pg');
-    let h=""; (subMap[k]||[]).forEach(n=>{
-        if(n === 'LEXRIVA') h+=`<div class="cherry-box"><span>ESTD. 2024</span><br><span>LEXRIVA</span></div>`;
-        else h+=`<div class="sub-item" onclick="openSubProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700">${n}</p></div>`;
-    });
-    document.getElementById('s-grid').innerHTML=h;
-}
-
-async function openSubProducts(catName){
-    showPg('p-list-pg');
-    let pData = []; Object.keys(store).forEach(key => { if(Array.isArray(store[key])) pData = pData.concat(store[key].filter((p,i) => p.sub === catName)); });
-    document.getElementById('p-list-grid').innerHTML = pData.map((p,i)=>renderItem(p, 'eid', i)).join('');
-}
-
-function toggleWish(n, p, i){
-    const idx = wishlist.findIndex(x => x.n === n);
-    if(idx > -1) wishlist.splice(idx, 1); else wishlist.push({n, p, i});
-    localStorage.setItem('lexWish', JSON.stringify(wishlist));
-    renderH(); if(document.getElementById('wish-pg').classList.contains('active')) showWishlist();
-}
-
-function showWishlist(){
-    showPg('wish-pg');
-    document.getElementById('wish-grid').innerHTML = wishlist.length ? wishlist.map((p,i)=>`<div class="cat-card" onclick="openP('eid', ${i})"><img src="${p.i}"><div class="cat-label">₹${p.p}</div></div>`).join('') : "<p style='padding:20px;text-align:center'>Empty</p>";
-}
-
-async function confirmOrder(){
-    const data = { name:document.getElementById('cName').value, mobile:document.getElementById('cMobile').value, address: `${document.getElementById('cFlat').value}, ${document.getElementById('cArea').value}, ${document.getElementById('cCity').value}`, items: bag.map(i=>`${i.n}(${i.selSiz})`).join(', '), total: bag.reduce((s,i)=>s+parseInt(i.p),0) };
-    if(!data.name || !data.mobile) return alert("Fill Details!");
-    fetch(ADMIN_URL, {method:'POST', mode:'no-cors', body:JSON.stringify(data)});
-    alert("🎉 Order Successful!"); bag=[]; updateBadge(); showPg('h-pg');
-}
-
-function filterSearch(){
-    let q = document.getElementById('mainSearch').value.toLowerCase();
-    if(!q) { renderH(); return; }
-    let res = []; Object.keys(store).forEach(k => { if(Array.isArray(store[k])) store[k].forEach((p,i) => { if(p.n.toLowerCase().includes(q)) res.push({p,i,k}); })});
-    document.getElementById('eid-scroll').innerHTML = res.slice(0,10).map(item=>renderItem(item.p, item.k, item.i)).join('');
-}
-
-function showPg(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-window.onload = init;
-</script></body></html>
+        window.onload = fetchProducts;
+    </script>
+</body>
+</html>
