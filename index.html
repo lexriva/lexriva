@@ -3,79 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva | Luxury Experience</title>
+    <title>Lexriva | Where Elegance Meets You</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; }
         
         /* Header & Search */
-        .top-nav { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Cinzel'; font-size: 24px; font-weight: 900; color: var(--cherry); letter-spacing: 3px; }
+        .header { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
+        .logo { font-family: 'Cinzel'; font-size: 24px; font-weight: 900; color: var(--cherry); letter-spacing: 4px; flex-grow: 1; text-align: center; }
         .search-container { padding: 10px 20px; background: #fff; }
-        .search-bar { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; box-sizing: border-box; }
+        .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
 
-        /* Story Circles */
+        /* Story Circles - Fixed Clickable */
         .story-container { display: flex; gap: 15px; padding: 20px; overflow-x: auto; background: #fff; scrollbar-width: none; }
         .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
         .story-img { width: 65px; height: 65px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; }
         .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); text-transform: uppercase; }
 
-        /* Reels (Trending) */
-        .section-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); padding: 25px 20px 10px; }
-        .reel-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; }
-        .reel-card { min-width: 160px; height: 280px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
+        /* Trending Reels */
+        .section-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); padding: 25px 20px 10px; letter-spacing: 2px; }
+        .reel-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; min-height: 200px; }
+        .reel-card { min-width: 170px; height: 300px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Product Cards */
-        .product-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; }
-        .p-card { min-width: 150px; background: #fff; border-radius: 15px; padding: 8px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .p-card img { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; }
-        .p-price { font-weight: 800; color: var(--cherry); font-size: 14px; margin-top: 5px; }
+        /* Product Scrolls */
+        .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; }
+        .product-item { min-width: 160px; background: #fff; border-radius: 15px; padding: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
+        .product-item img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; }
+        .price { font-weight: 800; color: var(--cherry); font-size: 14px; margin-top: 5px; }
+
+        /* 3 Big Banners */
+        .promo-banner { width: 92%; margin: 15px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .promo-banner img { width: 100%; height: auto; display: block; }
+
+        /* Footer & Contact */
+        .footer { background: #111; color: #fff; padding: 40px 20px; text-align: center; margin-top: 20px; }
+        .news-input { width: 85%; padding: 12px; background: #222; border: 1px solid #333; color: #fff; border-radius: 5px; margin-bottom: 10px; }
+        .news-btn { background: var(--gold); color: #000; width: 88%; padding: 12px; border: none; font-weight: 800; border-radius: 5px; cursor: pointer; }
 
         /* Overlays */
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--lavender); z-index: 2000; overflow-y: auto; padding-bottom: 80px; }
-        .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .cat-item { height: 150px; border-radius: 15px; overflow: hidden; position: relative; border: 1px solid var(--gold); cursor: pointer; }
-        .cat-item img { width: 100%; height: 100%; object-fit: cover; }
-        .cat-label { position: absolute; bottom: 10px; left: 10px; color: #fff; font-size: 10px; font-weight: 800; text-shadow: 0 2px 4px #000; }
-
-        /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
         .nav-btn { font-size: 9px; font-weight: 800; color: #999; text-align: center; cursor: pointer; text-decoration: none; }
+        .active { color: var(--cherry); }
     </style>
 </head>
 <body>
 
-    <div class="top-nav">
+    <div class="header">
         <div class="logo">LEXRIVA</div>
-        <div onclick="location.href='bag.html'" style="cursor:pointer;">🛍️<span id="cartCount" style="color:red; font-size:12px; vertical-align:top;">0</span></div>
+        <div style="font-size:22px; cursor:pointer;" onclick="location.href='bag.html'">🛍️<span id="cartCount" style="color:red; font-size:12px; font-weight:900;">0</span></div>
     </div>
 
     <div class="search-container">
-        <input type="text" id="searchInput" class="search-bar" placeholder="Search by name, category..." oninput="searchProducts()">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search by product name..." oninput="searchProducts()">
     </div>
 
-    <img src="main_banner.jpg" style="width:100%;" alt="Hero Banner">
+    <img src="main_banner.jpg" class="hero-banner" style="width:100%;">
 
     <div class="story-container">
-        <div class="story-circle" onclick="filterByPrice(399)"><img src="s399.jpg" class="story-img"><p>UNDER 399</p></div>
-        <div class="story-circle" onclick="filterByPrice(599)"><img src="s599.jpg" class="story-img"><p>UNDER 599</p></div>
-        <div class="story-circle" onclick="filterByPrice(999)"><img src="s999.jpg" class="story-img"><p>UNDER 999</p></div>
-        <div class="story-circle" onclick="openStory('Eid')"><img src="s_eid.jpg" class="story-img"><p>EID SPECIAL</p></div>
+        <div class="story-circle" onclick="goStory('399')"><img src="s399.jpg" class="story-img" onerror="this.src='https://via.placeholder.com/65'"><p>UNDER 399</p></div>
+        <div class="story-circle" onclick="goStory('599')"><img src="s599.jpg" class="story-img" onerror="this.src='https://via.placeholder.com/65'"><p>UNDER 599</p></div>
+        <div class="story-circle" onclick="goStory('999')"><img src="s999.jpg" class="story-img" onerror="this.src='https://via.placeholder.com/65'"><p>UNDER 999</p></div>
+        <div class="story-circle" onclick="goCat('Eid')"><img src="s_eid.jpg" class="story-img" onerror="this.src='https://via.placeholder.com/65'"><p>EID SPECIAL</p></div>
     </div>
 
     <div class="section-title">🎬 TRENDING PRODUCTS</div>
-    <div id="reel-list" class="reel-scroll"></div>
+    <div id="trending-reels" class="reel-scroll"></div>
 
     <div class="section-title">🌙 THE EID EDIT</div>
-    <div id="eid-list" class="product-scroll"></div>
+    <div id="eid-scroll" class="h-scroll"></div>
+
+    <div class="section-title">✨ SHOP BY STYLE</div>
+    <div class="promo-banner" onclick="goCat('Jewellery')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/600x300?text=JEWELLERY+COLLECTION'"></div>
+    <div class="promo-banner" onclick="goCat('Ethnic')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/600x300?text=ETHNIC+SUITS'"></div>
+    <div class="promo-banner" onclick="goCat('Makeup')"><img src="banner_makeup.jpg" onerror="this.src='https://via.placeholder.com/600x300?text=MAKEUP+AND+CARE'"></div>
 
     <div class="section-title">🔥 BESTSELLERS</div>
-    <div id="best-list" class="product-scroll"></div>
+    <div id="best-scroll" class="h-scroll"></div>
+
+    <div class="section-title">📖 OUR STORY</div>
+    <div style="padding: 0 20px 20px;"><video src="brand_story.mp4" controls style="width:100%; border-radius:20px;"></video></div>
+
+    <div class="footer">
+        <h3 style="font-family:'Cinzel';">LEXRIVA INSIDER</h3>
+        <input type="email" id="subEmail" class="news-input" placeholder="Enter your Gmail">
+        <button class="news-btn" onclick="subscribe()">SUBSCRIBE</button>
+        <p style="font-size:11px; margin-top:20px;">lexrivaofficial@gmail.com | @lexrivaofficial</p>
+    </div>
 
     <div class="bottom-nav">
-        <a href="index.html" class="nav-btn" style="color:var(--cherry)">🏠<br>HOME</a>
+        <a href="index.html" class="nav-btn active">🏠<br>HOME</a>
         <div class="nav-btn" onclick="toggleOverlay('catOverlay')">👗<br>CATEGORY</div>
         <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
         <a href="login.html" class="nav-btn">👤<br>LOGIN</a>
@@ -83,44 +102,63 @@
 
     <div id="catOverlay" class="overlay">
         <div style="padding:20px; font-weight:800; color:var(--cherry);" onclick="toggleOverlay('catOverlay')">← BACK</div>
-        <div class="cat-grid">
-            <div class="cat-item" onclick="goCat('Western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN</div></div>
-            <div class="cat-item" onclick="goCat('Ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC</div></div>
-            <div class="cat-item" onclick="goCat('Makeup')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP</div></div>
-            <div class="cat-item" onclick="goCat('Jewellery')"><img src="cat_jewel.jpg"><div class="cat-label">JEWELLERY</div></div>
-            <div class="cat-item" onclick="goCat('Bags')"><img src="cat_bags.jpg"><div class="cat-label">BAGS</div></div>
-            <div class="cat-item" onclick="goCat('Footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR</div></div>
-            <div class="cat-item" onclick="goCat('Accessories')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:15px;">
+            <div class="cat-card" onclick="goCat('Western')" style="height:150px; border-radius:15px; overflow:hidden; position:relative; border:1px solid var(--gold);">
+                <img src="cat_western.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://via.placeholder.com/150'"><span style="position:absolute; bottom:10px; left:10px; color:#fff; font-size:11px; font-weight:800; text-shadow:0 2px 4px #000;">WESTERN</span>
+            </div>
+            <div class="cat-card" onclick="goCat('Ethnic')" style="height:150px; border-radius:15px; overflow:hidden; position:relative; border:1px solid var(--gold);">
+                <img src="cat_ethnic.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://via.placeholder.com/150'"><span style="position:absolute; bottom:10px; left:10px; color:#fff; font-size:11px; font-weight:800; text-shadow:0 2px 4px #000;">ETHNIC</span>
+            </div>
+            <div class="cat-card" onclick="goCat('Makeup')" style="height:150px; border-radius:15px; overflow:hidden; position:relative; border:1px solid var(--gold);">
+                <img src="cat_makeup.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://via.placeholder.com/150'"><span style="position:absolute; bottom:10px; left:10px; color:#fff; font-size:11px; font-weight:800; text-shadow:0 2px 4px #000;">MAKEUP</span>
+            </div>
+            <div class="cat-card" onclick="goCat('Jewellery')" style="height:150px; border-radius:15px; overflow:hidden; position:relative; border:1px solid var(--gold);">
+                <img src="cat_jewel.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://via.placeholder.com/150'"><span style="position:absolute; bottom:10px; left:10px; color:#fff; font-size:11px; font-weight:800; text-shadow:0 2px 4px #000;">JEWELLERY</span>
+            </div>
+            <div class="cat-card" onclick="goCat('Bags')" style="height:150px; border-radius:15px; overflow:hidden; position:relative; border:1px solid var(--gold);">
+                <img src="cat_bags.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://via.placeholder.com/150'"><span style="position:absolute; bottom:10px; left:10px; color:#fff; font-size:11px; font-weight:800; text-shadow:0 2px 4px #000;">BAGS</span>
+            </div>
+            <div class="cat-card" onclick="goCat('Footwear')" style="height:150px; border-radius:15px; overflow:hidden; position:relative; border:1px solid var(--gold);">
+                <img src="cat_footwear.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://via.placeholder.com/150'"><span style="position:absolute; bottom:10px; left:10px; color:#fff; font-size:11px; font-weight:800; text-shadow:0 2px 4px #000;">FOOTWEAR</span>
+            </div>
+            <div class="cat-card" onclick="goCat('Accessories')" style="height:150px; border-radius:15px; overflow:hidden; position:relative; border:1px solid var(--gold);">
+                <img src="cat_acc.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://via.placeholder.com/150'"><span style="position:absolute; bottom:10px; left:10px; color:#fff; font-size:11px; font-weight:800; text-shadow:0 2px 4px #000;">ACCESSORIES</span>
+            </div>
         </div>
     </div>
 
     <script>
         const API = "https://script.google.com/macros/s/AKfycbyJbLc033WEF7htCF5LYhBF3jC-2YKhLV-SE-MsQYLVQR18ZQN_kWtDrd44EEzB7JB4/exec";
 
-        async function init() {
-            const res = await fetch(API);
-            const data = await res.json();
-            window.allData = data; // Store globally for search/filter
+        async function loadHome() {
+            try {
+                const res = await fetch(API);
+                const data = await res.json();
+                
+                // 1. Load Trending Reels (Using 'video link' column)
+                if(data.Trending) {
+                    document.getElementById('trending-reels').innerHTML = data.Trending.map((v, i) => `
+                        <div class="reel-card" onclick="openProduct('Trending', ${i})">
+                            <video src="${v.v}" autoplay muted loop playsinline></video>
+                        </div>`).join('');
+                }
 
-            // 1. Load Reels (Trending Sheet) - Click to open product
-            document.getElementById('reel-list').innerHTML = data.Trending.map((v, i) => `
-                <div class="reel-card" onclick="openProduct('Trending', ${i})">
-                    <video src="${v.v}" autoplay muted loop playsinline></video>
-                </div>`).join('');
+                // 2. Load Eid Products
+                if(data.Eid) {
+                    document.getElementById('eid-scroll').innerHTML = data.Eid.map((p, i) => `
+                        <div class="product-item" onclick="openProduct('Eid', ${i})">
+                            <img src="${p.i}"><div class="price">₹${p.p}</div>
+                        </div>`).join('');
+                }
 
-            // 2. Load Eid Products
-            renderSection('eid-list', data.Eid, 'Eid');
-            // 3. Load Bestsellers
-            renderSection('best-list', data.Bestseller, 'Bestseller');
-            
-            updateCartBadge();
-        }
-
-        function renderSection(id, list, sheetName) {
-            document.getElementById(id).innerHTML = list.map((p, i) => `
-                <div class="p-card" onclick="openProduct('${sheetName}', ${i})">
-                    <img src="${p.i}"><div class="p-price">₹${p.p}</div>
-                </div>`).join('');
+                // 3. Load Bestsellers
+                if(data.Bestseller) {
+                    document.getElementById('best-scroll').innerHTML = data.Bestseller.map((p, i) => `
+                        <div class="product-item" onclick="openProduct('Bestseller', ${i})">
+                            <img src="${p.i}"><div class="price">₹${p.p}</div>
+                        </div>`).join('');
+                }
+            } catch (e) { console.log("Load Error:", e); }
         }
 
         function openProduct(sheet, idx) {
@@ -129,29 +167,11 @@
             window.location.href = "product.html";
         }
 
-        function searchProducts() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            // Logic to search across all sheets and redirect to product_list.html with results
-            localStorage.setItem('searchQuery', q);
-            if(q.length > 2) window.location.href = "product_list.html";
-        }
-
-        function goCat(cat) {
-            localStorage.setItem('selectedCat', cat);
-            window.location.href = "category.html"; // This page will show sub-categories
-        }
-
-        function toggleOverlay(id) {
-            const el = document.getElementById(id);
-            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function updateCartBadge() {
-            const bag = JSON.parse(localStorage.getItem('lexBag')) || [];
-            document.getElementById('cartCount').innerText = bag.length;
-        }
-
-        window.onload = init;
+        function goStory(limit) { localStorage.setItem('filterPrice', limit); window.location.href = "product_list.html"; }
+        function goCat(name) { localStorage.setItem('selectedCat', name); window.location.href = "category.html"; }
+        function toggleOverlay(id) { const el = document.getElementById(id); el.style.display = (el.style.display === 'block') ? 'none' : 'block'; }
+        
+        window.onload = loadHome;
     </script>
 </body>
 </html>
