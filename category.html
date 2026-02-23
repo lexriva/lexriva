@@ -3,76 +3,78 @@ const ADMIN_URL="https://script.google.com/macros/s/AKfycbzSsDtANnhXgAs5M0LK-tZ4
 let store={}; 
 let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
 
-// 1. EXACT SUB-CATEGORIES MAPPING (Split correctly as per your request)
+// 1. AAPKI EXACT SUB-CATEGORIES MAPPING
 const subMap = {
     'western': ['Dresses', 'Tops', 'Jeans', 'T-shirt', 'Jumpsuit', 'Co-ords', 'Sleep Wear'],
     'ethnic': ['Saree', 'Kurtis', 'Dress Material', 'Lehengas', 'Gowns'],
     'footwear': ['Heels', 'Sandals', 'Boots', 'Bellies', 'Sneakers'],
     'makeup_cat': ['Lipstick', 'Lip Gloss', 'Lip Liner', 'Foundation', 'Compact', 'Highlighter', 'Eye Shadow', 'Eye Liner', 'Kajal', 'Mascara', 'Nails', 'Brushes', 'Perfumes', 'Body Lotion', 'Face Wash', 'Face Mask'],
-    'jewellery_master': ['Minimal', 'Necklace Set', 'Earrings', 'Maangtika', 'Rings', 'Bracelet', 'Bridal', 'Haldi Hues', 'Mehndi Vibes', 'Rajputi', 'American Diamond', 'Kashmiri Earrings', 'Jhumka', 'Korean Earrings'],
+    'jewellery_master': ['Minimal', 'Necklace Set', 'Earrings', 'Maangtika', 'Rings', 'Bracelet', 'Bridal Set', 'Haldi Hues', 'Mehndi Vibes', 'Rajputi', 'American Diamond', 'Kashmiri', 'Jhumka', 'Korean'],
+    // BAGS ALAG HAI
     'bags': ['Bag Packs', 'Handbags', 'Sling Bags', 'Wallets', 'Clutches'],
+    // ACCESSORIES ALAG HAI
     'acc_main': ['Hair Acc', 'Belts', 'Sunglasses', 'Watches', 'Socks', 'Caps']
 };
 
-// 2. INITIALIZE & LOAD HOME PRODUCTS
+// 2. INITIALIZE (Home Page par product show karne ke liye)
 async function init(){ 
     try {
         const r = await fetch(ADMIN_URL); 
         store = await r.json(); 
         
-        // Load Eid & Bestseller on Home (Checking both cases for sheet names)
+        // Home page rendering (Eid aur Bestseller sheets)
         const eidData = store.Eid || store.eid || [];
-        const bestData = store.Bestseller || store.bestseller || store.latest || [];
+        const bestData = store.Bestseller || store.bestseller || [];
 
         document.getElementById('eid-scroll').innerHTML = eidData.map(p => renderItem(p, 'scroll')).join('');
         document.getElementById('l-scroll').innerHTML = bestData.map(p => renderItem(p, 'scroll')).join('');
         
-    } catch(e) { console.log("Data Load Error:", e); }
+    } catch(e) { console.log("Load Error:", e); }
 }
 
-// 3. OPEN SUB-CATEGORY (Circular Design with Cherry Box Arch)
+// 3. SUB-CATEGORY OPEN KARNE KA FIXED FUNCTION
 function openSub(k){
-    showPg('s-pg'); // Category page show karo
-    
-    // Header Title Update
-    const titles = { western: "WESTERN WEAR", ethnic: "ETHNIC WEAR", footwear: "FOOTWEAR", makeup_cat: "MAKEUP", jewellery_master: "JEWELLERY", bags: "BAGS", acc_main: "ACCESSORIES" };
-    document.getElementById('s-banner').innerHTML = `<div style="padding:15px; text-align:center; font-family:'Cinzel'; color:var(--cherry); font-weight:900; letter-spacing:2px;">${titles[k] || 'COLLECTION'}</div>`;
+    showPg('s-pg'); // Page switch karo
     
     let h = ""; 
     let list = subMap[k] || [];
     
+    // Agar list khali nahi hai toh loop chalao
     list.forEach((n, index) => {
-        // Beech mein Cherry Arch Box insert karne ke liye (Center position)
-        if(index === Math.floor(list.length / 2)) {
+        // CHERRY BOX: 4th position par automatic Arch box dalo (Image jaisa look)
+        if(index === 3) { 
             h += `<div class="cherry-box">
-                    <span style="font-size:7px; opacity:0.8; letter-spacing:1px">ESTD. 2024</span>
-                    <span style="font-size:15px; font-weight:900; letter-spacing:2px">LEXRIVA</span>
+                    <span style="font-size:7px; opacity:0.8">ESTD. 2024</span>
+                    <span style="font-size:15px; font-weight:900; letter-spacing:1px">LEXRIVA</span>
                   </div>`;
         }
-        
-        // Circular Sub-Category Item
-        h += `<div class="sub-item" onclick="openSubCategoryProducts('${n}')">
-                <img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80/72001A/FFFFFF?text=${n.charAt(0)}'">
-                <p style="font-size:9px; font-weight:800; margin-top:8px; color:#333; text-transform:uppercase;">${n}</p>
-              </div>`;
+
+        // CIRCULAR SUB-CATEGORY ITEM
+        h += `
+        <div class="sub-item" onclick="openSubCategoryProducts('${n}')">
+            <img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80/72001A/FFFFFF?text=${n.charAt(0)}'">
+            <p style="font-size:9px; font-weight:800; margin-top:8px; color:#333; text-transform:uppercase;">${n}</p>
+        </div>`;
     });
     
+    // Grid mein HTML dalo
     document.getElementById('s-grid').innerHTML = h;
+    window.scrollTo(0,0);
 }
 
-// 4. RENDER ITEM FUNCTION (Fixed for Home & List)
+// Home page render item logic
 function renderItem(p, type){
-    const isWished = wishlist.find(x => x.n === (p.Name || p.n)) ? 'active' : '';
     const name = p.Name || p.n || "";
     const price = p.Price || p.p || "";
     const img = p['Image 1'] || p.i || "";
-    
     const click = `onclick="openProduct('${name.replace(/'/g,"")}','${price}','${img}','${p['Image 2']||''}','${p['Image 3']||''}','${(p.Description||'').replace(/'/g,"")}','${p.Colour||''}','${p.Size||''}')"`;
     
     if(type === 'scroll'){
-        return `<div class="scroll-item"><button class="wish-btn ${isWished}" onclick="toggleWish('${name}', ${price}, '${img}')">♥</button><div ${click}><img src="${img}"><p style="font-size:10px;font-weight:700">₹${price}</p></div></div>`;
+        return `<div class="scroll-item"><div ${click}><img src="${img}"><p style="font-size:10px;font-weight:700">₹${price}</p></div></div>`;
     } else {
-        return `<div class="cat-card"><button class="wish-btn ${isWished}" onclick="toggleWish('${name}', ${price}, '${img}')">♥</button><div ${click}><img src="${img}"><div class="cat-label">₹${price}</div></div></div>`;
+        return `<div class="cat-card"><div ${click}><img src="${img}"><div class="cat-label">₹${price}</div></div></div>`;
     }
 }
+
+window.onload = init;
 </script>
