@@ -135,32 +135,32 @@
                 const res = await fetch(API);
                 const data = await res.json();
                 
-                // --- CASE INSENSITIVE SYNC ---
+                // Case Sensitive Fix
                 const eidData = data.Eid || data.eid || [];
                 const trendingData = data.Trending || data.trending || [];
-                const bestData = data.Bestseller || data.bestseller || data.latest || [];
+                const bestData = data.Bestseller || data.bestseller || [];
 
                 // 1. Trending Reels
                 if(trendingData.length > 0) {
                     document.getElementById('trending-reels').innerHTML = trendingData.map((v, i) => `
                         <div class="reel-card" onclick="openProduct('Trending', ${i})">
-                            <video src="${v.v}" autoplay muted loop playsinline></video>
+                            <video src="${v.Video || v.v}" autoplay muted loop playsinline></video>
                         </div>`).join('');
                 }
 
-                // 2. Eid Products
+                // 2. Eid Products (Headers: Name, Price, Image 1)
                 if(eidData.length > 0) {
                     document.getElementById('eid-scroll').innerHTML = eidData.map((p, i) => `
                         <div class="product-item" onclick="openProduct('Eid', ${i})">
-                            <img src="${p.i}"><div class="price">₹${p.p}</div>
+                            <img src="${p['Image 1'] || p.i}"><div class="price">₹${p.Price || p.p}</div>
                         </div>`).join('');
                 }
 
-                // 3. Bestsellers
+                // 3. Bestsellers (Headers: Name, Price, Image 1)
                 if(bestData.length > 0) {
                     document.getElementById('best-scroll').innerHTML = bestData.map((p, i) => `
-                        <div class="product-item" onclick="openProduct('${data.latest ? 'latest' : 'Bestseller'}', ${i})">
-                            <img src="${p.i}"><div class="price">₹${p.p}</div>
+                        <div class="product-item" onclick="openProduct('Bestseller', ${i})">
+                            <img src="${p['Image 1'] || p.i}"><div class="price">₹${p.Price || p.p}</div>
                         </div>`).join('');
                 }
             } catch (e) { console.log("Load Error:", e); }
@@ -173,12 +173,7 @@
         }
 
         function goStory(limit) { localStorage.setItem('activeSubCat', limit); window.location.href = "product_list.html"; }
-        
-        function goCat(name) { 
-            localStorage.setItem('selectedCat', name.toLowerCase()); 
-            window.location.href = "category.html"; 
-        }
-
+        function goCat(name) { localStorage.setItem('selectedCat', name.toLowerCase()); window.location.href = "category.html"; }
         function toggleOverlay(id) { const el = document.getElementById(id); el.style.display = (el.style.display === 'block') ? 'none' : 'block'; }
         
         window.onload = loadHome;
