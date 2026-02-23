@@ -3,116 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva | Collections</title>
+    <title>Lexriva | Luxury Mall</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F9F7FF; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); padding-bottom: 80px; }
+        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; padding-bottom: 80px; }
         
-        .header { background: #fff; padding: 15px 20px; display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
-        .back-btn { font-size: 24px; color: var(--cherry); cursor: pointer; text-decoration: none; font-weight: 900; margin-right: 15px; }
-        .page-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); flex-grow: 1; text-align: center; letter-spacing: 2px; }
+        /* Header */
+        .header { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
+        .logo { font-family: 'Cinzel'; font-size: 22px; font-weight: 900; color: var(--cherry); letter-spacing: 4px; flex-grow: 1; text-align: center; }
+        .bag-icon { position: relative; font-size: 20px; cursor: pointer; color: var(--cherry); }
+        .badge { position: absolute; top: -8px; right: -8px; background: red; color: #fff; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800; }
 
-        .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .p-card { background: #fff; border-radius: 20px; padding: 10px; text-align: center; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; }
-        .p-card img { width: 100%; height: 210px; object-fit: cover; border-radius: 15px; }
-        .p-card h3 { font-size: 11px; margin: 10px 0 5px; color: #333; height: 30px; overflow: hidden; font-weight: 600; text-transform: uppercase; }
-        .price-box { display: flex; justify-content: center; align-items: center; gap: 8px; }
-        .price { font-weight: 900; color: var(--cherry); font-size: 15px; }
-        .old-p { font-size: 11px; color: #999; text-decoration: line-through; }
-        
-        .wish-heart { position: absolute; top: 18px; right: 18px; background: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); color: #ddd; font-size: 16px; transition: 0.3s; }
-        .wish-heart.active { color: red; }
+        /* Search */
+        .search-container { background: #fff; padding: 10px 20px; }
+        .search-bar { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
+
+        .hero-banner { width: 100%; height: auto; display: block; }
+
+        /* Story Circles */
+        .story-container { display: flex; gap: 15px; padding: 20px; overflow-x: auto; scrollbar-width: none; background: #fff; }
+        .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
+        .story-img { width: 65px; height: 65px; border-radius: 50%; border: 2.5px solid var(--cherry); padding: 2px; object-fit: cover; }
+        .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); text-transform: uppercase; }
+
+        .section-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); padding: 25px 20px 10px; letter-spacing: 2px; }
+
+        /* Scrolls */
+        .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; }
+        .reel-card { min-width: 170px; height: 300px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
+        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
+
+        .product-item { min-width: 140px; background: #fff; border-radius: 15px; padding: 8px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
+        .product-item img { width: 100%; height: 170px; object-fit: cover; border-radius: 12px; }
+        .price { font-weight: 800; color: var(--cherry); font-size: 14px; margin-top: 5px; }
+
+        /* Cat Overlay */
+        .cat-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--lavender); z-index: 2000; overflow-y: auto; padding-bottom: 80px; }
+        .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px; }
+        .cat-card { position: relative; height: 160px; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; }
+        .cat-card img { width: 100%; height: 100%; object-fit: cover; }
+        .cat-label { position: absolute; bottom: 10px; left: 10px; color: #fff; font-size: 10px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-btn { font-size: 10px; font-weight: 800; color: #bbb; text-align: center; text-decoration: none; }
+        .nav-btn { font-size: 9px; font-weight: 800; color: #999; text-align: center; cursor: pointer; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <div class="back-btn" onclick="history.back()">←</div>
-        <div class="page-title" id="listTitle">COLLECTION</div>
+        <div class="logo">LEXRIVA</div>
+        <div class="bag-icon" onclick="window.location.href='bag.html'">🛍️<span class="badge" id="cartCount">0</span></div>
     </div>
 
-    <div id="productGrid" class="p-grid">
-        </div>
+    <div class="search-container">
+        <input type="text" id="mainSearch" class="search-bar" placeholder="Search Saree, Makeup, Heels..." oninput="searchProducts()">
+    </div>
+
+    <img src="main_banner.jpg" class="hero-banner">
+
+    <div class="story-container">
+        <div class="story-circle" onclick="openStory('under499')"><img src="story_499.jpg" class="story-img"><p>UNDER 499</p></div>
+        <div class="story-circle" onclick="openStory('under999')"><img src="story_999.jpg" class="story-img"><p>UNDER 999</p></div>
+        <div class="story-circle" onclick="openStory('under1499')"><img src="story_1499.jpg" class="story-img"><p>UNDER 1499</p></div>
+        <div class="story-circle" onclick="openStory('lux_edit')"><img src="story_lux.jpg" class="story-img"><p>LUXURY EDIT</p></div>
+    </div>
+
+    <div class="section-title">🎬 TRENDING PRODUCTS</div>
+    <div class="h-scroll">
+        <div class="reel-card" onclick="openProduct('eid', 0)"><video src="reel1.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openProduct('eid', 1)"><video src="reel2.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openProduct('latest', 0)"><video src="reel3.mp4" autoplay muted loop playsinline></video></div>
+        <div class="reel-card" onclick="openProduct('latest', 1)"><video src="reel4.mp4" autoplay muted loop playsinline></video></div>
+    </div>
+
+    <div class="section-title">🌙 THE EID EDIT</div>
+    <div id="eid-scroll" class="h-scroll"></div>
+
+    <div class="section-title">🔥 BEST SELLERS</div>
+    <div id="best-scroll" class="h-scroll"></div>
 
     <div class="bottom-nav">
-        <a href="index.html" class="nav-btn">🏠<br>HOME</a>
-        <a href="category.html" class="nav-btn">👗<br>CATEGORY</a>
+        <a href="index.html" class="nav-btn" style="color:var(--cherry)">🏠<br>HOME</a>
+        <div class="nav-btn" onclick="toggleCat()">👗<br>CATEGORY</div>
         <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
         <a href="login.html" class="nav-btn">👤<br>LOGIN</a>
+    </div>
+
+    <div id="catOverlay" class="cat-overlay">
+        <div style="padding:20px; font-weight:800; color:var(--cherry);" onclick="toggleCat()">← BACK TO HOME</div>
+        <div class="cat-grid">
+            <div class="cat-card" onclick="goToCat('western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
+            <div class="cat-card" onclick="goToCat('ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
+            <div class="cat-card" onclick="goToCat('makeup')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
+            <div class="cat-card" onclick="goToCat('jewel')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
+            <div class="cat-card" onclick="goToCat('bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
+            <div class="cat-card" onclick="goToCat('footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR</div></div>
+            <div class="cat-card" onclick="goToCat('acc')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
+        </div>
     </div>
 
     <script>
         const API = "https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
         
-        async function fetchProducts() {
-            const sub = localStorage.getItem('activeSubCat') || 'Collection';
-            document.getElementById('listTitle').innerText = sub.toUpperCase();
-
+        async function loadStore() {
             try {
                 const res = await fetch(API);
                 const data = await res.json();
-                let all = [];
+                window.storeData = data;
 
-                // Searching across all tabs (eid, latest, western, etc.)
-                Object.keys(data).forEach(key => {
-                    if(Array.isArray(data[key])) {
-                        let filtered = data[key].filter(p => 
-                            (p.subCat && p.subCat.trim().toLowerCase() === sub.toLowerCase()) ||
-                            (p.n && p.n.toLowerCase().includes(sub.toLowerCase())) ||
-                            (sub === 'under499' && parseInt(p.p) <= 499) ||
-                            (sub === 'under999' && parseInt(p.p) <= 999)
-                        );
-                        all = [...all, ...filtered];
-                    }
-                });
+                // 1. Eid Section (Matches your request)
+                if(data.eid) {
+                    document.getElementById('eid-scroll').innerHTML = data.eid.map((p, i) => `
+                        <div class="product-item" onclick="openProduct('eid', ${i})">
+                            <img src="${p.i}"><div class="price">₹${p.p}</div>
+                        </div>`).join('');
+                }
 
-                renderGrid(all);
-            } catch (e) { console.log("Data Load Error"); }
+                // 2. Best Sellers Section (latest sheet)
+                if(data.latest) {
+                    document.getElementById('best-scroll').innerHTML = data.latest.map((p, i) => `
+                        <div class="product-item" onclick="openProduct('latest', ${i})">
+                            <img src="${p.i}"><div class="price">₹${p.p}</div>
+                        </div>`).join('');
+                }
+                
+                updateBagCount();
+            } catch(e) { console.log("API Error"); }
         }
 
-        function renderGrid(list) {
-            let wish = JSON.parse(localStorage.getItem('lexWish')) || [];
-            const grid = document.getElementById('productGrid');
-            
-            if(list.length === 0) {
-                grid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding:50px; color:#888;'>Coming Soon...</p>";
-                return;
-            }
-
-            grid.innerHTML = list.map((p, i) => {
-                const isWished = wish.some(x => x.n === p.n) ? 'active' : '';
-                return `
-                <div class="p-card" onclick="openDetail('${p.sheetName || 'latest'}', ${i})">
-                    <div class="wish-heart ${isWished}" onclick="event.stopPropagation(); toggleWish(this, '${p.n}', '${p.p}', '${p.i}')">♥</div>
-                    <img src="${p.i}">
-                    <h3>${p.n}</h3>
-                    <div class="price-box">
-                        <span class="price">₹${p.p}</span>
-                        <span class="old-p">₹${Math.round(p.p * 1.5)}</span>
-                    </div>
-                </div>`;
-            }).join('');
+        // Functions to make everything work
+        function openStory(type) {
+            localStorage.setItem('activeSubCat', type);
+            window.location.href = "product_list.html";
         }
 
-        function toggleWish(btn, n, p, i) {
-            let wish = JSON.parse(localStorage.getItem('lexWish')) || [];
-            const idx = wish.findIndex(x => x.n === n);
-            if(idx > -1) { wish.splice(idx, 1); btn.classList.remove('active'); }
-            else { wish.push({n, p, i}); btn.classList.add('active'); }
-            localStorage.setItem('lexWish', JSON.stringify(wish));
-        }
-
-        function openDetail(sheet, idx) {
+        function openProduct(sheet, idx) {
             localStorage.setItem('targetSheet', sheet);
             localStorage.setItem('targetIdx', idx);
             window.location.href = "product.html";
         }
 
-        window.onload = fetchProducts;
+        function goToCat(catName) {
+            localStorage.setItem('selectedCat', catName);
+            window.location.href = "category.html";
+        }
+
+        function toggleCat() { 
+            const el = document.getElementById('catOverlay');
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function searchProducts() {
+            let q = document.getElementById('mainSearch').value.toLowerCase();
+            if(!q) return loadStore();
+            let res = [];
+            Object.keys(window.storeData).forEach(k => {
+                if(Array.isArray(window.storeData[k])) {
+                    window.storeData[k].forEach((p, i) => { 
+                        if(p.n.toLowerCase().includes(q)) res.push({p, i, k}); 
+                    });
+                }
+            });
+            document.getElementById('eid-scroll').innerHTML = res.map(item => `
+                <div class="product-item" onclick="openProduct('${item.k}', ${item.i})">
+                    <img src="${item.p.i}"><div class="price">₹${item.p.p}</div>
+                </div>`).join('');
+        }
+
+        function updateBagCount() {
+            let bag = JSON.parse(localStorage.getItem('lexBag')) || [];
+            document.getElementById('cartCount').innerText = bag.length;
+        }
+
+        window.onload = loadStore;
     </script>
 </body>
 </html>
