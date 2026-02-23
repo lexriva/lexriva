@@ -16,16 +16,19 @@
         .bag-icon { position: relative; font-size: 20px; cursor: pointer; color: var(--cherry); }
         .badge { position: absolute; top: -8px; right: -8px; background: red; color: #fff; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800; }
 
-        /* Search Bar with working URL */
         .search-container { background: #fff; padding: 10px 20px; }
         .search-bar { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
 
         .hero-banner { width: 100%; height: auto; display: block; }
 
-        /* Sections Titles */
+        /* --- ADDED: STORY CIRCLES CSS --- */
+        .story-container { display: flex; gap: 15px; padding: 20px; overflow-x: auto; scrollbar-width: none; background: #fff; }
+        .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
+        .story-img { width: 65px; height: 65px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; }
+        .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); text-transform: uppercase; }
+
         .section-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); padding: 25px 20px 10px; letter-spacing: 2px; }
 
-        /* Reels & Product Scrolls */
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; }
         .reel-card { min-width: 170px; height: 300px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
@@ -34,19 +37,16 @@
         .product-item img { width: 100%; height: 170px; object-fit: cover; border-radius: 12px; }
         .price { font-weight: 800; color: var(--cherry); font-size: 14px; margin-top: 5px; }
 
-        /* Category Modal Style (Exactly like pic) */
         .cat-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--lavender); z-index: 2000; overflow-y: auto; padding-bottom: 80px; }
         .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px; }
         .cat-card { position: relative; height: 160px; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; }
         .cat-card img { width: 100%; height: 100%; object-fit: cover; }
         .cat-label { position: absolute; bottom: 10px; left: 10px; color: #fff; font-size: 10px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
-        /* Footer Email */
         .newsletter { background: #111; color: #fff; padding: 40px 20px; text-align: center; }
         .news-input { width: 80%; padding: 12px; background: #222; border: 1px solid #333; color: #fff; border-radius: 5px; margin-bottom: 10px; }
         .news-btn { background: #fff; color: #000; padding: 12px 30px; border: none; font-weight: 800; border-radius: 5px; cursor: pointer; }
 
-        /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
         .nav-btn { font-size: 9px; font-weight: 800; color: #999; text-align: center; cursor: pointer; text-decoration: none; }
         .nav-btn.active { color: var(--cherry); }
@@ -64,6 +64,13 @@
     </div>
 
     <img src="main_banner.jpg" class="hero-banner" alt="Banner">
+
+    <div class="story-container">
+        <div class="story-circle" onclick="openStory('under499')"><img src="story_499.jpg" class="story-img" onerror="this.src='https://via.placeholder.com/65?text=499'"><p>UNDER 499</p></div>
+        <div class="story-circle" onclick="openStory('under999')"><img src="story_999.jpg" class="story-img" onerror="this.src='https://via.placeholder.com/65?text=999'"><p>UNDER 999</p></div>
+        <div class="story-circle" onclick="openStory('under1499')"><img src="story_1499.jpg" class="story-img" onerror="this.src='https://via.placeholder.com/65?text=1499'"><p>UNDER 1499</p></div>
+        <div class="story-circle" onclick="openStory('lux_edit')"><img src="story_lux.jpg" class="story-img" onerror="this.src='https://via.placeholder.com/65?text=LUX'"><p>LUXURY EDIT</p></div>
+    </div>
 
     <div class="section-title">🎬 TRENDING PRODUCTS</div>
     <div class="h-scroll" id="reels-list">
@@ -116,8 +123,6 @@
     <script>
         const API = "https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
         
-        emailjs.init("YOUR_PUBLIC_KEY"); // Replace with actual key later
-
         async function loadStore() {
             const res = await fetch(API);
             const data = await res.json();
@@ -147,6 +152,11 @@
             window.location.href = "product.html";
         }
 
+        function openStory(type) {
+            localStorage.setItem('activeSubCat', type);
+            window.location.href = "product_list.html";
+        }
+
         function searchProducts() {
             let q = document.getElementById('mainSearch').value.toLowerCase();
             if(!q) return loadStore();
@@ -163,10 +173,14 @@
         }
 
         function goToCat(catName) {
-    localStorage.setItem('selectedCat', catName); // Yeh line bohot zaruri hai
-    window.location.href = "category.html";
+            localStorage.setItem('selectedCat', catName);
+            window.location.href = "category.html";
         }
-        
+
+        function updateBagCount() {
+            let bag = JSON.parse(localStorage.getItem('lexBag')) || [];
+            document.getElementById('cartCount').innerText = bag.length;
+        }
 
         window.onload = loadStore;
     </script>
