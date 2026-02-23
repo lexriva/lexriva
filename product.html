@@ -3,129 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva | Collection</title>
+    <title>Lexriva | Product Details</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F9F7FF; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); padding-bottom: 80px; }
+        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); padding-bottom: 100px; }
         
-        .header { background: #fff; padding: 15px 20px; display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
-        .back-btn { font-size: 24px; color: var(--cherry); cursor: pointer; font-weight: 900; margin-right: 15px; }
-        .page-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); flex-grow: 1; text-align: center; letter-spacing: 2px; }
+        /* Image Slider */
+        .img-container { width: 100%; height: 450px; background: #fff; position: relative; }
+        #mainImg { width: 100%; height: 100%; object-fit: cover; }
+        .thumb-bar { display: flex; gap: 10px; padding: 15px; overflow-x: auto; background: #fff; scrollbar-width: none; }
+        .thumb { width: 60px; height: 60px; border-radius: 8px; border: 1.5px solid #eee; cursor: pointer; object-fit: cover; }
+        .thumb.active { border-color: var(--cherry); }
 
-        .p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; }
-        .p-card { background: #fff; border-radius: 15px; padding: 8px; text-align: center; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid #f0f0f0; }
-        .p-card img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; }
-        .p-card h3 { font-size: 10px; margin: 8px 0 4px; color: #333; height: 25px; overflow: hidden; font-weight: 600; text-transform: uppercase; }
+        /* Product Info */
+        .info-card { background: #fff; padding: 20px; border-radius: 30px 30px 0 0; margin-top: -20px; position: relative; }
+        .p-name { font-family: 'Cinzel'; font-size: 20px; font-weight: 900; color: var(--cherry); }
         
-        .price-row { display: flex; justify-content: center; align-items: center; gap: 6px; }
-        .price { font-weight: 800; color: var(--cherry); font-size: 14px; }
-        .old-p { font-size: 10px; color: #999; text-decoration: line-through; }
+        /* Price Section */
+        .price-box { margin: 15px 0; }
+        .old-price { text-decoration: line-through; color: #888; font-size: 16px; margin-right: 10px; }
+        .new-price { font-size: 24px; font-weight: 800; color: #000; }
+        
+        /* Shipping & Policy */
+        .policy-note { font-size: 11px; color: #555; background: #f9f9f9; padding: 10px; border-radius: 10px; margin: 15px 0; border-left: 3px solid var(--gold); }
 
-        .wish-heart { position: absolute; top: 15px; right: 15px; background: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1); color: #ddd; font-size: 18px; }
-        .wish-heart.active { color: red; }
+        /* Options */
+        .label { font-weight: 800; font-size: 12px; margin-bottom: 8px; display: block; }
+        .select-box { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 20px; outline: none; }
 
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
-        .nav-btn { font-size: 10px; font-weight: 800; color: #bbb; text-align: center; text-decoration: none; }
+        /* Floating Actions */
+        .bottom-actions { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; padding: 15px; gap: 10px; box-sizing: border-box; border-top: 1px solid #eee; z-index: 1000; }
+        .btn-cart { flex: 1; padding: 15px; border-radius: 30px; border: 1.5px solid var(--cherry); color: var(--cherry); font-weight: 800; background: #fff; }
+        .btn-buy { flex: 1; padding: 15px; border-radius: 30px; background: var(--cherry); color: #fff; border: none; font-weight: 800; }
+        .wish-btn { font-size: 22px; background: none; border: none; cursor: pointer; color: #ccc; }
+        .wish-btn.active { color: red; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="back-btn" onclick="history.back()">←</div>
-        <div class="page-title" id="listTitle">COLLECTION</div>
+    <div class="img-container">
+        <img id="mainImg" src="">
     </div>
+    
+    <div class="thumb-bar" id="thumbBar"></div>
 
-    <div id="productGrid" class="p-grid">
+    <div class="info-card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="p-name" id="pName"></div>
+            <button class="wish-btn" id="wishBtn" onclick="toggleWishlist()">♥</button>
         </div>
 
-    <div class="bottom-nav">
-        <a href="index.html" class="nav-btn">🏠<br>HOME</a>
-        <a href="category.html" class="nav-btn">👗<br>CATEGORY</a>
-        <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
-        <a href="login.html" class="nav-btn">👤<br>LOGIN</a>
+        <div class="price-box">
+            <span class="old-price" id="oldPrice">₹1999</span>
+            <span class="new-price" id="newPrice"></span>
+        </div>
+
+        <div class="policy-note">
+            🚚 7-8 Days Delivery | <b>₹29 Shipping</b> on orders below ₹1999 <br>
+            🔄 2 Days Exchange available after delivery
+        </div>
+
+        <label class="label">SELECT COLOUR</label>
+        <select class="select-box" id="pColour"></select>
+
+        <label class="label">SELECT SIZE</label>
+        <select class="select-box" id="pSize"></select>
+
+        <label class="label">DESCRIPTION</label>
+        <p id="pDesc" style="font-size: 13px; color: #666; line-height: 1.6;"></p>
+    </div>
+
+    <div class="bottom-actions">
+        <button class="btn-cart" onclick="addToBag()">ADD TO BAG</button>
+        <button class="btn-buy" onclick="checkoutNow()">BUY NOW</button>
     </div>
 
     <script>
-        const API = "https://script.google.com/macros/s/AKfycbwdDAiEuLykJJPxRK7Gh89yF-Pmyf71RKMGTh83j-SYe4AGKuqMR1zY9UcrKQbnoFU/exec";
+        const API = "https://script.google.com/macros/s/AKfycbyJbLc033WEF7htCF5LYhBF3jC-2YKhLV-SE-MsQYLVQR18ZQN_kWtDrd44EEzB7JB4/exec";
+        const targetSheet = localStorage.getItem('targetSheet');
+        const targetIdx = localStorage.getItem('targetIdx');
 
-        async function init() {
-            const sub = localStorage.getItem('activeSubCat') || 'Collection';
-            // Title fix for Status Circles
-            let displayTitle = sub.includes('under') ? sub.replace('under', 'UNDER ') : sub;
-            document.getElementById('listTitle').innerText = displayTitle.toUpperCase();
+        async function loadProduct() {
+            const res = await fetch(API);
+            const data = await res.json();
+            const p = data[targetSheet][targetIdx];
+            window.currentProduct = p;
 
-            try {
-                const res = await fetch(API);
-                const data = await res.json();
-                let filteredList = [];
+            // Images
+            document.getElementById('mainImg').src = p.i;
+            const imgs = [p.i, p.i2, p.i3].filter(x => x);
+            document.getElementById('thumbBar').innerHTML = imgs.map((img, i) => 
+                `<img src="${img}" class="thumb ${i===0?'active':''}" onclick="changeImg(this, '${img}')">`
+            ).join('');
 
-                // Universal Filter: Scanning ALL tabs (eid, latest, western, makeup, etc.)
-                Object.keys(data).forEach(sheetName => {
-                    if(Array.isArray(data[sheetName])) {
-                        data[sheetName].forEach((p, index) => {
-                            let match = false;
-                            const price = parseInt(p.p);
+            // Details
+            document.getElementById('pName').innerText = p.n;
+            document.getElementById('newPrice').innerText = "₹" + p.p;
+            document.getElementById('pDesc').innerText = p.d;
 
-                            // 1. Price Logic (For Home Page Circles)
-                            if(sub === 'under499' && price <= 499) match = true;
-                            else if(sub === 'under999' && price <= 999) match = true;
-                            else if(sub === 'under1499' && price <= 1499) match = true;
-                            
-                            // 2. Sub-Category Logic (For Category Page Circles)
-                            else if(p.subCat && p.subCat.trim().toLowerCase() === sub.toLowerCase()) match = true;
-                            else if(p.n && p.n.toLowerCase().includes(sub.toLowerCase())) match = true;
-
-                            if(match) {
-                                filteredList.push({...p, sName: sheetName, sIdx: index});
-                            }
-                        });
-                    }
-                });
-
-                renderGrid(filteredList);
-            } catch (e) { console.error("Error loading products"); }
+            // Colours & Sizes
+            document.getElementById('pColour').innerHTML = p.c.split(',').map(c => `<option>${c.trim()}</option>`).join('');
+            document.getElementById('pSize').innerHTML = p.s.split(',').map(s => `<option>${s.trim()}</option>`).join('');
+            
+            checkWishlistStatus();
         }
 
-        function renderGrid(list) {
-            const grid = document.getElementById('productGrid');
-            let wish = JSON.parse(localStorage.getItem('lexWish')) || [];
-
-            if(list.length === 0) {
-                grid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding:50px; color:#888;'>Coming Soon to Lexriva...</p>";
-                return;
-            }
-
-            grid.innerHTML = list.map(p => {
-                const isWished = wish.some(x => x.n === p.n) ? 'active' : '';
-                return `
-                <div class="p-card" onclick="openDetail('${p.sName}', ${p.sIdx})">
-                    <div class="wish-heart ${isWished}" onclick="event.stopPropagation(); toggleWish(this, '${p.n}', '${p.p}', '${p.i}')">♥</div>
-                    <img src="${p.i}">
-                    <h3>${p.n}</h3>
-                    <div class="price-row">
-                        <span class="price">₹${p.p}</span>
-                        <span class="old-p">₹${Math.round(p.p * 1.6)}</span>
-                    </div>
-                </div>`;
-            }).join('');
+        function changeImg(el, src) {
+            document.getElementById('mainImg').src = src;
+            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
         }
 
-        function toggleWish(btn, n, p, i) {
+        function addToBag() {
+            let bag = JSON.parse(localStorage.getItem('lexBag')) || [];
+            bag.push({ ...window.currentProduct, selectedSize: document.getElementById('pSize').value });
+            localStorage.setItem('lexBag', JSON.stringify(bag));
+            alert("Added to Bag! Total items: " + bag.length);
+        }
+
+        function toggleWishlist() {
             let wish = JSON.parse(localStorage.getItem('lexWish')) || [];
-            const idx = wish.findIndex(x => x.n === n);
-            if(idx > -1) { wish.splice(idx, 1); btn.classList.remove('active'); }
-            else { wish.push({n, p, i}); btn.classList.add('active'); }
+            const btn = document.getElementById('wishBtn');
+            // logic to add/remove and toggle class 'active'
+            btn.classList.toggle('active');
             localStorage.setItem('lexWish', JSON.stringify(wish));
         }
 
-        function openDetail(sheet, idx) {
-            localStorage.setItem('targetSheet', sheet);
-            localStorage.setItem('targetIdx', idx);
-            window.location.href = "product.html";
+        function checkoutNow() {
+            addToBag();
+            window.location.href = "checkout.html";
         }
 
-        window.onload = init;
+        window.onload = loadProduct;
     </script>
 </body>
 </html>
