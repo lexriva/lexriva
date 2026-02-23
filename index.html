@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Lexriva | Where Elegance Meets You</title>
+    <title>Lexriva | Luxury Mall</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
@@ -29,19 +29,19 @@
         .scroll-item{min-width:160px;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05);position:relative;cursor:pointer}
         .scroll-item img{width:100%;height:210px;border-radius:15px;object-fit:cover}
 
-        /* Reels */
-        .reel-card { min-width: 180px; height: 320px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
-        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
-
         /* Banners */
-        .promo-banner { width: 92%; margin: 15px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .promo-banner { width: 92%; margin: 15px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; }
         .promo-banner img { width: 100%; height: auto; display: block; }
 
-        /* Category Grid */
+        /* Sub Grid */
         .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:20px 10px;}
         .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
         .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
         .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold);}
+
+        /* Product Detail Style */
+        .p-detail-img { width: 100%; height: 500px; object-fit: cover; }
+        .btn-buy { background: var(--cherry); color: white; padding: 15px; border-radius: 12px; border: none; width: 100%; font-weight: 800; margin-top: 20px; }
 
         /* Nav */
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
@@ -53,15 +53,15 @@
 
 <div class="header">
     <div class="logo">LEXRIVA</div>
-    <div style="font-size:22px; cursor:pointer;">🛍️<span id="bagCount" style="color:red; font-size:12px; font-weight:900;">0</span></div>
+    <div style="font-size:22px;">🛍️</div>
 </div>
 
 <div class="search-wrapper">
-    <input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..." oninput="searchStore()">
+    <input type="text" id="mainSearch" class="search-input" placeholder="Search products..." oninput="searchStore()">
 </div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+COLLECTION'"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=LUXURY+COLLECTION'"></div>
 
     <div class="story-container">
         <div class="story-circle" onclick="filterByPrice(499)"><img src="s399.jpg" class="story-img"><p>UNDER 499</p></div>
@@ -77,20 +77,11 @@
     <div id="eid-scroll" class="h-scroll"></div>
 
     <div class="section-h">✨ SHOP BY STYLE</div>
-    <div class="promo-banner" onclick="openSub('jewellery_master')"><img src="banner_jewel.jpg"></div>
-    <div class="promo-banner" onclick="openSub('ethnic')"><img src="banner_ethnic.jpg"></div>
-    <div class="promo-banner" onclick="openSub('makeup_cat')"><img src="banner_makeup.jpg"></div>
+    <div class="promo-banner" onclick="openSub('jewellery_master')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=JEWELLERY'"></div>
+    <div class="promo-banner" onclick="openSub('ethnic')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=ETHNIC'"></div>
 
     <div class="section-h">🔥 BESTSELLERS</div>
     <div id="best-scroll" class="h-scroll"></div>
-
-    <div class="section-h">📖 OUR STORY</div>
-    <div style="padding: 0 20px 20px;"><video src="brand_story.mp4" controls style="width:100%; border-radius:20px;"></video></div>
-
-    <div style="background:#111; color:#fff; padding:40px 20px; text-align:center;">
-        <h3 style="font-family:'Cinzel';">LEXRIVA INSIDER</h3>
-        <p style="font-size:11px; color:#888;">lexrivaofficial@gmail.com | @lexrivaofficial</p>
-    </div>
 </div>
 
 <div id="s-pg" class="page">
@@ -99,8 +90,25 @@
     <div id="s-grid" class="sub-grid"></div>
 </div>
 
+<div id="p-list-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div>
+    <div class="section-h" id="p-list-title">COLLECTION</div>
+    <div id="p-list-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:15px"></div>
+</div>
+
+<div id="p-detail-pg" class="page">
+    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="history.back()">← BACK</div>
+    <img id="detail-img" class="p-detail-img">
+    <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative;">
+        <h2 id="detail-name" style="color:var(--cherry); margin:0"></h2>
+        <p id="detail-price" style="font-size:22px; font-weight:800; margin:10px 0"></p>
+        <p id="detail-desc" style="font-size:14px; color:#666;"></p>
+        <button class="btn-buy" onclick="alert('Order Feature Coming Soon!')">BUY NOW</button>
+    </div>
+</div>
+
 <div class="bottom-nav">
-    <div class="nav-btn active" onclick="showPg('h-pg')">🏠<br>HOME</div>
+    <div class="nav-btn" onclick="showPg('h-pg')">🏠<br>HOME</div>
     <div class="nav-btn" onclick="openSub('western')">👗<br>CATEGORY</div>
     <div class="nav-btn">💖<br>WISHLIST</div>
     <div class="nav-btn">👤<br>LOGIN</div>
@@ -114,7 +122,10 @@ const subMap={
     'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear'],
     'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Suits'],
     'makeup_cat':['Lipstick','Foundation','Eye Shadow','LEXRIVA','Eyeliner','Kajal','Nail Paint'],
-    'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Kashmiri Earrings','Jhumka','Korean Earrings']
+    'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Kashmiri Earrings','Jhumka','Korean Earrings'],
+    'footwear':['Heels','Sandals','Boots','Sneakers','LEXRIVA','Flats','Ethnic'],
+    'bags':['Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
+    'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks']
 };
 
 async function init(){ 
@@ -125,27 +136,43 @@ async function init(){
     } catch(e) { console.log("Load Error"); }
 }
 
+function getPData(p){
+    const vals = Object.values(p);
+    return {
+        n: p.Name || p.n || vals[0],
+        p: p.Price || p.p || vals[1],
+        i: p['Image 1'] || p.i || vals[2],
+        d: p.Description || p.d || "Lexriva Luxury Product"
+    };
+}
+
 function renderHome(){
-    const mapItems = (arr) => (arr||[]).map((p, i) => {
-        const vals = Object.values(p);
-        const img = p['Image 1'] || p.i || vals[2];
-        const price = p.Price || p.p || vals[1];
-        return `<div class="scroll-item" onclick="alert('Opening Product')">
-            <img src="${img}"><p style="font-size:10px;font-weight:800;margin:5px 0">₹${price}</p>
+    const mapItems = (arr) => (arr||[]).map(p => {
+        const d = getPData(p);
+        return `<div class="scroll-item" onclick='openDetail(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
+            <img src="${d.i}"><p style="font-size:10px;font-weight:800;margin:5px 0">₹${d.p}</p>
         </div>`;
     }).join('');
 
     document.getElementById('eid-scroll').innerHTML = mapItems(store.Eid || store.eid);
     document.getElementById('best-scroll').innerHTML = mapItems(store.Bestseller || store.bestseller || store.latest);
 
-    // Render Trending Reels
     const trending = store.Trending || store.trending || [];
-    document.getElementById('reel-scroll').innerHTML = trending.map((v, i) => {
+    document.getElementById('reel-scroll').innerHTML = trending.map(v => {
         const videoSrc = v.Video || v.v || Object.values(v)[0];
-        return `<div class="reel-card" onclick="alert('Reel Product Clicked')">
+        return `<div class="reel-card" onclick='openDetail(${JSON.stringify(v).replace(/'/g, "&apos;")})'>
             <video src="${videoSrc}" autoplay muted loop playsinline></video>
         </div>`;
     }).join('');
+}
+
+function openDetail(p){
+    const d = getPData(p);
+    document.getElementById('detail-name').innerText = d.n;
+    document.getElementById('detail-price').innerText = "₹" + d.p;
+    document.getElementById('detail-img').src = d.i;
+    document.getElementById('detail-desc').innerText = d.d;
+    showPg('p-detail-pg');
 }
 
 function openSub(k){
@@ -154,34 +181,53 @@ function openSub(k){
     let h=""; 
     (subMap[k]||[]).forEach(n=>{
         if(n === 'LEXRIVA') h+=`<div class="sub-item"><div class="cherry-box"><span style="font-size:8px">ESTD</span><br><span style="font-size:12px; font-weight:900">LEXRIVA</span></div></div>`;
-        else h+=`<div class="sub-item" onclick="alert('Open ${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+        else h+=`<div class="sub-item" onclick="openCategoryProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
+}
+
+function openCategoryProducts(catName){
+    showPg('p-list-pg');
+    document.getElementById('p-list-title').innerText = catName.toUpperCase();
+    let filtered = [];
+    Object.values(store).forEach(sheet => {
+        if(Array.isArray(sheet)) sheet.forEach(p => {
+            const sc = (p.subCat || p.Category || "").toLowerCase();
+            if(sc === catName.toLowerCase()) filtered.push(p);
+        });
+    });
+    document.getElementById('p-list-grid').innerHTML = filtered.map(p => {
+        const d = getPData(p);
+        return `<div style="background:#fff; padding:10px; border-radius:15px; text-align:center" onclick='openDetail(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
+            <img src="${d.i}" style="width:100%; height:180px; object-fit:cover; border-radius:10px">
+            <p style="font-size:11px; font-weight:800; margin:5px 0">₹${d.p}</p>
+        </div>`;
+    }).join('') || "<p style='padding:20px'>Coming Soon...</p>";
+}
+
+function filterByPrice(max){
+    showPg('p-list-pg');
+    document.getElementById('p-list-title').innerText = "UNDER ₹" + max;
+    let filtered = [];
+    Object.values(store).forEach(sheet => {
+        if(Array.isArray(sheet)) sheet.forEach(p => {
+            const price = parseInt(getPData(p).p);
+            if(price <= max) filtered.push(p);
+        });
+    });
+    document.getElementById('p-list-grid').innerHTML = filtered.map(p => {
+        const d = getPData(p);
+        return `<div style="background:#fff; padding:10px; border-radius:15px; text-align:center" onclick='openDetail(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
+            <img src="${d.i}" style="width:100%; height:180px; object-fit:cover; border-radius:10px">
+            <p style="font-size:11px; font-weight:800; margin:5px 0">₹${d.p}</p>
+        </div>`;
+    }).join('');
 }
 
 function showPg(id){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0,0);
-}
-
-function searchStore(){
-    let q = document.getElementById('mainSearch').value.toLowerCase();
-    if(q.length < 2) { renderHome(); return; }
-    let results = [];
-    Object.values(store).forEach(sheet => {
-        if(Array.isArray(sheet)) {
-            sheet.forEach(p => {
-                const name = (p.Name || p.n || Object.values(p)[0] || "").toLowerCase();
-                if(name.includes(q)) results.push(p);
-            });
-        }
-    });
-    const mapItems = (arr) => arr.map(p => {
-        const vals = Object.values(p);
-        return `<div class="scroll-item"><img src="${p['Image 1'] || vals[2]}"><p style="font-size:10px;font-weight:800">₹${p.Price || vals[1]}</p></div>`;
-    }).join('');
-    document.getElementById('eid-scroll').innerHTML = mapItems(results);
 }
 
 window.onload = init;
