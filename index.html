@@ -120,28 +120,41 @@ function renderHome(){
     }
 
     const mapItems = (arr) => safeArray(arr).map(p => {
-        const d = getPData(p);
-        if(!d.n || !d.i) return "";
+        const name = p.n || "";
+        const price = p.p || "";
+        const img = p.i || "";
+
+        if(!name || !img) return "";
+
         return `
-        <div class="scroll-item" onclick="location.href='product_detail.html?id=${encodeURIComponent(d.n)}'">
-            <img src="${d.i}">
-            <p style="font-size:10px;font-weight:800;margin:5px 0">₹${d.p}</p>
+        <div class="scroll-item" onclick="location.href='product_detail.html?id=${encodeURIComponent(name)}'">
+            <img src="${img}">
+            <p style="font-size:10px;font-weight:800;margin:5px 0">₹${price}</p>
         </div>`;
     }).join('');
 
+    // 🌙 EID SECTION (if exists)
     document.getElementById('eid-scroll').innerHTML =
-        mapItems(store.eid || store.Eid || []);
+        mapItems(store.Eid);
 
-    document.getElementById('best-scroll').innerHTML =
-        mapItems(store.latest || store.bestseller || store.Bestseller || []);
+    // 🔥 BESTSELLER SECTION
+    // Automatically show first available category except Eid & Trending
 
-    const trending = safeArray(store.trending || store.Trending);
+    const otherCategories = Object.keys(store)
+        .filter(k => k !== "Eid" && k !== "Trending");
+
+    if(otherCategories.length > 0){
+        document.getElementById('best-scroll').innerHTML =
+            mapItems(store[otherCategories[0]]);
+    }
+
+    // 🎬 TRENDING REELS
     document.getElementById('reel-scroll').innerHTML =
-        trending.map(v => {
+        safeArray(store.Trending).map(v => {
             const src = v.v || v.Video || "";
             if(!src) return "";
             return `
-            <div class="reel-card" onclick="location.href='product_detail.html?id=reel'">
+            <div class="reel-card">
                 <video src="${src}" autoplay muted loop playsinline></video>
             </div>`;
         }).join('');
