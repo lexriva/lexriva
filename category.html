@@ -17,7 +17,7 @@
         .sub-item { text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
         .circle-frame { width: 90px; height: 90px; border-radius: 50%; background: #fff; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 10px; }
         .circle-frame img { width: 100%; height: 100%; object-fit: cover; }
-        .sub-item p { font-size: 9px; font-weight: 800; color: #444; text-transform: uppercase; margin: 0; line-height: 1.2; }
+        .sub-item p { font-size: 9px; font-weight: 800; color: #444; text-transform: uppercase; margin: 0; line-height: 1.2; height: 22px; }
         
         .cherry-arch { background: var(--cherry); color: var(--gold); border-radius: 50px 50px 10px 10px; width: 90px; height: 125px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'Cinzel'; box-shadow: 0 10px 20px rgba(114,0,26,0.25); margin-top: -5px; }
         .cherry-arch b { font-size: 11px; letter-spacing: 2px; }
@@ -44,19 +44,19 @@
 
     <script>
         const categoryData = {
-            'western': { title: "WESTERN WEAR", items: ['Dresses','Tops','Jeans','T-shirts','Jumpsuit','Co-ords','Sleep Wear'], cherryPos: 5 },
-            'ethnic': { title: "ETHNIC WEAR", items: ['Saree','Kurtis','Dress Material','Lehengas','Gowns'], cherryPos: 5 },
-            'footwear': { title: "WOMEN FOOTWEAR", items: ['Heels','Sandals','Boots','Ballerinas','Sneakers'], cherryPos: 5 },
-            'makeup': { title: "BEAUTY & HEALTH", items: ['Lipstick','Lip Gloss','Lip Liner','Foundation','Concealer','Highlighter','Eye Shadow','Eye Liner','Kajal','Mascara','Body Lotion','Face Wash','Face Mask','Nails Makeup','Brushes'], cherryPos: 8 },
+            'western': { title: "WOMEN'S CLOTHING", items: ['Dresses','Tops','Jeans','T-shirts','Jumpsuit','Co-ords','Sleep Wear','Saree','Kurtis','Dress Material','Lehengas','Gowns'], cherryPos: 5 },
+            'ethnic': { title: "WOMEN'S CLOTHING", items: ['Saree','Kurtis','Dress Material','Lehengas','Gowns'], cherryPos: 5 },
+            'footwear': { title: "WOMEN'S FOOTWEAR", items: ['Heels','Sandals','Boots','Ballerinas','Sneakers'], cherryPos: 5 },
+            'makeup': { title: "BEAUTY & HEALTH", items: ['Lipstick','Lip Gloss','Lip Liner','Foundation','Concealer','Highlighter','Eye Shadow','Eye Liner','Kajal','Mascara','Body Lotion','Face Wash','Face Mask'], cherryPos: 8 },
             'jewel': { title: "WOMEN JEWELLERY", items: ['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri','Jhumka','Korean'], cherryPos: 8 },
-            'acc': { title: "ACCESSORIES", items: ['Hair Acc','Belts','Sunglasses','Watches','Bag Packs','Handbags','Sling Bags','Wallets','Clutches'], cherryPos: 5 }
+            'acc': { title: "WOMEN ACCESSORIES", items: ['Hair Accessories','Belts','Sunglasses','Watches','Bag Packs','Handbags','Sling Bags','Wallets','Clutches'], cherryPos: 5 }
         };
 
         function renderView() {
             const activeKey = localStorage.getItem('selectedCat') || 'western';
             const data = categoryData[activeKey];
-            document.getElementById('displayTitle').innerText = data.title;
             
+            document.getElementById('displayTitle').innerText = data.title;
             let html = `<div class="sub-grid">`;
             let itemsProcessed = 0;
 
@@ -82,7 +82,6 @@
             localStorage.setItem('activeSubCat', sub);
             window.location.href = "product_list.html";
         }
-
         window.onload = renderView;
     </script>
 </body>
