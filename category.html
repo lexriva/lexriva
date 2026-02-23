@@ -1,16 +1,20 @@
 <script>
 const ADMIN_URL="https://script.google.com/macros/s/AKfycbzSsDtANnhXgAs5M0LK-tZ4uHr4_Ij0pxEY8ZJknqf8a5ZMsHSC1EQRCXEHz5RcW7rD/exec";
-let store={}; let currentP={}; let selectedColor=""; let selectedSize="";
-let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
+let store={}; let currentP={}; let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
 
-// EXACT SUB-CATEGORIES MAPPING (No "Lexriva" item here)
+// BAGS AUR ACCESSORIES KO ALAG-ALAG KAR DIYA HAI
 const subMap = {
     'western': ['Dresses', 'Tops', 'Jeans', 'T-shirt', 'Jumpsuit', 'Co-ords', 'Sleep Wear'],
     'ethnic': ['Saree', 'Kurtis', 'Dress Material', 'Lehengas', 'Gowns'],
     'footwear': ['Heels', 'Sandals', 'Boots', 'Bellies', 'Sneakers'],
     'makeup_cat': ['Lipstick', 'Lip Gloss', 'Lip Liner', 'Foundation', 'Compact', 'Highlighter', 'Eye Shadow', 'Eye Liner', 'Kajal', 'Mascara', 'Nails', 'Brushes', 'Perfumes', 'Body Lotion', 'Face Wash', 'Face Mask'],
     'jewellery_master': ['Minimal', 'Bridal Set', 'Haldi Hues', 'Mehndi Vibes', 'Rajputi', 'American Diamond', 'Kashmiri', 'Jhumka', 'Korean', 'Maangtika', 'Rings', 'Bracelet'],
-    'acc_main': ['Hair Acc', 'Belts', 'Sunglasses', 'Watches', 'Bag Packs', 'Handbags', 'Sling Bags', 'Wallets', 'Clutches']
+    
+    // BAGS CATEGORY ALAG HAI
+    'bags': ['Bag Packs', 'Handbags', 'Sling Bags', 'Wallets', 'Clutches'],
+    
+    // ACCESSORIES CATEGORY ALAG HAI
+    'acc_main': ['Hair Acc', 'Belts', 'Sunglasses', 'Watches', 'Socks', 'Caps']
 };
 
 async function init(){ 
@@ -18,30 +22,34 @@ async function init(){
         const r = await fetch(ADMIN_URL); 
         store = await r.json(); 
         
-        // Home Page Rendering (Sheet names: Eid, Bestseller)
+        // Home Page Rendering (Sheet names match: Eid & Bestseller)
         const eidData = store.Eid || store.eid || [];
         const bestData = store.Bestseller || store.bestseller || [];
 
         document.getElementById('eid-scroll').innerHTML = eidData.length ? 
-            eidData.map(p => renderItem(p, 'scroll')).join('') : "<p style='padding:15px; font-size:10px'>Loading Eid Special...</p>";
+            eidData.map(p => renderItem(p, 'scroll')).join('') : "<p style='padding:15px; font-size:10px'>Updating Eid Edit...</p>";
         
         document.getElementById('l-scroll').innerHTML = bestData.length ? 
             bestData.map(p => renderItem(p, 'scroll')).join('') : "<p style='padding:15px; font-size:10px'>Loading Bestsellers...</p>";
         
-    } catch(e) { console.log("Data Load Error:", e); }
+    } catch(e) { console.log("Init Error:", e); }
 }
 
 function openSub(k){
     showPg('s-pg');
-    const titles = { western: "WESTERN WEAR", ethnic: "ETHNIC WEAR", footwear: "WOMEN FOOTWEAR", makeup_cat: "BEAUTY & MAKEUP", jewellery_master: "WOMEN JEWELLERY", acc_main: "WOMEN ACCESSORIES" };
+    const titles = { 
+        western: "WESTERN WEAR", ethnic: "ETHNIC WEAR", footwear: "WOMEN FOOTWEAR", 
+        makeup_cat: "BEAUTY & MAKEUP", jewellery_master: "WOMEN JEWELLERY", 
+        bags: "WOMEN BAGS", acc_main: "WOMEN ACCESSORIES" 
+    };
     document.getElementById('s-banner').innerHTML = `<div style="padding:20px; text-align:center; font-family:'Cinzel'; color:var(--cherry); font-weight:900; letter-spacing:2px; font-size:18px">${titles[k] || 'COLLECTION'}</div>`;
     
     let h = ""; 
     let list = subMap[k] || [];
     
-    // Logic to insert Cherry Box after 4th item to keep it in center
     list.forEach((n, index) => {
-        if(index === 4) {
+        // Beech mein hamesha Cherry Box Arch aayega
+        if(index === 3) { // 3rd item ke baad taaki center lage
             h += `<div class="cherry-box">
                     <span style="font-size:7px; opacity:0.8; letter-spacing:1px">ESTD. 2024</span>
                     <span style="font-size:15px; font-weight:900; letter-spacing:2px">LEXRIVA</span>
@@ -53,5 +61,21 @@ function openSub(k){
               </div>`;
     });
     document.getElementById('s-grid').innerHTML = h;
+}
+
+// Home Page par products dikhane ke liye render logic
+function renderItem(p, type){
+    const isWished = wishlist.find(x => x.n === (p.Name || p.n)) ? 'active' : '';
+    const name = p.Name || p.n || "Product";
+    const price = p.Price || p.p || "0";
+    const imgUrl = p['Image 1'] || p.i || "";
+    
+    const click = `onclick="openProduct('${name.replace(/'/g,"")}','${price}','${imgUrl}','${p['Image 2'] || p.i2}','${p['Image 3'] || p.i3}','${(p.Description || p.d || "").replace(/'/g,"")}','${p.Colour || p.c}','${p.Size || p.s}')"`;
+    
+    if(type === 'scroll'){
+        return `<div class="scroll-item"><button class="wish-btn ${isWished}" onclick="toggleWish('${name.replace(/'/g,"")}', ${price}, '${imgUrl}')">♥</button><div ${click}><img src="${imgUrl}"><p style="font-size:10px;font-weight:700">₹${price}</p></div></div>`;
+    } else {
+        return `<div class="cat-card"><button class="wish-btn ${isWished}" onclick="toggleWish('${name.replace(/'/g,"")}', ${price}, '${imgUrl}')">♥</button><div ${click}><img src="${imgUrl}"><div class="cat-label">₹${price}</div></div></div>`;
+    }
 }
 </script>
