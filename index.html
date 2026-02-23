@@ -9,40 +9,33 @@
         :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; }
         
-        /* Header & Search */
         .header { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
         .logo { font-family: 'Cinzel'; font-size: 24px; font-weight: 900; color: var(--cherry); letter-spacing: 4px; flex-grow: 1; text-align: center; }
         .search-container { padding: 10px 20px; background: #fff; }
         .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
 
-        /* Story Circles - Fixed Clickable */
         .story-container { display: flex; gap: 15px; padding: 20px; overflow-x: auto; background: #fff; scrollbar-width: none; }
         .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
         .story-img { width: 65px; height: 65px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; }
         .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); text-transform: uppercase; }
 
-        /* Trending Reels */
         .section-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); padding: 25px 20px 10px; letter-spacing: 2px; }
         .reel-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; min-height: 200px; }
         .reel-card { min-width: 170px; height: 300px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Product Scrolls */
         .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; }
         .product-item { min-width: 160px; background: #fff; border-radius: 15px; padding: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
         .product-item img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; }
         .price { font-weight: 800; color: var(--cherry); font-size: 14px; margin-top: 5px; }
 
-        /* 3 Big Banners */
         .promo-banner { width: 92%; margin: 15px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .promo-banner img { width: 100%; height: auto; display: block; }
 
-        /* Footer & Contact */
         .footer { background: #111; color: #fff; padding: 40px 20px; text-align: center; margin-top: 20px; }
         .news-input { width: 85%; padding: 12px; background: #222; border: 1px solid #333; color: #fff; border-radius: 5px; margin-bottom: 10px; }
         .news-btn { background: var(--gold); color: #000; width: 88%; padding: 12px; border: none; font-weight: 800; border-radius: 5px; cursor: pointer; }
 
-        /* Overlays */
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--lavender); z-index: 2000; overflow-y: auto; padding-bottom: 80px; }
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
         .nav-btn { font-size: 9px; font-weight: 800; color: #999; text-align: center; cursor: pointer; text-decoration: none; }
@@ -83,13 +76,10 @@
     <div class="section-title">🔥 BESTSELLERS</div>
     <div id="best-scroll" class="h-scroll"></div>
 
-    <div class="section-title">📖 OUR STORY</div>
-    <div style="padding: 0 20px 20px;"><video src="brand_story.mp4" controls style="width:100%; border-radius:20px;"></video></div>
-
     <div class="footer">
         <h3 style="font-family:'Cinzel';">LEXRIVA INSIDER</h3>
         <input type="email" id="subEmail" class="news-input" placeholder="Enter your Gmail">
-        <button class="news-btn" onclick="subscribe()">SUBSCRIBE</button>
+        <button class="news-btn">SUBSCRIBE</button>
         <p style="font-size:11px; margin-top:20px;">lexrivaofficial@gmail.com | @lexrivaofficial</p>
     </div>
 
@@ -135,33 +125,44 @@
                 const res = await fetch(API);
                 const data = await res.json();
                 
-                // Case Sensitive Fix
+                // --- SMART SECTION SYNC ---
                 const eidData = data.Eid || data.eid || [];
                 const trendingData = data.Trending || data.trending || [];
-                const bestData = data.Bestseller || data.bestseller || [];
+                const bestData = data.Bestseller || data.bestseller || data.latest || [];
 
                 // 1. Trending Reels
                 if(trendingData.length > 0) {
-                    document.getElementById('trending-reels').innerHTML = trendingData.map((v, i) => `
-                        <div class="reel-card" onclick="openProduct('Trending', ${i})">
-                            <video src="${v.Video || v.v}" autoplay muted loop playsinline></video>
-                        </div>`).join('');
+                    document.getElementById('trending-reels').innerHTML = trendingData.map((v, i) => {
+                        const video = v.v || v.Video || Object.values(v)[0];
+                        return `<div class="reel-card" onclick="openProduct('Trending', ${i})">
+                            <video src="${video}" autoplay muted loop playsinline></video>
+                        </div>`;
+                    }).join('');
                 }
 
-                // 2. Eid Products (Headers: Name, Price, Image 1)
+                // 2. Eid Products
                 if(eidData.length > 0) {
-                    document.getElementById('eid-scroll').innerHTML = eidData.map((p, i) => `
-                        <div class="product-item" onclick="openProduct('Eid', ${i})">
-                            <img src="${p['Image 1'] || p.i}"><div class="price">₹${p.Price || p.p}</div>
-                        </div>`).join('');
+                    document.getElementById('eid-scroll').innerHTML = eidData.map((p, i) => {
+                        const vals = Object.values(p);
+                        const price = p.Price || p.p || vals[1];
+                        const img = p['Image 1'] || p.i || vals[2];
+                        return `<div class="product-item" onclick="openProduct('Eid', ${i})">
+                            <img src="${img}"><div class="price">₹${price}</div>
+                        </div>`;
+                    }).join('');
                 }
 
-                // 3. Bestsellers (Headers: Name, Price, Image 1)
+                // 3. Bestsellers
                 if(bestData.length > 0) {
-                    document.getElementById('best-scroll').innerHTML = bestData.map((p, i) => `
-                        <div class="product-item" onclick="openProduct('Bestseller', ${i})">
-                            <img src="${p['Image 1'] || p.i}"><div class="price">₹${p.Price || p.p}</div>
-                        </div>`).join('');
+                    document.getElementById('best-scroll').innerHTML = bestData.map((p, i) => {
+                        const vals = Object.values(p);
+                        const price = p.Price || p.p || vals[1];
+                        const img = p['Image 1'] || p.i || vals[2];
+                        const sheet = data.Bestseller ? 'Bestseller' : (data.latest ? 'latest' : 'eid');
+                        return `<div class="product-item" onclick="openProduct('${sheet}', ${i})">
+                            <img src="${img}"><div class="price">₹${price}</div>
+                        </div>`;
+                    }).join('');
                 }
             } catch (e) { console.log("Load Error:", e); }
         }
