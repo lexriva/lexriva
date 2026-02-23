@@ -4,45 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Lexriva | Luxury Mall</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
         body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
         .page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
         .active{display:block}
         
+        /* Header */
         .header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;border-bottom:1px solid #eee}
         .logo{font-family:'Cinzel';font-size:24px;letter-spacing:4px;font-weight:900;color:var(--cherry);flex-grow:1;text-align:center}
-        
         .search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
         .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
 
+        /* Stories */
         .story-container { display: flex; gap: 15px; padding: 20px; overflow-x: auto; background: #fff; scrollbar-width: none; }
         .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
         .story-img { width: 65px; height: 65px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; }
         .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); text-transform: uppercase; }
 
-        .section-h{padding:25px 20px 10px;font-size:11px;font-weight:900;text-transform:uppercase;color:var(--cherry);letter-spacing:2px;font-family:'Cinzel'}
+        /* Sections */
+        .section-h{padding:25px 20px 10px;font-size:12px;font-weight:900;text-transform:uppercase;color:var(--cherry);letter-spacing:2px;font-family:'Cinzel'}
         .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px 15px;scrollbar-width:none}
-        .scroll-item{min-width:145px;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05);position:relative;cursor:pointer}
-        .scroll-item img{width:100%;height:190px;border-radius:15px;object-fit:cover}
+        .scroll-item{min-width:160px;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05);position:relative;cursor:pointer}
+        .scroll-item img{width:100%;height:210px;border-radius:15px;object-fit:cover}
 
-        .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:20px 10px;}
-        .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
-        .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-        
-        /* Brand Box ONLY for Category Page */
-        .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); margin:0 auto;}
+        /* Video Reels */
+        .reel-card { min-width: 180px; height: 320px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
+        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
 
+        /* Big Style Banners */
+        .promo-banner { width: 92%; margin: 12px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .promo-banner img { width: 100%; height: auto; display: block; }
+
+        /* 7 Category Grid */
+        .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .cat-card { position: relative; border-radius: 20px; overflow: hidden; height: 180px; cursor: pointer; border: 1px solid rgba(114,0,26,0.1); }
+        .cat-card img { width: 100%; height: 100%; object-fit: cover; }
+        .cat-label { position: absolute; bottom: 12px; left: 12px; color: #fff; font-size: 10px; font-weight: 900; text-transform: uppercase; text-shadow: 0 2px 4px #000; }
+
+        /* Footer */
+        .footer { background: #111; color: #fff; padding: 40px 20px; text-align: center; margin-top: 20px; }
+
+        /* Nav */
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
         .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center;text-decoration:none}
+        .nav-btn.active { color: var(--cherry); }
     </style>
 </head>
 <body>
 
 <div class="header">
     <div class="logo">LEXRIVA</div>
-    <div style="font-size:22px; cursor:pointer;">🛍️</div>
+    <div style="font-size:22px; cursor:pointer;" onclick="alert('Bag is empty')">🛍️</div>
 </div>
 
 <div class="search-wrapper">
@@ -53,85 +67,110 @@
     <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+COLLECTION'"></div>
 
     <div class="story-container">
-        <div class="story-circle" onclick="filterByPrice(499)"><img src="s399.jpg" class="story-img"><p>UNDER 499</p></div>
-        <div class="story-circle" onclick="filterByPrice(999)"><img src="s599.jpg" class="story-img"><p>UNDER 999</p></div>
-        <div class="story-circle" onclick="filterByPrice(1499)"><img src="s999.jpg" class="story-img"><p>UNDER 1499</p></div>
-        <div class="story-circle" onclick="showPg('h-pg')"><img src="s_eid.jpg" class="story-img"><p>EID SPECIAL</p></div>
+        <div class="story-circle" onclick="alert('Filtering Under 499')"><img src="s399.jpg" class="story-img"><p>UNDER 499</p></div>
+        <div class="story-circle" onclick="alert('Filtering Under 999')"><img src="s599.jpg" class="story-img"><p>UNDER 999</p></div>
+        <div class="story-circle" onclick="alert('Filtering Under 1499')"><img src="s999.jpg" class="story-img"><p>UNDER 1499</p></div>
+        <div class="story-circle" onclick="alert('Opening Eid Edit')"><img src="s_eid.jpg" class="story-img"><p>EID SPECIAL</p></div>
     </div>
 
-    <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
-    <div class="section-h">🔥 BESTSELLERS</div><div id="best-scroll" class="h-scroll"></div>
+    <div class="section-h">🎬 TRENDING REELS</div>
+    <div id="reel-scroll" class="h-scroll"></div>
 
-    <div class="section-h">👗 SHOP BY CATEGORY</div>
-    <div id="cat-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:15px;">
-        <div style="position:relative; border-radius:20px; overflow:hidden; height:180px;" onclick="openSub('western')"><img src="cat_western.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:12px;left:12px;color:#fff;font-size:11px;font-weight:900">WESTERN WEAR</div></div>
-        <div style="position:relative; border-radius:20px; overflow:hidden; height:180px;" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:12px;left:12px;color:#fff;font-size:11px;font-weight:900">ETHNIC WEAR</div></div>
-        <div style="position:relative; border-radius:20px; overflow:hidden; height:180px;" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:12px;left:12px;color:#fff;font-size:11px;font-weight:900">JEWELLERY</div></div>
-        <div style="position:relative; border-radius:20px; overflow:hidden; height:180px;" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:12px;left:12px;color:#fff;font-size:11px;font-weight:900">MAKEUP & CARE</div></div>
+    <div class="section-h">🌙 THE EID EDIT</div>
+    <div id="eid-scroll" class="h-scroll"></div>
+
+    <div class="section-h">✨ SHOP BY STYLE</div>
+    <div class="promo-banner" onclick="showPg('cat-pg')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=ETHNIC+SUITS'"></div>
+    <div class="promo-banner" onclick="showPg('cat-pg')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=FINE+JEWELLERY'"></div>
+    <div class="promo-banner" onclick="showPg('cat-pg')"><img src="banner_makeup.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=MAKEUP+AND+CARE'"></div>
+
+    <div class="section-h">🔥 BESTSELLERS</div>
+    <div id="best-scroll" class="h-scroll"></div>
+
+    <div class="section-h">📖 OUR STORY</div>
+    <div style="padding: 0 15px 20px;"><video src="brand_story.mp4" controls style="width:100%; border-radius:20px;"></video></div>
+
+    <div class="footer">
+        <h3 style="font-family:'Cinzel';">LEXRIVA INSIDER</h3>
+        <p style="font-size:11px; color:#888;">lexrivaofficial@gmail.com | @lexrivaofficial</p>
     </div>
 </div>
 
-<div id="s-pg" class="page">
+<div id="cat-pg" class="page">
     <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
-    <div id="s-banner" style="width:100%;height:200px"></div>
-    <div id="s-grid" class="sub-grid"></div>
+    <div class="section-h">👗 EXPLORE CATEGORIES</div>
+    <div class="cat-grid">
+        <div class="cat-card" onclick="alert('Sub-categories coming soon')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
+        <div class="cat-card" onclick="alert('Sub-categories coming soon')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
+        <div class="cat-card" onclick="alert('Sub-categories coming soon')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
+        <div class="cat-card" onclick="alert('Sub-categories coming soon')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
+        <div class="cat-card" onclick="alert('Sub-categories coming soon')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
+        <div class="cat-card" onclick="alert('Sub-categories coming soon')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR EDIT</div></div>
+        <div class="cat-card" style="grid-column: span 2;" onclick="alert('Sub-categories coming soon')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
+    </div>
 </div>
 
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')">🏠<br>HOME</div>
-    <div class="nav-btn" onclick="openSub('western')">👗<br>SHOP</div>
-    <div class="nav-btn">💖<br>WISHLIST</div>
-    <div class="nav-btn">👤<br>LOGIN</div>
+    <div class="nav-btn" onclick="showPg('cat-pg')">👗<br>CATEGORY</div>
+    <div class="nav-btn" onclick="alert('Wishlist Working...')">💖<br>WISHLIST</div>
+    <div class="nav-btn" onclick="alert('Login Page Working...')">👤<br>LOGIN</div>
 </div>
 
 <script>
 const API="https://script.google.com/macros/s/AKfycbyJbLc033WEF7htCF5LYhBF3jC-2YKhLV-SE-MsQYLVQR18ZQN_kWtDrd44EEzB7JB4/exec";
 let store={};
 
-const subMap={
-    'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear'],
-    'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Suits'],
-    'makeup_cat':['Lipstick','Foundation','Eye Shadow','LEXRIVA','Eyeliner','Kajal','Nail Paint'],
-    'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Kashmiri Earrings','Jhumka','Korean Earrings']
-};
-
 async function init(){ 
     try {
         const r = await fetch(API); 
         store = await r.json(); 
-        renderH();
+        renderHome();
     } catch(e) { console.log("Load Error"); }
 }
 
 function getPData(p){
-    const v = Object.values(p);
-    return { n: p.Name || p.n || v[0], p: p.Price || p.p || v[1], i: p['Image 1'] || p.i || v[2] };
+    const vals = Object.values(p);
+    return {
+        n: p.Name || p.n || vals[0],
+        p: p.Price || p.p || vals[1],
+        i: p['Image 1'] || p.i || vals[2]
+    };
 }
 
-function renderH(){
+function renderHome(){
     const mapItems = (arr) => (arr||[]).map(p => {
         const d = getPData(p);
-        return `<div class="scroll-item" onclick="alert('Opening Product')"><img src="${d.i}"><p style="font-size:10px;font-weight:800;margin:5px 0">₹${d.p}</p></div>`;
+        return `<div class="scroll-item" onclick="alert('Opening Product Details')">
+            <img src="${d.i}"><p style="font-size:10px;font-weight:800;margin:5px 0">₹${d.p}</p>
+        </div>`;
     }).join('');
+
     document.getElementById('eid-scroll').innerHTML = mapItems(store.Eid || store.eid);
     document.getElementById('best-scroll').innerHTML = mapItems(store.Bestseller || store.bestseller || store.latest);
-}
 
-function openSub(k){
-    showPg('s-pg');
-    document.getElementById('s-banner').innerHTML=`<img src="banner_${k}.jpg" style="width:100%;height:100%;object-fit:cover" onerror="this.src='main_banner.jpg'">`;
-    let h=""; 
-    (subMap[k]||[]).forEach(n=>{
-        if(n === 'LEXRIVA') h+=`<div class="sub-item"><div class="cherry-box"><span style="font-size:8px">ESTD</span><br><span style="font-size:12px; font-weight:900">LEXRIVA</span></div></div>`;
-        else h+=`<div class="sub-item"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
-    });
-    document.getElementById('s-grid').innerHTML=h;
+    const trending = store.Trending || store.trending || [];
+    document.getElementById('reel-scroll').innerHTML = trending.map(v => {
+        const src = v.Video || v.v || Object.values(v)[0];
+        return `<div class="reel-card" onclick="alert('Opening Reel Product')"><video src="${src}" autoplay muted loop playsinline></video></div>`;
+    }).join('');
 }
 
 function showPg(id){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0,0);
+}
+
+function searchStore(){
+    let q = document.getElementById('mainSearch').value.toLowerCase();
+    if(q.length < 2) { renderHome(); return; }
+    let res = [];
+    Object.values(store).forEach(sheet => { if(Array.isArray(sheet)) sheet.forEach(p => { if(getPData(p).n.toLowerCase().includes(q)) res.push(p); })});
+    document.getElementById('eid-scroll').innerHTML = res.map(p => {
+        const d = getPData(p);
+        return `<div class="scroll-item"><img src="${d.i}"><p style="font-size:10px;font-weight:800">₹${d.p}</p></div>`;
+    }).join('');
 }
 
 window.onload = init;
