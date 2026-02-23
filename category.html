@@ -43,19 +43,48 @@
 
     <script>
         const categoryData = {
-            'western': { title: "WESTERN WEAR", items: ['Dresses','Tops','Jeans','T-shirts','Jumpsuit','Co-ords','Sleep Wear'], cherryPos: 5 },
-            'ethnic': { title: "ETHNIC WEAR", items: ['Saree','Kurtis','Dress Material','Lehengas','Gowns'], cherryPos: 5 },
-            'makeup': { title: "BEAUTY & CARE", items: ['Lipstick','Foundation','Eye Liner','Mascara','Face Wash','Face Mask'], cherryPos: 8 },
-            'jewel': { title: "FINE JEWELLERY", items: ['Necklace Set','Earrings','Rings','Bracelet','Bridal','Kashmiri','Jhumka'], cherryPos: 8 },
-            'footwear': { title: "FOOTWEAR", items: ['Heels','Sandals','Boots','Sneakers','Flats'], cherryPos: 5 },
-            'bags': { title: "LUXURY BAGS", items: ['Handbags','Sling Bags','Wallets','Backpacks','Clutches'], cherryPos: 5 },
-            'acc': { title: "ACCESSORIES", items: ['Hair Acc','Belts','Sunglasses','Watches'], cherryPos: 5 }
+            'western': { 
+                title: "WESTERN WEAR", 
+                items: ['Dresses','Tops','Jeans','T-shirts','Jumpsuit','Co-ords','Sleep Wear'], 
+                cherryPos: 5 
+            },
+            'ethnic': { 
+                title: "ETHNIC WEAR", 
+                items: ['Saree','Kurtis','Dress Material','Lehengas','Gowns'], 
+                cherryPos: 5 
+            },
+            'makeup': { 
+                title: "BEAUTY & CARE", 
+                items: ['Lipstick','Lip Gloss','Lip Liner','Foundation','Concealer','Highlighter','Eye Shadow','Eye Liner','Kajal','Mascara','Body Lotion','Face Wash','Face Mask','Nail Makeup','Brushes'], 
+                cherryPos: 8 
+            },
+            'jewel': { 
+                title: "FINE JEWELLERY", 
+                items: ['Minimal','Necklace Set','Earrings','Maangtika','Rings','Bracelet','Bridal','Haldi Hues','Mehndi Vibes','Rajputi','American Diamond','Kashmiri','Jhumka','Korean'], 
+                cherryPos: 8 
+            },
+            'footwear': { 
+                title: "FOOTWEAR", 
+                items: ['Heels','Sandals','Boots','Ballerinas','Sneakers','Flats'], 
+                cherryPos: 5 
+            },
+            'bags': { 
+                title: "LUXURY BAGS", 
+                items: ['Bag Packs','Handbags','Sling Bags','Wallets','Clutches'], 
+                cherryPos: 5 
+            },
+            'acc': { 
+                title: "ACCESSORIES", 
+                items: ['Hair Accessories','Belts','Sunglasses','Watches'], 
+                cherryPos: 5 
+            }
         };
 
         function renderView() {
             const activeKey = localStorage.getItem('selectedCat') || 'western';
             const data = categoryData[activeKey];
-            
+            if(!data) return;
+
             document.getElementById('displayTitle').innerText = data.title;
             let html = `<div class="sub-grid">`;
             let itemsProcessed = 0;
