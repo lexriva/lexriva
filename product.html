@@ -3,139 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva | Product Details</title>
+    <title>Lexriva | Where Elegance Meets You</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); padding-bottom: 100px; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; }
         
-        /* Image Slider */
-        .img-container { width: 100%; height: 450px; background: #fff; position: relative; }
-        #mainImg { width: 100%; height: 100%; object-fit: cover; }
-        .thumb-bar { display: flex; gap: 10px; padding: 15px; overflow-x: auto; background: #fff; scrollbar-width: none; }
-        .thumb { width: 60px; height: 60px; border-radius: 8px; border: 1.5px solid #eee; cursor: pointer; object-fit: cover; }
-        .thumb.active { border-color: var(--cherry); }
+        /* Header */
+        .header { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
+        .logo { font-family: 'Cinzel'; font-size: 24px; font-weight: 900; color: var(--cherry); letter-spacing: 4px; flex-grow: 1; text-align: center; }
+        .bag-icon { position: relative; font-size: 22px; cursor: pointer; }
+        .badge { position: absolute; top: -8px; right: -8px; background: red; color: #fff; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800; }
 
-        /* Product Info */
-        .info-card { background: #fff; padding: 20px; border-radius: 30px 30px 0 0; margin-top: -20px; position: relative; }
-        .p-name { font-family: 'Cinzel'; font-size: 20px; font-weight: 900; color: var(--cherry); }
-        
-        /* Price Section */
-        .price-box { margin: 15px 0; }
-        .old-price { text-decoration: line-through; color: #888; font-size: 16px; margin-right: 10px; }
-        .new-price { font-size: 24px; font-weight: 800; color: #000; }
-        
-        /* Shipping & Policy */
-        .policy-note { font-size: 11px; color: #555; background: #f9f9f9; padding: 10px; border-radius: 10px; margin: 15px 0; border-left: 3px solid var(--gold); }
+        /* Story Circles */
+        .story-container { display: flex; gap: 15px; padding: 20px; overflow-x: auto; background: #fff; scrollbar-width: none; }
+        .story-circle { min-width: 80px; text-align: center; cursor: pointer; }
+        .story-img { width: 70px; height: 70px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; }
+        .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); text-transform: uppercase; }
 
-        /* Options */
-        .label { font-weight: 800; font-size: 12px; margin-bottom: 8px; display: block; }
-        .select-box { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 20px; outline: none; }
+        /* Trending Reels */
+        .section-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); padding: 25px 20px 10px; letter-spacing: 2px; }
+        .reel-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; }
+        .reel-card { min-width: 170px; height: 300px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
+        .reel-card video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Floating Actions */
-        .bottom-actions { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; padding: 15px; gap: 10px; box-sizing: border-box; border-top: 1px solid #eee; z-index: 1000; }
-        .btn-cart { flex: 1; padding: 15px; border-radius: 30px; border: 1.5px solid var(--cherry); color: var(--cherry); font-weight: 800; background: #fff; }
-        .btn-buy { flex: 1; padding: 15px; border-radius: 30px; background: var(--cherry); color: #fff; border: none; font-weight: 800; }
-        .wish-btn { font-size: 22px; background: none; border: none; cursor: pointer; color: #ccc; }
-        .wish-btn.active { color: red; }
+        /* Product Scrolls */
+        .h-scroll { display: flex; overflow-x: auto; gap: 12px; padding: 0 20px 20px; scrollbar-width: none; min-height: 200px; }
+        .product-item { min-width: 160px; background: #fff; border-radius: 15px; padding: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
+        .product-item img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; }
+        .price { font-weight: 800; color: var(--cherry); font-size: 15px; margin-top: 5px; display: block; }
+
+        /* Clickable Promo Banners */
+        .promo-banner { width: 92%; margin: 15px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; }
+        .promo-banner img { width: 100%; height: auto; display: block; }
+
+        /* Footer & Contact */
+        .footer { background: #111; color: #fff; padding: 40px 20px; text-align: center; margin-top: 20px; }
+        .contact-links a { color: var(--gold); text-decoration: none; margin: 0 10px; font-weight: 800; font-size: 12px; }
+
+        /* Navigation */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
+        .nav-btn { font-size: 9px; font-weight: 800; color: #999; text-align: center; cursor: pointer; text-decoration: none; }
+        .active { color: var(--cherry); }
     </style>
 </head>
 <body>
 
-    <div class="img-container">
-        <img id="mainImg" src="">
-    </div>
-    
-    <div class="thumb-bar" id="thumbBar"></div>
-
-    <div class="info-card">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div class="p-name" id="pName"></div>
-            <button class="wish-btn" id="wishBtn" onclick="toggleWishlist()">♥</button>
-        </div>
-
-        <div class="price-box">
-            <span class="old-price" id="oldPrice">₹1999</span>
-            <span class="new-price" id="newPrice"></span>
-        </div>
-
-        <div class="policy-note">
-            🚚 7-8 Days Delivery | <b>₹29 Shipping</b> on orders below ₹1999 <br>
-            🔄 2 Days Exchange available after delivery
-        </div>
-
-        <label class="label">SELECT COLOUR</label>
-        <select class="select-box" id="pColour"></select>
-
-        <label class="label">SELECT SIZE</label>
-        <select class="select-box" id="pSize"></select>
-
-        <label class="label">DESCRIPTION</label>
-        <p id="pDesc" style="font-size: 13px; color: #666; line-height: 1.6;"></p>
+    <div class="header">
+        <div class="logo">LEXRIVA</div>
+        <div class="bag-icon" onclick="location.href='bag.html'">🛍️<span class="badge" id="cartCount">0</span></div>
     </div>
 
-    <div class="bottom-actions">
-        <button class="btn-cart" onclick="addToBag()">ADD TO BAG</button>
-        <button class="btn-buy" onclick="checkoutNow()">BUY NOW</button>
+    <img src="main_banner.jpg" style="width:100%;" alt="Main Banner">
+
+    <div class="story-container">
+        <div class="story-circle" onclick="goStory('399')"><img src="s399.jpg" class="story-img"><p>UNDER 399</p></div>
+        <div class="story-circle" onclick="goStory('599')"><img src="s599.jpg" class="story-img"><p>UNDER 599</p></div>
+        <div class="story-circle" onclick="goStory('999')"><img src="s999.jpg" class="story-img"><p>UNDER 999</p></div>
+        <div class="story-circle" onclick="goCat('Eid')"><img src="s_eid.jpg" class="story-img"><p>EID SPECIAL</p></div>
+    </div>
+
+    <div class="section-title">🎬 TRENDING PRODUCTS</div>
+    <div id="trending-reels" class="reel-scroll"></div>
+
+    <div class="section-title">🌙 THE EID EDIT</div>
+    <div id="eid-scroll" class="h-scroll"></div>
+
+    <div class="section-title">✨ SHOP BY CATEGORY</div>
+    <div class="promo-banner" onclick="goCat('Jewellery')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/600x300?text=JEWELLERY'"></div>
+    <div class="promo-banner" onclick="goCat('Ethnic')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/600x300?text=ETHNIC+SUITS'"></div>
+    <div class="promo-banner" onclick="goCat('Makeup')"><img src="banner_makeup.jpg" onerror="this.src='https://via.placeholder.com/600x300?text=MAKEUP'"></div>
+
+    <div class="section-title">🔥 BESTSELLERS</div>
+    <div id="best-scroll" class="h-scroll"></div>
+
+    <div class="section-title">📖 OUR STORY</div>
+    <div style="padding: 0 20px 20px;"><video src="brand_story.mp4" controls style="width:100%; border-radius:20px;"></video></div>
+
+    <div class="footer">
+        <h3 style="font-family:'Cinzel'; color: var(--gold);">LEXRIVA INSIDER</h3>
+        <p style="font-size:12px; margin-bottom:20px;">Contact Us for help</p>
+        <div class="contact-links">
+            <a href="mailto:lexrivaofficial@gmail.com">GMAIL</a> | 
+            <a href="https://instagram.com/lexrivaofficial">INSTAGRAM</a>
+        </div>
+        <p style="font-size:10px; margin-top:30px; color:#555;">© 2026 LEXRIVA LUXURY MALL</p>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-btn active">🏠<br>HOME</a>
+        <div class="nav-btn" onclick="goCat('Western')">👗<br>CATEGORY</div>
+        <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
+        <a href="login.html" class="nav-btn">👤<br>LOGIN</a>
     </div>
 
     <script>
         const API = "https://script.google.com/macros/s/AKfycbyJbLc033WEF7htCF5LYhBF3jC-2YKhLV-SE-MsQYLVQR18ZQN_kWtDrd44EEzB7JB4/exec";
-        const targetSheet = localStorage.getItem('targetSheet');
-        const targetIdx = localStorage.getItem('targetIdx');
 
-        async function loadProduct() {
-            const res = await fetch(API);
-            const data = await res.json();
-            const p = data[targetSheet][targetIdx];
-            window.currentProduct = p;
+        async function loadHome() {
+            try {
+                const res = await fetch(API);
+                const data = await res.json();
+                
+                // Trending Reels
+                if(data.Trending) {
+                    document.getElementById('trending-reels').innerHTML = data.Trending.map((v, i) => `
+                        <div class="reel-card" onclick="openProduct('Trending', ${i})">
+                            <video src="${v.v}" autoplay muted loop playsinline></video>
+                        </div>`).join('');
+                }
 
-            // Images
-            document.getElementById('mainImg').src = p.i;
-            const imgs = [p.i, p.i2, p.i3].filter(x => x);
-            document.getElementById('thumbBar').innerHTML = imgs.map((img, i) => 
-                `<img src="${img}" class="thumb ${i===0?'active':''}" onclick="changeImg(this, '${img}')">`
-            ).join('');
+                // Eid Products (Matches 'Eid' tab)
+                const eidData = data.Eid || data.eid;
+                if(eidData) {
+                    document.getElementById('eid-scroll').innerHTML = eidData.map((p, i) => `
+                        <div class="product-item" onclick="openProduct('Eid', ${i})">
+                            <img src="${p.i}"><span class="price">₹${p.p}</span>
+                        </div>`).join('');
+                }
 
-            // Details
-            document.getElementById('pName').innerText = p.n;
-            document.getElementById('newPrice').innerText = "₹" + p.p;
-            document.getElementById('pDesc').innerText = p.d;
-
-            // Colours & Sizes
-            document.getElementById('pColour').innerHTML = p.c.split(',').map(c => `<option>${c.trim()}</option>`).join('');
-            document.getElementById('pSize').innerHTML = p.s.split(',').map(s => `<option>${s.trim()}</option>`).join('');
-            
-            checkWishlistStatus();
+                // Bestsellers (Matches 'Bestseller' tab)
+                const bestData = data.Bestseller || data.bestseller;
+                if(bestData) {
+                    document.getElementById('best-scroll').innerHTML = bestData.map((p, i) => `
+                        <div class="product-item" onclick="openProduct('Bestseller', ${i})">
+                            <img src="${p.i}"><span class="price">₹${p.p}</span>
+                        </div>`).join('');
+                }
+            } catch (e) { console.log("Error:", e); }
         }
 
-        function changeImg(el, src) {
-            document.getElementById('mainImg').src = src;
-            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
+        function openProduct(sheet, idx) {
+            localStorage.setItem('targetSheet', sheet);
+            localStorage.setItem('targetIdx', idx);
+            window.location.href = "product.html";
         }
 
-        function addToBag() {
-            let bag = JSON.parse(localStorage.getItem('lexBag')) || [];
-            bag.push({ ...window.currentProduct, selectedSize: document.getElementById('pSize').value });
-            localStorage.setItem('lexBag', JSON.stringify(bag));
-            alert("Added to Bag! Total items: " + bag.length);
-        }
-
-        function toggleWishlist() {
-            let wish = JSON.parse(localStorage.getItem('lexWish')) || [];
-            const btn = document.getElementById('wishBtn');
-            // logic to add/remove and toggle class 'active'
-            btn.classList.toggle('active');
-            localStorage.setItem('lexWish', JSON.stringify(wish));
-        }
-
-        function checkoutNow() {
-            addToBag();
-            window.location.href = "checkout.html";
-        }
-
-        window.onload = loadProduct;
+        function goStory(limit) { localStorage.setItem('filterPrice', limit); window.location.href = "product_list.html"; }
+        function goCat(name) { localStorage.setItem('selectedCat', name); window.location.href = "category.html"; }
+        
+        window.onload = loadHome;
     </script>
 </body>
 </html>
