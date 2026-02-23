@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Lexriva | Categories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
+        body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
+        
+        .header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;border-bottom:1px solid #eee}
+        .logo{font-family:'Cinzel';font-size:22px;letter-spacing:4px;font-weight:900;color:var(--cherry);flex-grow:1;text-align:center}
+
+        /* 7 Main Categories Grid */
+        .main-cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .main-cat-card { position: relative; border-radius: 20px; overflow: hidden; height: 180px; box-shadow: 0 8px 15px rgba(0,0,0,0.05); cursor: pointer; }
+        .main-cat-card img { width: 100%; height: 100%; object-fit: cover; }
+        .main-cat-label { position: absolute; bottom: 12px; left: 12px; color: #fff; font-size: 10px; font-weight: 900; text-transform: uppercase; text-shadow: 0 2px 4px #000; }
+
+        /* Sub-Category View (Hidden Initially) */
+        #sub-cat-view { display: none; padding-bottom: 80px; }
+        .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; padding: 25px 15px; background: var(--lavender); }
+        .sub-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
+        .sub-img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .sub-name { font-size: 9px; font-weight: 800; color: #444; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Cherry Brand Box */
+        .cherry-box { background: var(--cherry); display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 120px 120px 10px 10px; width: 90px; height: 130px; color: var(--gold); border: 2.5px solid var(--gold); box-shadow: 0 4px 15px rgba(114,0,26,0.3); }
+        .cherry-box span { font-size: 8px; letter-spacing: 1px; }
+        .cherry-box b { font-family: 'Cinzel'; font-size: 10px; margin-top: 5px; }
+
+        .back-btn { padding: 15px; font-weight: 800; color: var(--cherry); cursor: pointer; display: flex; align-items: center; }
+
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
+        .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center;text-decoration:none}
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="logo">LEXRIVA</div>
+</div>
+
+<div id="main-cat-view">
+    <div class="section-h" style="padding:20px; font-weight:900; color:var(--cherry);">👗 SHOP BY CATEGORY</div>
+    <div class="main-cat-grid">
+        <div class="main-cat-card" onclick="loadSub('western')"><img src="cat_western.jpg"><div class="main-cat-label">WESTERN WEAR</div></div>
+        <div class="main-cat-card" onclick="loadSub('ethnic')"><img src="cat_ethnic.jpg"><div class="main-cat-label">ETHNIC WEAR</div></div>
+        <div class="main-cat-card" onclick="loadSub('makeup_cat')"><img src="cat_makeup.jpg"><div class="main-cat-label">MAKEUP & CARE</div></div>
+        <div class="main-cat-card" onclick="loadSub('jewellery_master')"><img src="cat_jewel.jpg"><div class="main-cat-label">FINE JEWELLERY</div></div>
+        <div class="main-cat-card" onclick="loadSub('bags')"><img src="cat_bags.jpg"><div class="main-cat-label">LUXURY BAGS</div></div>
+        <div class="main-cat-card" onclick="loadSub('footwear')"><img src="cat_footwear.jpg"><div class="main-cat-label">FOOTWEAR EDIT</div></div>
+        <div class="main-cat-card" style="grid-column: span 2;" onclick="loadSub('acc_main')"><img src="cat_acc.jpg"><div class="main-cat-label">ACCESSORIES</div></div>
+    </div>
+</div>
+
+<div id="sub-cat-view">
+    <div class="back-btn" onclick="toggleView('main')">← BACK</div>
+    <div style="width:100%; height:180px;"><img id="sub-banner" style="width:100%; height:100%; object-fit:cover;"></div>
+    <div class="sub-grid" id="subGrid"></div>
+</div>
+
+<div class="bottom-nav">
+    <a href="index.html" class="nav-btn">🏠<br>HOME</a>
+    <a href="category.html" class="nav-btn" style="color:var(--cherry)">👗<br>CATEGORY</a>
+    <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
+    <a href="login.html" class="nav-btn">👤<br>LOGIN</a>
+</div>
+
+<script>
+    const subData = {
+        'western': ['Dresses', 'Tops', 'Jeans', 'T-shirt', 'LEXRIVA', 'Jumpsuit', 'Co-ords', 'Sleep Wear', 'Trousers', 'Shorts', 'Skirts', 'Jackets'],
+        'ethnic': ['Saree', 'Kurtis', 'Dress Material', 'Lehengas', 'LEXRIVA', 'Gowns', 'Suits', 'Palazzo', 'Sharara', 'Dupatta', 'Anarkali', 'Sherwani'],
+        'makeup_cat': ['Lipstick', 'Foundation', 'Eyeliner', 'Kajal', 'LEXRIVA', 'Nail Paint', 'Blush', 'Mascara', 'Primer', 'Palette', 'Perfume', 'Lip Gloss'],
+        'jewellery_master': ['Necklace', 'Earrings', 'Rings', 'Bangles', 'LEXRIVA', 'Maangtika', 'Bracelet', 'Anklets', 'Chokers', 'Nose Ring', 'Pendants', 'Bridal'],
+        'bags': ['Handbags', 'Sling Bags', 'Wallets', 'Clutches', 'LEXRIVA', 'Backpacks', 'Totes', 'Satchels', 'Pouches', 'Hobo', 'Messenger', 'Baguette'],
+        'footwear': ['Heels', 'Sandals', 'Boots', 'Sneakers', 'LEXRIVA', 'Flats', 'Wedges', 'Juttis', 'Bellies', 'Loafers', 'Sliders', 'Mules'],
+        'acc_main': ['Hair Acc', 'Belts', 'Sunglasses', 'Watches', 'LEXRIVA', 'Socks', 'Caps', 'Scarves', 'Gloves', 'Keychains', 'Ties', 'Wallets']
+    };
+
+    function loadSub(cat) {
+        toggleView('sub');
+        document.getElementById('sub-banner').src = `banner_${cat}.jpg`;
+        const grid = document.getElementById('subGrid');
+        const items = subData[cat] || [];
+        
+        grid.innerHTML = items.map(item => {
+            if (item === 'LEXRIVA') {
+                return `<div class="sub-item"><div class="cherry-box"><span>ESTD</span><b>LEXRIVA</b></div></div>`;
+            } else {
+                return `
+                <div class="sub-item" onclick="location.href='product_list.html?cat=${item}'">
+                    <img src="${item.toLowerCase().replace(/ /g,'_')}.jpg" class="sub-img" onerror="this.src='https://via.placeholder.com/85?text=${item}'">
+                    <span class="sub-name">${item}</span>
+                </div>`;
+            }
+        }).join('');
+    }
+
+    function toggleView(view) {
+        if(view === 'main') {
+            document.getElementById('main-cat-view').style.display = 'block';
+            document.getElementById('sub-cat-view').style.display = 'none';
+        } else {
+            document.getElementById('main-cat-view').style.display = 'none';
+            document.getElementById('sub-cat-view').style.display = 'block';
+        }
+        window.scrollTo(0,0);
+    }
+</script>
+</body>
+</html>
+
