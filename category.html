@@ -1,85 +1,101 @@
-<script>
-const ADMIN_URL="https://script.google.com/macros/s/AKfycbzSsDtANnhXgAs5M0LK-tZ4uHr4_Ij0pxEY8ZJknqf8a5ZMsHSC1EQRCXEHz5RcW7rD/exec";
-let store={}; 
-let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexriva | Categories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F9F7FF; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; padding-bottom: 100px; }
+        
+        /* Premium Header */
+        .header { background: #fff; padding: 15px 20px; display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
+        .back-btn { font-size: 24px; color: var(--cherry); cursor: pointer; text-decoration: none; margin-right: 15px; font-weight: 900; }
+        .page-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); flex-grow: 1; text-align: center; letter-spacing: 2px; text-transform: uppercase; }
 
-// 1. EXACT SUB-CATEGORIES MAPPING (Sahi spelling ke saath)
-const subMap = {
-    'western': ['Dresses', 'Tops', 'Jeans', 'T-shirt', 'Jumpsuit', 'Co-ords', 'Sleep Wear'],
-    'ethnic': ['Saree', 'Kurtis', 'Dress Material', 'Lehengas', 'Gowns'],
-    'footwear': ['Heels', 'Sandals', 'Boots', 'Bellies', 'Sneakers'],
-    'makeup_cat': ['Lipstick', 'Lip Gloss', 'Lip Liner', 'Foundation', 'Compact', 'Highlighter', 'Eye Shadow', 'Eye Liner', 'Kajal', 'Mascara', 'Nails', 'Brushes', 'Perfumes', 'Body Lotion', 'Face Wash', 'Face Mask'],
-    'jewellery_master': ['Minimal', 'Necklace Set', 'Earrings', 'Maangtika', 'Rings', 'Bracelet', 'Bridal Set', 'Haldi Hues', 'Mehndi Vibes', 'Rajputi', 'American Diamond', 'Kashmiri', 'Jhumka', 'Korean'],
-    'bags': ['Bag Packs', 'Handbags', 'Sling Bags', 'Wallets', 'Clutches'],
-    'acc_main': ['Hair Acc', 'Belts', 'Sunglasses', 'Watches', 'Socks', 'Caps']
-};
+        /* Sub-Category Grid */
+        .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; padding: 25px 15px; align-items: start; }
+        .sub-item { text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
+        
+        .circle-frame { width: 95px; height: 95px; border-radius: 50%; background: #fff; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 10px; transition: 0.3s; }
+        .circle-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .sub-item p { font-size: 9px; font-weight: 800; color: #444; text-transform: uppercase; margin: 0; line-height: 1.2; letter-spacing: 0.5px; }
+        
+        /* Lexriva Cherry Arch (Cherry Box) */
+        .cherry-arch { background: var(--cherry); color: var(--gold); border-radius: 50px 50px 10px 10px; width: 95px; height: 130px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'Cinzel'; box-shadow: 0 10px 20px rgba(114,0,26,0.25); margin-top: -5px; }
+        .cherry-arch span { font-size: 8px; letter-spacing: 1px; opacity: 0.8; }
+        .cherry-arch b { font-size: 11px; letter-spacing: 2px; margin-top: 5px; }
 
-// 2. MAIN PAGE PRODUCTS LOAD KARNE KE LIYE
-async function init(){ 
-    try {
-        const r = await fetch(ADMIN_URL); 
-        store = await r.json(); 
-        const eidData = store.Eid || store.eid || [];
-        const bestData = store.Bestseller || store.bestseller || [];
-        document.getElementById('eid-scroll').innerHTML = eidData.map(p => renderItem(p, 'scroll')).join('');
-        document.getElementById('l-scroll').innerHTML = bestData.map(p => renderItem(p, 'scroll')).join('');
-    } catch(e) { console.log("Load Error:", e); }
-}
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
+        .nav-btn { font-size: 10px; font-weight: 800; color: #bbb; text-align: center; text-decoration: none; }
+    </style>
+</head>
+<body>
 
-// 3. FIX: CATEGORY TOUCH KARNE PAR SUB-CATEGORIES DIKHANE KA LOGIC
-function openSub(k){
-    // Sabse pehle Category page show karo
-    showPg('s-pg'); 
-    
-    // Grid element pakdo
-    const grid = document.getElementById('s-grid');
-    if(!grid) return; // Agar grid nahi mila toh wapas ho jao
+    <div class="header">
+        <a href="index.html" class="back-btn">←</a>
+        <div class="page-title" id="displayTitle">COLLECTION</div>
+    </div>
 
-    // Banner title update
-    const titles = { western: "WESTERN WEAR", ethnic: "ETHNIC WEAR", footwear: "FOOTWEAR", makeup_cat: "MAKEUP", jewellery_master: "JEWELLERY", bags: "BAGS", acc_main: "ACCESSORIES" };
-    document.getElementById('s-banner').innerHTML = `<div style="padding:20px; text-align:center; font-family:'Cinzel'; color:var(--cherry); font-weight:900; letter-spacing:2px;">${titles[k] || 'COLLECTION'}</div>`;
-    
-    let h = ""; 
-    let list = subMap[k] || [];
-    
-    // Agar list mili hai toh loop chalao
-    if(list.length > 0) {
-        list.forEach((n, index) => {
-            // Beech mein Cherry Box Arch dalo (Taaki blank na dikhe aur design sahi ho)
-            if(index === 3) { 
-                h += `<div class="cherry-box">
-                        <span style="font-size:7px; opacity:0.8">ESTD. 2024</span>
-                        <span style="font-size:15px; font-weight:900; letter-spacing:1px">LEXRIVA</span>
-                      </div>`;
-            }
+    <div id="content-area"></div>
 
-            // Circular Image aur Name
-            h += `
-            <div class="sub-item" onclick="openSubCategoryProducts('${n}')">
-                <img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80/72001A/FFFFFF?text=${n.charAt(0)}'">
-                <p style="font-size:9px; font-weight:800; margin-top:8px; color:#333; text-transform:uppercase;">${n}</p>
-            </div>`;
-        });
-    } else {
-        h = "<p style='padding:20px; text-align:center'>Loading Sub-Categories...</p>";
-    }
-    
-    grid.innerHTML = h;
-    window.scrollTo(0,0);
-}
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-btn">🏠<br>HOME</a>
+        <a href="category.html" class="nav-btn" style="color: var(--cherry);">👗<br>CATEGORY</a>
+        <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
+        <a href="bag.html" class="nav-btn">🛍️<br>BAG</a>
+    </div>
 
-// 4. HOME PAGE RENDER LOGIC (Baki purana code)
-function renderItem(p, type){
-    const name = p.Name || p.n || "";
-    const price = p.Price || p.p || "0";
-    const img = p['Image 1'] || p.i || "";
-    const click = `onclick="openProduct('${name.replace(/'/g,"")}','${price}','${img}','${p['Image 2']||''}','${p['Image 3']||''}','${(p.Description||'').replace(/'/g,"")}','${p.Colour||''}','${p.Size||''}')"`;
-    if(type === 'scroll'){
-        return `<div class="scroll-item"><div ${click}><img src="${img}"><p style="font-size:10px;font-weight:700">₹${price}</p></div></div>`;
-    } else {
-        return `<div class="cat-card"><div ${click}><img src="${img}"><div class="cat-label">₹${price}</div></div></div>`;
-    }
-}
+    <script>
+        // Data for all 7 Categories
+        const categoryData = {
+            'western': { title: "WESTERN WEAR", items: ['Dresses','Tops','Jeans','T-shirts','Jumpsuit','Co-ords','Sleep Wear'], cherryPos: 5 },
+            'ethnic': { title: "ETHNIC WEAR", items: ['Saree','Kurtis','Dress Material','Lehengas','Gowns'], cherryPos: 5 },
+            'makeup': { title: "BEAUTY & CARE", items: ['Lipstick','Foundation','Eye Liner','Mascara','Face Wash','Face Mask','Nail Paint'], cherryPos: 8 },
+            'jewel': { title: "FINE JEWELLERY", items: ['Necklace Set','Earrings','Rings','Bracelet','Bridal','Kashmiri','Jhumka','Korean'], cherryPos: 8 },
+            'footwear': { title: "FOOTWEAR", items: ['Heels','Sandals','Boots','Sneakers','Flats'], cherryPos: 5 },
+            'bags': { title: "LUXURY BAGS", items: ['Handbags','Sling Bags','Wallets','Backpacks','Clutches'], cherryPos: 5 },
+            'acc': { title: "ACCESSORIES", items: ['Hair Acc','Belts','Sunglasses','Watches'], cherryPos: 5 }
+        };
 
-window.onload = init;
-</script>
+        function renderView() {
+            const activeKey = localStorage.getItem('selectedCat') || 'western';
+            const data = categoryData[activeKey];
+            
+            document.getElementById('displayTitle').innerText = data.title;
+            let html = `<div class="sub-grid">`;
+            let itemsProcessed = 0;
+
+            data.items.forEach((item, index) => {
+                itemsProcessed++;
+                
+                // Cherry Box logic (Insert at specific position)
+                if (itemsProcessed === data.cherryPos) {
+                    html += `<div class="sub-item"><div class="cherry-arch"><span>ESTD</span><br><b>LEXRIVA</b></div></div>`;
+                    itemsProcessed++;
+                }
+
+                html += `
+                <div class="sub-item" onclick="openSubProducts('${item}')">
+                    <div class="circle-frame">
+                        <img src="${item.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/150/F4EFFF/72001A?text=${item}'">
+                    </div>
+                    <p>${item}</p>
+                </div>`;
+            });
+            
+            html += `</div>`;
+            document.getElementById('content-area').innerHTML = html;
+        }
+
+        function openSubProducts(subName) {
+            localStorage.setItem('activeSubCat', subName);
+            window.location.href = "product_list.html";
+        }
+
+        window.onload = renderView;
+    </script>
+</body>
+</html>
