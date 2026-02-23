@@ -9,7 +9,7 @@
         :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
         body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
         
-        /* Header & Search */
+        /* Header */
         .header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;border-bottom:1px solid #eee}
         .logo{font-family:'Cinzel';font-size:24px;letter-spacing:4px;font-weight:900;color:var(--cherry);flex-grow:1;text-align:center}
         .search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
@@ -31,11 +31,10 @@
         .reel-card { min-width: 180px; height: 320px; background: #000; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; cursor: pointer; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Big Clickable Banners */
+        /* Style Banners */
         .promo-banner { width: 92%; margin: 15px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .promo-banner img { width: 100%; height: auto; display: block; }
 
-        /* Bottom Nav */
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
         .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center;text-decoration:none}
         .active { color: var(--cherry) !important; }
@@ -93,6 +92,7 @@
 </div>
 
 <script>
+// AAPKI GOOGLE SCRIPT API URL
 const API_URL="https://script.google.com/macros/s/AKfycbyJbLc033WEF7htCF5LYhBF3jC-2YKhLV-SE-MsQYLVQR18ZQN_kWtDrd44EEzB7JB4/exec";
 let store={};
 
@@ -104,29 +104,37 @@ async function init(){
     } catch(e) { console.log("Init Error"); }
 }
 
+// YEH HAI WO SMART METHOD JO PRODUCTS SHOW KAREGA
 function getPData(p){
     const vals = Object.values(p);
     return {
-        n: p.Name || p.n || vals[0],
-        p: p.Price || p.p || vals[1],
-        i: p['Image 1'] || p.i || vals[2]
+        n: p.Name || p.n || vals[0] || "Luxury Item",
+        p: p.Price || p.p || vals[1] || "0",
+        i: p['Image 1'] || p.i || vals[2] || "https://via.placeholder.com/200"
     };
 }
 
 function renderHome(){
-    const mapItems = (arr) => (arr||[]).map(p => {
-        const d = getPData(p);
-        return `<div class="scroll-item" onclick="location.href='product_detail.html?id=${d.n}'">
-            <img src="${d.i}"><p style="font-size:10px;font-weight:800;margin:5px 0">₹${d.p}</p>
-        </div>`;
-    }).join('');
+    const mapItems = (arr) => {
+        if(!arr || arr.length === 0) return "";
+        return arr.map(p => {
+            const d = getPData(p);
+            return `<div class="scroll-item" onclick="location.href='product_detail.html?id=${encodeURIComponent(d.n)}'">
+                <img src="${d.i}" onerror="this.src='https://via.placeholder.com/200'">
+                <p style="font-size:10px;font-weight:800;margin:5px 0">₹${d.p}</p>
+            </div>`;
+        }).join('');
+    };
 
-    document.getElementById('eid-scroll').innerHTML = mapItems(store.Eid || store.eid);
-    document.getElementById('best-scroll').innerHTML = mapItems(store.Bestseller || store.bestseller || store.latest);
+    // Sheet names match (Eid/eid)
+    document.getElementById('eid-scroll').innerHTML = mapItems(store.Eid || store.eid || store.Sheet1);
+    document.getElementById('best-scroll').innerHTML = mapItems(store.Bestseller || store.bestseller || store.Latest);
 
+    // Trending Reels
     const trending = store.Trending || store.trending || [];
     document.getElementById('reel-scroll').innerHTML = trending.map(v => {
-        const src = v.Video || v.v || Object.values(v)[0];
+        const vals = Object.values(v);
+        const src = v.Video || v.v || vals[0];
         return `<div class="reel-card" onclick="location.href='product_detail.html?id=reel'"><video src="${src}" autoplay muted loop playsinline></video></div>`;
     }).join('');
 }
