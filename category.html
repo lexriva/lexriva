@@ -1,170 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lexriva | Categories</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F4EFFF; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+<script>
+const ADMIN_URL="https://script.google.com/macros/s/AKfycbzSsDtANnhXgAs5M0LK-tZ4uHr4_Ij0pxEY8ZJknqf8a5ZMsHSC1EQRCXEHz5RcW7rD/exec";
+let store={}; let currentP={}; let selectedColor=""; let selectedSize="";
+let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
+
+// EXACT SUB-CATEGORIES MAPPING (No "Lexriva" item here)
+const subMap = {
+    'western': ['Dresses', 'Tops', 'Jeans', 'T-shirt', 'Jumpsuit', 'Co-ords', 'Sleep Wear'],
+    'ethnic': ['Saree', 'Kurtis', 'Dress Material', 'Lehengas', 'Gowns'],
+    'footwear': ['Heels', 'Sandals', 'Boots', 'Bellies', 'Sneakers'],
+    'makeup_cat': ['Lipstick', 'Lip Gloss', 'Lip Liner', 'Foundation', 'Compact', 'Highlighter', 'Eye Shadow', 'Eye Liner', 'Kajal', 'Mascara', 'Nails', 'Brushes', 'Perfumes', 'Body Lotion', 'Face Wash', 'Face Mask'],
+    'jewellery_master': ['Minimal', 'Bridal Set', 'Haldi Hues', 'Mehndi Vibes', 'Rajputi', 'American Diamond', 'Kashmiri', 'Jhumka', 'Korean', 'Maangtika', 'Rings', 'Bracelet'],
+    'acc_main': ['Hair Acc', 'Belts', 'Sunglasses', 'Watches', 'Bag Packs', 'Handbags', 'Sling Bags', 'Wallets', 'Clutches']
+};
+
+async function init(){ 
+    try {
+        const r = await fetch(ADMIN_URL); 
+        store = await r.json(); 
         
-        /* Header */
-        .header { background: #fff; padding: 15px; display: flex; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
-        .back-btn { font-size: 20px; cursor: pointer; color: var(--cherry); margin-right: 15px; text-decoration: none; font-weight: 900; }
-        .cat-title { font-family: 'Cinzel'; font-size: 16px; font-weight: 900; color: var(--cherry); letter-spacing: 2px; }
+        // Home Page Rendering (Sheet names: Eid, Bestseller)
+        const eidData = store.Eid || store.eid || [];
+        const bestData = store.Bestseller || store.bestseller || [];
 
-        .main-container { display: flex; flex: 1; overflow: hidden; }
-
-        /* Left Side: Side Nav */
-        .side-nav { width: 90px; background: #fff; border-right: 1px solid #eee; overflow-y: auto; scrollbar-width: none; }
-        .nav-item { padding: 18px 5px; text-align: center; font-size: 9px; font-weight: 800; color: #888; cursor: pointer; border-bottom: 1px solid #f9f9f9; text-transform: uppercase; line-height: 1.2; }
-        .nav-item.active { background: var(--lavender); color: var(--cherry); border-left: 4px solid var(--cherry); }
-
-        /* Right Side: Circular Sub-Categories in Cherry Box */
-        .content-area { flex: 1; padding: 15px; overflow-y: auto; background: var(--lavender); }
+        document.getElementById('eid-scroll').innerHTML = eidData.length ? 
+            eidData.map(p => renderItem(p, 'scroll')).join('') : "<p style='padding:15px; font-size:10px'>Loading Eid Special...</p>";
         
-        /* Cherry Box Container */
-        .cherry-box { 
-            background: #fff; 
-            border: 2px solid var(--cherry); 
-            border-radius: 20px; 
-            padding: 20px 10px; 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 15px; 
-            min-height: 80vh;
-        }
-
-        .sub-item { text-align: center; cursor: pointer; transition: 0.3s; }
-        .sub-item:active { transform: scale(0.9); }
+        document.getElementById('l-scroll').innerHTML = bestData.length ? 
+            bestData.map(p => renderItem(p, 'scroll')).join('') : "<p style='padding:15px; font-size:10px'>Loading Bestsellers...</p>";
         
-        /* Circular Images */
-        .sub-img-circle { 
-            width: 70px; 
-            height: 70px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 1.5px solid var(--gold); 
-            padding: 2px;
-            background: #fff;
-            margin-bottom: 5px;
+    } catch(e) { console.log("Data Load Error:", e); }
+}
+
+function openSub(k){
+    showPg('s-pg');
+    const titles = { western: "WESTERN WEAR", ethnic: "ETHNIC WEAR", footwear: "WOMEN FOOTWEAR", makeup_cat: "BEAUTY & MAKEUP", jewellery_master: "WOMEN JEWELLERY", acc_main: "WOMEN ACCESSORIES" };
+    document.getElementById('s-banner').innerHTML = `<div style="padding:20px; text-align:center; font-family:'Cinzel'; color:var(--cherry); font-weight:900; letter-spacing:2px; font-size:18px">${titles[k] || 'COLLECTION'}</div>`;
+    
+    let h = ""; 
+    let list = subMap[k] || [];
+    
+    // Logic to insert Cherry Box after 4th item to keep it in center
+    list.forEach((n, index) => {
+        if(index === 4) {
+            h += `<div class="cherry-box">
+                    <span style="font-size:7px; opacity:0.8; letter-spacing:1px">ESTD. 2024</span>
+                    <span style="font-size:15px; font-weight:900; letter-spacing:2px">LEXRIVA</span>
+                  </div>`;
         }
-        
-        .sub-name { font-size: 9px; font-weight: 800; color: #333; text-transform: uppercase; line-height: 1.1; }
-
-        /* Bottom Nav */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; }
-        .nav-btn { font-size: 9px; font-weight: 800; color: #999; text-align: center; text-decoration: none; }
-        .nav-btn.active { color: var(--cherry); }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <a href="index.html" class="back-btn">←</a>
-        <div class="cat-title" id="mainTitle">SHOP BY CATEGORY</div>
-    </div>
-
-    <div class="main-container">
-        <div class="side-nav" id="sideNav">
-            <div class="nav-item" onclick="changeCat('Western')">Western</div>
-            <div class="nav-item" onclick="changeCat('Ethnic')">Ethnic</div>
-            <div class="nav-item" onclick="changeCat('Makeup')">Makeup</div>
-            <div class="nav-item" onclick="changeCat('Jewellery')">Jewellery</div>
-            <div class="nav-item" onclick="changeCat('Bags')">Bags</div>
-            <div class="nav-item" onclick="changeCat('Footwear')">Footwear</div>
-            <div class="nav-item" onclick="changeCat('Accessories')">Accessories</div>
-        </div>
-
-        <div class="content-area">
-            <div class="cherry-box" id="subGrid">
-                </div>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-        <a href="index.html" class="nav-btn">🏠<br>HOME</a>
-        <a href="category.html" class="nav-btn active">👗<br>CATEGORY</a>
-        <a href="wishlist.html" class="nav-btn">💖<br>WISHLIST</a>
-        <a href="login.html" class="nav-btn">👤<br>LOGIN</a>
-    </div>
-
-    <script>
-        const subData = {
-            'Western': [
-                {n: 'Dresses', img: 'cat_dresses.jpg'}, {n: 'Tops', img: 'cat_tops.jpg'}, {n: 'Jeans', img: 'cat_jeans.jpg'},
-                {n: 'Jumpsuits', img: 'cat_jumpsuit.jpg'}, {n: 'Co-ords', img: 'cat_coords.jpg'}, {n: 'Skirts', img: 'cat_skirts.jpg'},
-                {n: 'Tees', img: 'cat_tees.jpg'}, {n: 'Shirts', img: 'cat_shirts.jpg'}, {n: 'Blazers', img: 'cat_blazer.jpg'},
-                {n: 'Shorts', img: 'cat_shorts.jpg'}, {n: 'Winter', img: 'cat_winter.jpg'}, {n: 'Party', img: 'cat_party.jpg'}
-            ],
-            'Ethnic': [
-                {n: 'Kurta Set', img: 'cat_kurta.jpg'}, {n: 'Saree', img: 'cat_saree.jpg'}, {n: 'Anarkali', img: 'cat_anarkali.jpg'},
-                {n: 'Lehenga', img: 'cat_lehenga.jpg'}, {n: 'Sharara', img: 'cat_sharara.jpg'}, {n: 'Palazzo', img: 'cat_palazzo.jpg'},
-                {n: 'Lucknowi', img: 'cat_lucknowi.jpg'}, {n: 'Heavy Suit', img: 'cat_heavy.jpg'}, {n: 'Dupatta', img: 'cat_dupatta.jpg'},
-                {n: 'Gowns', img: 'cat_gown.jpg'}, {n: 'Unstitched', img: 'cat_unstitched.jpg'}, {n: 'Cotton', img: 'cat_cotton.jpg'}
-            ],
-            'Makeup': [
-                {n: 'Lipstick', img: 'cat_lip.jpg'}, {n: 'Kajal', img: 'cat_kajal.jpg'}, {n: 'Foundation', img: 'cat_found.jpg'},
-                {n: 'Nail Paint', img: 'cat_nail.jpg'}, {n: 'Eyeliner', img: 'cat_eye.jpg'}, {n: 'Blush', img: 'cat_blush.jpg'},
-                {n: 'Primer', img: 'cat_primer.jpg'}, {n: 'Mascara', img: 'cat_mascara.jpg'}, {n: 'Shadow', img: 'cat_shadow.jpg'},
-                {n: 'Skincare', img: 'cat_skin.jpg'}, {n: 'Brushes', img: 'cat_brush.jpg'}, {n: 'Gloss', img: 'cat_gloss.jpg'}
-            ],
-            'Jewellery': [
-                {n: 'Necklace', img: 'cat_neck.jpg'}, {n: 'Earrings', img: 'cat_ear.jpg'}, {n: 'Bangles', img: 'cat_bang.jpg'},
-                {n: 'Rings', img: 'cat_ring.jpg'}, {n: 'Anklets', img: 'cat_ank.jpg'}, {n: 'Choker', img: 'cat_chok.jpg'},
-                {n: 'Silver', img: 'cat_silver.jpg'}, {n: 'Gold', img: 'cat_gold.jpg'}, {n: 'Bridal', img: 'cat_bridal.jpg'},
-                {n: 'Nose Pin', img: 'cat_nose.jpg'}, {n: 'Bracelet', img: 'cat_bracelet.jpg'}, {n: 'Maang', img: 'cat_maang.jpg'}
-            ],
-            'Bags': [
-                {n: 'Handbags', img: 'cat_hand.jpg'}, {n: 'Sling Bags', img: 'cat_sling.jpg'}, {n: 'Tote', img: 'cat_tote.jpg'},
-                {n: 'Clutch', img: 'cat_clutch.jpg'}, {n: 'Backpack', img: 'cat_back.jpg'}, {n: 'Wallets', img: 'cat_wallet.jpg'},
-                {n: 'Bridal', img: 'cat_bag_bridal.jpg'}, {n: 'Potli', img: 'cat_potli.jpg'}, {n: 'Side Bag', img: 'cat_side.jpg'},
-                {n: 'Mini Bag', img: 'cat_mini.jpg'}, {n: 'Office', img: 'cat_office.jpg'}, {n: 'Travel', img: 'cat_travel.jpg'}
-            ],
-            'Footwear': [
-                {n: 'Heels', img: 'cat_heels.jpg'}, {n: 'Flats', img: 'cat_flats.jpg'}, {n: 'Juttis', img: 'cat_juttis.jpg'},
-                {n: 'Sneakers', img: 'cat_sneaker.jpg'}, {n: 'Sandals', img: 'cat_sand.jpg'}, {n: 'Wedges', img: 'cat_wedge.jpg'},
-                {n: 'Boots', img: 'cat_boot.jpg'}, {n: 'Chappal', img: 'cat_chappal.jpg'}, {n: 'Loafers', img: 'cat_loaf.jpg'},
-                {n: 'Bridal', img: 'cat_foot_bridal.jpg'}, {n: 'Bellies', img: 'cat_belly.jpg'}, {n: 'Slippers', img: 'cat_slip.jpg'}
-            ],
-            'Accessories': [
-                {n: 'Watches', img: 'cat_watch.jpg'}, {n: 'Sunglasses', img: 'cat_sun.jpg'}, {n: 'Belts', img: 'cat_belt.jpg'},
-                {n: 'Hair Pins', img: 'cat_hpin.jpg'}, {n: 'Scrunchie', img: 'cat_scr.jpg'}, {n: 'Perfume', img: 'cat_perf.jpg'},
-                {n: 'Scarves', img: 'cat_scf.jpg'}, {n: 'Stoles', img: 'cat_stole.jpg'}, {n: 'Hair Band', img: 'cat_hband.jpg'},
-                {n: 'Keychains', img: 'cat_key.jpg'}, {n: 'Phone Case', img: 'cat_ph.jpg'}, {n: 'Comb', img: 'cat_comb.jpg'}
-            ]
-        };
-
-        function changeCat(catName) {
-            localStorage.setItem('selectedCat', catName);
-            document.getElementById('mainTitle').innerText = catName.toUpperCase();
-            
-            const items = document.querySelectorAll('.nav-item');
-            items.forEach(item => {
-                item.classList.remove('active');
-                if(item.innerText.toLowerCase() === catName.toLowerCase()) item.classList.add('active');
-            });
-
-            const grid = document.getElementById('subGrid');
-            grid.innerHTML = subData[catName].map(item => `
-                <div class="sub-item" onclick="goToList('${catName}', '${item.n}')">
-                    <img src="${item.img}" class="sub-img-circle" onerror="this.src='https://via.placeholder.com/70/72001A/FFFFFF?text=${item.n}'">
-                    <div class="sub-name">${item.n}</div>
-                </div>
-            `).join('');
-        }
-
-        function goToList(cat, sub) {
-            localStorage.setItem('filterCat', cat);
-            localStorage.setItem('filterSub', sub);
-            window.location.href = "product_list.html";
-        }
-
-        window.onload = () => {
-            const lastCat = localStorage.getItem('selectedCat') || 'Western';
-            changeCat(lastCat);
-        };
-    </script>
-</body>
-</html>
+        h += `<div class="sub-item" onclick="openSubCategoryProducts('${n}')">
+                <img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80/72001A/FFFFFF?text=${n.charAt(0)}'">
+                <p style="font-size:9px; font-weight:800; margin-top:8px; color:#333; text-transform:uppercase;">${n}</p>
+              </div>`;
+    });
+    document.getElementById('s-grid').innerHTML = h;
+}
+</script>
