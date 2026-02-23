@@ -7,27 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --cherry: #72001A; --gold: #D4AF37; --lavender: #F9F7FF; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); overflow-x: hidden; padding-bottom: 100px; }
-        
-        /* Premium Header */
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--lavender); padding-bottom: 100px; }
         .header { background: #fff; padding: 15px 20px; display: flex; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; }
         .back-btn { font-size: 24px; color: var(--cherry); cursor: pointer; text-decoration: none; margin-right: 15px; font-weight: 900; }
         .page-title { font-family: 'Cinzel'; font-size: 14px; font-weight: 900; color: var(--cherry); flex-grow: 1; text-align: center; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* Sub-Category Grid */
-        .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; padding: 25px 15px; align-items: start; }
+        .sub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 10px; padding: 25px 15px; }
         .sub-item { text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; }
-        
-        .circle-frame { width: 95px; height: 95px; border-radius: 50%; background: #fff; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 10px; transition: 0.3s; }
+        .circle-frame { width: 90px; height: 90px; border-radius: 50%; background: #fff; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 10px; }
         .circle-frame img { width: 100%; height: 100%; object-fit: cover; }
-        .sub-item p { font-size: 9px; font-weight: 800; color: #444; text-transform: uppercase; margin: 0; line-height: 1.2; letter-spacing: 0.5px; }
+        .sub-item p { font-size: 9px; font-weight: 800; color: #444; text-transform: uppercase; margin: 0; line-height: 1.2; }
         
-        /* Lexriva Cherry Arch (Cherry Box) */
-        .cherry-arch { background: var(--cherry); color: var(--gold); border-radius: 50px 50px 10px 10px; width: 95px; height: 130px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'Cinzel'; box-shadow: 0 10px 20px rgba(114,0,26,0.25); margin-top: -5px; }
-        .cherry-arch span { font-size: 8px; letter-spacing: 1px; opacity: 0.8; }
-        .cherry-arch b { font-size: 11px; letter-spacing: 2px; margin-top: 5px; }
+        .cherry-arch { background: var(--cherry); color: var(--gold); border-radius: 50px 50px 10px 10px; width: 90px; height: 125px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'Cinzel'; box-shadow: 0 10px 20px rgba(114,0,26,0.25); margin-top: -5px; }
+        .cherry-arch b { font-size: 11px; letter-spacing: 2px; }
 
-        /* Bottom Nav */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 1000; }
         .nav-btn { font-size: 10px; font-weight: 800; color: #bbb; text-align: center; text-decoration: none; }
     </style>
@@ -49,12 +42,11 @@
     </div>
 
     <script>
-        // Data for all 7 Categories
         const categoryData = {
             'western': { title: "WESTERN WEAR", items: ['Dresses','Tops','Jeans','T-shirts','Jumpsuit','Co-ords','Sleep Wear'], cherryPos: 5 },
             'ethnic': { title: "ETHNIC WEAR", items: ['Saree','Kurtis','Dress Material','Lehengas','Gowns'], cherryPos: 5 },
-            'makeup': { title: "BEAUTY & CARE", items: ['Lipstick','Foundation','Eye Liner','Mascara','Face Wash','Face Mask','Nail Paint'], cherryPos: 8 },
-            'jewel': { title: "FINE JEWELLERY", items: ['Necklace Set','Earrings','Rings','Bracelet','Bridal','Kashmiri','Jhumka','Korean'], cherryPos: 8 },
+            'makeup': { title: "BEAUTY & CARE", items: ['Lipstick','Foundation','Eye Liner','Mascara','Face Wash','Face Mask'], cherryPos: 8 },
+            'jewel': { title: "FINE JEWELLERY", items: ['Necklace Set','Earrings','Rings','Bracelet','Bridal','Kashmiri','Jhumka'], cherryPos: 8 },
             'footwear': { title: "FOOTWEAR", items: ['Heels','Sandals','Boots','Sneakers','Flats'], cherryPos: 5 },
             'bags': { title: "LUXURY BAGS", items: ['Handbags','Sling Bags','Wallets','Backpacks','Clutches'], cherryPos: 5 },
             'acc': { title: "ACCESSORIES", items: ['Hair Acc','Belts','Sunglasses','Watches'], cherryPos: 5 }
@@ -70,13 +62,10 @@
 
             data.items.forEach((item, index) => {
                 itemsProcessed++;
-                
-                // Cherry Box logic (Insert at specific position)
                 if (itemsProcessed === data.cherryPos) {
                     html += `<div class="sub-item"><div class="cherry-arch"><span>ESTD</span><br><b>LEXRIVA</b></div></div>`;
                     itemsProcessed++;
                 }
-
                 html += `
                 <div class="sub-item" onclick="openSubProducts('${item}')">
                     <div class="circle-frame">
@@ -85,7 +74,6 @@
                     <p>${item}</p>
                 </div>`;
             });
-            
             html += `</div>`;
             document.getElementById('content-area').innerHTML = html;
         }
@@ -94,7 +82,6 @@
             localStorage.setItem('activeSubCat', subName);
             window.location.href = "product_list.html";
         }
-
         window.onload = renderView;
     </script>
 </body>
