@@ -11,63 +11,56 @@
         .page{display:none;max-width:500px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:var(--lavender)}
         .active{display:block}
         
-        /* Header & Search */
         .header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;border-bottom:1px solid #eee}
         .logo{font-family:'Cinzel';font-size:24px;letter-spacing:4px;font-weight:900;color:var(--cherry);flex-grow:1;text-align:center}
+        
         .search-wrapper { padding: 5px 20px 15px; background: #fff; border-bottom: 1px solid #eee; }
         .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; outline: none; font-size: 13px; box-sizing: border-box; }
 
-        /* Story Circles */
         .story-container { display: flex; gap: 15px; padding: 20px; overflow-x: auto; background: #fff; scrollbar-width: none; }
         .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
         .story-img { width: 65px; height: 65px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; }
         .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); text-transform: uppercase; }
 
-        /* Section Titles */
         .section-h{padding:25px 20px 10px;font-size:12px;font-weight:900;text-transform:uppercase;color:var(--cherry);letter-spacing:2px;font-family:'Cinzel'}
         .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px 15px;scrollbar-width:none}
         .scroll-item{min-width:160px;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05);position:relative;cursor:pointer}
         .scroll-item img{width:100%;height:210px;border-radius:15px;object-fit:cover}
 
-        /* Banners */
-        .promo-banner { width: 92%; margin: 15px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; }
+        .promo-banner { width: 92%; margin: 15px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .promo-banner img { width: 100%; height: auto; display: block; }
 
-        /* Sub Grid */
         .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:20px 10px;}
         .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
         .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
         .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold);}
 
-        /* Product Detail Style */
-        .p-detail-img { width: 100%; height: 500px; object-fit: cover; }
-        .btn-buy { background: var(--cherry); color: white; padding: 15px; border-radius: 12px; border: none; width: 100%; font-weight: 800; margin-top: 20px; }
-
-        /* Nav */
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
         .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center;text-decoration:none}
-        .nav-btn.active { color: var(--cherry); }
+        
+        .p-detail-img { width: 100%; height: 500px; object-fit: cover; }
+        .buy-now-btn { background: var(--cherry); color: #fff; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="header">
     <div class="logo">LEXRIVA</div>
-    <div style="font-size:22px;">🛍️</div>
+    <div style="font-size:22px; cursor:pointer;">🛍️</div>
 </div>
 
 <div class="search-wrapper">
-    <input type="text" id="mainSearch" class="search-input" placeholder="Search products..." oninput="searchStore()">
+    <input type="text" id="mainSearch" class="search-input" placeholder="Search Jewelry, Suits, Bags..." oninput="searchStore()">
 </div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=LUXURY+COLLECTION'"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+BANNER'"></div>
 
     <div class="story-container">
         <div class="story-circle" onclick="filterByPrice(499)"><img src="s399.jpg" class="story-img"><p>UNDER 499</p></div>
         <div class="story-circle" onclick="filterByPrice(999)"><img src="s599.jpg" class="story-img"><p>UNDER 999</p></div>
         <div class="story-circle" onclick="filterByPrice(1499)"><img src="s999.jpg" class="story-img"><p>UNDER 1499</p></div>
-        <div class="story-circle" onclick="showEid()"><img src="s_eid.jpg" class="story-img"><p>EID SPECIAL</p></div>
+        <div class="story-circle" onclick="showPg('h-pg')"><img src="s_eid.jpg" class="story-img"><p>EID SPECIAL</p></div>
     </div>
 
     <div class="section-h">🎬 TRENDING REELS</div>
@@ -77,11 +70,15 @@
     <div id="eid-scroll" class="h-scroll"></div>
 
     <div class="section-h">✨ SHOP BY STYLE</div>
-    <div class="promo-banner" onclick="openSub('jewellery_master')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=JEWELLERY'"></div>
-    <div class="promo-banner" onclick="openSub('ethnic')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=ETHNIC'"></div>
+    <div class="promo-banner" onclick="openSub('jewellery_master')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=JEWELLERY+COLLECTION'"></div>
+    <div class="promo-banner" onclick="openSub('ethnic')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=ETHNIC+COLLECTION'"></div>
+    <div class="promo-banner" onclick="openSub('makeup_cat')"><img src="banner_makeup.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=MAKEUP+COLLECTION'"></div>
 
     <div class="section-h">🔥 BESTSELLERS</div>
     <div id="best-scroll" class="h-scroll"></div>
+
+    <div class="section-h">📖 OUR STORY</div>
+    <div style="padding: 0 15px 20px;"><video src="brand_story.mp4" controls style="width:100%; border-radius:20px;"></video></div>
 </div>
 
 <div id="s-pg" class="page">
@@ -90,20 +87,14 @@
     <div id="s-grid" class="sub-grid"></div>
 </div>
 
-<div id="p-list-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('s-pg')">← BACK</div>
-    <div class="section-h" id="p-list-title">COLLECTION</div>
-    <div id="p-list-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:15px"></div>
-</div>
-
 <div id="p-detail-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="history.back()">← BACK</div>
+    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
     <img id="detail-img" class="p-detail-img">
     <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative;">
         <h2 id="detail-name" style="color:var(--cherry); margin:0"></h2>
         <p id="detail-price" style="font-size:22px; font-weight:800; margin:10px 0"></p>
         <p id="detail-desc" style="font-size:14px; color:#666;"></p>
-        <button class="btn-buy" onclick="alert('Order Feature Coming Soon!')">BUY NOW</button>
+        <button class="buy-now-btn" onclick="alert('Added to Bag!')">BUY NOW</button>
     </div>
 </div>
 
@@ -123,8 +114,8 @@ const subMap={
     'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Suits'],
     'makeup_cat':['Lipstick','Foundation','Eye Shadow','LEXRIVA','Eyeliner','Kajal','Nail Paint'],
     'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Kashmiri Earrings','Jhumka','Korean Earrings'],
-    'footwear':['Heels','Sandals','Boots','Sneakers','LEXRIVA','Flats','Ethnic'],
-    'bags':['Handbags','Sling Bags','Wallets','LEXRIVA','Clutches','Totes'],
+    'footwear':['Heels','Sandals','Boots','Sneakers','LEXRIVA','Flats'],
+    'bags':['Handbags','Sling Bags','Wallets','LEXRIVA','Clutches'],
     'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks']
 };
 
@@ -132,7 +123,7 @@ async function init(){
     try {
         const r = await fetch(API); 
         store = await r.json(); 
-        renderHome();
+        renderH();
     } catch(e) { console.log("Load Error"); }
 }
 
@@ -142,11 +133,11 @@ function getPData(p){
         n: p.Name || p.n || vals[0],
         p: p.Price || p.p || vals[1],
         i: p['Image 1'] || p.i || vals[2],
-        d: p.Description || p.d || "Lexriva Luxury Product"
+        d: p.Description || p.d || "Luxury Lexriva product."
     };
 }
 
-function renderHome(){
+function renderH(){
     const mapItems = (arr) => (arr||[]).map(p => {
         const d = getPData(p);
         return `<div class="scroll-item" onclick='openDetail(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
@@ -181,53 +172,26 @@ function openSub(k){
     let h=""; 
     (subMap[k]||[]).forEach(n=>{
         if(n === 'LEXRIVA') h+=`<div class="sub-item"><div class="cherry-box"><span style="font-size:8px">ESTD</span><br><span style="font-size:12px; font-weight:900">LEXRIVA</span></div></div>`;
-        else h+=`<div class="sub-item" onclick="openCategoryProducts('${n}')"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
+        else h+=`<div class="sub-item"><img src="${n.toLowerCase().replace(/ /g,'_')}.jpg" onerror="this.src='https://via.placeholder.com/80?text=${n}'"><p style="font-size:9px;font-weight:700;text-transform:uppercase">${n}</p></div>`;
     });
     document.getElementById('s-grid').innerHTML=h;
-}
-
-function openCategoryProducts(catName){
-    showPg('p-list-pg');
-    document.getElementById('p-list-title').innerText = catName.toUpperCase();
-    let filtered = [];
-    Object.values(store).forEach(sheet => {
-        if(Array.isArray(sheet)) sheet.forEach(p => {
-            const sc = (p.subCat || p.Category || "").toLowerCase();
-            if(sc === catName.toLowerCase()) filtered.push(p);
-        });
-    });
-    document.getElementById('p-list-grid').innerHTML = filtered.map(p => {
-        const d = getPData(p);
-        return `<div style="background:#fff; padding:10px; border-radius:15px; text-align:center" onclick='openDetail(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
-            <img src="${d.i}" style="width:100%; height:180px; object-fit:cover; border-radius:10px">
-            <p style="font-size:11px; font-weight:800; margin:5px 0">₹${d.p}</p>
-        </div>`;
-    }).join('') || "<p style='padding:20px'>Coming Soon...</p>";
-}
-
-function filterByPrice(max){
-    showPg('p-list-pg');
-    document.getElementById('p-list-title').innerText = "UNDER ₹" + max;
-    let filtered = [];
-    Object.values(store).forEach(sheet => {
-        if(Array.isArray(sheet)) sheet.forEach(p => {
-            const price = parseInt(getPData(p).p);
-            if(price <= max) filtered.push(p);
-        });
-    });
-    document.getElementById('p-list-grid').innerHTML = filtered.map(p => {
-        const d = getPData(p);
-        return `<div style="background:#fff; padding:10px; border-radius:15px; text-align:center" onclick='openDetail(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
-            <img src="${d.i}" style="width:100%; height:180px; object-fit:cover; border-radius:10px">
-            <p style="font-size:11px; font-weight:800; margin:5px 0">₹${d.p}</p>
-        </div>`;
-    }).join('');
 }
 
 function showPg(id){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0,0);
+}
+
+function searchStore(){
+    let q = document.getElementById('mainSearch').value.toLowerCase();
+    if(q.length < 2) { renderH(); return; }
+    let res = [];
+    Object.values(store).forEach(sheet => { if(Array.isArray(sheet)) sheet.forEach(p => { if(getPData(p).n.toLowerCase().includes(q)) res.push(p); })});
+    document.getElementById('eid-scroll').innerHTML = res.map(p => {
+        const d = getPData(p);
+        return `<div class="scroll-item" onclick='openDetail(${JSON.stringify(p).replace(/'/g, "&apos;")})'><img src="${d.i}"><p style="font-size:10px;font-weight:800">₹${d.p}</p></div>`;
+    }).join('');
 }
 
 window.onload = init;
