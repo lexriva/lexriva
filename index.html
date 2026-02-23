@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Lexriva | Luxury Mall</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root{ --lavender:#F4EFFF; --cherry:#72001A; --gold:#D4AF37; --white:#ffffff; }
         body{font-family:'Inter',sans-serif;margin:0;background:var(--lavender);overflow-x:hidden}
@@ -22,24 +22,20 @@
         .story-img { width: 65px; height: 65px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; }
         .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); text-transform: uppercase; }
 
-        .section-h{padding:25px 20px 10px;font-size:12px;font-weight:900;text-transform:uppercase;color:var(--cherry);letter-spacing:2px;font-family:'Cinzel'}
+        .section-h{padding:25px 20px 10px;font-size:11px;font-weight:900;text-transform:uppercase;color:var(--cherry);letter-spacing:2px;font-family:'Cinzel'}
         .h-scroll{display:flex;overflow-x:auto;gap:15px;padding:0 15px 15px;scrollbar-width:none}
-        .scroll-item{min-width:160px;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05);position:relative;cursor:pointer}
-        .scroll-item img{width:100%;height:210px;border-radius:15px;object-fit:cover}
-
-        .promo-banner { width: 92%; margin: 15px auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .promo-banner img { width: 100%; height: auto; display: block; }
+        .scroll-item{min-width:145px;background:#fff;padding:10px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.05);position:relative;cursor:pointer}
+        .scroll-item img{width:100%;height:190px;border-radius:15px;object-fit:cover}
 
         .sub-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--lavender);padding:20px 10px;}
         .sub-item{padding:15px 5px;text-align:center;display:flex;flex-direction:column;align-items:center; cursor:pointer}
         .sub-item img{width:85px;height:85px;border-radius:50%;object-fit:cover;margin-bottom:8px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
-        .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold);}
+        
+        /* Brand Box ONLY for Category Page */
+        .cherry-box{background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; width:100px; height:150px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); margin:0 auto;}
 
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:15px 0;border-top:1px solid #eee;z-index:1000}
         .nav-btn{font-size:9px;font-weight:800;color:#999;cursor:pointer;text-align:center;text-decoration:none}
-        
-        .p-detail-img { width: 100%; height: 500px; object-fit: cover; }
-        .buy-now-btn { background: var(--cherry); color: #fff; width: 100%; padding: 18px; border: none; border-radius: 15px; font-weight: 800; margin-top: 20px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -54,7 +50,7 @@
 </div>
 
 <div id="h-pg" class="page active">
-    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+BANNER'"></div>
+    <div style="padding:0 15px"><img src="main_banner.jpg" style="width:100%;border-radius:25px" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+COLLECTION'"></div>
 
     <div class="story-container">
         <div class="story-circle" onclick="filterByPrice(499)"><img src="s399.jpg" class="story-img"><p>UNDER 499</p></div>
@@ -63,22 +59,16 @@
         <div class="story-circle" onclick="showPg('h-pg')"><img src="s_eid.jpg" class="story-img"><p>EID SPECIAL</p></div>
     </div>
 
-    <div class="section-h">🎬 TRENDING REELS</div>
-    <div id="reel-scroll" class="h-scroll"></div>
+    <div class="section-h">🌙 THE EID EDIT</div><div id="eid-scroll" class="h-scroll"></div>
+    <div class="section-h">🔥 BESTSELLERS</div><div id="best-scroll" class="h-scroll"></div>
 
-    <div class="section-h">🌙 THE EID EDIT</div>
-    <div id="eid-scroll" class="h-scroll"></div>
-
-    <div class="section-h">✨ SHOP BY STYLE</div>
-    <div class="promo-banner" onclick="openSub('jewellery_master')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=JEWELLERY+COLLECTION'"></div>
-    <div class="promo-banner" onclick="openSub('ethnic')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=ETHNIC+COLLECTION'"></div>
-    <div class="promo-banner" onclick="openSub('makeup_cat')"><img src="banner_makeup.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=MAKEUP+COLLECTION'"></div>
-
-    <div class="section-h">🔥 BESTSELLERS</div>
-    <div id="best-scroll" class="h-scroll"></div>
-
-    <div class="section-h">📖 OUR STORY</div>
-    <div style="padding: 0 15px 20px;"><video src="brand_story.mp4" controls style="width:100%; border-radius:20px;"></video></div>
+    <div class="section-h">👗 SHOP BY CATEGORY</div>
+    <div id="cat-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:15px;">
+        <div style="position:relative; border-radius:20px; overflow:hidden; height:180px;" onclick="openSub('western')"><img src="cat_western.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:12px;left:12px;color:#fff;font-size:11px;font-weight:900">WESTERN WEAR</div></div>
+        <div style="position:relative; border-radius:20px; overflow:hidden; height:180px;" onclick="openSub('ethnic')"><img src="cat_ethnic.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:12px;left:12px;color:#fff;font-size:11px;font-weight:900">ETHNIC WEAR</div></div>
+        <div style="position:relative; border-radius:20px; overflow:hidden; height:180px;" onclick="openSub('jewellery_master')"><img src="cat_jewel.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:12px;left:12px;color:#fff;font-size:11px;font-weight:900">JEWELLERY</div></div>
+        <div style="position:relative; border-radius:20px; overflow:hidden; height:180px;" onclick="openSub('makeup_cat')"><img src="cat_makeup.jpg" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:12px;left:12px;color:#fff;font-size:11px;font-weight:900">MAKEUP & CARE</div></div>
+    </div>
 </div>
 
 <div id="s-pg" class="page">
@@ -87,20 +77,9 @@
     <div id="s-grid" class="sub-grid"></div>
 </div>
 
-<div id="p-detail-pg" class="page">
-    <div style="padding:20px;font-weight:800;color:var(--cherry);cursor:pointer" onclick="showPg('h-pg')">← BACK</div>
-    <img id="detail-img" class="p-detail-img">
-    <div style="padding:20px; background:#fff; border-radius:30px 30px 0 0; margin-top:-30px; position:relative;">
-        <h2 id="detail-name" style="color:var(--cherry); margin:0"></h2>
-        <p id="detail-price" style="font-size:22px; font-weight:800; margin:10px 0"></p>
-        <p id="detail-desc" style="font-size:14px; color:#666;"></p>
-        <button class="buy-now-btn" onclick="alert('Added to Bag!')">BUY NOW</button>
-    </div>
-</div>
-
 <div class="bottom-nav">
     <div class="nav-btn" onclick="showPg('h-pg')">🏠<br>HOME</div>
-    <div class="nav-btn" onclick="openSub('western')">👗<br>CATEGORY</div>
+    <div class="nav-btn" onclick="openSub('western')">👗<br>SHOP</div>
     <div class="nav-btn">💖<br>WISHLIST</div>
     <div class="nav-btn">👤<br>LOGIN</div>
 </div>
@@ -113,10 +92,7 @@ const subMap={
     'western':['Dresses','Tops','Jeans','T-shirt','LEXRIVA','Jumpsuit','Co-ords','Sleep Wear'],
     'ethnic':['Saree','Kurtis','Dress Material','Lehengas','LEXRIVA','Gowns','Suits'],
     'makeup_cat':['Lipstick','Foundation','Eye Shadow','LEXRIVA','Eyeliner','Kajal','Nail Paint'],
-    'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Kashmiri Earrings','Jhumka','Korean Earrings'],
-    'footwear':['Heels','Sandals','Boots','Sneakers','LEXRIVA','Flats'],
-    'bags':['Handbags','Sling Bags','Wallets','LEXRIVA','Clutches'],
-    'acc_main':['Hair Acc','Belts','Sunglasses','Watches','LEXRIVA','Socks']
+    'jewellery_master':['Minimal','Necklace Set','Earrings','Maangtika','LEXRIVA','Rings','Bracelet','Bridal','Kashmiri Earrings','Jhumka','Korean Earrings']
 };
 
 async function init(){ 
@@ -128,42 +104,17 @@ async function init(){
 }
 
 function getPData(p){
-    const vals = Object.values(p);
-    return {
-        n: p.Name || p.n || vals[0],
-        p: p.Price || p.p || vals[1],
-        i: p['Image 1'] || p.i || vals[2],
-        d: p.Description || p.d || "Luxury Lexriva product."
-    };
+    const v = Object.values(p);
+    return { n: p.Name || p.n || v[0], p: p.Price || p.p || v[1], i: p['Image 1'] || p.i || v[2] };
 }
 
 function renderH(){
     const mapItems = (arr) => (arr||[]).map(p => {
         const d = getPData(p);
-        return `<div class="scroll-item" onclick='openDetail(${JSON.stringify(p).replace(/'/g, "&apos;")})'>
-            <img src="${d.i}"><p style="font-size:10px;font-weight:800;margin:5px 0">₹${d.p}</p>
-        </div>`;
+        return `<div class="scroll-item" onclick="alert('Opening Product')"><img src="${d.i}"><p style="font-size:10px;font-weight:800;margin:5px 0">₹${d.p}</p></div>`;
     }).join('');
-
     document.getElementById('eid-scroll').innerHTML = mapItems(store.Eid || store.eid);
     document.getElementById('best-scroll').innerHTML = mapItems(store.Bestseller || store.bestseller || store.latest);
-
-    const trending = store.Trending || store.trending || [];
-    document.getElementById('reel-scroll').innerHTML = trending.map(v => {
-        const videoSrc = v.Video || v.v || Object.values(v)[0];
-        return `<div class="reel-card" onclick='openDetail(${JSON.stringify(v).replace(/'/g, "&apos;")})'>
-            <video src="${videoSrc}" autoplay muted loop playsinline></video>
-        </div>`;
-    }).join('');
-}
-
-function openDetail(p){
-    const d = getPData(p);
-    document.getElementById('detail-name').innerText = d.n;
-    document.getElementById('detail-price').innerText = "₹" + d.p;
-    document.getElementById('detail-img').src = d.i;
-    document.getElementById('detail-desc').innerText = d.d;
-    showPg('p-detail-pg');
 }
 
 function openSub(k){
@@ -181,17 +132,6 @@ function showPg(id){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0,0);
-}
-
-function searchStore(){
-    let q = document.getElementById('mainSearch').value.toLowerCase();
-    if(q.length < 2) { renderH(); return; }
-    let res = [];
-    Object.values(store).forEach(sheet => { if(Array.isArray(sheet)) sheet.forEach(p => { if(getPData(p).n.toLowerCase().includes(q)) res.push(p); })});
-    document.getElementById('eid-scroll').innerHTML = res.map(p => {
-        const d = getPData(p);
-        return `<div class="scroll-item" onclick='openDetail(${JSON.stringify(p).replace(/'/g, "&apos;")})'><img src="${d.i}"><p style="font-size:10px;font-weight:800">₹${d.p}</p></div>`;
-    }).join('');
 }
 
 window.onload = init;
