@@ -12,60 +12,59 @@
         .page { display: none; padding-bottom: 80px; }
         .active-pg { display: block; }
         
-        /* HEADER & SEARCH */
         .header-top { background: #fff; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index: 2000; border-bottom: 1px solid #eee; }
         .logo { font-family: 'Cinzel'; font-size: 22px; font-weight: 900; color: var(--cherry); letter-spacing: 3px; }
         .search-container { padding: 10px 15px; background: #fff; }
         .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; box-sizing: border-box; font-size: 13px; }
 
-        /* BANNERS & STORY CIRCLES */
-        .main-banner { width: 92%; margin: 10px auto; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .main-banner { width: 92%; margin: 10px auto; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; }
         .main-banner img { width: 100%; display: block; }
         .story-scroll { display: flex; gap: 15px; padding: 20px; overflow-x: auto; scrollbar-width: none; background: #fff; }
         .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
         .circle-img { width: 65px; height: 65px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; background: #f0f0f0; }
         .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); }
 
-        /* SECTIONS & CARDS */
         .section-h { padding: 25px 15px 10px; font-family: 'Cinzel'; font-size: 13px; font-weight: 900; color: var(--cherry); letter-spacing: 1px; }
         .h-scroll { display: flex; gap: 15px; padding: 0 15px 15px; overflow-x: auto; scrollbar-width: none; }
-        .product-card { min-width: 165px; background: #fff; border-radius: 15px; padding: 10px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .product-card { min-width: 165px; background: #fff; border-radius: 15px; padding: 10px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; }
         .product-card img { width: 100%; height: 210px; border-radius: 12px; object-fit: cover; }
         .price { color: var(--cherry); font-weight: 800; font-size: 14px; margin: 8px 0 2px; }
         .badge { display: block; font-size: 9px; color: #777; font-weight: 700; background: #f9f9f9; padding: 3px; border-radius: 4px; margin-top: 3px; }
 
-        /* REELS */
         .reel-card { min-width: 180px; height: 320px; border-radius: 20px; overflow: hidden; background: #000; border: 1.5px solid var(--gold); }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
 
-        /* CATEGORY GRID */
         .cat-grid-main { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-        .cat-box { position: relative; height: 160px; border-radius: 15px; overflow: hidden; border: 1px solid var(--gold); }
+        .cat-box { position: relative; height: 160px; border-radius: 15px; overflow: hidden; border: 1px solid var(--gold); cursor: pointer; }
         .cat-box img { width: 100%; height: 100%; object-fit: cover; }
         .cat-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(114, 0, 26, 0.75); color: #fff; padding: 10px; font-size: 10px; font-weight: 800; text-align: center; font-family: 'Cinzel'; }
 
-        /* BOTTOM NAV */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 3000; }
         .nav-item { text-align: center; font-size: 10px; font-weight: 800; color: #999; cursor: pointer; }
         .nav-item.active { color: var(--cherry); }
+
+        /* Loader */
+        #loader { position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:9999; display:flex; align-items:center; justify-content:center; color:var(--cherry); font-weight:bold; }
     </style>
 </head>
 <body>
 
+<div id="loader">LEXRIVA PRODUCTS LOADING...</div>
+
 <div id="home-pg" class="page active-pg">
     <div class="header-top">
         <div class="logo">LEXRIVA</div>
-        <div style="font-size:22px; cursor:pointer">🛍️</div>
+        <div style="font-size:22px; cursor:pointer" onclick="showPage('cat-pg')">🛍️</div>
     </div>
     <div class="search-container"><input type="text" class="search-input" placeholder="Search Jewelry, Suits, Bags..."></div>
     
     <div class="main-banner"><img src="main_banner.jpg" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+COLLECTION'"></div>
 
     <div class="story-scroll">
-        <div class="story-circle" onclick="filterByPrice(499)"><img src="s499.jpg" class="circle-img" onerror="this.src='https://via.placeholder.com/65?text=499'"><p>UNDER 499</p></div>
-        <div class="story-circle" onclick="filterByPrice(699)"><img src="s699.jpg" class="circle-img" onerror="this.src='https://via.placeholder.com/65?text=699'"><p>UNDER 699</p></div>
-        <div class="story-circle" onclick="filterByPrice(999)"><img src="s999.jpg" class="circle-img" onerror="this.src='https://via.placeholder.com/65?text=999'"><p>UNDER 999</p></div>
-        <div class="story-circle" onclick="openCat('Eid')"><img src="s_eid.jpg" class="circle-img" onerror="this.src='https://via.placeholder.com/65?text=EID'"><p>EID EDIT</p></div>
+        <div class="story-circle" onclick="filterByPrice(499)"><div class="circle-img" style="background:var(--white); display:flex; align-items:center; justify-content:center; border:2px solid var(--cherry);">499</div><p>UNDER 499</p></div>
+        <div class="story-circle" onclick="filterByPrice(699)"><div class="circle-img" style="background:var(--white); display:flex; align-items:center; justify-content:center; border:2px solid var(--cherry);">699</div><p>UNDER 699</p></div>
+        <div class="story-circle" onclick="filterByPrice(999)"><div class="circle-img" style="background:var(--white); display:flex; align-items:center; justify-content:center; border:2px solid var(--cherry);">999</div><p>UNDER 999</p></div>
+        <div class="story-circle" onclick="showCategory('Eid')"><img src="s_eid.jpg" class="circle-img" onerror="this.src='https://via.placeholder.com/65?text=EID'"><p>EID EDIT</p></div>
     </div>
 
     <div class="section-h">🌙 THE EID EDIT</div>
@@ -79,38 +78,22 @@
 
     <div class="section-h">✨ CATEGORY SPECIALS</div>
     <div style="padding: 15px; display: flex; flex-direction: column; gap: 15px;">
-        <div class="main-banner" onclick="openCat('Ethnic')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=ETHNIC+SUITS'"></div>
-        <div class="main-banner" onclick="openCat('Jewellery')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=FINE+JEWELLERY'"></div>
-        <div class="main-banner" onclick="openCat('Makeup')"><img src="banner_makeup.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=MAKEUP+AND+CARE'"></div>
+        <div class="main-banner" onclick="showCategory('Ethnic')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=ETHNIC+SUITS'"></div>
+        <div class="main-banner" onclick="showCategory('Jewellery')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=FINE+JEWELLERY'"></div>
+        <div class="main-banner" onclick="showCategory('Makeup')"><img src="banner_makeup.jpg" onerror="this.src='https://via.placeholder.com/500x200?text=MAKEUP+AND+CARE'"></div>
     </div>
 
     <div class="section-h">📖 OUR STORY</div>
     <div style="padding:0 15px 30px"><video src="our_story.mp4" controls style="width:100%; border-radius:20px; border:1px solid var(--gold)"></video></div>
-    
-    <div style="background:#111; color:#fff; padding:40px 20px; text-align:center; margin-bottom:20px;">
-        <h3 style="font-family:'Cinzel';">CONTACT US</h3>
-        <p style="font-size:11px; color:#888;">lexrivaofficial@gmail.com | @lexrivaofficial</p>
-    </div>
 </div>
 
 <div id="cat-pg" class="page">
     <div class="section-h" style="text-align:center; font-size:16px;">EXPLORE CATEGORIES</div>
-    <div class="cat-grid-main">
-        <div class="cat-box" onclick="openSub('Western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
-        <div class="cat-box" onclick="openSub('Ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
-        <div class="cat-box" onclick="openSub('Jewellery')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
-        <div class="cat-box" onclick="openSub('Footwear')"><img src="cat_footwear.jpg"><div class="cat-label">FOOTWEAR</div></div>
-        <div class="cat-box" onclick="openSub('Makeup')"><img src="cat_makeup.jpg"><div class="cat-label">MAKEUP & CARE</div></div>
-        <div class="cat-box" onclick="openSub('Accessories')"><img src="cat_acc.jpg"><div class="cat-label">ACCESSORIES</div></div>
-        <div class="cat-box" onclick="openSub('Bags')"><img src="cat_bags.jpg"><div class="cat-label">LUXURY BAGS</div></div>
+    <div class="cat-grid-main" id="category-list-full">
+        <div class="cat-box" onclick="showCategory('Western')"><img src="cat_western.jpg"><div class="cat-label">WESTERN WEAR</div></div>
+        <div class="cat-box" onclick="showCategory('Ethnic')"><img src="cat_ethnic.jpg"><div class="cat-label">ETHNIC WEAR</div></div>
+        <div class="cat-box" onclick="showCategory('Jewellery')"><img src="cat_jewel.jpg"><div class="cat-label">FINE JEWELLERY</div></div>
     </div>
-</div>
-
-<div id="login-pg" class="page" style="padding:60px 20px; text-align:center;">
-    <h2 style="font-family:'Cinzel'; color:var(--cherry)">LOGIN TO LEXRIVA</h2>
-    <p style="font-size:12px; color:#666; margin-bottom:30px;">Access your orders & wishlist</p>
-    <input id="logEmail" style="width:100%; padding:15px; margin:10px 0; border:1px solid #ddd; border-radius:12px; box-sizing:border-box;" placeholder="Enter Registered Email">
-    <button onclick="sendOTP()" style="width:100%; padding:15px; background:var(--cherry); color:#fff; border:none; border-radius:12px; font-weight:800; cursor:pointer;">GET ONE-TIME PASSWORD</button>
 </div>
 
 <div class="bottom-nav">
@@ -121,22 +104,66 @@
 </div>
 
 <script>
-    // Logic aur data loading ke liye main init() function use karenge
+    // --- UPDATED CONFIG AND LOGIC ---
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyh4ItkQWIiEiqmPSSOHjqPpaHU9AmMjvULfWXxFTfyjJ_THhoe9yXB2LfmIv3etURD/exec";
+    let store = {};
+
+    async function init() {
+        try {
+            const res = await fetch(SCRIPT_URL);
+            store = await res.json();
+            document.getElementById('loader').style.display = 'none';
+            renderHome();
+        } catch(e) { 
+            document.getElementById('loader').innerText = "Data load nahi hua. Script check karein."; 
+        }
+    }
+
+    function renderHome() {
+        // 1. Eid Edit
+        if(store.Eid) {
+            document.getElementById('eid-scroll').innerHTML = store.Eid.map(p => renderCard(p)).join('');
+        }
+        // 2. Bestsellers
+        if(store.Bestseller) {
+            document.getElementById('best-scroll').innerHTML = store.Bestseller.map(p => renderCard(p)).join('');
+        }
+        // 3. Reels (Trending)
+        if(store.Trending) {
+            document.getElementById('reel-scroll').innerHTML = store.Trending.map(v => `
+                <div class="reel-card">
+                    <video src="${v.videolink}" autoplay muted loop playsinline></video>
+                </div>`).join('');
+        }
+    }
+
+    function renderCard(p) {
+        return `
+            <div class="product-card" onclick="alert('Product Details Coming Soon!')">
+                <img src="${p.image1 || 'https://via.placeholder.com/200'}">
+                <div class="price">₹${p.price}</div>
+                <span class="badge">🚚 7-8 Days Delivery</span>
+                <span class="badge">🔄 2 Days Exchange</span>
+            </div>`;
+    }
+
+    function filterByPrice(max) {
+        alert("Filtering products under ₹" + max);
+        // Logic yahan dalen jo store se filter kare
+    }
+
+    function showCategory(cat) {
+        alert("Showing Category: " + cat);
+        // Page navigation logic yahan dalen
+    }
+
     function showPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-pg'));
         document.getElementById(id).classList.add('active-pg');
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         window.scrollTo(0,0);
     }
-    // OTP logic using EmailJS template_u5ewa3r
-    function sendOTP() {
-        const email = document.getElementById('logEmail').value;
-        if(email) {
-            emailjs.send("service_eygnyi7", "template_u5ewa3r", { user_email: email })
-                .then(() => alert("OTP sent to your email!"));
-        }
-    }
+
+    window.onload = init;
 </script>
 </body>
 </html>
-
