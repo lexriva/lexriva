@@ -9,62 +9,65 @@
     <style>
         :root{ --cherry:#72001A; --gold:#D4AF37; --lavender:#F4EFFF; --white:#fff; }
         body{ font-family:'Inter', sans-serif; margin:0; background:var(--lavender); overflow-x:hidden; }
-        .page { display: none; padding-bottom: 80px; }
+        .page { display: none; padding-bottom: 100px; min-height: 100vh; }
         .active-pg { display: block; }
         
         /* HEADER & SEARCH */
         .header-top { background: #fff; padding: 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index: 2000; border-bottom: 1px solid #eee; }
         .logo { font-family: 'Cinzel'; font-size: 22px; font-weight: 900; color: var(--cherry); letter-spacing: 3px; }
-        .search-container { padding: 10px 15px; background: #fff; }
-        .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; box-sizing: border-box; font-size: 13px; }
+        .search-container { padding: 10px 15px; background: #fff; border-bottom: 1px solid #eee; }
+        .search-input { width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid #eee; background: #f9f9f9; box-sizing: border-box; font-size: 13px; outline: none; }
 
-        /* BANNERS & STORY CIRCLES */
-        .main-banner { width: 92%; margin: 10px auto; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; }
-        .main-banner img { width: 100%; display: block; }
+        /* STORY & PRICE CIRCLES */
         .story-scroll { display: flex; gap: 15px; padding: 20px; overflow-x: auto; scrollbar-width: none; background: #fff; }
         .story-circle { min-width: 75px; text-align: center; cursor: pointer; }
-        .circle-img { width: 65px; height: 65px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: var(--cherry); }
+        .circle-img { width: 65px; height: 65px; border-radius: 50%; border: 2.3px solid var(--cherry); padding: 2px; object-fit: cover; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: var(--cherry); }
+        .story-circle p { font-size: 9px; font-weight: 800; margin-top: 5px; color: var(--cherry); text-transform: uppercase; }
 
-        /* PRODUCT SECTIONS */
+        /* CHERRY BOX (Sub-category style) */
+        .cherry-box{ background:var(--cherry); color:var(--gold); border-radius:120px 120px 10px 10px; margin:10px auto; width:100px; height:130px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-family:'Cinzel'; border:2px solid var(--gold); box-shadow:0 10px 25px rgba(114,0,26,0.2); font-size: 10px; font-weight: 900; letter-spacing: 1px;}
+
+        /* SECTIONS & CARDS */
         .section-h { padding: 25px 15px 10px; font-family: 'Cinzel'; font-size: 13px; font-weight: 900; color: var(--cherry); letter-spacing: 1px; }
         .h-scroll { display: flex; gap: 15px; padding: 0 15px 15px; overflow-x: auto; scrollbar-width: none; }
         .product-card { min-width: 165px; background: #fff; border-radius: 15px; padding: 10px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .product-card img { width: 100%; height: 210px; border-radius: 12px; object-fit: cover; }
+        .wish-icon { position: absolute; top: 15px; right: 15px; font-size: 18px; color: #ccc; cursor: pointer; transition: 0.3s; }
+        .wish-icon.active { color: red; }
 
-        /* REELS SECTION */
-        .reel-card { min-width: 180px; height: 320px; border-radius: 20px; overflow: hidden; background: #000; border: 1.5px solid var(--gold); }
+        /* REELS */
+        .reel-card { min-width: 180px; height: 320px; border-radius: 20px; overflow: hidden; background: #000; border: 1.5px solid var(--gold); flex-shrink: 0; }
         .reel-card video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* CATEGORY LIST */
+        .cat-item { background: #fff; margin: 10px 15px; padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: var(--cherry); border-left: 5px solid var(--cherry); box-shadow: 0 2px 5px rgba(0,0,0,0.05); font-family: 'Cinzel'; font-size: 12px; }
 
         /* BOTTOM NAV */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #eee; z-index: 3000; }
-        .nav-item { text-align: center; font-size: 10px; font-weight: 800; color: #999; cursor: pointer; }
-        .nav-item.active { color: var(--cherry); }
+        .nav-btn { text-align: center; font-size: 10px; font-weight: 800; color: #999; cursor: pointer; }
+        .nav-btn.active { color: var(--cherry); }
 
-        /* CATEGORY LISTING */
-        .cat-list-item { background: #fff; margin: 10px 15px; padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: var(--cherry); border-left: 5px solid var(--cherry); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        #loader { position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; display:flex; align-items:center; justify-content:center; color:var(--cherry); font-weight:900; font-family:'Cinzel'; }
     </style>
 </head>
 <body>
 
-<div id="loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;color:var(--cherry);font-weight:900;">LEXRIVA...</div>
+<div id="loader">LEXRIVA IS LOADING...</div>
 
 <div id="home-pg" class="page active-pg">
     <div class="header-top">
         <div class="logo">LEXRIVA</div>
-        <div style="display:flex; gap:15px; font-size:20px;">
-            <span onclick="showPage('wish-pg')">💖</span>
-            <span onclick="alert('Cart working')">🛍️</span>
-        </div>
+        <div style="font-size:22px; cursor:pointer">🛍️</div>
     </div>
-    <div class="search-container"><input type="text" class="search-input" id="homeSearch" placeholder="Search Jewelry, Suits, Bags..."></div>
+    <div class="search-container"><input type="text" class="search-input" id="searchBar" placeholder="Search Jewelry, Suits, Bags..." oninput="searchProducts()"></div>
     
-    <div class="main-banner"><img src="main_banner.jpg" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+COLLECTION'"></div>
+    <div style="padding:0 15px; margin-top:10px;"><img src="main_banner.jpg" style="width:100%; border-radius:20px;" onerror="this.src='https://via.placeholder.com/500x250?text=LEXRIVA+COLLECTION'"></div>
 
     <div class="story-scroll">
-        <div class="story-circle" onclick="openPricePage(399)"><div class="circle-img">399</div><p>UNDER 399</p></div>
-        <div class="story-circle" onclick="openPricePage(499)"><div class="circle-img">499</div><p>UNDER 499</p></div>
-        <div class="story-circle" onclick="openPricePage(699)"><div class="circle-img">699</div><p>UNDER 699</p></div>
-        <div class="story-circle" onclick="openMainCategory('Eid')"><div class="circle-img">🌙</div><p>EID EDIT</p></div>
+        <div class="story-circle" onclick="filterByPrice(399)"><div class="circle-img">399</div><p>UNDER 399</p></div>
+        <div class="story-circle" onclick="filterByPrice(499)"><div class="circle-img">499</div><p>UNDER 499</p></div>
+        <div class="story-circle" onclick="filterByPrice(699)"><div class="circle-img">699</div><p>UNDER 699</p></div>
+        <div class="story-circle" onclick="openCat('Eid')"><div class="circle-img">🌙</div><p>EID EDIT</p></div>
     </div>
 
     <div class="section-h">🌙 THE EID EDIT</div>
@@ -76,11 +79,11 @@
     <div class="section-h">🔥 BESTSELLERS</div>
     <div class="h-scroll" id="best-scroll"></div>
 
-    <div class="section-h">✨ LUXURY EDIT</div>
-    <div class="promo-banner" style="padding:15px; display:flex; flex-direction:column; gap:15px;">
-        <div class="main-banner" onclick="openMainCategory('Ethnic')"><img src="banner_ethnic.jpg" onerror="this.src='https://via.placeholder.com/500x180?text=ETHNIC+SUITS'"></div>
-        <div class="main-banner" onclick="openMainCategory('Jewellery')"><img src="banner_jewel.jpg" onerror="this.src='https://via.placeholder.com/500x180?text=JEWELLERY'"></div>
-        <div class="main-banner" onclick="openMainCategory('Makeup')"><img src="banner_makeup.jpg" onerror="this.src='https://via.placeholder.com/500x180?text=MAKEUP+EDIT'"></div>
+    <div class="section-h">✨ CATEGORY SPECIALS</div>
+    <div style="padding: 15px; display: flex; flex-direction: column; gap: 15px;">
+        <div onclick="openCat('Jewellery')" style="border-radius:15px; overflow:hidden;"><img src="banner_jewel.jpg" style="width:100%;" onerror="this.src='https://via.placeholder.com/500x180?text=FINE+JEWELLERY'"></div>
+        <div onclick="openCat('Makeup')" style="border-radius:15px; overflow:hidden;"><img src="banner_makeup.jpg" style="width:100%;" onerror="this.src='https://via.placeholder.com/500x180?text=MAKEUP+AND+CARE'"></div>
+        <div onclick="openCat('Ethnic')" style="border-radius:15px; overflow:hidden;"><img src="banner_ethnic.jpg" style="width:100%;" onerror="this.src='https://via.placeholder.com/500x180?text=ETHNIC+SUITS'"></div>
     </div>
 
     <div class="section-h">📖 OUR STORY</div>
@@ -88,96 +91,148 @@
     
     <div style="background:#111; color:#fff; padding:40px 20px; text-align:center; margin-bottom:20px;">
         <h3 style="font-family:'Cinzel';">CONTACT US</h3>
-        <p style="font-size:12px; color:#aaa;">Follow us for daily updates</p>
-        <div style="margin:20px 0; font-size:14px;">
-            📸 @lexrivaofficial<br>
-            📧 lexrivaofficial@gmail.com
-        </div>
+        <p style="font-size:11px; color:#888;">lexrivaofficial@gmail.com | @lexrivaofficial</p>
     </div>
 </div>
 
 <div id="cat-pg" class="page">
-    <div class="section-h" style="text-align:center; font-size:18px;">CATEGORIES</div>
-    <div class="cat-list-item" onclick="openSubList('Western')">WOMEN WESTERN WEAR <span>→</span></div>
-    <div class="cat-list-item" onclick="openSubList('Ethnic')">WOMEN ETHNIC WEAR <span>→</span></div>
-    <div class="cat-list-item" onclick="openSubList('Footwear')">WOMEN'S FOOTWEAR <span>→</span></div>
-    <div class="cat-list-item" onclick="openSubList('Beauty')">BEAUTY AND HEALTH <span>→</span></div>
-    <div class="cat-list-item" onclick="openSubList('Jewellery')">WOMEN JEWELLERY <span>→</span></div>
-    <div class="cat-list-item" onclick="openSubList('Accessories')">WOMEN ACCESSORIES <span>→</span></div>
-    <div class="cat-list-item" onclick="openSubList('Bags')">WOMEN BAGS <span>→</span></div>
+    <div class="section-h" style="text-align:center; font-size:16px;">EXPLORE CATEGORIES</div>
+    <div id="main-cat-container">
+        </div>
 </div>
 
-<div id="sub-list-pg" class="page">
+<div id="sub-cat-pg" class="page">
     <div style="padding:15px; font-weight:800; color:var(--cherry);" onclick="showPage('cat-pg')">← BACK</div>
-    <div class="section-h" id="sub-list-title">SUB CATEGORIES</div>
-    <div id="sub-list-container"></div>
+    <div class="section-h" id="sub-page-title" style="text-align:center;">SUB CATEGORIES</div>
+    <div class="story-scroll" id="sub-circles-list"></div>
+    <div class="section-h">PRODUCTS</div>
+    <div id="sub-product-list" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:15px;"></div>
+</div>
+
+<div id="wish-pg" class="page">
+    <div class="section-h" style="text-align:center; font-size:18px;">💖 MY WISHLIST</div>
+    <div id="wishlist-container" style="display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:15px;"></div>
+</div>
+
+<div id="login-pg" class="page" style="padding:60px 20px; text-align:center;">
+    <h2 style="font-family:'Cinzel'; color:var(--cherry)">LOGIN</h2>
+    <input id="loginEmail" style="width:100%; padding:15px; margin:10px 0; border:1px solid #ddd; border-radius:12px;" placeholder="Email Address">
+    <button onclick="sendOTP()" style="width:100%; padding:15px; background:var(--cherry); color:#fff; border:none; border-radius:12px; font-weight:800;">GET OTP</button>
 </div>
 
 <div class="bottom-nav">
-    <div class="nav-item active" onclick="showPage('home-pg')">🏠<br>HOME</div>
-    <div class="nav-item" onclick="showPage('cat-pg')">👗<br>CATEGORY</div>
-    <div class="nav-item" onclick="showPage('wish-pg')">💖<br>WISHLIST</div>
-    <div class="nav-item" onclick="showPage('login-pg')">👤<br>LOGIN</div>
+    <div class="nav-btn active" onclick="showPage('home-pg')">🏠<br>HOME</div>
+    <div class="nav-btn" onclick="showPage('cat-pg')">👗<br>CATEGORY</div>
+    <div class="nav-btn" onclick="showPage('wish-pg')">💖<br>WISHLIST</div>
+    <div class="nav-btn" onclick="showPage('login-pg')">👤<br>LOGIN</div>
 </div>
 
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyh4ItkQWIiEiqmPSSOHjqPpaHU9AmMjvULfWXxFTfyjJ_THhoe9yXB2LfmIv3etURD/exec";
-let store = {};
+let masterData = {};
+let wishlist = JSON.parse(localStorage.getItem('lexWish')) || [];
 
-// Exact Sub-Category Mapping
-const subCategoryData = {
-    'Western': ['Dresses', 'Tops', 'Jeans', 'T-shirt', 'Jumpsuit', 'Co-ords', 'Sleep wear'],
-    'Ethnic': ['Saree', 'Kurtis', 'Dress material', 'Lehengas', 'Gowns'],
-    'Footwear': ['Heels', 'Sandals', 'Boots', 'Bellies and ballerinas', 'Sneakers'],
-    'Beauty': ['Lipstick', 'Face makeup', 'Eye makeup', 'Nails Makeup', 'Brushes and accessories', 'Perfumes', 'Personal care'],
-    'Jewellery': ['Minimal jewellery', 'Necklace set', 'Earrings', 'Maangtika', 'Rings', 'Bracelet'],
-    'Accessories': ['Hair accessories', 'Belts', 'Sunglasses', 'Women watches', 'Women bags']
+// Sub-Category Map for Middle Cherry Box
+const subMap = {
+    'Western': ['Dresses', 'Tops', 'Jeans', 'T-shirt', 'LEXRIVA', 'Jumpsuit', 'Co-ords', 'Sleep wear'],
+    'Ethnic': ['Saree', 'Kurtis', 'Dress material', 'Lehengas', 'LEXRIVA', 'Gowns'],
+    'Footwear': ['Heels', 'Sandals', 'Boots', 'Bellies and ballerinas', 'LEXRIVA', 'Sneakers'],
+    'Makeup': ['Lipstick', 'Face makeup', 'Eye makeup', 'LEXRIVA', 'Nails Makeup', 'Brushes', 'Perfumes', 'Personal care'],
+    'Jewellery': ['Minimal jewellery', 'Necklace set', 'Earrings', 'LEXRIVA', 'Maangtika', 'Rings', 'Bracelet'],
+    'Accessories': ['Hair accessories', 'Belts', 'Sunglasses', 'LEXRIVA', 'Women watches', 'Women bags'],
+    'Bags': ['Bag packs', 'Handbags', 'Sling bags', 'LEXRIVA', 'Wallets', 'Clutches']
 };
 
 async function init() {
     try {
-        const res = await fetch(SCRIPT_URL);
-        store = await res.json();
+        const r = await fetch(SCRIPT_URL);
+        masterData = await r.json();
         document.getElementById('loader').style.display = 'none';
         renderHome();
-    } catch(e) { console.error("Data error"); }
+        renderMainCategories();
+    } catch(e) { document.getElementById('loader').innerText = "Connection Error!"; }
 }
 
 function renderHome() {
-    // Render Eid
-    if(store.Eid) {
-        document.getElementById('eid-scroll').innerHTML = store.Eid.map(p => `
-            <div class="product-card" onclick="openProductDetail('${p.name}')">
-                <img src="${p.image1}">
-                <p style="font-size:11px; font-weight:800; margin:5px 0;">₹${p.price}</p>
-                <span style="font-size:8px; color:#777;">🚚 7-8 Days Delivery</span>
-            </div>`).join('');
-    }
-    // Render Reels
-    if(store.Trending) {
-        document.getElementById('reel-scroll').innerHTML = store.Trending.map(v => `
-            <div class="reel-card" onclick="openProductDetail('${v.name}')">
-                <video src="${v.videolink}" autoplay muted loop playsinline></video>
-            </div>`).join('');
-    }
+    if(masterData.Eid) document.getElementById('eid-scroll').innerHTML = masterData.Eid.map(p => renderCard(p, 'Eid')).join('');
+    if(masterData.Bestseller) document.getElementById('best-scroll').innerHTML = masterData.Bestseller.map(p => renderCard(p, 'Bestseller')).join('');
+    if(masterData.Trending) document.getElementById('reel-scroll').innerHTML = masterData.Trending.map(v => `
+        <div class="reel-card" onclick="window.location.href='product_detail.html?id=${v.name}'">
+            <video src="${v.videolink}" autoplay muted loop playsinline></video>
+        </div>`).join('');
 }
 
-function openSubList(mainCat) {
-    const subs = subCategoryData[mainCat] || [];
-    document.getElementById('sub-list-title').innerText = mainCat.toUpperCase();
-    document.getElementById('sub-list-container').innerHTML = subs.map(s => `
-        <div class="cat-list-item" onclick="openProductPage('${mainCat}', '${s}')">${s.toUpperCase()} <span>→</span></div>
+function renderCard(p, cat) {
+    const isWished = wishlist.find(x => x.name === p.name) ? 'active' : '';
+    return `
+        <div class="product-card">
+            <span class="wish-icon ${isWished}" onclick="toggleWish(event, '${p.name}', '${p.price}', '${p.image1}')">♥</span>
+            <div onclick="window.location.href='product_detail.html?id=${encodeURIComponent(p.name)}'">
+                <img src="${p.image1}">
+                <div style="font-size:13px; font-weight:800; margin-top:10px;">₹${p.price}</div>
+                <span style="font-size:8px; color:#777; display:block;">🚚 7-8 Days Delivery | 🔄 2 Days Exchange</span>
+            </div>
+        </div>`;
+}
+
+function renderMainCategories() {
+    const cats = Object.keys(subMap);
+    document.getElementById('main-cat-container').innerHTML = cats.map(c => `
+        <div class="cat-item" onclick="openDeepCat('${c}')">${c.toUpperCase()} <span>→</span></div>
     `).join('');
-    showPage('sub-list-pg');
+}
+
+function openDeepCat(cat) {
+    document.getElementById('sub-page-title').innerText = cat.toUpperCase();
+    const subs = subMap[cat] || [];
+    document.getElementById('sub-circles-list').innerHTML = subs.map(s => {
+        if(s === 'LEXRIVA') return `<div class="cherry-box"><span>ESTD 2026</span><br>LEXRIVA</div>`;
+        return `
+            <div class="story-circle" onclick="filterBySub('${cat}', '${s}')">
+                <div class="circle-img" style="border-color:var(--gold);">${s.substring(0,3)}</div>
+                <p>${s}</p>
+            </div>`;
+    }).join('');
+    
+    const products = masterData[cat.toLowerCase()] || [];
+    document.getElementById('sub-product-list').innerHTML = products.map(p => renderCard(p, cat)).join('');
+    showPage('sub-cat-pg');
+}
+
+function toggleWish(e, name, price, image1) {
+    e.stopPropagation();
+    const idx = wishlist.findIndex(x => x.name === name);
+    if(idx > -1) wishlist.splice(idx, 1);
+    else wishlist.push({name, price, image1});
+    localStorage.setItem('lexWish', JSON.stringify(wishlist));
+    e.target.classList.toggle('active');
+    if(document.getElementById('wish-pg').classList.contains('active-pg')) renderWishlist();
+}
+
+function renderWishlist() {
+    document.getElementById('wishlist-container').innerHTML = wishlist.length ? 
+        wishlist.map(p => renderCard(p, 'wish')).join('') : "<p style='padding:20px'>Wishlist is empty!</p>";
 }
 
 function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active-pg'));
     document.getElementById(id).classList.add('active-pg');
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    if(id === 'wish-pg') renderWishlist();
     window.scrollTo(0,0);
 }
 
-window.onload = init;
+function sendOTP() {
+    const email = document.getElementById('loginEmail').value;
+    if(!email) return alert("Enter Email");
+    emailjs.send("service_eygnyi7", "template_u5ewa3r", { user_email: email })
+        .then(() => alert("OTP sent to your email!"));
+}
+
+window.onload = () => {
+    emailjs.init("YOUR_PUBLIC_KEY"); // Apna key dalo
+    init();
+};
 </script>
 </body>
 </html>
